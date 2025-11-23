@@ -1,0 +1,169 @@
+{
+  "continent_code": "SA",
+  "continent_name": "South America",
+  "countries": [
+    {
+      "country_code": "AR",
+      "country_name": "Argentina",
+      "timezone": "America/Argentina/Buenos_Aires",
+      "region_cluster": "SouthAmerica_South",
+      "leagues": [
+        { "league_id": "ARG1", "display_name": "Liga Profesional", "tier": 1, "importance_score": 100, "betting": { "availability": true } },
+        { "league_id": "ARG2", "display_name": "Primera Nacional", "tier": 2, "importance_score": 72, "betting": { "availability": true } },
+        { "league_id": "ARGC", "display_name": "Copa Argentina", "tier": 1, "importance_score": 54, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "BO",
+      "country_name": "Bolivia",
+      "timezone": "America/La_Paz",
+      "region_cluster": "SouthAmerica_Central",
+      "leagues": [
+        { "league_id": "BOL1", "display_name": "Liga Profesional", "tier": 1, "importance_score": 48, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "BR",
+      "country_name": "Brazil",
+      "timezone": "America/Sao_Paulo",
+      "region_cluster": "SouthAmerica_East",
+      "leagues": [
+        { "league_id": "BRA1", "display_name": "Serie A", "tier": 1, "importance_score": 100, "betting": { "availability": true } },
+        { "league_id": "BRA2", "display_name": "Serie B", "tier": 2, "importance_score": 80, "betting": { "availability": true } },
+        { "league_id": "BRA3", "display_name": "Serie C", "tier": 3, "importance_score": 58, "betting": { "availability": true } },
+        { "league_id": "BRAC", "display_name": "Copa do Brasil", "tier": 1, "importance_score": 78, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "CL",
+      "country_name": "Chile",
+      "timezone": "America/Santiago",
+      "region_cluster": "SouthAmerica_South",
+      "leagues": [
+        { "league_id": "CHI1", "display_name": "Primera División", "tier": 1, "importance_score": 78, "betting": { "availability": true } },
+        { "league_id": "CHI2", "display_name": "Primera B", "tier": 2, "importance_score": 52, "betting": { "availability": true } },
+        { "league_id": "CHIC", "display_name": "Copa Chile", "tier": 1, "importance_score": 34, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "CO",
+      "country_name": "Colombia",
+      "timezone": "America/Bogota",
+      "region_cluster": "SouthAmerica_North",
+      "leagues": [
+        { "league_id": "COL1", "display_name": "Primera A", "tier": 1, "importance_score": 90, "betting": { "availability": true } },
+        { "league_id": "COL2", "display_name": "Primera B", "tier": 2, "importance_score": 60, "betting": { "availability": true } },
+        { "league_id": "COLC", "display_name": "Copa Colombia", "tier": 1, "importance_score": 42, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "EC",
+      "country_name": "Ecuador",
+      "timezone": "America/Guayaquil",
+      "region_cluster": "SouthAmerica_North",
+      "leagues": [
+        { "league_id": "ECU1", "display_name": "Liga Pro Serie A", "tier": 1, "importance_score": 78, "betting": { "availability": true } },
+        { "league_id": "ECU2", "display_name": "Serie B", "tier": 2, "importance_score": 36, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "FK",
+      "country_name": "Falkland Islands",
+      "timezone": "Atlantic/Stanley",
+      "region_cluster": "SouthAmerica_Islands",
+      "leagues": [
+        { "league_id": "FLK1", "display_name": "Premier League", "tier": 1, "importance_score": 4, "betting": { "availability": false } }
+      ]
+    },
+    {
+      "country_code": "GY",
+      "country_name": "Guyana",
+      "timezone": "America/Guyana",
+      "region_cluster": "SouthAmerica_North",
+      "leagues": [
+        { "league_id": "GUY1", "display_name": "GFF Elite League", "tier": 1, "importance_score": 20, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "PY",
+      "country_name": "Paraguay",
+      "timezone": "America/Asuncion",
+      "region_cluster": "SouthAmerica_Central",
+      "leagues": [
+        { "league_id": "PAR1", "display_name": "Primera División", "tier": 1, "importance_score": 78, "betting": { "availability": true } },
+        { "league_id": "PARC", "display_name": "Copa Paraguay", "tier": 1, "importance_score": 38, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "PE",
+      "country_name": "Peru",
+      "timezone": "America/Lima",
+      "region_cluster": "SouthAmerica_North",
+      "leagues": [
+        { "league_id": "PER1", "display_name": "Liga 1", "tier": 1, "importance_score": 72, "betting": { "availability": true } },
+        { "league_id": "PER2", "display_name": "Liga 2", "tier": 2, "importance_score": 34, "betting": { "availability": true } },
+        { "league_id": "PERC", "display_name": "Copa Bicentenario", "tier": 1, "importance_score": 32, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "SR",
+      "country_name": "Suriname",
+      "timezone": "America/Paramaribo",
+      "region_cluster": "SouthAmerica_North",
+      "leagues": [
+        { "league_id": "SUR1", "display_name": "Topklasse", "tier": 1, "importance_score": 14, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "UY",
+      "country_name": "Uruguay",
+      "timezone": "America/Montevideo",
+      "region_cluster": "SouthAmerica_South",
+      "leagues": [
+        { "league_id": "URU1", "display_name": "Primera División", "tier": 1, "importance_score": 82, "betting": { "availability": true } },
+        { "league_id": "URUC", "display_name": "Copa Uruguay", "tier": 1, "importance_score": 30, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "VE",
+      "country_name": "Venezuela",
+      "timezone": "America/Caracas",
+      "region_cluster": "SouthAmerica_North",
+      "leagues": [
+        { "league_id": "VEN1", "display_name": "Primera División", "tier": 1, "importance_score": 52, "betting": { "availability": true } }
+      ]
+    }
+  ]
+}
+,
+    {
+      "country_code": "CONMEBOL_INT",
+      "country_name": "CONMEBOL International",
+      "timezone": "America/Asuncion",
+      "region_cluster": "SouthAmerica_International",
+      "leagues": [
+        {
+          "league_id": "COPALIB",
+          "display_name": "Copa Libertadores",
+          "tier": 1,
+          "importance_score": 100,
+          "betting": { "availability": true }
+        },
+        {
+          "league_id": "COPASUD",
+          "display_name": "Copa Sudamericana",
+          "tier": 1,
+          "importance_score": 92,
+          "betting": { "availability": true }
+        },
+        {
+          "league_id": "RECSUD",
+          "display_name": "Recopa Sudamericana",
+          "tier": 1,
+          "importance_score": 80,
+          "betting": { "availability": true }
+        }
+      ]
+    }
+  ]
+}

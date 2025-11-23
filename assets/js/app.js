@@ -4,7 +4,7 @@
 //   - Cloudflare worker: https://aimatchlab-main.pierros1402.workers.dev
 //   - Unified endpoint:  /live-ultra  (full live feed)
 //   - Match detail:      /live-ultra/match/:id
-//   - Master file:       /data/global_leagues_master.json
+//   - Master data:       /data/*.json (EUROPE, ASIA, AFRICA, etc.)
 // ============================================================
 
 const APP_VERSION = "AI MatchLab ULTRA v1.0.0";
@@ -477,43 +477,62 @@ function normalizeMasterStructure(raw) {
 }
 
 async function loadMasterFile() {
-  try {
-    const res = await fetch("/data/global_leagues_master.json?v=1.0.0", {
-      cache: "no-store",
-    });
-    if (!res.ok) throw new Error("Cannot load master file");
+  // NEW MULTI-FILE MASTER LOADER
+  // Διαβάζει ξεχωριστά JSON αρχεία ανά ήπειρο από τον φάκελο /data
+  // και χτίζει το MASTER = { continents: [...] } που χρησιμοποιεί όλο το UI.
+  const CONTINENT_SOURCES = [
+    { code: "EU",  name: "Europe",         file: "/data/EUROPE.json" },
+    { code: "SA",  name: "South America",  file: "/data/SOUTH_AMERICA.json" },
+    { code: "NA",  name: "North America",  file: "/data/NORTH_AMERICA.json" },
+    { code: "AS",  name: "Asia",           file: "/data/ASIA.json" },
+    { code: "AF",  name: "Africa",         file: "/data/AFRICA.json" },
+    { code: "OC",  name: "Oceania",        file: "/data/OCEANIA.json" },
+    { code: "INT", name: "International",  file: "/data/INTERNATIONAL.json" }
+  ];
 
-    const rawText = await res.text();
-    let data;
+  const continents = [];
 
-    // 1η προσπάθεια: κανονικό JSON
+  for (const src of CONTINENT_SOURCES) {
     try {
-      data = JSON.parse(rawText);
-    } catch (err) {
-      console.warn(
-        "[AI MatchLab] MASTER raw JSON invalid, trying multi-object merge:",
-        err
-      );
-      // 2η προσπάθεια: πολλά objects κολλημένα
-      const objects = parseConcatenatedJsonObjects(rawText);
-      const records = [];
-      objects.forEach((obj) => {
-        if (!obj || typeof obj !== "object") return;
-        Object.values(obj).forEach((val) => {
-          if (Array.isArray(val)) {
-            records.push(...val);
+      const res = await fetch(src.file + `?v=${APP_VERSION}`, { cache: "no-store" });
+      if (!res.ok) {
+        console.warn("[AI MatchLab] Cannot load continent file:", src.file, res.status);
+        continue;
+      }
+
+      const data = await res.json();
+
+      // Περίπτωση 1: απλό αντικείμενο { continent_code, continent_name, countries: [...] }
+      if (data && data.continent_code && Array.isArray(data.countries)) {
+        continents.push({
+          continent_code: data.continent_code,
+          continent_name: data.continent_name || src.name,
+          countries: data.countries
+        });
+      }
+      // Περίπτωση 2: object με { continents: [...] } (fallback για μελλοντική χρήση)
+      else if (data && Array.isArray(data.continents)) {
+        data.continents.forEach((c) => {
+          if (c && c.continent_code && Array.isArray(c.countries)) {
+            continents.push(c);
           }
         });
-      });
-      data = { records };
+      } else {
+        console.warn("[AI MatchLab] Unexpected structure in", src.file, data);
+      }
+    } catch (err) {
+      console.warn("[AI MatchLab] Error loading continent file:", src.file, err);
     }
-
-    MASTER = normalizeMasterStructure(data);
-    console.log("[AI MatchLab] MASTER READY", MASTER);
-    loadContinents();
-  } catch (err) {
-    console.warn("[AI MatchLab] MASTER LOAD ERROR:", err);
   }
+
+  if (!continents.length) {
+    console.error("[AI MatchLab] No continent data loaded.");
+    return;
+  }
+
+  MASTER = { continents };
+  console.log("[AI MatchLab] MASTER READY (multi-file)", MASTER);
+  loadContinents();
 }
 
 function loadContinents() {

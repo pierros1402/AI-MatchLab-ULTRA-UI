@@ -1,0 +1,178 @@
+{
+  "continent_code": "OC",
+  "continent_name": "Oceania",
+  "countries": [
+    {
+      "country_code": "AU",
+      "country_name": "Australia",
+      "timezone": "Australia/Sydney",
+      "region_cluster": "Oceania_Australia",
+      "leagues": [
+        { "league_id": "AUS1", "display_name": "A-League", "tier": 1, "importance_score": 90, "betting": { "availability": true } },
+        { "league_id": "AUSC", "display_name": "Australia Cup", "tier": 1, "importance_score": 60, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "FJ",
+      "country_name": "Fiji",
+      "timezone": "Pacific/Fiji",
+      "region_cluster": "Oceania_Pacific",
+      "leagues": [
+        { "league_id": "FIJ1", "display_name": "Premier League", "tier": 1, "importance_score": 20, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "KI",
+      "country_name": "Kiribati",
+      "timezone": "Pacific/Tarawa",
+      "region_cluster": "Oceania_Pacific",
+      "leagues": [
+        { "league_id": "KIR1", "display_name": "Kiribati Premier League", "tier": 1, "importance_score": 6, "betting": { "availability": false } }
+      ]
+    },
+    {
+      "country_code": "FM",
+      "country_name": "Micronesia (FSM)",
+      "timezone": "Pacific/Pohnpei",
+      "region_cluster": "Oceania_Pacific",
+      "leagues": [
+        { "league_id": "FSM1", "display_name": "FSM National League", "tier": 1, "importance_score": 4, "betting": { "availability": false } }
+      ]
+    },
+    {
+      "country_code": "NR",
+      "country_name": "Nauru",
+      "timezone": "Pacific/Nauru",
+      "region_cluster": "Oceania_Pacific",
+      "leagues": [
+        { "league_id": "NRU1", "display_name": "Nauru Soccer League", "tier": 1, "importance_score": 4, "betting": { "availability": false } }
+      ]
+    },
+    {
+      "country_code": "NZ",
+      "country_name": "New Zealand",
+      "timezone": "Pacific/Auckland",
+      "region_cluster": "Oceania_NewZealand",
+      "leagues": [
+        { "league_id": "NZL1", "display_name": "National League", "tier": 1, "importance_score": 52, "betting": { "availability": true } },
+        { "league_id": "NZLC", "display_name": "Chatham Cup", "tier": 1, "importance_score": 28, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "NU",
+      "country_name": "Niue",
+      "timezone": "Pacific/Niue",
+      "region_cluster": "Oceania_Islands",
+      "leagues": [
+        { "league_id": "NIU1", "display_name": "Niue Soccer League", "tier": 1, "importance_score": 4, "betting": { "availability": false } }
+      ]
+    },
+    {
+      "country_code": "PW",
+      "country_name": "Palau",
+      "timezone": "Pacific/Palau",
+      "region_cluster": "Oceania_Pacific",
+      "leagues": [
+        { "league_id": "PLW1", "display_name": "Palau Soccer League", "tier": 1, "importance_score": 4, "betting": { "availability": false } }
+      ]
+    },
+    {
+      "country_code": "PG",
+      "country_name": "Papua New Guinea",
+      "timezone": "Pacific/Port_Moresby",
+      "region_cluster": "Oceania_Pacific",
+      "leagues": [
+        { "league_id": "PNG1", "display_name": "National Soccer League", "tier": 1, "importance_score": 20, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "WS",
+      "country_name": "Samoa",
+      "timezone": "Pacific/Apia",
+      "region_cluster": "Oceania_Pacific",
+      "leagues": [
+        { "league_id": "SAM1", "display_name": "Samoa National League", "tier": 1, "importance_score": 10, "betting": { "availability": false } }
+      ]
+    },
+    {
+      "country_code": "AS",
+      "country_name": "American Samoa",
+      "timezone": "Pacific/Pago_Pago",
+      "region_cluster": "Oceania_Pacific",
+      "leagues": [
+        { "league_id": "AMS1", "display_name": "FFAS Senior League", "tier": 1, "importance_score": 8, "betting": { "availability": false } }
+      ]
+    },
+    {
+      "country_code": "SB",
+      "country_name": "Solomon Islands",
+      "timezone": "Pacific/Guadalcanal",
+      "region_cluster": "Oceania_Pacific",
+      "leagues": [
+        { "league_id": "SOL1", "display_name": "Solomon Islands S-League", "tier": 1, "importance_score": 24, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "TO",
+      "country_name": "Tonga",
+      "timezone": "Pacific/Tongatapu",
+      "region_cluster": "Oceania_Pacific",
+      "leagues": [
+        { "league_id": "TON1", "display_name": "Tonga Major League", "tier": 1, "importance_score": 6, "betting": { "availability": false } }
+      ]
+    }
+  ]
+}
+,
+    {
+      "country_code": "TV",
+      "country_name": "Tuvalu",
+      "timezone": "Pacific/Funafuti",
+      "region_cluster": "Oceania_Pacific",
+      "leagues": [
+        { "league_id": "TUV1", "display_name": "Tuvalu A-Division", "tier": 1, "importance_score": 6, "betting": { "availability": false } }
+      ]
+    },
+    {
+      "country_code": "VU",
+      "country_name": "Vanuatu",
+      "timezone": "Pacific/Efate",
+      "region_cluster": "Oceania_Pacific",
+      "leagues": [
+        { "league_id": "VAN1", "display_name": "Port Vila Premier League", "tier": 1, "importance_score": 18, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "WF",
+      "country_name": "Wallis and Futuna",
+      "timezone": "Pacific/Wallis",
+      "region_cluster": "Oceania_Pacific",
+      "leagues": [
+        { "league_id": "WLF1", "display_name": "Wallis & Futuna League", "tier": 1, "importance_score": 2, "betting": { "availability": false } }
+      ]
+    },
+
+    {
+      "country_code": "OFC_INT",
+      "country_name": "OFC International",
+      "timezone": "Pacific/Auckland",
+      "region_cluster": "Oceania_International",
+      "leagues": [
+        {
+          "league_id": "OFC_CL",
+          "display_name": "OFC Champions League",
+          "tier": 1,
+          "importance_score": 70,
+          "betting": { "availability": true }
+        },
+        {
+          "league_id": "OFC_NC",
+          "display_name": "OFC Nations Cup",
+          "tier": 1,
+          "importance_score": 50,
+          "betting": { "availability": true }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,325 @@
+{
+  "continent_code": "NA",
+  "continent_name": "North America",
+  "countries": [
+    {
+      "country_code": "CA",
+      "country_name": "Canada",
+      "timezone": "America/Toronto",
+      "region_cluster": "NorthAmerica_North",
+      "leagues": [
+        { "league_id": "CAN1", "display_name": "Canadian Premier League", "tier": 1, "importance_score": 60, "betting": { "availability": true } },
+        { "league_id": "CAN2", "display_name": "MLS (Canadian Clubs)", "tier": 1, "importance_score": 90, "betting": { "availability": true } },
+        { "league_id": "CANC", "display_name": "Canadian Championship", "tier": 1, "importance_score": 50, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "US",
+      "country_name": "United States",
+      "timezone": "America/New_York",
+      "region_cluster": "NorthAmerica_North",
+      "leagues": [
+        { "league_id": "USA1", "display_name": "MLS", "tier": 1, "importance_score": 95, "betting": { "availability": true } },
+        { "league_id": "USA2", "display_name": "USL Championship", "tier": 2, "importance_score": 70, "betting": { "availability": true } },
+        { "league_id": "USA3", "display_name": "USL League One", "tier": 3, "importance_score": 50, "betting": { "availability": true } },
+        { "league_id": "USAC", "display_name": "US Open Cup", "tier": 1, "importance_score": 60, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "MX",
+      "country_name": "Mexico",
+      "timezone": "America/Mexico_City",
+      "region_cluster": "NorthAmerica_Central",
+      "leagues": [
+        { "league_id": "MEX1", "display_name": "Liga MX", "tier": 1, "importance_score": 100, "betting": { "availability": true } },
+        { "league_id": "MEX2", "display_name": "Liga de Expansión MX", "tier": 2, "importance_score": 58, "betting": { "availability": true } },
+        { "league_id": "MEXC", "display_name": "Copa MX", "tier": 1, "importance_score": 40, "betting": { "availability": true } }
+      ]
+    },
+
+    {
+      "country_code": "AG",
+      "country_name": "Antigua and Barbuda",
+      "timezone": "America/Antigua",
+      "region_cluster": "NorthAmerica_Caribbean",
+      "leagues": [
+        { "league_id": "ATG1", "display_name": "Premier Division", "tier": 1, "importance_score": 12, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "BS",
+      "country_name": "Bahamas",
+      "timezone": "America/Nassau",
+      "region_cluster": "NorthAmerica_Caribbean",
+      "leagues": [
+        { "league_id": "BHS1", "display_name": "BFA Senior League", "tier": 1, "importance_score": 8, "betting": { "availability": false } }
+      ]
+    },
+    {
+      "country_code": "BB",
+      "country_name": "Barbados",
+      "timezone": "America/Barbados",
+      "region_cluster": "NorthAmerica_Caribbean",
+      "leagues": [
+        { "league_id": "BRB1", "display_name": "Premier League", "tier": 1, "importance_score": 10, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "BZ",
+      "country_name": "Belize",
+      "timezone": "America/Belize",
+      "region_cluster": "NorthAmerica_Central",
+      "leagues": [
+        { "league_id": "BLZ1", "display_name": "Premier League of Belize", "tier": 1, "importance_score": 10, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "BM",
+      "country_name": "Bermuda",
+      "timezone": "Atlantic/Bermuda",
+      "region_cluster": "NorthAmerica_Islands",
+      "leagues": [
+        { "league_id": "BER1", "display_name": "Premier Division", "tier": 1, "importance_score": 8, "betting": { "availability": false } }
+      ]
+    },
+    {
+      "country_code": "CAI",
+      "country_name": "Cayman Islands",
+      "timezone": "America/Cayman",
+      "region_cluster": "NorthAmerica_Islands",
+      "leagues": [
+        { "league_id": "CAY1", "display_name": "Premier League", "tier": 1, "importance_score": 8, "betting": { "availability": false } }
+      ]
+    },
+    {
+      "country_code": "CR",
+      "country_name": "Costa Rica",
+      "timezone": "America/Costa_Rica",
+      "region_cluster": "NorthAmerica_Central",
+      "leagues": [
+        { "league_id": "CRC1", "display_name": "Liga FPD", "tier": 1, "importance_score": 70, "betting": { "availability": true } },
+        { "league_id": "CRCC", "display_name": "Costa Rica Cup", "tier": 1, "importance_score": 30, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "CU",
+      "country_name": "Cuba",
+      "timezone": "America/Havana",
+      "region_cluster": "NorthAmerica_Caribbean",
+      "leagues": [
+        { "league_id": "CUB1", "display_name": "Campeonato Nacional", "tier": 1, "importance_score": 14, "betting": { "availability": false } }
+      ]
+    },
+    {
+      "country_code": "DM",
+      "country_name": "Dominica",
+      "timezone": "America/Dominica",
+      "region_cluster": "NorthAmerica_Caribbean",
+      "leagues": [
+        { "league_id": "DMA1", "display_name": "Premier League", "tier": 1, "importance_score": 8, "betting": { "availability": false } }
+      ]
+    },
+    {
+      "country_code": "DO",
+      "country_name": "Dominican Republic",
+      "timezone": "America/Santo_Domingo",
+      "region_cluster": "NorthAmerica_Caribbean",
+      "leagues": [
+        { "league_id": "DOM1", "display_name": "Liga Dominicana", "tier": 1, "importance_score": 30, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "SV",
+      "country_name": "El Salvador",
+      "timezone": "America/El_Salvador",
+      "region_cluster": "NorthAmerica_Central",
+      "leagues": [
+        { "league_id": "SLV1", "display_name": "Primera División", "tier": 1, "importance_score": 42, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "GD",
+      "country_name": "Grenada",
+      "timezone": "America/Grenada",
+      "region_cluster": "NorthAmerica_Caribbean",
+      "leagues": [
+        { "league_id": "GRN1", "display_name": "Premier League", "tier": 1, "importance_score": 8, "betting": { "availability": false } }
+      ]
+    },
+    {
+      "country_code": "GT",
+      "country_name": "Guatemala",
+      "timezone": "America/Guatemala",
+      "region_cluster": "NorthAmerica_Central",
+      "leagues": [
+        { "league_id": "GTM1", "display_name": "Liga Nacional", "tier": 1, "importance_score": 50, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "HT",
+      "country_name": "Haiti",
+      "timezone": "America/Port-au-Prince",
+      "region_cluster": "NorthAmerica_Caribbean",
+      "leagues": [
+        { "league_id": "HTI1", "display_name": "Championnat National", "tier": 1, "importance_score": 10, "betting": { "availability": false } }
+      ]
+    },
+    {
+      "country_code": "HN",
+      "country_name": "Honduras",
+      "timezone": "America/Tegucigalpa",
+      "region_cluster": "NorthAmerica_Central",
+      "leagues": [
+        { "league_id": "HON1", "display_name": "Liga Nacional", "tier": 1, "importance_score": 52, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "JM",
+      "country_name": "Jamaica",
+      "timezone": "America/Jamaica",
+      "region_cluster": "NorthAmerica_Caribbean",
+      "leagues": [
+        { "league_id": "JAM1", "display_name": "Premier League", "tier": 1, "importance_score": 20, "betting": { "availability": true } }
+      ]
+    }
+  ]
+}
+,
+    {
+      "country_code": "KN",
+      "country_name": "Saint Kitts and Nevis",
+      "timezone": "America/St_Kitts",
+      "region_cluster": "NorthAmerica_Caribbean",
+      "leagues": [
+        { "league_id": "SKN1", "display_name": "Premier League", "tier": 1, "importance_score": 10, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "LC",
+      "country_name": "Saint Lucia",
+      "timezone": "America/St_Lucia",
+      "region_cluster": "NorthAmerica_Caribbean",
+      "leagues": [
+        { "league_id": "LCA1", "display_name": "Premier League", "tier": 1, "importance_score": 8, "betting": { "availability": false } }
+      ]
+    },
+    {
+      "country_code": "VC",
+      "country_name": "Saint Vincent and the Grenadines",
+      "timezone": "America/St_Vincent",
+      "region_cluster": "NorthAmerica_Caribbean",
+      "leagues": [
+        { "league_id": "VCT1", "display_name": "Premier League", "tier": 1, "importance_score": 8, "betting": { "availability": false } }
+      ]
+    },
+    {
+      "country_code": "MS",
+      "country_name": "Montserrat",
+      "timezone": "America/Montserrat",
+      "region_cluster": "NorthAmerica_Caribbean",
+      "leagues": [
+        { "league_id": "MNT1", "display_name": "Montserrat Championship", "tier": 1, "importance_score": 6, "betting": { "availability": false } }
+      ]
+    },
+    {
+      "country_code": "NI",
+      "country_name": "Nicaragua",
+      "timezone": "America/Managua",
+      "region_cluster": "NorthAmerica_Central",
+      "leagues": [
+        { "league_id": "NCA1", "display_name": "Liga Primera", "tier": 1, "importance_score": 42, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "PA",
+      "country_name": "Panama",
+      "timezone": "America/Panama",
+      "region_cluster": "NorthAmerica_Central",
+      "leagues": [
+        { "league_id": "PAN1", "display_name": "LPF", "tier": 1, "importance_score": 46, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "PY",
+      "country_name": "Paraguay (CONCACAF Caribbean Guest)",
+      "timezone": "America/Asuncion",
+      "region_cluster": "NorthAmerica_Guest",
+      "leagues": [
+        { "league_id": "CON_GUEST_PAR", "display_name": "Invitational Clubs Only", "tier": 1, "importance_score": 0, "betting": { "availability": false } }
+      ]
+    },
+    {
+      "country_code": "PR",
+      "country_name": "Puerto Rico",
+      "timezone": "America/Puerto_Rico",
+      "region_cluster": "NorthAmerica_Caribbean",
+      "leagues": [
+        { "league_id": "PUR1", "display_name": "Liga Puerto Rico", "tier": 1, "importance_score": 20, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "TT",
+      "country_name": "Trinidad and Tobago",
+      "timezone": "America/Port_of_Spain",
+      "region_cluster": "NorthAmerica_Caribbean",
+      "leagues": [
+        { "league_id": "TRI1", "display_name": "TT Premier Football League", "tier": 1, "importance_score": 34, "betting": { "availability": true } }
+      ]
+    },
+    {
+      "country_code": "TC",
+      "country_name": "Turks and Caicos Islands",
+      "timezone": "America/Grand_Turk",
+      "region_cluster": "NorthAmerica_Islands",
+      "leagues": [
+        { "league_id": "TCA1", "display_name": "Provo Premier League", "tier": 1, "importance_score": 6, "betting": { "availability": false } }
+      ]
+    },
+    {
+      "country_code": "VI",
+      "country_name": "US Virgin Islands",
+      "timezone": "America/St_Thomas",
+      "region_cluster": "NorthAmerica_Islands",
+      "leagues": [
+        { "league_id": "VIR1", "display_name": "Premier League", "tier": 1, "importance_score": 6, "betting": { "availability": false } }
+      ]
+    },
+
+    {
+      "country_code": "CON_INT",
+      "country_name": "CONCACAF International",
+      "timezone": "America/New_York",
+      "region_cluster": "NorthAmerica_International",
+      "leagues": [
+        {
+          "league_id": "CONCL",
+          "display_name": "CONCACAF Champions League",
+          "tier": 1,
+          "importance_score": 92,
+          "betting": { "availability": true }
+        },
+        {
+          "league_id": "CONLEAGUESCUP",
+          "display_name": "Leagues Cup (MLS + Liga MX)",
+          "tier": 1,
+          "importance_score": 88,
+          "betting": { "availability": true }
+        },
+        {
+          "league_id": "CONCCUP",
+          "display_name": "CONCACAF Central American Cup",
+          "tier": 1,
+          "importance_score": 66,
+          "betting": { "availability": true }
+        },
+        {
+          "league_id": "CONCACUP",
+          "display_name": "CONCACAF Caribbean Cup",
+          "tier": 1,
+          "importance_score": 50,
+          "betting": { "availability": true }
+        }
+      ]
+    }
+  ]
+}

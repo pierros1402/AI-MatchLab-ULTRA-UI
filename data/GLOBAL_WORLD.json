@@ -1,0 +1,74 @@
+{
+  "continent_code": "INT",
+  "continent_name": "International & World",
+  "countries": [
+    {
+      "country_code": "FIFA",
+      "country_name": "FIFA Global",
+      "timezone": "UTC",
+      "region_cluster": "World_Global",
+      "leagues": [
+        {
+          "league_id": "WC",
+          "display_name": "FIFA World Cup",
+          "tier": 1,
+          "importance_score": 100,
+          "betting": { "availability": true }
+        },
+        {
+          "league_id": "WWC",
+          "display_name": "FIFA Women's World Cup",
+          "tier": 1,
+          "importance_score": 90,
+          "betting": { "availability": true }
+        },
+        {
+          "league_id": "CONF",
+          "display_name": "FIFA Confederations Cup",
+          "tier": 1,
+          "importance_score": 78,
+          "betting": { "availability": true }
+        },
+        {
+          "league_id": "FIFAC",
+          "display_name": "FIFA Club World Cup",
+          "tier": 1,
+          "importance_score": 82,
+          "betting": { "availability": true }
+        }
+      ]
+    },
+
+    {
+      "country_code": "INT_CONT",
+      "country_name": "Intercontinental",
+      "timezone": "UTC",
+      "region_cluster": "World_Intercontinental",
+      "leagues": [
+        {
+          "league_id": "INTCL",
+          "display_name": "Intercontinental Cup",
+          "tier": 1,
+          "importance_score": 70,
+          "betting": { "availability": true }
+        }
+      ]
+    },
+
+    {
+      "country_code": "INT_CLUB",
+      "country_name": "Global Club Competitions",
+      "timezone": "UTC",
+      "region_cluster": "World_Clubs",
+      "leagues": [
+        {
+          "league_id": "INT_CLUB_CUP",
+          "display_name": "Global Club Championship (New FIFA Format)",
+          "tier": 1,
+          "importance_score": 85,
+          "betting": { "availability": true }
+        }
+      ]
+    }
+  ]
+}
