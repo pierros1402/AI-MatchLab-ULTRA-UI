@@ -310,7 +310,7 @@ function setupUpdateBarActions() {
 
 async function loadMasterFile() {
   try {
-    const res = await fetch("/global_leagues_master.json?v=1.0.0", {
+    const res = await fetch("/data/global_leagues_master.json?v=1.0.0", {
       cache: "no-store",
     });
     if (!res.ok) throw new Error("Cannot load master file");
