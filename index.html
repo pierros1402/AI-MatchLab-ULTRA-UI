@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI MatchLab ULTRA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#050816" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="/assets/icons/icon-192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/theme.css" />
+</head>
+<body>
+  <!-- Update banner (εμφανίζεται όταν υπάρχει νέα έκδοση) -->
+  <div id="updateBar" class="ml-update-bar ml-hidden">
+    <span>Νέα έκδοση του AI MatchLab ULTRA είναι διαθέσιμη.</span>
+    <div class="ml-update-actions">
+      <button id="updateLaterBtn" class="ml-text-btn">Αργότερα</button>
+      <button id="updateNowBtn" class="ml-primary-btn">Ενημέρωση τώρα</button>
+    </div>
+  </div>
+
+  <!-- App shell -->
+  <div class="ml-app-shell">
+    <!-- Premium compact header -->
+    <header class="ml-header">
+      <div class="ml-header-left">
+        <div class="ml-logo-block">
+          <div class="ml-logo-circle">AIML</div>
+          <div class="ml-logo-text">
+            <div class="ml-brand">AI MatchLab ULTRA</div>
+            <div class="ml-version" id="appVersion">v1.0.0</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ml-header-right">
+        <!-- Auto-refresh indicator -->
+        <div class="ml-auto-refresh-indicator" id="autoRefreshStatus">
+          <span class="dot"></span>
+          <span class="label">auto-refresh ON</span>
+        </div>
+
+        <!-- Install PWA button (εμφανίζεται μόνο όταν είναι διαθέσιμη εγκατάσταση) -->
+        <button id="installBtn" class="ml-icon-btn ml-hidden" title="Install AI MatchLab ULTRA">
+          ⬇
+        </button>
+
+        <!-- Refresh / update -->
+        <button id="refreshBtn" class="ml-icon-btn" title="Manual refresh">
+          ⟳
+        </button>
+
+        <!-- Dark / light -->
+        <button id="themeToggleBtn" class="ml-icon-btn" title="Dark / Light">
+          🌗
+        </button>
+
+        <!-- Settings -->
+        <button id="settingsBtn" class="ml-icon-btn" title="Settings">
+          ⚙
+        </button>
+
+        <!-- Legals -->
+        <button id="legalBtn" class="ml-icon-btn" title="Legal / Terms">
+          ⚖
+        </button>
+      </div>
+    </header>
+
+    <!-- Main layout -->
+    <main class="ml-main">
+      <!-- Primary tabs row -->
+      <section class="ml-top-tabs">
+        <button class="ml-tab ml-tab-active" data-tab="live">Live</button>
+        <button class="ml-tab" data-tab="upcoming">Upcoming</button>
+        <button class="ml-tab" data-tab="recent">Recent</button>
+        <button class="ml-tab" data-tab="smartmoney">SmartMoney</button>
+        <button class="ml-tab" data-tab="matrix">GoalMatrix</button>
+      </section>
+
+      <!-- Second-level filters (π.χ. ήπειρος / χώρα / league) -->
+      <section class="ml-filters">
+        <select id="continentSelect" class="ml-select">
+          <option value="EU">Europe</option>
+          <option value="SA">South America</option>
+          <option value="NA">North America</option>
+          <option value="AS">Asia</option>
+          <option value="AF">Africa</option>
+          <option value="OC">Oceania</option>
+        </select>
+        <select id="countrySelect" class="ml-select">
+          <option value="ALL">All Countries</option>
+        </select>
+        <select id="leagueSelect" class="ml-select">
+          <option value="ALL">All Leagues</option>
+        </select>
+      </section>
+
+      <!-- Main content grid -->
+      <section class="ml-grid">
+        <!-- Left: matches list / live hub -->
+        <div class="ml-card ml-card-main">
+          <div class="ml-card-header">
+            <h2 id="mainPanelTitle">Live Matches</h2>
+            <span id="lastUpdateLabel" class="ml-subtle-text">Last update: –</span>
+          </div>
+          <div id="matchesContainer" class="ml-card-body">
+            <!-- Placeholder, θα μπει η πραγματική ροή -->
+            <div class="ml-placeholder">
+              <p>Live / Upcoming / Recent matches θα εμφανιστούν εδώ.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: premium panels (standings / details / overlays) -->
+        <div class="ml-side-panels">
+          <div class="ml-card ml-card-secondary">
+            <div class="ml-card-header">
+              <h3>Standings / Table</h3>
+            </div>
+            <div id="standingsContainer" class="ml-card-body">
+              <div class="ml-placeholder small">
+                <p>Βαθμολογία league.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="ml-card ml-card-secondary">
+            <div class="ml-card-header">
+              <h3>Match Insights</h3>
+            </div>
+            <div id="insightsContainer" class="ml-card-body">
+              <div class="ml-placeholder small">
+                <p>SmartMoney, xG, trends κλπ.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer / legals line -->
+    <footer class="ml-footer">
+      <span>© <span id="footerYear"></span> AI MatchLab ULTRA</span>
+      <span class="ml-footer-separator">•</span>
+      <button id="footerLegalBtn" class="ml-link-btn">Legal &amp; Compliance</button>
+      <span class="ml-footer-separator">•</span>
+      <span id="footerVersion">Build v1.0.0</span>
+    </footer>
+  </div>
+
+  <!-- Settings modal -->
+  <div id="settingsModal" class="ml-modal-backdrop ml-hidden">
+    <div class="ml-modal">
+      <div class="ml-modal-header">
+        <h2>Settings</h2>
+        <button class="ml-icon-btn" data-close-modal="settingsModal">✕</button>
+      </div>
+      <div class="ml-modal-body">
+        <div class="ml-form-group">
+          <label for="autoRefreshToggle">Auto-refresh</label>
+          <label class="ml-switch">
+            <input type="checkbox" id="autoRefreshToggle" checked />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="ml-form-group">
+          <label for="autoRefreshInterval">Interval (seconds)</label>
+          <input type="number" id="autoRefreshInterval" min="15" max="600" step="15" value="60" />
+        </div>
+        <div class="ml-form-group">
+          <label>Theme</label>
+          <div class="ml-radio-group">
+            <label><input type="radio" name="themeChoice" value="dark" checked /> Dark</label>
+            <label><input type="radio" name="themeChoice" value="light" /> Light</label>
+            <label><input type="radio" name="themeChoice" value="system" /> System</label>
+          </div>
+        </div>
+      </div>
+      <div class="ml-modal-footer">
+        <button class="ml-secondary-btn" data-close-modal="settingsModal">Close</button>
+        <button id="saveSettingsBtn" class="ml-primary-btn">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Legal modal -->
+  <div id="legalModal" class="ml-modal-backdrop ml-hidden">
+    <div class="ml-modal">
+      <div class="ml-modal-header">
+        <h2>Legal &amp; Compliance</h2>
+        <button class="ml-icon-btn" data-close-modal="legalModal">✕</button>
+      </div>
+      <div class="ml-modal-body ml-legal-text">
+        <p><strong>AI MatchLab ULTRA</strong> είναι πλατφόρμα ανάλυσης αγώνων. Δεν προσφέρει στοιχηματικές υπηρεσίες.</p>
+        <p>Τα δεδομένα μπορεί να παρέχονται από τρίτους παρόχους data &amp; widgets. Οι αποδόσεις και οι αγορές είναι ενδεικτικές.</p>
+        <p>Ο χρήστης είναι αποκλειστικά υπεύθυνος για αποφάσεις στοιχηματισμού. Παίζετε υπεύθυνα.</p>
+        <p>Για συνεργασίες με bookmakers / affiliates, επικοινωνήστε με το business team.</p>
+      </div>
+      <div class="ml-modal-footer">
+        <button class="ml-primary-btn" data-close-modal="legalModal">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/js/app.js"></script>
+</body>
+</html>
