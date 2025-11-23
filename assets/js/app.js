@@ -308,6 +308,174 @@ function setupUpdateBarActions() {
 // MASTER FILE (continents / countries / leagues)
 // ============================================================
 
+// Διαβάζει πολλά JSON objects κολλημένα (όπως είναι το δικό σου αρχείο)
+// και τα κάνει ένα array από JS objects.
+function parseConcatenatedJsonObjects(text) {
+  const objects = [];
+  let depth = 0;
+  let inString = false;
+  let start = -1;
+
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+
+    // toggle string state (προσοχή στα escaped quotes)
+    if (ch === '"' && text[i - 1] !== "\\") {
+      inString = !inString;
+    }
+    if (inString) continue;
+
+    if (ch === "{") {
+      if (depth === 0) start = i;
+      depth++;
+    } else if (ch === "}") {
+      depth--;
+      if (depth === 0 && start !== -1) {
+        const slice = text.slice(start, i + 1);
+        try {
+          objects.push(JSON.parse(slice));
+        } catch (e) {
+          console.warn("[AI MatchLab] Failed to parse sub-object:", e);
+        }
+        start = -1;
+      }
+    }
+  }
+
+  return objects;
+}
+
+// Παίρνει οποιαδήποτε «ακατέργαστη» μορφή (letter blocks, parts κλπ)
+// και τη μετατρέπει σε MASTER.continents → countries → leagues
+function normalizeMasterStructure(raw) {
+  // Αν είναι ήδη στη μορφή που θέλουμε, δεν πειράζουμε τίποτα.
+  if (raw && Array.isArray(raw.continents)) {
+    return raw;
+  }
+
+  let records = [];
+
+  // 1) Αν είναι κατευθείαν array από λίγκες
+  if (Array.isArray(raw)) {
+    records = raw;
+  }
+  // 2) Αν είναι object με arrays μέσα (όπως το δικό σου: A, B_part1 κλπ)
+  else if (raw && typeof raw === "object") {
+    Object.values(raw).forEach((val) => {
+      if (Array.isArray(val)) {
+        records.push(...val);
+      } else if (val && typeof val === "object") {
+        Object.values(val).forEach((inner) => {
+          if (Array.isArray(inner)) records.push(...inner);
+        });
+      }
+    });
+  }
+
+  if (!records.length) {
+    return { continents: [] };
+  }
+
+  const confedToCont = {
+    UEFA: "Europe",
+    CONMEBOL: "South America",
+    CONCACAF: "North America",
+    CAF: "Africa",
+    AFC: "Asia",
+    OFC: "Oceania",
+  };
+
+  const contCode = {
+    Europe: "EU",
+    Asia: "AS",
+    Africa: "AF",
+    "North America": "NA",
+    "South America": "SA",
+    Oceania: "OC",
+    International: "INT",
+    World: "INT",
+  };
+
+  const continentsMap = new Map();
+
+  for (const rec of records) {
+    if (!rec) continue;
+
+    const rawCont = rec.continent || "International";
+    const contName = confedToCont[rawCont] || rawCont;
+    const code =
+      contCode[contName] || contName.slice(0, 2).toUpperCase();
+
+    if (!continentsMap.has(contName)) {
+      continentsMap.set(contName, {
+        continent_code: code,
+        continent_name: contName,
+        countries: new Map(),
+      });
+    }
+    const cont = continentsMap.get(contName);
+
+    const countryName = rec.country || "International";
+    const countryCode =
+      rec.country_code || countryName.slice(0, 3).toUpperCase();
+
+    if (!cont.countries.has(countryName)) {
+      cont.countries.set(countryName, {
+        country_code: countryCode,
+        country_name: countryName,
+        timezone: null,
+        region_cluster: null,
+        leagues: [],
+      });
+    }
+    const country = cont.countries.get(countryName);
+
+    country.leagues.push({
+      league_id: rec.code,
+      display_name: rec.name,
+      tier: rec.tier ?? null,
+      type: rec.type ?? null,
+      sub_type: rec.sub_type ?? null,
+      active: rec.active ?? true,
+    });
+  }
+
+  const continentOrder = [
+    "Europe",
+    "South America",
+    "North America",
+    "Asia",
+    "Africa",
+    "Oceania",
+    "International",
+  ];
+
+  const continents = [];
+
+  // πρώτα οι βασικές ήπειροι με συγκεκριμένη σειρά
+  for (const name of continentOrder) {
+    if (!continentsMap.has(name)) continue;
+    const cont = continentsMap.get(name);
+    continents.push({
+      continent_code: cont.continent_code,
+      continent_name: cont.continent_name,
+      countries: Array.from(cont.countries.values()),
+    });
+  }
+
+  // και μετά τυχόν «έξτρα» κατηγορίες, αν υπάρχουν
+  for (const [name, cont] of continentsMap.entries()) {
+    if (continentOrder.includes(name)) continue;
+    continents.push({
+      continent_code: cont.continent_code,
+      continent_name: cont.continent_name,
+      countries: Array.from(cont.countries.values()),
+    });
+  }
+
+  return { continents };
+}
+
 async function loadMasterFile() {
   try {
     const res = await fetch("/data/global_leagues_master.json?v=1.0.0", {
@@ -315,8 +483,33 @@ async function loadMasterFile() {
     });
     if (!res.ok) throw new Error("Cannot load master file");
 
-    MASTER = await res.json();
-    console.log("[AI MatchLab] MASTER LOADED");
+    const rawText = await res.text();
+    let data;
+
+    // 1η προσπάθεια: κανονικό JSON
+    try {
+      data = JSON.parse(rawText);
+    } catch (err) {
+      console.warn(
+        "[AI MatchLab] MASTER raw JSON invalid, trying multi-object merge:",
+        err
+      );
+      // 2η προσπάθεια: πολλά objects κολλημένα
+      const objects = parseConcatenatedJsonObjects(rawText);
+      const records = [];
+      objects.forEach((obj) => {
+        if (!obj || typeof obj !== "object") return;
+        Object.values(obj).forEach((val) => {
+          if (Array.isArray(val)) {
+            records.push(...val);
+          }
+        });
+      });
+      data = { records };
+    }
+
+    MASTER = normalizeMasterStructure(data);
+    console.log("[AI MatchLab] MASTER READY", MASTER);
     loadContinents();
   } catch (err) {
     console.warn("[AI MatchLab] MASTER LOAD ERROR:", err);
