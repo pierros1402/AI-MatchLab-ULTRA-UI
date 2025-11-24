@@ -207,6 +207,61 @@
         { "league_id": "Estonian Supercup", "display_name": "Estonian Supercup", "tier": 1 }
       ]
     },
+{
+  "country_code": "GB-ENG",
+  "country_name": "England",
+  "timezone": "Europe/London",
+  "region_cluster": "United_Kingdom",
+  "leagues": [
+    { "league_id": "Premier League", "display_name": "Premier League", "tier": 1 },
+    { "league_id": "Championship", "display_name": "Championship", "tier": 2 },
+    { "league_id": "League One", "display_name": "League One", "tier": 3 },
+    { "league_id": "League Two", "display_name": "League Two", "tier": 4 },
+
+    { "league_id": "National League", "display_name": "National League", "tier": 5 },
+    { "league_id": "National League North", "display_name": "National League North", "tier": 6 },
+    { "league_id": "National League South", "display_name": "National League South", "tier": 6 },
+
+    { "league_id": "Northern Premier League", "display_name": "Northern Premier League", "tier": 7 },
+    { "league_id": "Northern Premier League Division One East", "display_name": "Northern Premier League Division One East", "tier": 8 },
+    { "league_id": "Northern Premier League Division One West", "display_name": "Northern Premier League Division One West", "tier": 8 },
+
+    { "league_id": "Southern League Premier Central", "display_name": "Southern League Premier Central", "tier": 7 },
+    { "league_id": "Southern League Premier South", "display_name": "Southern League Premier South", "tier": 7 },
+    { "league_id": "Southern League Division One Central", "display_name": "Southern League Division One Central", "tier": 8 },
+    { "league_id": "Southern League Division One South", "display_name": "Southern League Division One South", "tier": 8 },
+
+    { "league_id": "Isthmian League Premier Division", "display_name": "Isthmian League Premier Division", "tier": 7 },
+    { "league_id": "Isthmian League South Central", "display_name": "Isthmian League South Central", "tier": 8 },
+    { "league_id": "Isthmian League South East", "display_name": "Isthmian League South East", "tier": 8 },
+    { "league_id": "Isthmian League North Division", "display_name": "Isthmian League North Division", "tier": 8 },
+
+    { "league_id": "Combined Counties League Premier North", "display_name": "Combined Counties League Premier North", "tier": 9 },
+    { "league_id": "Combined Counties League Premier South", "display_name": "Combined Counties League Premier South", "tier": 9 },
+    { "league_id": "Hellenic League Premier Division", "display_name": "Hellenic League Premier Division", "tier": 9 },
+    { "league_id": "Spartan South Midlands Premier Division", "display_name": "Spartan South Midlands Premier Division", "tier": 9 },
+    { "league_id": "Eastern Counties League Premier Division", "display_name": "Eastern Counties League Premier Division", "tier": 9 },
+    { "league_id": "Essex Senior League", "display_name": "Essex Senior League", "tier": 9 },
+    { "league_id": "Midland League Premier Division", "display_name": "Midland League Premier Division", "tier": 9 },
+    { "league_id": "North West Counties Premier Division", "display_name": "North West Counties Premier Division", "tier": 9 },
+
+    { "league_id": "FA Cup", "display_name": "FA Cup", "tier": 1 },
+    { "league_id": "EFL Cup", "display_name": "EFL Cup", "tier": 1 },
+    { "league_id": "FA Trophy", "display_name": "FA Trophy", "tier": 6 },
+    { "league_id": "FA Vase", "display_name": "FA Vase", "tier": 9 },
+    { "league_id": "EFL Trophy", "display_name": "EFL Trophy", "tier": 3 },
+    { "league_id": "Community Shield", "display_name": "Community Shield", "tier": 1 },
+
+    { "league_id": "Women's Super League", "display_name": "Women's Super League", "tier": 1 },
+    { "league_id": "Women's Championship", "display_name": "Women's Championship", "tier": 2 },
+    { "league_id": "Women's National League North", "display_name": "Women's National League North", "tier": 3 },
+    { "league_id": "Women's National League South", "display_name": "Women's National League South", "tier": 3 },
+
+    { "league_id": "Premier League 2", "display_name": "Premier League 2", "tier": 1 },
+    { "league_id": "U21 Premier League", "display_name": "U21 Premier League", "tier": 1 },
+    { "league_id": "U18 Premier League", "display_name": "U18 Premier League", "tier": 1 }
+  ]
+}
     {
       "country_code": "FO",
       "country_code": "FO",
@@ -591,6 +646,24 @@
       { "league_id": "Norwegian Cup", "display_name": "Norwegian Cup", "tier": 1 }
     ]
   },
+{
+  "country_code": "GB-NIR",
+  "country_name": "Northern Ireland",
+  "timezone": "Europe/London",
+  "region_cluster": "United_Kingdom",
+  "leagues": [
+    { "league_id": "NIFL Premiership", "display_name": "NIFL Premiership", "tier": 1 },
+    { "league_id": "NIFL Championship", "display_name": "NIFL Championship", "tier": 2 },
+    { "league_id": "NIFL Premier Intermediate League", "display_name": "NIFL Premier Intermediate League", "tier": 3 },
+
+    { "league_id": "Northern Ireland Intermediate League", "display_name": "Northern Ireland Intermediate League", "tier": 4 },
+    { "league_id": "Northern Amateur Football League", "display_name": "Northern Amateur Football League", "tier": 4 },
+
+    { "league_id": "Irish Cup", "display_name": "Irish Cup", "tier": 1 },
+    { "league_id": "Northern Ireland League Cup", "display_name": "Northern Ireland League Cup", "tier": 1 },
+    { "league_id": "County Antrim Shield", "display_name": "County Antrim Shield", "tier": 2 }
+  ]
+}
   {
     "country_code": "PL",
     "country_name": "Poland",
@@ -683,6 +756,35 @@
       { "league_id": "Serbian Cup", "display_name": "Serbian Cup", "tier": 1 }
     ]
   },
+{
+  "country_code": "GB-SCO",
+  "country_name": "Scotland",
+  "timezone": "Europe/London",
+  "region_cluster": "United_Kingdom",
+  "leagues": [
+    { "league_id": "Scottish Premiership", "display_name": "Scottish Premiership", "tier": 1 },
+    { "league_id": "Scottish Championship", "display_name": "Scottish Championship", "tier": 2 },
+    { "league_id": "Scottish League One", "display_name": "Scottish League One", "tier": 3 },
+    { "league_id": "Scottish League Two", "display_name": "Scottish League Two", "tier": 4 },
+
+    { "league_id": "Highland League", "display_name": "Highland League", "tier": 5 },
+    { "league_id": "Lowland League", "display_name": "Lowland League", "tier": 5 },
+
+    { "league_id": "East of Scotland Premier Division", "display_name": "East of Scotland Premier Division", "tier": 6 },
+    { "league_id": "West of Scotland Premier Division", "display_name": "West of Scotland Premier Division", "tier": 6 },
+    { "league_id": "South of Scotland League", "display_name": "South of Scotland League", "tier": 6 },
+
+    { "league_id": "Scottish Cup", "display_name": "Scottish Cup", "tier": 1 },
+    { "league_id": "Scottish League Cup", "display_name": "Scottish League Cup", "tier": 1 },
+    { "league_id": "Scottish Challenge Cup", "display_name": "Scottish Challenge Cup", "tier": 2 },
+
+    { "league_id": "SWPL 1", "display_name": "SWPL 1 (Women's)", "tier": 1 },
+    { "league_id": "SWPL 2", "display_name": "SWPL 2 (Women's)", "tier": 2 },
+
+    { "league_id": "Scottish Reserve League", "display_name": "Scottish Reserve League", "tier": 2 },
+    { "league_id": "Scottish U18 League", "display_name": "Scottish U18 League", "tier": 3 }
+  ]
+}
   {
     "country_code": "SK",
     "country_name": "Slovakia",
@@ -820,10 +922,32 @@
                    { "league_id": "Ukrainian Cup", "display_name": "Ukrainian Cup", "tier": 1 }
     ]
   },
+{
+  "country_code": "GB-WAL",
+  "country_name": "Wales",
+  "timezone": "Europe/London",
+  "region_cluster": "United_Kingdom",
+  "leagues": [
+    { "league_id": "Cymru Premier", "display_name": "Cymru Premier", "tier": 1 },
+    { "league_id": "Cymru North", "display_name": "Cymru North", "tier": 2 },
+    { "league_id": "Cymru South", "display_name": "Cymru South", "tier": 2 },
+
+    { "league_id": "Ardal North East", "display_name": "Ardal North East", "tier": 3 },
+    { "league_id": "Ardal North West", "display_name": "Ardal North West", "tier": 3 },
+    { "league_id": "Ardal South East", "display_name": "Ardal South East", "tier": 3 },
+    { "league_id": "Ardal South West", "display_name": "Ardal South West", "tier": 3 },
+
+    { "league_id": "Welsh Cup", "display_name": "Welsh Cup", "tier": 1 },
+    { "league_id": "Welsh League Cup", "display_name": "Welsh League Cup", "tier": 1 }
+  ]
+}
   {
-    "continent_code": "INT",
-    "continent_name": "International Competitions",
-    "competitions": [
+  "continent_code": "INT",
+  "continent_name": "International Competitions",
+  "competitions": [
+    {
+      "confederation": "UEFA",
+      "tournaments": [
         { "league_id": "UEFA Champions League", "display_name": "UEFA Champions League" },
         { "league_id": "UEFA Europa League", "display_name": "UEFA Europa League" },
         { "league_id": "UEFA Europa Conference League", "display_name": "UEFA Europa Conference League" },
@@ -831,6 +955,7 @@
 
         { "league_id": "UEFA Euro", "display_name": "UEFA European Championship" },
         { "league_id": "UEFA Euro Qualifiers", "display_name": "UEFA Euro Qualifiers" },
+
         { "league_id": "UEFA Nations League A", "display_name": "UEFA Nations League A" },
         { "league_id": "UEFA Nations League B", "display_name": "UEFA Nations League B" },
         { "league_id": "UEFA Nations League C", "display_name": "UEFA Nations League C" },
@@ -848,54 +973,10 @@
         { "league_id": "FIFA World Cup Qualifiers - South America", "display_name": "World Cup Qualifiers - CONMEBOL" },
         { "league_id": "FIFA World Cup Qualifiers - Africa", "display_name": "World Cup Qualifiers - CAF" },
         { "league_id": "FIFA World Cup Qualifiers - Asia", "display_name": "World Cup Qualifiers - AFC" },
-        { "league_id": "FIFA World Cup Qualifiers - Oceania", "display_name": "World Cup Qualifiers - OFC" },
-
-        { "league_id": "FIFA Club World Cup", "display_name": "FIFA Club World Cup" }
-      ]
-    },
-    {
-      "confederation": "CONMEBOL",
-      "tournaments": [
-        { "league_id": "Copa Libertadores", "display_name": "Copa Libertadores" },
-        { "league_id": "Copa Sudamericana", "display_name": "Copa Sudamericana" },
-        { "league_id": "Copa America", "display_name": "Copa America" },
-        { "league_id": "CONMEBOL Recopa", "display_name": "CONMEBOL Recopa" }
-      ]
-    },
-    {
-      "confederation": "CONCACAF",
-      "tournaments": [
-        { "league_id": "CONCACAF Champions Cup", "display_name": "CONCACAF Champions Cup" },
-        { "league_id": "Gold Cup", "display_name": "CONCACAF Gold Cup" },
-        { "league_id": "Nations League A", "display_name": "CONCACAF Nations League A" },
-        { "league_id": "Nations League B", "display_name": "CONCACAF Nations League B" },
-        { "league_id": "Nations League C", "display_name": "CONCACAF Nations League C" }
-      ]
-    },
-    {
-      "confederation": "CAF",
-      "tournaments": [
-        { "league_id": "Africa Cup of Nations", "display_name": "Africa Cup of Nations" },
-        { "league_id": "CAF Champions League", "display_name": "CAF Champions League" },
-        { "league_id": "CAF Confederation Cup", "display_name": "CAF Confederation Cup" },
-        { "league_id": "CAF Super Cup", "display_name": "CAF Super Cup" }
-      ]
-    },
-    {
-      "confederation": "AFC",
-      "tournaments": [
-        { "league_id": "AFC Asian Cup", "display_name": "AFC Asian Cup" },
-        { "league_id": "AFC Champions League Elite", "display_name": "AFC Champions League Elite" },
-        { "league_id": "AFC Challenge League", "display_name": "AFC Challenge League" },
-        { "league_id": "AFC Cup", "display_name": "AFC Cup" }
-      ]
-    },
-    {
-      "confederation": "OFC",
-      "tournaments": [
-        { "league_id": "OFC Nations Cup", "display_name": "OFC Nations Cup" },
-        { "league_id": "OFC Champions League", "display_name": "OFC Champions League" }
+        { "league_id": "FIFA World Cup Qualifiers - North/Central America", "display_name": "World Cup Qualifiers - CONCACAF" },
+        { "league_id": "FIFA World Cup Qualifiers - Oceania", "display_name": "World Cup Qualifiers - OFC" }
       ]
     }
   ]
 }
+
