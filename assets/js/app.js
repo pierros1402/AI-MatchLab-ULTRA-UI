@@ -1,11 +1,10 @@
 // =====================================================================
 // AI MATCHLAB ULTRA — FINAL CLEAN VERSION (NO SERVICE WORKER)
 // Mobile-Install-Ready, Zero Caching, Zero SW Logic
-// ALL UI & ENGINE LOGIC RETAINED
 // =====================================================================
 
 // ----------------------------------------------------------
-// AUTO-CLEAN: Εξαφανίζει οποιονδήποτε ghost service-worker
+// AUTO-CLEAN SERVICE WORKERS
 // ----------------------------------------------------------
 if ("serviceWorker" in navigator) {
     navigator.serviceWorker.getRegistrations().then(regs => {
@@ -18,13 +17,14 @@ if ("serviceWorker" in navigator) {
 // ----------------------------------------------------------
 document.addEventListener("DOMContentLoaded", () => {
     console.log("AI MatchLab ULTRA — CLEAN START");
+
     setFooterYear();
     initTheme();
     initInstallPrompt();
     initTabs();
     initRefreshButton();
     initAutoRefresh();
-    loadContinents();   // MAIN ENTRY POINT
+    loadContinents(); // MAIN ENTRY POINT
 });
 
 // ----------------------------------------------------------
@@ -35,7 +35,7 @@ function setFooterYear() {
 }
 
 // ----------------------------------------------------------
-// THEME TOGGLE (dark/light)
+// THEME TOGGLE
 // ----------------------------------------------------------
 function initTheme() {
     const btn = document.getElementById("themeToggleBtn");
@@ -49,7 +49,7 @@ function initTheme() {
 }
 
 // ----------------------------------------------------------
-// INSTALL PROMPT (mobile-only PWA installation)
+// INSTALL PROMPT
 // ----------------------------------------------------------
 let deferredPrompt = null;
 
@@ -74,7 +74,7 @@ function initInstallPrompt() {
 }
 
 // ----------------------------------------------------------
-// TABS (Live / Upcoming / Recent / SmartMoney / Matrix)
+// TABS
 // ----------------------------------------------------------
 let activeTab = "live";
 
@@ -103,7 +103,7 @@ function updateMainPanelTitle() {
 }
 
 // ----------------------------------------------------------
-// MANUAL REFRESH BUTTON
+// MANUAL REFRESH
 // ----------------------------------------------------------
 function initRefreshButton() {
     const btn = document.getElementById("refreshBtn");
@@ -113,7 +113,7 @@ function initRefreshButton() {
 }
 
 // ----------------------------------------------------------
-// AUTO-REFRESH (every 30 seconds)
+// AUTO-REFRESH
 // ----------------------------------------------------------
 function initAutoRefresh() {
     setInterval(() => {
@@ -127,21 +127,23 @@ function initAutoRefresh() {
 async function loadContinents() {
     try {
         const res = await fetch("/data/continents.json");
-        if (!res.ok) throw new Error("Continents file missing");
-        const data = await res.json();
+        if (!res.ok) throw new Error("continents.json missing");
 
+        const data = await res.json();
         populateContinents(data);
         fetchMatches();
+
     } catch (err) {
-        console.error("MASTER LOAD ERROR (continents):", err);
+        console.error("MASTER LOAD ERROR:", err);
     }
 }
 
 function populateContinents(list) {
     const sel = document.getElementById("continentSelect");
-    sel.innerHTML = list.map(c =>
-        `<option value="${c.continent_code}">${c.continent_name}</option>`
-    ).join("");
+
+    sel.innerHTML = list
+        .map(c => `<option value="${c.continent_code}">${c.continent_name}</option>`)
+        .join("");
 
     sel.addEventListener("change", () => {
         loadCountries(sel.value);
@@ -155,11 +157,13 @@ function populateContinents(list) {
 // ----------------------------------------------------------
 async function loadCountries(code) {
     try {
+        code = code.toLowerCase(); // FIX: lowercase filenames
+
         const url = `/data/${code}.json`;
         const res = await fetch(url);
-        if (!res.ok) throw new Error("Continent data missing");
-        const continentData = await res.json();
+        if (!res.ok) throw new Error("Continent file missing");
 
+        const continentData = await res.json();
         const countries = continentData.countries || [];
 
         const sel = document.getElementById("countrySelect");
@@ -184,6 +188,8 @@ async function loadCountries(code) {
 // ----------------------------------------------------------
 async function loadLeagues(continentCode, countryCode) {
     try {
+        continentCode = continentCode.toLowerCase(); // FIX
+
         const url = `/data/${continentCode}.json`;
         const res = await fetch(url);
         if (!res.ok) throw new Error("Leagues load error");
@@ -220,7 +226,7 @@ async function loadLeagues(continentCode, countryCode) {
 }
 
 // ----------------------------------------------------------
-// FETCH MATCHES (Live / Upcoming / Recent)
+// FETCH MATCHES
 // ----------------------------------------------------------
 async function fetchMatches() {
     try {
@@ -274,7 +280,3 @@ function renderMatches(list) {
         </div>
     `).join("");
 }
-
-// ----------------------------------------------------------
-// END
-// ----------------------------------------------------------

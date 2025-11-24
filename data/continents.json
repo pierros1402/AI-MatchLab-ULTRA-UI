@@ -1,0 +1,9 @@
+[
+  { "continent_code": "europe", "continent_name": "Europe" },
+  { "continent_code": "asia", "continent_name": "Asia" },
+  { "continent_code": "africa", "continent_name": "Africa" },
+  { "continent_code": "north_america", "continent_name": "North America" },
+  { "continent_code": "south_america", "continent_name": "South America" },
+  { "continent_code": "oceania", "continent_name": "Oceania" },
+  { "continent_code": "global_world", "continent_name": "Global / World" }
+]
