@@ -1,17 +1,14 @@
 // ================================================================
-// AI MATCHLAB ULTRA – FRONTEND ENGINE (v1.0 CLEAN BUILD)
-// Dynamic continent → country → league loader
-// Clean dropdowns, no undefined, no INT/FIFA mixing
+// AI MATCHLAB ULTRA – FRONTEND ENGINE (v2.0 AUTO-CLEAN BUILD)
+// - Default continent: EUROPE (EU)
+// - Auto-clean dropdowns
+// - 5 panels: League / Country / Competition / Standings / Insights (standings/insights placeholder-ready)
 // ================================================================
 
-// Global cache for loaded JSON files
-const continentsCache = {};
-const countriesCache = {};
-const leaguesCache = {};
-
+// Simple JSON loader with cache-bypass
 async function loadJSON(path) {
     try {
-        const res = await fetch(path);
+        const res = await fetch(path + "?v=" + Date.now());
         if (!res.ok) throw new Error(`Failed to load ${path}`);
         return await res.json();
     } catch (err) {
@@ -20,188 +17,333 @@ async function loadJSON(path) {
     }
 }
 
+// Global cache
+const continentsCache = {};
+
+// Clear a <select> by id
+function clearSelect(id) {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = "";
+}
+
+// Infer competition type from name
+function inferCompetitionType(name) {
+    if (!name) return "Competition";
+    const n = name.toLowerCase();
+
+    if (n.includes("super cup") || n.includes("supercup") || n.includes("supercopa")) return "Super Cup";
+    if (n.includes("cup") || n.includes("trophy")) return "Cup";
+    if (n.includes("league") || n.includes("liga") || n.includes("division") || n.includes("divisió") || n.includes("bundesliga")) return "League";
+    if (n.includes("shield")) return "Trophy";
+
+    return "Competition";
+}
+
 // ================================================================
-// POPULATE CONTINENTS  (FIXED)
-// - Loads only real continents (those that have countries)
-// - Excludes INT, FIFA, AFC, CAF, CONCACAF, OFC
-// - Ensures dropdown clean + working
+// POPULATE CONTINENTS
 // ================================================================
 function populateContinents(list) {
     const sel = document.getElementById("continentSelect");
+    if (!sel) return;
 
     sel.innerHTML = list
-        .filter(c =>
-            c.continent_code &&
-            c.continent_name &&
-            Array.isArray(c.countries)
-        )
-        .map(c =>
-            `<option value="${c.continent_code}">${c.continent_name}</option>`
-        )
+        .filter(c => c.continent_code && c.continent_name)
+        .map(c => `<option value="${c.continent_code}">${c.continent_name}</option>`)
         .join("");
 
-    sel.addEventListener("change", () => {
-        loadCountries(sel.value);
-    });
+    sel.onchange = () => {
+        const code = sel.value;
+        loadCountries(code);
+    };
 
-    const first = list.find(c => Array.isArray(c.countries));
-    if (first) loadCountries(first.continent_code);
+    if (continentsCache["EU"]) {
+        sel.value = "EU";
+        loadCountries("EU");
+    } else {
+        const first = list.find(c => Array.isArray(c.countries));
+        if (first) {
+            sel.value = first.continent_code;
+            loadCountries(first.continent_code);
+        }
+    }
 }
 
 // ================================================================
-// LOAD COUNTRIES (FIXED)
-// - Handles “no countries” case (INT, FIFA etc)
-// - Removes undefined entries completely
+// LOAD COUNTRIES
 // ================================================================
-async function loadCountries(continentCode) {
-
+function loadCountries(continentCode) {
     const continentData = continentsCache[continentCode];
-    if (!continentData) {
-        console.error("No continent data for", continentCode);
+    const countrySel = document.getElementById("countrySelect");
+    const leagueSel = document.getElementById("leagueSelect");
+    const competitionInfo = document.getElementById("competitionInfoContainer");
+    const countryInfo = document.getElementById("countryInfoContainer");
+
+    if (!countrySel || !leagueSel) return;
+
+    clearSelect("countrySelect");
+    clearSelect("leagueSelect");
+
+    if (!continentData || !Array.isArray(continentData.countries)) {
+        countrySel.innerHTML = `<option value="ALL">All Countries</option>`;
+        if (countryInfo) {
+            countryInfo.innerHTML = `<p>Select a country to view info.</p>`;
+        }
+        if (competitionInfo && continentData) {
+            competitionInfo.innerHTML = `
+                <p><strong>Region:</strong> ${continentData.continent_name || continentCode}</p>
+                <p><strong>Scope:</strong> ${continentCode === "INT" ? "International / Global" : "Continental"}</p>
+                <p><strong>Countries:</strong> 0</p>
+                <p><strong>Leagues:</strong> 0</p>
+                <p><strong>Tier Range:</strong> N/A</p>
+            `;
+        }
+        loadLeagues(continentCode, "ALL");
         return;
     }
 
-    // FIX → Ignore INT / FIFA / AFC / CAF / etc
-    if (!Array.isArray(continentData.countries)) {
-        document.getElementById("countrySelect").innerHTML =
-            `<option value="ALL">All Countries</option>`;
-        return;
-    }
+    const countries = continentData.countries
+        .filter(c => c.country_code && c.country_name)
+        .sort((a, b) => a.country_name.localeCompare(b.country_name));
 
-    const countries = continentData.countries;
-
-    const sel = document.getElementById("countrySelect");
-    sel.innerHTML =
+    countrySel.innerHTML =
         `<option value="ALL">All Countries</option>` +
         countries
-            .filter(c => c.country_code && c.country_name) // remove undefined
-            .map(c =>
-                `<option value="${c.country_code}">${c.country_name}</option>`
-            )
+            .map(c => `<option value="${c.country_code}">${c.country_name}</option>`)
             .join("");
 
-    sel.addEventListener("change", () => {
-        loadLeagues(continentCode, sel.value);
-    });
+    if (countryInfo) {
+        countryInfo.innerHTML = `<p>Select a country to view info.</p>`;
+    }
+
+    if (competitionInfo) {
+        let totalLeagues = 0;
+        const leagueTiers = [];
+
+        continentData.countries.forEach(c => {
+            if (Array.isArray(c.leagues)) {
+                totalLeagues += c.leagues.length;
+                c.leagues.forEach(l => {
+                    if (typeof l.tier === "number") leagueTiers.push(l.tier);
+                });
+            }
+        });
+
+        const minTier = leagueTiers.length ? Math.min(...leagueTiers) : null;
+        const maxTier = leagueTiers.length ? Math.max(...leagueTiers) : null;
+        const scope = (continentCode === "INT" ? "International / Global" : "Continental");
+
+        competitionInfo.innerHTML = `
+            <p><strong>Region:</strong> ${continentData.continent_name || continentCode}</p>
+            <p><strong>Scope:</strong> ${scope}</p>
+            <p><strong>Countries:</strong> ${Array.isArray(continentData.countries) ? continentData.countries.length : 0}</p>
+            <p><strong>Leagues:</strong> ${totalLeagues}</p>
+            <p><strong>Tier Range:</strong> ${minTier !== null ? `${minTier}–${maxTier}` : "N/A"}</p>
+        `;
+    }
+
+    countrySel.onchange = () => {
+        const code = countrySel.value;
+
+        if (countryInfo) {
+            if (code === "ALL") {
+                countryInfo.innerHTML = `<p>Select a country to view info.</p>`;
+            } else {
+                const c = continentData.countries.find(x => x.country_code === code);
+                if (c) {
+                    const leagueCount = Array.isArray(c.leagues) ? c.leagues.length : 0;
+                    countryInfo.innerHTML = `
+                        <p><strong>Name:</strong> ${c.country_name}</p>
+                        <p><strong>Code:</strong> ${c.country_code}</p>
+                        <p><strong>Timezone:</strong> ${c.timezone || "N/A"}</p>
+                        <p><strong>Leagues:</strong> ${leagueCount}</p>
+                    `;
+                } else {
+                    countryInfo.innerHTML = `<p>Country not found.</p>`;
+                }
+            }
+        }
+
+        loadLeagues(continentCode, code);
+    };
 
     loadLeagues(continentCode, "ALL");
 }
-// ================================================================
-// LOAD LEAGUES (FIXED)
-// - Loads all leagues for selected country
-// - If "ALL", merges all leagues from all countries
-// - Always filters undefined entries
-// ================================================================
-async function loadLeagues(continentCode, countryCode) {
 
+// ================================================================
+// LOAD LEAGUES
+// ================================================================
+function loadLeagues(continentCode, countryCode) {
     const continentData = continentsCache[continentCode];
-    if (!continentData || !Array.isArray(continentData.countries)) {
-        console.warn("No valid continent data for leagues:", continentCode);
-        return;
-    }
+    if (!continentData) return;
 
     let leagues = [];
 
     if (countryCode === "ALL") {
-        // Merge all leagues from every country
-        continentData.countries.forEach(country => {
-            if (Array.isArray(country.leagues)) {
-                leagues.push(...country.leagues);
-            }
-        });
+        if (Array.isArray(continentData.countries)) {
+            continentData.countries.forEach(country => {
+                if (Array.isArray(country.leagues)) leagues.push(...country.leagues);
+            });
+        }
     } else {
-        const country = continentData.countries.find(c => c.country_code === countryCode);
+        const country = Array.isArray(continentData.countries)
+            ? continentData.countries.find(c => c.country_code === countryCode)
+            : null;
         if (country && Array.isArray(country.leagues)) {
             leagues = [...country.leagues];
         }
     }
 
-    // Clean undefined or invalid entries
-    leagues = leagues.filter(l => l.league_id && l.display_name);
+    leagues = leagues
+        .filter(l => l.league_id && l.display_name)
+        .sort((a, b) => a.display_name.localeCompare(b.display_name));
 
     const sel = document.getElementById("leagueSelect");
+    if (!sel) return;
+
+    clearSelect("leagueSelect");
+
     sel.innerHTML =
         `<option value="ALL">All Leagues</option>` +
         leagues
-            .map(l =>
-                `<option value="${l.league_id}">${l.display_name}</option>`
-            )
+            .map(l => `<option value="${l.league_id}">${l.display_name}</option>`)
             .join("");
 
-    sel.addEventListener("change", () => {
+    sel.onchange = () => {
         displayLeagueInfo(continentCode, countryCode, sel.value);
-    });
+    };
 
     displayLeagueInfo(continentCode, countryCode, "ALL");
 }
 
 // ================================================================
-// DISPLAY LEAGUE INFORMATION
+// DISPLAY LEAGUE INFO + COMPETITION INFO
 // ================================================================
 function displayLeagueInfo(continentCode, countryCode, leagueId) {
-
     const continentData = continentsCache[continentCode];
-    if (!continentData || !Array.isArray(continentData.countries)) return;
+    if (!continentData) return;
 
     let leagues = [];
 
     if (countryCode === "ALL") {
-        continentData.countries.forEach(country => {
-            if (Array.isArray(country.leagues)) leagues.push(...country.leagues);
-        });
+        if (Array.isArray(continentData.countries)) {
+            continentData.countries.forEach(c => {
+                if (Array.isArray(c.leagues)) leagues.push(...c.leagues);
+            });
+        }
     } else {
-        const country = continentData.countries.find(c => c.country_code === countryCode);
-        if (country && Array.isArray(country.leagues)) leagues = [...country.leagues];
+        const country = Array.isArray(continentData.countries)
+            ? continentData.countries.find(c => c.country_code === countryCode)
+            : null;
+        if (country && Array.isArray(country.leagues)) {
+            leagues = [...country.leagues];
+        }
     }
 
     leagues = leagues.filter(l => l.league_id && l.display_name);
 
-    const out = document.getElementById("leagueOutput");
-    if (!out) return;
+    const leagueInfoEl = document.getElementById("leagueInfoContainer");
+    const competitionInfoEl = document.getElementById("competitionInfoContainer");
+
+    if (!leagueInfoEl) return;
 
     if (leagueId === "ALL") {
-        out.innerHTML = "<p>Select a league to view info.</p>";
-    } else {
-        const league = leagues.find(l => l.league_id === leagueId);
-        if (league) {
-            out.innerHTML = `
-                <h3>${league.display_name}</h3>
-                <p><strong>League ID:</strong> ${league.league_id}</p>
-                <p><strong>Tier:</strong> ${league.tier || "N/A"}</p>
+        leagueInfoEl.innerHTML = `<p>Select a league to view info.</p>`;
+
+        if (competitionInfoEl) {
+            let totalLeagues = 0;
+            const leagueTiers = [];
+
+            if (Array.isArray(continentData.countries)) {
+                continentData.countries.forEach(c => {
+                    if (Array.isArray(c.leagues)) {
+                        totalLeagues += c.leagues.length;
+                        c.leagues.forEach(l => {
+                            if (typeof l.tier === "number") leagueTiers.push(l.tier);
+                        });
+                    }
+                });
+            }
+
+            const minTier = leagueTiers.length ? Math.min(...leagueTiers) : null;
+            const maxTier = leagueTiers.length ? Math.max(...leagueTiers) : null;
+            const scope = (continentCode === "INT" ? "International / Global" : "Continental");
+
+            competitionInfoEl.innerHTML = `
+                <p><strong>Region:</strong> ${continentData.continent_name || continentCode}</p>
+                <p><strong>Scope:</strong> ${scope}</p>
+                <p><strong>Countries:</strong> ${Array.isArray(continentData.countries) ? continentData.countries.length : 0}</p>
+                <p><strong>Leagues:</strong> ${totalLeagues}</p>
+                <p><strong>Tier Range:</strong> ${minTier !== null ? `${minTier}–${maxTier}` : "N/A"}</p>
             `;
         }
+
+        return;
+    }
+
+    const league = leagues.find(l => l.league_id === leagueId);
+    if (!league) {
+        leagueInfoEl.innerHTML = `<p>League not found.</p>`;
+        if (competitionInfoEl) {
+            competitionInfoEl.innerHTML = `<p>Select a league or region to view competition details.</p>`;
+        }
+        return;
+    }
+
+    leagueInfoEl.innerHTML = `
+        <p><strong>Name:</strong> ${league.display_name}</p>
+        <p><strong>ID:</strong> ${league.league_id}</p>
+        <p><strong>Tier:</strong> ${league.tier || "N/A"}</p>
+        <p><strong>Betting:</strong> ${
+            league.betting && league.betting.availability ? "Available" : "Unknown / No"
+        }</p>
+    `;
+
+    if (competitionInfoEl) {
+        const scope = (continentCode === "INT" ? "International / Global" : "Continental");
+        const type = inferCompetitionType(league.display_name);
+        const importance = typeof league.importance_score === "number"
+            ? league.importance_score
+            : null;
+        const betting = league.betting && league.betting.availability ? "Available" : "Unknown / No";
+        const regionName = continentData.continent_name || continentCode;
+
+        competitionInfoEl.innerHTML = `
+            <p><strong>Competition:</strong> ${league.display_name}</p>
+            <p><strong>Type:</strong> ${type}</p>
+            <p><strong>Region:</strong> ${regionName}</p>
+            <p><strong>Scope:</strong> ${scope}</p>
+            <p><strong>Tier:</strong> ${league.tier || "N/A"}</p>
+            <p><strong>Importance:</strong> ${importance !== null ? importance : "N/A"}</p>
+            <p><strong>Betting:</strong> ${betting}</p>
+        `;
     }
 }
+
 // ================================================================
 // INITIALIZATION
-// - Loads continents.json
-// - Caches all data
-// - Starts UI chain
 // ================================================================
 async function initApp() {
-    try {
-        const data = await loadJSON("./data/continents.json");
-        if (!Array.isArray(data)) {
-            console.error("Invalid continents.json format");
-            return;
-        }
+    const data = await loadJSON("./data/continents.json");
+    if (!data || !Array.isArray(data)) {
+        console.error("Invalid continents.json");
+        return;
+    }
 
-        // Cache continents (EU, ASIA, AFRICA, etc.)
-        data.forEach(cont => {
+    data.forEach(cont => {
+        if (cont.continent_code) {
             continentsCache[cont.continent_code] = cont;
-        });
+        }
+    });
 
-        // Populate dropdowns with clean data
-        populateContinents(data);
+    populateContinents(data);
 
-    } catch (err) {
-        console.error("Init error:", err);
+    const footerYear = document.getElementById("footerYear");
+    if (footerYear) {
+        footerYear.textContent = new Date().getFullYear();
     }
 }
 
 // ================================================================
-// ON PAGE LOAD
+// BOOT
 // ================================================================
-document.addEventListener("DOMContentLoaded", () => {
-    initApp();
-});
+document.addEventListener("DOMContentLoaded", initApp);
