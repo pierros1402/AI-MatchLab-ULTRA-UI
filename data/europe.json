@@ -8,8 +8,10 @@
       "timezone": "Europe/Andorra",
       "region_cluster": "Europe_West",
       "leagues": [
-        { "league_id": "AND1", "display_name": "Primera Divisió", "tier": 1, "importance_score": 32, "betting": { "availability": true } },
-        { "league_id": "ANDC", "display_name": "Copa Constitució", "tier": 1, "importance_score": 20, "betting": { "availability": true } }
+        { "league_id": "Primera Divisió", "display_name": "Primera Divisió", "tier": 1 },
+        { "league_id": "Segona Divisió", "display_name": "Segona Divisió", "tier": 2 },
+        { "league_id": "Copa Constitució", "display_name": "Copa Constitució", "tier": 1 },
+        { "league_id": "Supercopa Andorrana", "display_name": "Supercopa Andorrana", "tier": 1 }
       ]
     },
     {
@@ -18,9 +20,12 @@
       "timezone": "Europe/Tirane",
       "region_cluster": "Europe_South",
       "leagues": [
-        { "league_id": "ALB1", "display_name": "Superliga", "tier": 1, "importance_score": 52, "betting": { "availability": true } },
-        { "league_id": "ALB2", "display_name": "Kategoria e Parë", "tier": 2, "importance_score": 28, "betting": { "availability": true } },
-        { "league_id": "ALBC", "display_name": "Albanian Cup", "tier": 1, "importance_score": 18, "betting": { "availability": true } }
+        { "league_id": "Kategoria Superiore", "display_name": "Kategoria Superiore", "tier": 1 },
+        { "league_id": "Kategoria e Parë", "display_name": "Kategoria e Parë", "tier": 2 },
+        { "league_id": "Kategoria e Dytë", "display_name": "Kategoria e Dytë", "tier": 3 },
+        { "league_id": "Kategoria e Tretë", "display_name": "Kategoria e Tretë", "tier": 4 },
+        { "league_id": "Kupa e Shqipërisë", "display_name": "Kupa e Shqipërisë", "tier": 1 },
+        { "league_id": "Superkupa e Shqipërisë", "display_name": "Superkupa e Shqipërisë", "tier": 1 }
       ]
     },
     {
@@ -29,8 +34,10 @@
       "timezone": "Asia/Yerevan",
       "region_cluster": "Europe_East",
       "leagues": [
-        { "league_id": "ARM1", "display_name": "Premier League", "tier": 1, "importance_score": 48, "betting": { "availability": true } },
-        { "league_id": "ARM2", "display_name": "First League", "tier": 2, "importance_score": 28, "betting": { "availability": true } }
+        { "league_id": "Armenian Premier League", "display_name": "Armenian Premier League", "tier": 1 },
+        { "league_id": "Armenian First League", "display_name": "Armenian First League", "tier": 2 },
+        { "league_id": "Armenian Cup", "display_name": "Armenian Cup", "tier": 1 },
+        { "league_id": "Armenian Supercup", "display_name": "Armenian Supercup", "tier": 1 }
       ]
     },
     {
@@ -39,9 +46,14 @@
       "timezone": "Europe/Vienna",
       "region_cluster": "Europe_Central",
       "leagues": [
-        { "league_id": "AUT1", "display_name": "Bundesliga", "tier": 1, "importance_score": 78, "betting": { "availability": true } },
-        { "league_id": "AUT2", "display_name": "2. Liga", "tier": 2, "importance_score": 50, "betting": { "availability": true } },
-        { "league_id": "AUTC", "display_name": "ÖFB Cup", "tier": 1, "importance_score": 42, "betting": { "availability": true } }
+        { "league_id": "Bundesliga", "display_name": "Bundesliga", "tier": 1 },
+        { "league_id": "2. Liga", "display_name": "2. Liga", "tier": 2 },
+
+        { "league_id": "Regionalliga Ost", "display_name": "Regionalliga Ost", "tier": 3 },
+        { "league_id": "Regionalliga Mitte", "display_name": "Regionalliga Mitte", "tier": 3 },
+        { "league_id": "Regionalliga West", "display_name": "Regionalliga West", "tier": 3 },
+
+        { "league_id": "ÖFB Cup", "display_name": "ÖFB Cup", "tier": 1 }
       ]
     },
     {
@@ -50,8 +62,9 @@
       "timezone": "Asia/Baku",
       "region_cluster": "Europe_East",
       "leagues": [
-        { "league_id": "AZE1", "display_name": "Premier League", "tier": 1, "importance_score": 54, "betting": { "availability": true } },
-        { "league_id": "AZEC", "display_name": "Azerbaijan Cup", "tier": 1, "importance_score": 30, "betting": { "availability": true } }
+        { "league_id": "Premyer Liqa", "display_name": "Premyer Liqa", "tier": 1 },
+        { "league_id": "Azerbaijan First Division", "display_name": "Azerbaijan First Division", "tier": 2 },
+        { "league_id": "Azerbaijan Cup", "display_name": "Azerbaijan Cup", "tier": 1 }
       ]
     },
     {
@@ -60,9 +73,15 @@
       "timezone": "Europe/Brussels",
       "region_cluster": "Europe_West",
       "leagues": [
-        { "league_id": "BEL1", "display_name": "Pro League", "tier": 1, "importance_score": 82, "betting": { "availability": true } },
-        { "league_id": "BEL2", "display_name": "Challenger Pro League", "tier": 2, "importance_score": 58, "betting": { "availability": true } },
-        { "league_id": "BELC", "display_name": "Belgian Cup", "tier": 1, "importance_score": 46, "betting": { "availability": true } }
+        { "league_id": "Pro League", "display_name": "Pro League", "tier": 1 },
+        { "league_id": "Challenger Pro League", "display_name": "Challenger Pro League", "tier": 2 },
+
+        { "league_id": "National Division 1", "display_name": "National Division 1", "tier": 3 },
+        { "league_id": "Division 2 ACFF", "display_name": "Division 2 ACFF", "tier": 4 },
+        { "league_id": "Division 2 VV", "display_name": "Division 2 VV", "tier": 4 },
+
+        { "league_id": "Belgian Cup", "display_name": "Belgian Cup", "tier": 1 },
+        { "league_id": "Belgian Super Cup", "display_name": "Belgian Super Cup", "tier": 1 }
       ]
     },
     {
@@ -71,8 +90,14 @@
       "timezone": "Europe/Sarajevo",
       "region_cluster": "Europe_South",
       "leagues": [
-        { "league_id": "BIH1", "display_name": "Premier Liga", "tier": 1, "importance_score": 46, "betting": { "availability": true } },
-        { "league_id": "BIHC", "display_name": "Cup of Bosnia", "tier": 1, "importance_score": 28, "betting": { "availability": true } }
+        { "league_id": "Premier Liga", "display_name": "Premier Liga", "tier": 1 },
+
+        { "league_id": "Prva Liga FBiH", "display_name": "Prva Liga FBiH", "tier": 2 },
+        { "league_id": "Prva Liga RS", "display_name": "Prva Liga RS", "tier": 2 },
+
+        { "league_id": "Druga Liga (Group Centers)", "display_name": "Druga Liga (Group Centers)", "tier": 3 },
+
+        { "league_id": "Bosnian Cup", "display_name": "Bosnian Cup", "tier": 1 }
       ]
     },
     {
@@ -81,9 +106,16 @@
       "timezone": "Europe/Sofia",
       "region_cluster": "Europe_East",
       "leagues": [
-        { "league_id": "BUL1", "display_name": "First League", "tier": 1, "importance_score": 64, "betting": { "availability": true } },
-        { "league_id": "BUL2", "display_name": "Second League", "tier": 2, "importance_score": 36, "betting": { "availability": true } },
-        { "league_id": "BULC", "display_name": "Bulgarian Cup", "tier": 1, "importance_score": 38, "betting": { "availability": true } }
+        { "league_id": "First Professional Football League", "display_name": "First Professional Football League", "tier": 1 },
+        { "league_id": "Second Professional Football League", "display_name": "Second Professional Football League", "tier": 2 },
+
+        { "league_id": "Third League Northwest", "display_name": "Third League Northwest", "tier": 3 },
+        { "league_id": "Third League Northeast", "display_name": "Third League Northeast", "tier": 3 },
+        { "league_id": "Third League Southwest", "display_name": "Third League Southwest", "tier": 3 },
+        { "league_id": "Third League Southeast", "display_name": "Third League Southeast", "tier": 3 },
+
+        { "league_id": "Bulgarian Cup", "display_name": "Bulgarian Cup", "tier": 1 },
+        { "league_id": "Bulgarian Supercup", "display_name": "Bulgarian Supercup", "tier": 1 }
       ]
     },
     {
@@ -92,9 +124,11 @@
       "timezone": "Europe/Minsk",
       "region_cluster": "Europe_East",
       "leagues": [
-        { "league_id": "BLR1", "display_name": "Vysshaya Liga", "tier": 1, "importance_score": 56, "betting": { "availability": true } },
-        { "league_id": "BLR2", "display_name": "Pershaya Liga", "tier": 2, "importance_score": 34, "betting": { "availability": true } },
-        { "league_id": "BLRC", "display_name": "Belarusian Cup", "tier": 1, "importance_score": 26, "betting": { "availability": true } }
+        { "league_id": "Vysshaya Liga", "display_name": "Vysshaya Liga", "tier": 1 },
+        { "league_id": "Pershaya Liga", "display_name": "Pershaya Liga", "tier": 2 },
+        { "league_id": "Vtoraya Liga", "display_name": "Vtoraya Liga", "tier": 3 },
+        { "league_id": "Belarusian Cup", "display_name": "Belarusian Cup", "tier": 1 },
+        { "league_id": "Belarusian Super Cup", "display_name": "Belarusian Super Cup", "tier": 1 }
       ]
     },
     {
@@ -103,9 +137,11 @@
       "timezone": "Europe/Zagreb",
       "region_cluster": "Europe_South",
       "leagues": [
-        { "league_id": "CRO1", "display_name": "HNL", "tier": 1, "importance_score": 78, "betting": { "availability": true } },
-        { "league_id": "CRO2", "display_name": "First NL", "tier": 2, "importance_score": 42, "betting": { "availability": true } },
-        { "league_id": "CROC", "display_name": "Croatian Cup", "tier": 1, "importance_score": 36, "betting": { "availability": true } }
+        { "league_id": "HNL", "display_name": "HNL (First Division)", "tier": 1 },
+        { "league_id": "Prva NL", "display_name": "Prva NL (Second Division)", "tier": 2 },
+        { "league_id": "Druga NL", "display_name": "Druga NL (Third Division)", "tier": 3 },
+        { "league_id": "Croatian Cup", "display_name": "Croatian Cup", "tier": 1 },
+        { "league_id": "Croatian Super Cup", "display_name": "Croatian Super Cup", "tier": 1 }
       ]
     },
     {
@@ -114,8 +150,11 @@
       "timezone": "Asia/Nicosia",
       "region_cluster": "Europe_South",
       "leagues": [
-        { "league_id": "CYP1", "display_name": "First Division", "tier": 1, "importance_score": 66, "betting": { "availability": true } },
-        { "league_id": "CYPC", "display_name": "Cypriot Cup", "tier": 1, "importance_score": 38, "betting": { "availability": true } }
+        { "league_id": "Cyta Championship", "display_name": "Cyta Championship (First Division)", "tier": 1 },
+        { "league_id": "Cypriot Second Division", "display_name": "Cypriot Second Division", "tier": 2 },
+        { "league_id": "Cypriot Third Division", "display_name": "Cypriot Third Division", "tier": 3 },
+        { "league_id": "Cypriot Cup", "display_name": "Cypriot Cup", "tier": 1 },
+        { "league_id": "Cypriot Super Cup", "display_name": "Cypriot Super Cup", "tier": 1 }
       ]
     },
     {
@@ -124,9 +163,12 @@
       "timezone": "Europe/Prague",
       "region_cluster": "Europe_Central",
       "leagues": [
-        { "league_id": "CZE1", "display_name": "Fortuna Liga", "tier": 1, "importance_score": 72, "betting": { "availability": true } },
-        { "league_id": "CZE2", "display_name": "National Football League", "tier": 2, "importance_score": 44, "betting": { "availability": true } },
-        { "league_id": "CZEC", "display_name": "Czech Cup", "tier": 1, "importance_score": 30, "betting": { "availability": true } }
+        { "league_id": "Fortuna Liga", "display_name": "Fortuna Liga", "tier": 1 },
+        { "league_id": "FNL", "display_name": "Fortuna Národní Liga (FNL)", "tier": 2 },
+        { "league_id": "ČFL A", "display_name": "ČFL A", "tier": 3 },
+        { "league_id": "ČFL B", "display_name": "ČFL B", "tier": 3 },
+        { "league_id": "MSFL", "display_name": "MSFL (Moravian–Silesian Football League)", "tier": 3 },
+        { "league_id": "MOL Cup", "display_name": "MOL Cup", "tier": 1 }
       ]
     },
     {
@@ -135,9 +177,17 @@
       "timezone": "Europe/Copenhagen",
       "region_cluster": "Europe_North",
       "leagues": [
-        { "league_id": "DEN1", "display_name": "Superliga", "tier": 1, "importance_score": 84, "betting": { "availability": true } },
-        { "league_id": "DEN2", "display_name": "1st Division", "tier": 2, "importance_score": 52, "betting": { "availability": true } },
-        { "league_id": "DENC", "display_name": "Danish Cup", "tier": 1, "importance_score": 46, "betting": { "availability": true } }
+        { "league_id": "Superliga", "display_name": "Superliga", "tier": 1 },
+        { "league_id": "1st Division", "display_name": "1st Division", "tier": 2 },
+        { "league_id": "2nd Division", "display_name": "2nd Division", "tier": 3 },
+
+        { "league_id": "Denmark Series Group 1", "display_name": "Denmark Series Group 1", "tier": 4 },
+        { "league_id": "Denmark Series Group 2", "display_name": "Denmark Series Group 2", "tier": 4 },
+        { "league_id": "Denmark Series Group 3", "display_name": "Denmark Series Group 3", "tier": 4 },
+        { "league_id": "Denmark Series Group 4", "display_name": "Denmark Series Group 4", "tier": 4 },
+
+        { "league_id": "DBU Pokalen", "display_name": "DBU Pokalen", "tier": 1 },
+        { "league_id": "Danish Super Cup", "display_name": "Danish Super Cup", "tier": 1 }
       ]
     },
     {
@@ -146,19 +196,30 @@
       "timezone": "Europe/Tallinn",
       "region_cluster": "Europe_North",
       "leagues": [
-        { "league_id": "EST1", "display_name": "Meistriliiga", "tier": 1, "importance_score": 38, "betting": { "availability": true } },
-        { "league_id": "EST2", "display_name": "Esiliiga", "tier": 2, "importance_score": 22, "betting": { "availability": true } },
-        { "league_id": "ESTC", "display_name": "Estonian Cup", "tier": 1, "importance_score": 16, "betting": { "availability": true } }
+        { "league_id": "Meistriliiga", "display_name": "Meistriliiga", "tier": 1 },
+        { "league_id": "Esiliiga", "display_name": "Esiliiga", "tier": 2 },
+        { "league_id": "Esiliiga B", "display_name": "Esiliiga B", "tier": 3 },
+
+        { "league_id": "II Liiga North/East", "display_name": "II Liiga North/East", "tier": 4 },
+        { "league_id": "II Liiga South/West", "display_name": "II Liiga South/West", "tier": 4 },
+
+        { "league_id": "Estonian Cup", "display_name": "Estonian Cup", "tier": 1 },
+        { "league_id": "Estonian Supercup", "display_name": "Estonian Supercup", "tier": 1 }
       ]
     },
     {
+      "country_code": "FO",
       "country_code": "FO",
       "country_name": "Faroe Islands",
       "timezone": "Atlantic/Faroe",
       "region_cluster": "Europe_North",
       "leagues": [
-        { "league_id": "FRO1", "display_name": "Premier League", "tier": 1, "importance_score": 22, "betting": { "availability": true } },
-        { "league_id": "FROC", "display_name": "Faroe Islands Cup", "tier": 1, "importance_score": 14, "betting": { "availability": true } }
+        { "league_id": "Betri Deildin", "display_name": "Betri Deildin", "tier": 1 },
+        { "league_id": "1. deild", "display_name": "1. deild", "tier": 2 },
+        { "league_id": "2. deild", "display_name": "2. deild", "tier": 3 },
+        { "league_id": "3. deild", "display_name": "3. deild", "tier": 4 },
+
+        { "league_id": "Faroe Islands Cup", "display_name": "Faroe Islands Cup", "tier": 1 }
       ]
     },
     {
@@ -167,9 +228,15 @@
       "timezone": "Europe/Helsinki",
       "region_cluster": "Europe_North",
       "leagues": [
-        { "league_id": "FIN1", "display_name": "Veikkausliiga", "tier": 1, "importance_score": 54, "betting": { "availability": true } },
-        { "league_id": "FIN2", "display_name": "Ykkönen", "tier": 2, "importance_score": 34, "betting": { "availability": true } },
-        { "league_id": "FINC", "display_name": "Suomen Cup", "tier": 1, "importance_score": 26, "betting": { "availability": true } }
+        { "league_id": "Veikkausliiga", "display_name": "Veikkausliiga", "tier": 1 },
+        { "league_id": "Ykkönen", "display_name": "Ykkönen", "tier": 2 },
+        { "league_id": "Ykkösliiga", "display_name": "Ykkösliiga", "tier": 3 },
+
+        { "league_id": "Kakkonen Group A", "display_name": "Kakkonen Group A", "tier": 4 },
+        { "league_id": "Kakkonen Group B", "display_name": "Kakkonen Group B", "tier": 4 },
+        { "league_id": "Kakkonen Group C", "display_name": "Kakkonen Group C", "tier": 4 },
+
+        { "league_id": "Suomen Cup", "display_name": "Suomen Cup", "tier": 1 }
       ]
     },
     {
@@ -178,9 +245,26 @@
       "timezone": "Europe/Paris",
       "region_cluster": "Europe_West",
       "leagues": [
-        { "league_id": "FRA1", "display_name": "Ligue 1", "tier": 1, "importance_score": 96, "betting": { "availability": true } },
-        { "league_id": "FRA2", "display_name": "Ligue 2", "tier": 2, "importance_score": 82, "betting": { "availability": true } },
-        { "league_id": "FRAC", "display_name": "Coupe de France", "tier": 1, "importance_score": 72, "betting": { "availability": true } }
+        { "league_id": "Ligue 1", "display_name": "Ligue 1", "tier": 1 },
+        { "league_id": "Ligue 2", "display_name": "Ligue 2", "tier": 2 },
+
+        { "league_id": "Championnat National", "display_name": "Championnat National", "tier": 3 },
+        { "league_id": "National 2 - Group A", "display_name": "National 2 - Group A", "tier": 4 },
+        { "league_id": "National 2 - Group B", "display_name": "National 2 - Group B", "tier": 4 },
+        { "league_id": "National 2 - Group C", "display_name": "National 2 - Group C", "tier": 4 },
+        { "league_id": "National 2 - Group D", "display_name": "National 2 - Group D", "tier": 4 },
+
+        { "league_id": "National 3 - Group A", "display_name": "National 3 - Group A", "tier": 5 },
+        { "league_id": "National 3 - Group B", "display_name": "National 3 - Group B", "tier": 5 },
+        { "league_id": "National 3 - Group C", "display_name": "National 3 - Group C", "tier": 5 },
+        { "league_id": "National 3 - Group D", "display_name": "National 3 - Group D", "tier": 5 },
+        { "league_id": "National 3 - Group E", "display_name": "National 3 - Group E", "tier": 5 },
+        { "league_id": "National 3 - Group F", "display_name": "National 3 - Group F", "tier": 5 },
+        { "league_id": "National 3 - Group H", "display_name": "National 3 - Group H", "tier": 5 },
+        { "league_id": "National 3 - Group I", "display_name": "National 3 - Group I", "tier": 5 },
+
+        { "league_id": "Coupe de France", "display_name": "Coupe de France", "tier": 1 },
+        { "league_id": "Trophée des Champions", "display_name": "Trophée des Champions", "tier": 1 }
       ]
     },
     {
@@ -189,9 +273,10 @@
       "timezone": "Asia/Tbilisi",
       "region_cluster": "Europe_East",
       "leagues": [
-        { "league_id": "GEO1", "display_name": "Erovnuli Liga", "tier": 1, "importance_score": 50, "betting": { "availability": true } },
-        { "league_id": "GEO2", "display_name": "Erovnuli Liga 2", "tier": 2, "importance_score": 28, "betting": { "availability": true } },
-        { "league_id": "GEOC", "display_name": "Georgian Cup", "tier": 1, "importance_score": 20, "betting": { "availability": true } }
+        { "league_id": "Erovnuli Liga", "display_name": "Erovnuli Liga", "tier": 1 },
+        { "league_id": "Erovnuli Liga 2", "display_name": "Erovnuli Liga 2", "tier": 2 },
+        { "league_id": "Liga 3", "display_name": "Liga 3", "tier": 3 },
+        { "league_id": "Georgian Cup", "display_name": "Georgian Cup", "tier": 1 }
       ]
     },
     {
@@ -200,10 +285,44 @@
       "timezone": "Europe/Berlin",
       "region_cluster": "Europe_Central",
       "leagues": [
-        { "league_id": "GER1", "display_name": "Bundesliga", "tier": 1, "importance_score": 100, "betting": { "availability": true } },
-        { "league_id": "GER2", "display_name": "2. Bundesliga", "tier": 2, "importance_score": 88, "betting": { "availability": true } },
-        { "league_id": "GER3", "display_name": "3. Liga", "tier": 3, "importance_score": 64, "betting": { "availability": true } },
-        { "league_id": "GERC", "display_name": "DFB-Pokal", "tier": 1, "importance_score": 86, "betting": { "availability": true } }
+        { "league_id": "Bundesliga", "display_name": "Bundesliga", "tier": 1 },
+        { "league_id": "2. Bundesliga", "display_name": "2. Bundesliga", "tier": 2 },
+        { "league_id": "3. Liga", "display_name": "3. Liga", "tier": 3 },
+
+        { "league_id": "Regionalliga Nord", "display_name": "Regionalliga Nord", "tier": 4 },
+        { "league_id": "Regionalliga Südwest", "display_name": "Regionalliga Südwest", "tier": 4 },
+        { "league_id": "Regionalliga Bayern", "display_name": "Regionalliga Bayern", "tier": 4 },
+        { "league_id": "Regionalliga West", "display_name": "Regionalliga West", "tier": 4 },
+        { "league_id": "Regionalliga Nordost", "display_name": "Regionalliga Nordost", "tier": 4 },
+
+        { "league_id": "Oberliga Baden-Württemberg", "display_name": "Oberliga Baden-Württemberg", "tier": 5 },
+        { "league_id": "Oberliga Niederrhein", "display_name": "Oberliga Niederrhein", "tier": 5 },
+        { "league_id": "Oberliga Hessen", "display_name": "Oberliga Hessen", "tier": 5 },
+        { "league_id": "Oberliga Rheinland-Pfalz/Saar", "display_name": "Oberliga Rheinland-Pfalz/Saar", "tier": 5 },
+        { "league_id": "Oberliga Westfalen", "display_name": "Oberliga Westfalen", "tier": 5 },
+        { "league_id": "Oberliga Niedersachsen", "display_name": "Oberliga Niedersachsen", "tier": 5 },
+        { "league_id": "Oberliga Schleswig-Holstein", "display_name": "Oberliga Schleswig-Holstein", "tier": 5 },
+        { "league_id": "Oberliga Bremen", "display_name": "Oberliga Bremen", "tier": 5 },
+
+        { "league_id": "Verbandsliga Nordbaden", "display_name": "Verbandsliga Nordbaden", "tier": 6 },
+        { "league_id": "Verbandsliga Württemberg", "display_name": "Verbandsliga Württemberg", "tier": 6 },
+        { "league_id": "Verbandsliga Mittelrhein", "display_name": "Verbandsliga Mittelrhein", "tier": 6 },
+        { "league_id": "Verbandsliga Niederrhein", "display_name": "Verbandsliga Niederrhein", "tier": 6 },
+        { "league_id": "Verbandsliga Berlin", "display_name": "Verbandsliga Berlin", "tier": 6 },
+
+        { "league_id": "Landesliga Bayern Nordost", "display_name": "Landesliga Bayern Nordost", "tier": 7 },
+        { "league_id": "Landesliga Bayern Nordwest", "display_name": "Landesliga Bayern Nordwest", "tier": 7 },
+        { "league_id": "Landesliga Bayern Mitte", "display_name": "Landesliga Bayern Mitte", "tier": 7 },
+        { "league_id": "Landesliga Hamburg", "display_name": "Landesliga Hamburg", "tier": 7 },
+
+        { "league_id": "Bezirksliga Bayern Oberfranken", "display_name": "Bezirksliga Bayern Oberfranken", "tier": 8 },
+        { "league_id": "Bezirksliga Niedersachsen Staffel 1", "display_name": "Bezirksliga Niedersachsen Staffel 1", "tier": 8 },
+
+        { "league_id": "Kreisliga A", "display_name": "Kreisliga A", "tier": 9 },
+        { "league_id": "Kreisliga B", "display_name": "Kreisliga B", "tier": 10 },
+
+        { "league_id": "DFB-Pokal", "display_name": "DFB-Pokal", "tier": 1 },
+        { "league_id": "DFL-Supercup", "display_name": "DFL-Supercup", "tier": 1 }
       ]
     },
     {
@@ -212,8 +331,9 @@
       "timezone": "Europe/Gibraltar",
       "region_cluster": "Europe_West",
       "leagues": [
-        { "league_id": "GIB1", "display_name": "Gibraltar National League", "tier": 1, "importance_score": 28, "betting": { "availability": true } },
-        { "league_id": "GIBC", "display_name": "Rock Cup", "tier": 1, "importance_score": 14, "betting": { "availability": true } }
+        { "league_id": "Gibraltar National League", "display_name": "Gibraltar National League", "tier": 1 },
+        { "league_id": "Gibraltar Intermediate League", "display_name": "Gibraltar Intermediate League", "tier": 2 },
+        { "league_id": "Rock Cup", "display_name": "Rock Cup", "tier": 1 }
       ]
     },
     {
@@ -222,9 +342,16 @@
       "timezone": "Europe/Athens",
       "region_cluster": "Europe_South",
       "leagues": [
-        { "league_id": "GRE1", "display_name": "Super League 1", "tier": 1, "importance_score": 86, "betting": { "availability": true } },
-        { "league_id": "GRE2", "display_name": "Super League 2", "tier": 2, "importance_score": 52, "betting": { "availability": true } },
-        { "league_id": "GREC", "display_name": "Greek Cup", "tier": 1, "importance_score": 48, "betting": { "availability": true } }
+        { "league_id": "Super League 1", "display_name": "Super League 1", "tier": 1 },
+        { "league_id": "Super League 2", "display_name": "Super League 2", "tier": 2 },
+
+        { "league_id": "Gamma Ethniki Group A", "display_name": "Gamma Ethniki Group A", "tier": 3 },
+        { "league_id": "Gamma Ethniki Group B", "display_name": "Gamma Ethniki Group B", "tier": 3 },
+        { "league_id": "Gamma Ethniki Group C", "display_name": "Gamma Ethniki Group C", "tier": 3 },
+        { "league_id": "Gamma Ethniki Group D", "display_name": "Gamma Ethniki Group D", "tier": 3 },
+
+        { "league_id": "Greek Cup", "display_name": "Greek Cup", "tier": 1 },
+        { "league_id": "Greek Super Cup", "display_name": "Greek Super Cup", "tier": 1 }
       ]
     },
     {
@@ -233,327 +360,541 @@
       "timezone": "Europe/Budapest",
       "region_cluster": "Europe_Central",
       "leagues": [
-        { "league_id": "HUN1", "display_name": "NB I", "tier": 1, "importance_score": 66, "betting": { "availability": true } },
-        { "league_id": "HUN2", "display_name": "NB II", "tier": 2, "importance_score": 40, "betting": { "availability": true } },
-        { "league_id": "HUNC", "display_name": "Magyar Kupa", "tier": 1, "importance_score": 32, "betting": { "availability": true } }
+        { "league_id": "NB I", "display_name": "NB I", "tier": 1 },
+        { "league_id": "NB II", "display_name": "NB II", "tier": 2 },
+        { "league_id": "NB III East", "display_name": "NB III East", "tier": 3 },
+        { "league_id": "NB III West", "display_name": "NB III West", "tier": 3 },
+        { "league_id": "NB III South", "display_name": "NB III South", "tier": 3 },
+        { "league_id": "Magyar Kupa", "display_name": "Magyar Kupa", "tier": 1 }
+       ]
+  },
+  {
+    "country_code": "IS",
+    "country_name": "Iceland",
+    "timezone": "Atlantic/Reykjavik",
+    "region_cluster": "Europe_North",
+    "leagues": [
+      { "league_id": "Úrvalsdeild", "display_name": "Úrvalsdeild", "tier": 1 },
+      { "league_id": "1. deild", "display_name": "1. deild", "tier": 2 },
+      { "league_id": "2. deild", "display_name": "2. deild", "tier": 3 },
+      { "league_id": "3. deild", "display_name": "3. deild", "tier": 4 },
+      { "league_id": "4. deild", "display_name": "4. deild", "tier": 5 },
+      { "league_id": "Icelandic Cup", "display_name": "Icelandic Cup", "tier": 1 }
+    ]
+  },
+  {
+    "country_code": "IE",
+    "country_name": "Ireland",
+    "timezone": "Europe/Dublin",
+    "region_cluster": "Europe_West",
+    "leagues": [
+      { "league_id": "Premier Division", "display_name": "Premier Division", "tier": 1 },
+      { "league_id": "First Division", "display_name": "First Division", "tier": 2 },
+      { "league_id": "FAI Cup", "display_name": "FAI Cup", "tier": 1 },
+      { "league_id": "President’s Cup", "display_name": "President’s Cup", "tier": 1 }
+    ]
+  },
+  {
+    "country_code": "IL",
+    "country_name": "Israel",
+    "timezone": "Asia/Jerusalem",
+    "region_cluster": "Europe_East",
+    "leagues": [
+      { "league_id": "Ligat Ha'Al", "display_name": "Ligat Ha'Al", "tier": 1 },
+      { "league_id": "Liga Leumit", "display_name": "Liga Leumit", "tier": 2 },
+      { "league_id": "Liga Alef North", "display_name": "Liga Alef North", "tier": 3 },
+      { "league_id": "Liga Alef South", "display_name": "Liga Alef South", "tier": 3 },
+      { "league_id": "Liga Bet North A", "display_name": "Liga Bet North A", "tier": 4 },
+      { "league_id": "Liga Bet North B", "display_name": "Liga Bet North B", "tier": 4 },
+      { "league_id": "Liga Bet South A", "display_name": "Liga Bet South A", "tier": 4 },
+      { "league_id": "Liga Bet South B", "display_name": "Liga Bet South B", "tier": 4 },
+      { "league_id": "Israel State Cup", "display_name": "Israel State Cup", "tier": 1 },
+      { "league_id": "Israel Super Cup", "display_name": "Israel Super Cup", "tier": 1 }
+    ]
+  },
+  {
+    "country_code": "IT",
+    "country_name": "Italy",
+    "timezone": "Europe/Rome",
+    "region_cluster": "Europe_South",
+    "leagues": [
+      { "league_id": "Serie A", "display_name": "Serie A", "tier": 1 },
+      { "league_id": "Serie B", "display_name": "Serie B", "tier": 2 },
+      { "league_id": "Serie C - Girone A", "display_name": "Serie C - Girone A", "tier": 3 },
+      { "league_id": "Serie C - Girone B", "display_name": "Serie C - Girone B", "tier": 3 },
+      { "league_id": "Serie C - Girone C", "display_name": "Serie C - Girone C", "tier": 3 },
+
+      { "league_id": "Serie D - Girone A", "display_name": "Serie D - Girone A", "tier": 4 },
+      { "league_id": "Serie D - Girone B", "display_name": "Serie D - Girone B", "tier": 4 },
+      { "league_id": "Serie D - Girone C", "display_name": "Serie D - Girone C", "tier": 4 },
+      { "league_id": "Serie D - Girone D", "display_name": "Serie D - Girone D", "tier": 4 },
+      { "league_id": "Serie D - Girone E", "display_name": "Serie D - Girone E", "tier": 4 },
+      { "league_id": "Serie D - Girone F", "display_name": "Serie D - Girone F", "tier": 4 },
+      { "league_id": "Serie D - Girone G", "display_name": "Serie D - Girone G", "tier": 4 },
+      { "league_id": "Serie D - Girone H", "display_name": "Serie D - Girone H", "tier": 4 },
+      { "league_id": "Serie D - Girone I", "display_name": "Serie D - Girone I", "tier": 4 },
+
+      { "league_id": "Eccellenza Abruzzo", "display_name": "Eccellenza Abruzzo", "tier": 5 },
+      { "league_id": "Eccellenza Lazio", "display_name": "Eccellenza Lazio", "tier": 5 },
+      { "league_id": "Eccellenza Lombardia A", "display_name": "Eccellenza Lombardia A", "tier": 5 },
+      { "league_id": "Eccellenza Lombardia B", "display_name": "Eccellenza Lombardia B", "tier": 5 },
+      { "league_id": "Eccellenza Piemonte-Valle d'Aosta", "display_name": "Eccellenza Piemonte-Valle d'Aosta", "tier": 5 },
+      { "league_id": "Eccellenza Sicilia A", "display_name": "Eccellenza Sicilia A", "tier": 5 },
+      { "league_id": "Eccellenza Sicilia B", "display_name": "Eccellenza Sicilia B", "tier": 5 },
+
+      { "league_id": "Promozione Abruzzo", "display_name": "Promozione Abruzzo", "tier": 6 },
+      { "league_id": "Promozione Lazio", "display_name": "Promozione Lazio", "tier": 6 },
+      { "league_id": "Promozione Lombardia", "display_name": "Promozione Lombardia", "tier": 6 },
+      { "league_id": "Promozione Sicilia", "display_name": "Promozione Sicilia", "tier": 6 },
+
+      { "league_id": "Prima Categoria Abruzzo", "display_name": "Prima Categoria Abruzzo", "tier": 7 },
+      { "league_id": "Prima Categoria Lazio", "display_name": "Prima Categoria Lazio", "tier": 7 },
+      { "league_id": "Prima Categoria Lombardia", "display_name": "Prima Categoria Lombardia", "tier": 7 },
+
+      { "league_id": "Seconda Categoria Abruzzo", "display_name": "Seconda Categoria Abruzzo", "tier": 8 },
+      { "league_id": "Seconda Categoria Lazio", "display_name": "Seconda Categoria Lazio", "tier": 8 },
+      { "league_id": "Seconda Categoria Lombardia", "display_name": "Seconda Categoria Lombardia", "tier": 8 },
+
+      { "league_id": "Terza Categoria Abruzzo", "display_name": "Terza Categoria Abruzzo", "tier": 9 },
+      { "league_id": "Terza Categoria Lazio", "display_name": "Terza Categoria Lazio", "tier": 9 },
+      { "league_id": "Terza Categoria Lombardia", "display_name": "Terza Categoria Lombardia", "tier": 9 },
+
+      { "league_id": "Coppa Italia", "display_name": "Coppa Italia", "tier": 1 },
+      { "league_id": "Supercoppa Italiana", "display_name": "Supercoppa Italiana", "tier": 1 }
+    ]
+  },
+  {
+    "country_code": "LV",
+    "country_name": "Latvia",
+    "timezone": "Europe/Riga",
+    "region_cluster": "Europe_North",
+    "leagues": [
+      { "league_id": "Virsliga", "display_name": "Virsliga", "tier": 1 },
+      { "league_id": "1. Liga", "display_name": "1. Liga", "tier": 2 },
+      { "league_id": "2. Liga", "display_name": "2. Liga", "tier": 3 },
+      { "league_id": "Latvian Cup", "display_name": "Latvian Cup", "tier": 1 }
+    ]
+  },
+  {
+    "country_code": "LT",
+    "country_name": "Lithuania",
+    "timezone": "Europe/Vilnius",
+    "region_cluster": "Europe_North",
+    "leagues": [
+      { "league_id": "A Lyga", "display_name": "A Lyga", "tier": 1 },
+      { "league_id": "1 Lyga", "display_name": "1 Lyga", "tier": 2 },
+      { "league_id": "2 Lyga - Region 1", "display_name": "2 Lyga - Region 1", "tier": 3 },
+      { "league_id": "2 Lyga - Region 2", "display_name": "2 Lyga - Region 2", "tier": 3 },
+      { "league_id": "Lithuanian Cup", "display_name": "Lithuanian Cup", "tier": 1 }
+    ]
+  },
+  {
+    "country_code": "LU",
+    "country_name": "Luxembourg",
+    "timezone": "Europe/Luxembourg",
+    "region_cluster": "Europe_West",
+    "leagues": [
+      { "league_id": "National Division", "display_name": "National Division", "tier": 1 },
+      { "league_id": "Division of Honour", "display_name": "Division of Honour", "tier": 2 },
+      { "league_id": "1. Division", "display_name": "1. Division", "tier": 3 },
+      { "league_id": "Luxembourg Cup", "display_name": "Luxembourg Cup", "tier": 1 }
+    ]
+  },
+  {
+    "country_code": "MT",
+    "country_name": "Malta",
+    "timezone": "Europe/Malta",
+    "region_cluster": "Europe_South",
+    "leagues": [
+      { "league_id": "Premier League", "display_name": "Premier League", "tier": 1 },
+      { "league_id": "Challenge League", "display_name": "Challenge League", "tier": 2 },
+      { "league_id": "National Amateur League Group A", "display_name": "National Amateur League Group A", "tier": 3 },
+      { "league_id": "National Amateur League Group B", "display_name": "National Amateur League Group B", "tier": 3 },
+      { "league_id": "National Amateur League Group C", "display_name": "National Amateur League Group C", "tier": 3 },
+      { "league_id": "FA Trophy", "display_name": "FA Trophy", "tier": 1 },
+      { "league_id": "Super Cup", "display_name": "Super Cup", "tier": 1 }
+    ]
+  },
+  {
+    "country_code": "MD",
+    "country_name": "Moldova",
+    "timezone": "Europe/Chisinau",
+    "region_cluster": "Europe_East",
+    "leagues": [
+      { "league_id": "Super Liga", "display_name": "Super Liga", "tier": 1 },
+      { "league_id": "Liga 1", "display_name": "Liga 1", "tier": 2 },
+      { "league_id": "Liga 2", "display_name": "Liga 2", "tier": 3 },
+      { "league_id": "Moldovan Cup", "display_name": "Moldovan Cup", "tier": 1 },
+      { "league_id": "Moldovan Super Cup", "display_name": "Moldovan Super Cup", "tier": 1 }
+    ]
+  },
+  {
+    "country_code": "ME",
+    "country_name": "Montenegro",
+    "timezone": "Europe/Podgorica",
+    "region_cluster": "Europe_South",
+    "leagues": [
+      { "league_id": "First League", "display_name": "First League", "tier": 1 },
+      { "league_id": "Second League", "display_name": "Second League", "tier": 2 },
+      { "league_id": "Montenegrin Cup", "display_name": "Montenegrin Cup", "tier": 1 },
+      { "league_id": "Montenegrin Super Cup", "display_name": "Montenegrin Super Cup", "tier": 1 }
+    ]
+  },
+  {
+    "country_code": "NL",
+    "country_name": "Netherlands",
+    "timezone": "Europe/Amsterdam",
+    "region_cluster": "Europe_West",
+    "leagues": [
+      { "league_id": "Eredivisie", "display_name": "Eredivisie", "tier": 1 },
+      { "league_id": "Eerste Divisie", "display_name": "Eerste Divisie", "tier": 2 },
+      { "league_id": "Tweede Divisie", "display_name": "Tweede Divisie", "tier": 3 },
+      { "league_id": "Derde Divisie Saturday", "display_name": "Derde Divisie Saturday", "tier": 4 },
+      { "league_id": "Derde Divisie Sunday", "display_name": "Derde Divisie Sunday", "tier": 4 },
+      { "league_id": "Vierde Divisie A", "display_name": "Vierde Divisie A", "tier": 5 },
+      { "league_id": "Vierde Divisie B", "display_name": "Vierde Divisie B", "tier": 5 },
+      { "league_id": "Vierde Divisie C", "display_name": "Vierde Divisie C", "tier": 5 },
+      { "league_id": "Vierde Divisie D", "display_name": "Vierde Divisie D", "tier": 5 },
+      { "league_id": "KNVB Beker", "display_name": "KNVB Beker", "tier": 1 },
+      { "league_id": "Johan Cruijff Schaal", "display_name": "Johan Cruijff Schaal", "tier": 1 }
+    ]
+  },
+  {
+    "country_code": "MK",
+    "country_name": "North Macedonia",
+    "timezone": "Europe/Skopje",
+    "region_cluster": "Europe_South",
+    "leagues": [
+      { "league_id": "First League", "display_name": "First League", "tier": 1 },
+      { "league_id": "Second League East", "display_name": "Second League East", "tier": 2 },
+      { "league_id": "Second League West", "display_name": "Second League West", "tier": 2 },
+      { "league_id": "Macedonian Cup", "display_name": "Macedonian Cup", "tier": 1 }
+    ]
+  },
+  {
+    "country_code": "NO",
+    "country_name": "Norway",
+    "timezone": "Europe/Oslo",
+    "region_cluster": "Europe_North",
+    "leagues": [
+      { "league_id": "Eliteserien", "display_name": "Eliteserien", "tier": 1 },
+      { "league_id": "OBOS-ligaen", "display_name": "OBOS-ligaen", "tier": 2 },
+      { "league_id": "2. Divisjon Group 1", "display_name": "2. Divisjon Group 1", "tier": 3 },
+      { "league_id": "2. Divisjon Group 2", "display_name": "2. Divisjon Group 2", "tier": 3 },
+      { "league_id": "3. Divisjon - Group 1", "display_name": "3. Divisjon - Group 1", "tier": 4 },
+      { "league_id": "3. Divisjon - Group 2", "display_name": "3. Divisjon - Group 2", "tier": 4 },
+      { "league_id": "3. Divisjon - Group 3", "display_name": "3. Divisjon - Group 3", "tier": 4 },
+      { "league_id": "3. Divisjon - Group 4", "display_name": "3. Divisjon - Group 4", "tier": 4 },
+      { "league_id": "3. Divisjon - Group 5", "display_name": "3. Divisjon - Group 5", "tier": 4 },
+      { "league_id": "3. Divisjon - Group 6", "display_name": "3. Divisjon - Group 6", "tier": 4 },
+
+      { "league_id": "Norwegian Cup", "display_name": "Norwegian Cup", "tier": 1 }
+    ]
+  },
+  {
+    "country_code": "PL",
+    "country_name": "Poland",
+    "timezone": "Europe/Warsaw",
+    "region_cluster": "Europe_Central",
+    "leagues": [
+      { "league_id": "Ekstraklasa", "display_name": "Ekstraklasa", "tier": 1 },
+      { "league_id": "I Liga", "display_name": "I Liga", "tier": 2 },
+      { "league_id": "II Liga", "display_name": "II Liga", "tier": 3 },
+
+      { "league_id": "III Liga Group 1", "display_name": "III Liga Group 1", "tier": 4 },
+      { "league_id": "III Liga Group 2", "display_name": "III Liga Group 2", "tier": 4 },
+      { "league_id": "III Liga Group 3", "display_name": "III Liga Group 3", "tier": 4 },
+      { "league_id": "III Liga Group 4", "display_name": "III Liga Group 4", "tier": 4 },
+
+      { "league_id": "Polish Cup", "display_name": "Polish Cup", "tier": 1 },
+      { "league_id": "Polish Super Cup", "display_name": "Polish Super Cup", "tier": 1 }
+    ]
+  },
+  {
+    "country_code": "PT",
+    "country_name": "Portugal",
+    "timezone": "Europe/Lisbon",
+    "region_cluster": "Europe_South",
+    "leagues": [
+      { "league_id": "Primeira Liga", "display_name": "Primeira Liga", "tier": 1 },
+      { "league_id": "Liga Portugal 2", "display_name": "Liga Portugal 2", "tier": 2 },
+      { "league_id": "Liga 3", "display_name": "Liga 3", "tier": 3 },
+
+      { "league_id": "Campeonato de Portugal Série A", "display_name": "Campeonato de Portugal Série A", "tier": 4 },
+      { "league_id": "Campeonato de Portugal Série B", "display_name": "Campeonato de Portugal Série B", "tier": 4 },
+      { "league_id": "Campeonato de Portugal Série C", "display_name": "Campeonato de Portugal Série C", "tier": 4 },
+      { "league_id": "Campeonato de Portugal Série D", "display_name": "Campeonato de Portugal Série D", "tier": 4 },
+
+      { "league_id": "Taça de Portugal", "display_name": "Taça de Portugal", "tier": 1 },
+      { "league_id": "Supertaça Cândido de Oliveira", "display_name": "Supertaça Cândido de Oliveira", "tier": 1 }
+    ]
+  },
+  {
+    "country_code": "RO",
+    "country_name": "Romania",
+    "timezone": "Europe/Bucharest",
+    "region_cluster": "Europe_East",
+    "leagues": [
+      { "league_id": "Liga I", "display_name": "Liga I", "tier": 1 },
+      { "league_id": "Liga II", "display_name": "Liga II", "tier": 2 },
+      { "league_id": "Liga III Series 1", "display_name": "Liga III Series 1", "tier": 3 },
+      { "league_id": "Liga III Series 2", "display_name": "Liga III Series 2", "tier": 3 },
+      { "league_id": "Liga III Series 3", "display_name": "Liga III Series 3", "tier": 3 },
+      { "league_id": "Cupa României", "display_name": "Cupa României", "tier": 1 },
+      { "league_id": "Supercupa României", "display_name": "Supercupa României", "tier": 1 }
+    ]
+  },
+  {
+    "country_code": "RU",
+    "country_name": "Russia",
+    "timezone": "Europe/Moscow",
+    "region_cluster": "Europe_East",
+    "leagues": [
+      { "league_id": "Russian Premier League", "display_name": "Russian Premier League", "tier": 1 },
+      { "league_id": "Russian First League", "display_name": "Russian First League", "tier": 2 },
+      { "league_id": "Russian Second League Division A Group Gold", "display_name": "Russian Second League Division A Group Gold", "tier": 3 },
+      { "league_id": "Russian Second League Division A Group Silver", "display_name": "Russian Second League Division A Group Silver", "tier": 3 },
+      { "league_id": "Russian Cup", "display_name": "Russian Cup", "tier": 1 },
+      { "league_id": "Russian Super Cup", "display_name": "Russian Super Cup", "tier": 1 }
+    ]
+  },
+  {
+    "country_code": "SM",
+    "country_name": "San Marino",
+    "timezone": "Europe/San_Marino",
+    "region_cluster": "Europe_South",
+    "leagues": [
+      { "league_id": "Campionato Sammarinese", "display_name": "Campionato Sammarinese", "tier": 1 },
+      { "league_id": "Coppa Titano", "display_name": "Coppa Titano", "tier": 1 }
+    ]
+  },
+  {
+    "country_code": "RS",
+    "country_name": "Serbia",
+    "timezone": "Europe/Belgrade",
+    "region_cluster": "Europe_South",
+    "leagues": [
+      { "league_id": "SuperLiga", "display_name": "SuperLiga", "tier": 1 },
+      { "league_id": "Prva Liga", "display_name": "Prva Liga", "tier": 2 },
+      { "league_id": "Srpska Liga Belgrade", "display_name": "Srpska Liga Belgrade", "tier": 3 },
+      { "league_id": "Srpska Liga East", "display_name": "Srpska Liga East", "tier": 3 },
+      { "league_id": "Srpska Liga West", "display_name": "Srpska Liga West", "tier": 3 },
+      { "league_id": "Srpska Liga Vojvodina", "display_name": "Srpska Liga Vojvodina", "tier": 3 },
+      { "league_id": "Serbian Cup", "display_name": "Serbian Cup", "tier": 1 }
+    ]
+  },
+  {
+    "country_code": "SK",
+    "country_name": "Slovakia",
+    "timezone": "Europe/Bratislava",
+    "region_cluster": "Europe_Central",
+    "leagues": [
+      { "league_id": "Niké Liga", "display_name": "Niké Liga", "tier": 1 },
+      { "league_id": "2. Liga", "display_name": "2. Liga", "tier": 2 },
+      { "league_id": "3. Liga Bratislava", "display_name": "3. Liga Bratislava", "tier": 3 },
+      { "league_id": "3. Liga West", "display_name": "3. Liga West", "tier": 3 },
+      { "league_id": "3. Liga East", "display_name": "3. Liga East", "tier": 3 },
+      { "league_id": "Slovak Cup", "display_name": "Slovak Cup", "tier": 1 }
+    ]
+  },
+  {
+    "country_code": "SI",
+    "country_name": "Slovenia",
+    "timezone": "Europe/Ljubljana",
+    "region_cluster": "Europe_South",
+    "leagues": [
+      { "league_id": "PrvaLiga", "display_name": "PrvaLiga", "tier": 1 },
+      { "league_id": "2. SNL", "display_name": "2. SNL", "tier": 2 },
+      { "league_id": "3. SNL East", "display_name": "3. SNL East", "tier": 3 },
+      { "league_id": "3. SNL West", "display_name": "3. SNL West", "tier": 3 },
+      { "league_id": "Slovenian Cup", "display_name": "Slovenian Cup", "tier": 1 }
+    ]
+  },
+  {
+    "country_code": "ES",
+    "country_name": "Spain",
+    "timezone": "Europe/Madrid",
+    "region_cluster": "Europe_South",
+    "leagues": [
+      { "league_id": "LaLiga", "display_name": "LaLiga", "tier": 1 },
+      { "league_id": "LaLiga2", "display_name": "LaLiga2", "tier": 2 },
+
+      { "league_id": "Primera Federación Group 1", "display_name": "Primera Federación Group 1", "tier": 3 },
+      { "league_id": "Primera Federación Group 2", "display_name": "Primera Federación Group 2", "tier": 3 },
+
+      { "league_id": "Segunda Federación Group 1", "display_name": "Segunda Federación Group 1", "tier": 4 },
+      { "league_id": "Segunda Federación Group 2", "display_name": "Segunda Federación Group 2", "tier": 4 },
+      { "league_id": "Segunda Federación Group 3", "display_name": "Segunda Federación Group 3", "tier": 4 },
+      { "league_id": "Segunda Federación Group 4", "display_name": "Segunda Federación Group 4", "tier": 4 },
+      { "league_id": "Segunda Federación Group 5", "display_name": "Segunda Federación Group 5", "tier": 4 },
+
+      { "league_id": "Tercera Federación Group 1", "display_name": "Tercera Federación Group 1", "tier": 5 },
+      { "league_id": "Tercera Federación Group 2", "display_name": "Tercera Federación Group 2", "tier": 5 },
+      { "league_id": "Tercera Federación Group 3", "display_name": "Tercera Federación Group 3", "tier": 5 },
+      { "league_id": "Tercera Federación Group 4", "display_name": "Tercera Federación Group 4", "tier": 5 },
+      { "league_id": "Tercera Federación Group 5", "display_name": "Tercera Federación Group 5", "tier": 5 },
+      { "league_id": "Tercera Federación Group 6", "display_name": "Tercera Federación Group 6", "tier": 5 },
+      { "league_id": "Tercera Federación Group 7", "display_name": "Tercera Federación Group 7", "tier": 5 },
+      { "league_id": "Tercera Federación Group 8", "display_name": "Tercera Federación Group 8", "tier": 5 },
+      { "league_id": "Tercera Federación Group 9", "display_name": "Tercera Federación Group 9", "tier": 5 },
+      { "league_id": "Tercera Federación Group 10", "display_name": "Tercera Federación Group 10", "tier": 5 },
+      { "league_id": "Tercera Federación Group 11", "display_name": "Tercera Federación Group 11", "tier": 5 },
+      { "league_id": "Tercera Federación Group 12", "display_name": "Tercera Federación Group 12", "tier": 5 },
+      { "league_id": "Tercera Federación Group 13", "display_name": "Tercera Federación Group 13", "tier": 5 },
+      { "league_id": "Tercera Federación Group 14", "display_name": "Tercera Federación Group 14", "tier": 5 },
+      { "league_id": "Tercera Federación Group 15", "display_name": "Tercera Federación Group 15", "tier": 5 },
+      { "league_id": "Tercera Federación Group 16", "display_name": "Tercera Federación Group 16", "tier": 5 },
+      { "league_id": "Tercera Federación Group 17", "display_name": "Tercera Federación Group 17", "tier": 5 },
+      { "league_id": "Tercera Federación Group 18", "display_name": "Tercera Federación Group 18", "tier": 5 },
+
+      { "league_id": "Copa del Rey", "display_name": "Copa del Rey", "tier": 1 },
+      { "league_id": "Supercopa de España", "display_name": "Supercopa de España", "tier": 1 }
+    ]
+  },
+  {
+    "country_code": "SE",
+    "country_name": "Sweden",
+    "timezone": "Europe/Stockholm",
+    "region_cluster": "Europe_North",
+    "leagues": [
+      { "league_id": "Allsvenskan", "display_name": "Allsvenskan", "tier": 1 },
+      { "league_id": "Superettan", "display_name": "Superettan", "tier": 2 },
+      { "league_id": "Ettan Norra", "display_name": "Ettan Norra", "tier": 3 },
+      { "league_id": "Ettan Södra", "display_name": "Ettan Södra", "tier": 3 },
+
+      { "league_id": "Division 2 Norrland", "display_name": "Division 2 Norrland", "tier": 4 },
+      { "league_id": "Division 2 Norra Svealand", "display_name": "Division 2 Norra Svealand", "tier": 4 },
+      { "league_id": "Division 2 Södra Svealand", "display_name": "Division 2 Södra Svealand", "tier": 4 },
+      { "league_id": "Division 2 Norra Götaland", "display_name": "Division 2 Norra Götaland", "tier": 4 },
+      { "league_id": "Division 2 Västra Götaland", "display_name": "Division 2 Västra Götaland", "tier": 4 },
+      { "league_id": "Division 2 Östra Götaland", "display_name": "Division 2 Östra Götaland", "tier": 4 },
+
+      { "league_id": "Svenska Cupen", "display_name": "Svenska Cupen", "tier": 1 }
+    ]
+  },
+  {
+    "country_code": "CH",
+    "country_name": "Switzerland",
+    "timezone": "Europe/Zurich",
+    "region_cluster": "Europe_Central",
+    "leagues": [
+      { "league_id": "Super League", "display_name": "Super League", "tier": 1 },
+      { "league_id": "Challenge League", "display_name": "Challenge League", "tier": 2 },
+      { "league_id": "Promotion League", "display_name": "Promotion League", "tier": 3 },
+      { "league_id": "1. Liga Classic Group 1", "display_name": "1. Liga Classic Group 1", "tier": 4 },
+      { "league_id": "1. Liga Classic Group 2", "display_name": "1. Liga Classic Group 2", "tier": 4 },
+      { "league_id": "1. Liga Classic Group 3", "display_name": "1. Liga Classic Group 3", "tier": 4 },
+      { "league_id": "Swiss Cup", "display_name": "Swiss Cup", "tier": 1 }
+    ]
+  },
+  {
+    "country_code": "TR",
+    "country_name": "Turkey",
+    "timezone": "Europe/Istanbul",
+    "region_cluster": "Europe_East",
+    "leagues": [
+      { "league_id": "Süper Lig", "display_name": "Süper Lig", "tier": 1 },
+      { "league_id": "1. Lig", "display_name": "1. Lig", "tier": 2 },
+
+      { "league_id": "2. Lig Red Group", "display_name": "2. Lig Red Group", "tier": 3 },
+      { "league_id": "2. Lig White Group", "display_name": "2. Lig White Group", "tier": 3 },
+
+      { "league_id": "3. Lig Group 1", "display_name": "3. Lig Group 1", "tier": 4 },
+      { "league_id": "3. Lig Group 2", "display_name": "3. Lig Group 2", "tier": 4 },
+      { "league_id": "3. Lig Group 3", "display_name": "3. Lig Group 3", "tier": 4 },
+
+      { "league_id": "Turkish Cup", "display_name": "Turkish Cup", "tier": 1 },
+      { "league_id": "Turkish Super Cup", "display_name": "Turkish Super Cup", "tier": 1 }
+    ]
+  },
+  {
+    "country_code": "UA",
+    "country_name": "Ukraine",
+    "timezone": "Europe/Kyiv",
+    "region_cluster": "Europe_East",
+    "leagues": [
+      { "league_id": "Premier League", "display_name": "Premier League", "tier": 1 },
+      { "league_id": "Persha Liga", "display_name": "Persha Liga", "tier": 2 },
+      { "league_id": "Druha Liga Group A", "display_name": "Druha Liga Group A", "tier": 3 },
+      { "league_id": "Druha Liga Group B", "display_name": "Druha Liga Group B", "tier": 3 },
+                   { "league_id": "Ukrainian Cup", "display_name": "Ukrainian Cup", "tier": 1 }
+    ]
+  },
+  {
+    "continent_code": "INT",
+    "continent_name": "International Competitions",
+    "competitions": [
+        { "league_id": "UEFA Champions League", "display_name": "UEFA Champions League" },
+        { "league_id": "UEFA Europa League", "display_name": "UEFA Europa League" },
+        { "league_id": "UEFA Europa Conference League", "display_name": "UEFA Europa Conference League" },
+        { "league_id": "UEFA Super Cup", "display_name": "UEFA Super Cup" },
+
+        { "league_id": "UEFA Euro", "display_name": "UEFA European Championship" },
+        { "league_id": "UEFA Euro Qualifiers", "display_name": "UEFA Euro Qualifiers" },
+        { "league_id": "UEFA Nations League A", "display_name": "UEFA Nations League A" },
+        { "league_id": "UEFA Nations League B", "display_name": "UEFA Nations League B" },
+        { "league_id": "UEFA Nations League C", "display_name": "UEFA Nations League C" },
+        { "league_id": "UEFA Nations League D", "display_name": "UEFA Nations League D" },
+
+        { "league_id": "UEFA U21 Championship", "display_name": "UEFA U21 Championship" },
+        { "league_id": "UEFA U19 Championship", "display_name": "UEFA U19 Championship" }
       ]
     },
     {
-      "country_code": "IS",
-      "country_name": "Iceland",
-      "timezone": "Atlantic/Reykjavik",
-      "region_cluster": "Europe_North",
-      "leagues": [
-        { "league_id": "ISL1", "display_name": "Besta deild karla", "tier": 1, "importance_score": 40, "betting": { "availability": true } },
-        { "league_id": "ISL2", "display_name": "1. deild karla", "tier": 2, "importance_score": 26, "betting": { "availability": true } },
-        { "league_id": "ISLC", "display_name": "Icelandic Cup", "tier": 1, "importance_score": 18, "betting": { "availability": true } }
+      "confederation": "FIFA",
+      "tournaments": [
+        { "league_id": "FIFA World Cup", "display_name": "FIFA World Cup" },
+        { "league_id": "FIFA World Cup Qualifiers - Europe", "display_name": "World Cup Qualifiers - Europe" },
+        { "league_id": "FIFA World Cup Qualifiers - South America", "display_name": "World Cup Qualifiers - CONMEBOL" },
+        { "league_id": "FIFA World Cup Qualifiers - Africa", "display_name": "World Cup Qualifiers - CAF" },
+        { "league_id": "FIFA World Cup Qualifiers - Asia", "display_name": "World Cup Qualifiers - AFC" },
+        { "league_id": "FIFA World Cup Qualifiers - Oceania", "display_name": "World Cup Qualifiers - OFC" },
+
+        { "league_id": "FIFA Club World Cup", "display_name": "FIFA Club World Cup" }
       ]
     },
     {
-      "country_code": "IE",
-      "country_name": "Ireland",
-      "timezone": "Europe/Dublin",
-      "region_cluster": "Europe_West",
-      "leagues": [
-        { "league_id": "IRL1", "display_name": "Premier Division", "tier": 1, "importance_score": 52, "betting": { "availability": true } },
-        { "league_id": "IRL2", "display_name": "First Division", "tier": 2, "importance_score": 34, "betting": { "availability": true } },
-        { "league_id": "IRLC", "display_name": "FAI Cup", "tier": 1, "importance_score": 22, "betting": { "availability": true } }
+      "confederation": "CONMEBOL",
+      "tournaments": [
+        { "league_id": "Copa Libertadores", "display_name": "Copa Libertadores" },
+        { "league_id": "Copa Sudamericana", "display_name": "Copa Sudamericana" },
+        { "league_id": "Copa America", "display_name": "Copa America" },
+        { "league_id": "CONMEBOL Recopa", "display_name": "CONMEBOL Recopa" }
       ]
     },
     {
-      "country_code": "IT",
-      "country_name": "Italy",
-      "timezone": "Europe/Rome",
-      "region_cluster": "Europe_South",
-      "leagues": [
-        { "league_id": "ITA1", "display_name": "Serie A", "tier": 1, "importance_score": 98, "betting": { "availability": true } },
-        { "league_id": "ITA2", "display_name": "Serie B", "tier": 2, "importance_score": 86, "betting": { "availability": true } },
-        { "league_id": "ITAC", "display_name": "Coppa Italia", "tier": 1, "importance_score": 82, "betting": { "availability": true } }
+      "confederation": "CONCACAF",
+      "tournaments": [
+        { "league_id": "CONCACAF Champions Cup", "display_name": "CONCACAF Champions Cup" },
+        { "league_id": "Gold Cup", "display_name": "CONCACAF Gold Cup" },
+        { "league_id": "Nations League A", "display_name": "CONCACAF Nations League A" },
+        { "league_id": "Nations League B", "display_name": "CONCACAF Nations League B" },
+        { "league_id": "Nations League C", "display_name": "CONCACAF Nations League C" }
       ]
     },
     {
-      "country_code": "KZ",
-      "country_name": "Kazakhstan",
-      "timezone": "Asia/Almaty",
-      "region_cluster": "Europe_East",
-      "leagues": [
-        { "league_id": "KAZ1", "display_name": "Premier League", "tier": 1, "importance_score": 50, "betting": { "availability": true } },
-        { "league_id": "KAZ2", "display_name": "First Division", "tier": 2, "importance_score": 26, "betting": { "availability": true } },
-        { "league_id": "KAZC", "display_name": "Kazakhstan Cup", "tier": 1, "importance_score": 20, "betting": { "availability": true } }
+      "confederation": "CAF",
+      "tournaments": [
+        { "league_id": "Africa Cup of Nations", "display_name": "Africa Cup of Nations" },
+        { "league_id": "CAF Champions League", "display_name": "CAF Champions League" },
+        { "league_id": "CAF Confederation Cup", "display_name": "CAF Confederation Cup" },
+        { "league_id": "CAF Super Cup", "display_name": "CAF Super Cup" }
       ]
     },
     {
-      "country_code": "XK",
-      "country_name": "Kosovo",
-      "timezone": "Europe/Belgrade",
-      "region_cluster": "Europe_South",
-      "leagues": [
-        { "league_id": "KOS1", "display_name": "Superleague", "tier": 1, "importance_score": 30, "betting": { "availability": true } },
-        { "league_id": "KOSC", "display_name": "Kosovo Cup", "tier": 1, "importance_score": 18, "betting": { "availability": true } }
+      "confederation": "AFC",
+      "tournaments": [
+        { "league_id": "AFC Asian Cup", "display_name": "AFC Asian Cup" },
+        { "league_id": "AFC Champions League Elite", "display_name": "AFC Champions League Elite" },
+        { "league_id": "AFC Challenge League", "display_name": "AFC Challenge League" },
+        { "league_id": "AFC Cup", "display_name": "AFC Cup" }
       ]
     },
     {
-      "country_code": "LV",
-      "country_name": "Latvia",
-      "timezone": "Europe/Riga",
-      "region_cluster": "Europe_North",
-      "leagues": [
-        { "league_id": "LVA1", "display_name": "Virsliga", "tier": 1, "importance_score": 38, "betting": { "availability": true } },
-        { "league_id": "LVAC", "display_name": "Latvian Cup", "tier": 1, "importance_score": 16, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "LI",
-      "country_name": "Liechtenstein",
-      "timezone": "Europe/Vaduz",
-      "region_cluster": "Europe_Central",
-      "leagues": [
-        { "league_id": "LIEC", "display_name": "Liechtenstein Cup", "tier": 1, "importance_score": 10, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "LT",
-      "country_name": "Lithuania",
-      "timezone": "Europe/Vilnius",
-      "region_cluster": "Europe_North",
-      "leagues": [
-        { "league_id": "LTU1", "display_name": "A Lyga", "tier": 1, "importance_score": 42, "betting": { "availability": true } },
-        { "league_id": "LTU2", "display_name": "1 Lyga", "tier": 2, "importance_score": 24, "betting": { "availability": true } },
-        { "league_id": "LTUC", "display_name": "Lithuanian Cup", "tier": 1, "importance_score": 18, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "LU",
-      "country_name": "Luxembourg",
-      "timezone": "Europe/Luxembourg",
-      "region_cluster": "Europe_West",
-      "leagues": [
-        { "league_id": "LUX1", "display_name": "National Division", "tier": 1, "importance_score": 32, "betting": { "availability": true } },
-        { "league_id": "LUXC", "display_name": "Luxembourg Cup", "tier": 1, "importance_score": 20, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "MT",
-      "country_name": "Malta",
-      "timezone": "Europe/Malta",
-      "region_cluster": "Europe_South",
-      "leagues": [
-        { "league_id": "MLT1", "display_name": "Premier League", "tier": 1, "importance_score": 38, "betting": { "availability": true } },
-        { "league_id": "MLTC", "display_name": "FA Trophy", "tier": 1, "importance_score": 20, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "MD",
-      "country_name": "Moldova",
-      "timezone": "Europe/Chisinau",
-      "region_cluster": "Europe_East",
-      "leagues": [
-        { "league_id": "MDA1", "display_name": "Super Liga", "tier": 1, "importance_score": 38, "betting": { "availability": true } },
-        { "league_id": "MDAC", "display_name": "Moldovan Cup", "tier": 1, "importance_score": 20, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "MC",
-      "country_name": "Monaco",
-      "timezone": "Europe/Monaco",
-      "region_cluster": "Europe_West",
-      "leagues": [
-        { "league_id": "MON1", "display_name": "Ligue System (via France)", "tier": 1, "importance_score": 0, "betting": { "availability": false } }
-      ]
-    },
-    {
-      "country_code": "ME",
-      "country_name": "Montenegro",
-      "timezone": "Europe/Podgorica",
-      "region_cluster": "Europe_South",
-      "leagues": [
-        { "league_id": "MNE1", "display_name": "First League", "tier": 1, "importance_score": 40, "betting": { "availability": true } },
-        { "league_id": "MNEC", "display_name": "Montenegrin Cup", "tier": 1, "importance_score": 16, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "NL",
-      "country_name": "Netherlands",
-      "timezone": "Europe/Amsterdam",
-      "region_cluster": "Europe_West",
-      "leagues": [
-        { "league_id": "NED1", "display_name": "Eredivisie", "tier": 1, "importance_score": 88, "betting": { "availability": true } },
-        { "league_id": "NED2", "display_name": "Eerste Divisie", "tier": 2, "importance_score": 62, "betting": { "availability": true } },
-        { "league_id": "NEDC", "display_name": "KNVB Cup", "tier": 1, "importance_score": 54, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "MK",
-      "country_name": "North Macedonia",
-      "timezone": "Europe/Skopje",
-      "region_cluster": "Europe_South",
-      "leagues": [
-        { "league_id": "MKD1", "display_name": "First League", "tier": 1, "importance_score": 42, "betting": { "availability": true } },
-        { "league_id": "MKDC", "display_name": "Macedonian Cup", "tier": 1, "importance_score": 16, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "NO",
-      "country_name": "Norway",
-      "timezone": "Europe/Oslo",
-      "region_cluster": "Europe_North",
-      "leagues": [
-        { "league_id": "NOR1", "display_name": "Eliteserien", "tier": 1, "importance_score": 76, "betting": { "availability": true } },
-        { "league_id": "NOR2", "display_name": "OBOS-ligaen", "tier": 2, "importance_score": 46, "betting": { "availability": true } },
-        { "league_id": "NORC", "display_name": "Norwegian Cup", "tier": 1, "importance_score": 32, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "PL",
-      "country_code": "PL",
-      "country_name": "Poland",
-      "timezone": "Europe/Warsaw",
-      "region_cluster": "Europe_Central",
-      "leagues": [
-        { "league_id": "POL1", "display_name": "Ekstraklasa", "tier": 1, "importance_score": 78, "betting": { "availability": true } },
-        { "league_id": "POL2", "display_name": "I Liga", "tier": 2, "importance_score": 52, "betting": { "availability": true } },
-        { "league_id": "POLC", "display_name": "Polish Cup", "tier": 1, "importance_score": 40, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "PT",
-      "country_name": "Portugal",
-      "timezone": "Europe/Lisbon",
-      "region_cluster": "Europe_South",
-      "leagues": [
-        { "league_id": "POR1", "display_name": "Primeira Liga", "tier": 1, "importance_score": 88, "betting": { "availability": true } },
-        { "league_id": "POR2", "display_name": "Liga Portugal 2", "tier": 2, "importance_score": 56, "betting": { "availability": true } },
-        { "league_id": "PORC", "display_name": "Taça de Portugal", "tier": 1, "importance_score": 42, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "RO",
-      "country_name": "Romania",
-      "timezone": "Europe/Bucharest",
-      "region_cluster": "Europe_East",
-      "leagues": [
-        { "league_id": "ROU1", "display_name": "Liga I", "tier": 1, "importance_score": 66, "betting": { "availability": true } },
-        { "league_id": "ROU2", "display_name": "Liga II", "tier": 2, "importance_score": 38, "betting": { "availability": true } },
-        { "league_id": "ROUC", "display_name": "Romanian Cup", "tier": 1, "importance_score": 28, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "RU",
-      "country_name": "Russia",
-      "timezone": "Europe/Moscow",
-      "region_cluster": "Europe_East",
-      "leagues": [
-        { "league_id": "RUS1", "display_name": "Premier League", "tier": 1, "importance_score": 84, "betting": { "availability": true } },
-        { "league_id": "RUS2", "display_name": "First League", "tier": 2, "importance_score": 52, "betting": { "availability": true } },
-        { "league_id": "RUSC", "display_name": "Russian Cup", "tier": 1, "importance_score": 40, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "SM",
-      "country_name": "San Marino",
-      "timezone": "Europe/San_Marino",
-      "region_cluster": "Europe_South",
-      "leagues": [
-        { "league_id": "SMR1", "display_name": "Campionato Sammarinese", "tier": 1,
-          "importance_score": 10, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "RS",
-      "country_name": "Serbia",
-      "timezone": "Europe/Belgrade",
-      "region_cluster": "Europe_South",
-      "leagues": [
-        { "league_id": "SRB1", "display_name": "SuperLiga", "tier": 1, "importance_score": 74, "betting": { "availability": true } },
-        { "league_id": "SRBC", "display_name": "Serbian Cup", "tier": 1, "importance_score": 34, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "SK",
-      "country_name": "Slovakia",
-      "timezone": "Europe/Bratislava",
-      "region_cluster": "Europe_Central",
-      "leagues": [
-        { "league_id": "SVK1", "display_name": "Fortuna Liga", "tier": 1, "importance_score": 52, "betting": { "availability": true } },
-        { "league_id": "SVKC", "display_name": "Slovak Cup", "tier": 1, "importance_score": 20, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "SI",
-      "country_name": "Slovenia",
-      "timezone": "Europe/Ljubljana",
-      "region_cluster": "Europe_Central",
-      "leagues": [
-        { "league_id": "SVN1", "display_name": "PrvaLiga", "tier": 1, "importance_score": 54, "betting": { "availability": true } },
-        { "league_id": "SVNC", "display_name": "Slovenian Cup", "tier": 1, "importance_score": 18, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "ES",
-      "country_name": "Spain",
-      "timezone": "Europe/Madrid",
-      "region_cluster": "Europe_South",
-      "leagues": [
-        { "league_id": "ESP1", "display_name": "LaLiga", "tier": 1, "importance_score": 100, "betting": { "availability": true } },
-        { "league_id": "ESP2", "display_name": "LaLiga 2", "tier": 2, "importance_score": 86, "betting": { "availability": true } },
-        { "league_id": "ESPC", "display_name": "Copa del Rey", "tier": 1, "importance_score": 84, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "SE",
-      "country_name": "Sweden",
-      "timezone": "Europe/Stockholm",
-      "region_cluster": "Europe_North",
-      "leagues": [
-        { "league_id": "SWE1", "display_name": "Allsvenskan", "tier": 1,
-          "importance_score": 72, "betting": { "availability": true } },
-        { "league_id": "SWE2", "display_name": "Superettan", "tier": 2,
-          "importance_score": 48, "betting": { "availability": true } },
-        { "league_id": "SWEC", "display_name": "Swedish Cup", "tier": 1,
-          "importance_score": 36, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "CH",
-      "country_name": "Switzerland",
-      "timezone": "Europe/Zurich",
-      "region_cluster": "Europe_Central",
-      "leagues": [
-        { "league_id": "SUI1", "display_name": "Super League", "tier": 1, "importance_score": 82, "betting": { "availability": true } },
-        { "league_id": "SUI2", "display_name": "Challenge League", "tier": 2, "importance_score": 56, "betting": { "availability": true } },
-        { "league_id": "SUIC", "display_name": "Swiss Cup", "tier": 1, "importance_score": 34, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "TR",
-      "country_name": "Türkiye",
-      "timezone": "Europe/Istanbul",
-      "region_cluster": "Europe_East",
-      "leagues": [
-        { "league_id": "TUR1", "display_name": "Super Lig", "tier": 1, "importance_score": 88, "betting": { "availability": true } },
-        { "league_id": "TUR2", "display_name": "1. Lig", "tier": 2, "importance_score": 56, "betting": { "availability": true } },
-        { "league_id": "TURC", "display_name": "Turkish Cup", "tier": 1, "importance_score": 42, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "UA",
-      "country_name": "Ukraine",
-      "timezone": "Europe/Kiev",
-      "region_cluster": "Europe_East",
-      "leagues": [
-        { "league_id": "UKR1", "display_name": "Premier League", "tier": 1, "importance_score": 70, "betting": { "availability": true } },
-        { "league_id": "UKRC", "display_name": "Ukrainian Cup", "tier": 1, "importance_score": 28, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "GB",
-      "country_name": "United Kingdom",
-      "timezone": "Europe/London",
-      "region_cluster": "Europe_West",
-      "leagues": [
-        { "league_id": "ENG1", "display_name": "Premier League", "tier": 1, "importance_score": 100, "betting": { "availability": true } },
-        { "league_id": "ENG2", "display_name": "Championship", "tier": 2, "importance_score": 86, "betting": { "availability": true } },
-        { "league_id": "ENGC", "display_name": "FA Cup", "tier": 1, "importance_score": 88, "betting": { "availability": true } }
+      "confederation": "OFC",
+      "tournaments": [
+        { "league_id": "OFC Nations Cup", "display_name": "OFC Nations Cup" },
+        { "league_id": "OFC Champions League", "display_name": "OFC Champions League" }
       ]
     }
   ]
