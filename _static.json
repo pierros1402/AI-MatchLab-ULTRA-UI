@@ -1,5 +1,9 @@
 {
   "routes": [
-    { "path": "/service-worker.js", "method": "GET", "status": 404 }
+    {
+      "path": "/service-worker.js",
+      "method": "GET",
+      "status": 404
+    }
   ]
 }
