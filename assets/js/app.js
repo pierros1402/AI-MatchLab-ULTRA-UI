@@ -142,8 +142,9 @@ function populateContinents(list) {
     const sel = document.getElementById("continentSelect");
 
     sel.innerHTML = list
-        .map(c => `<option value="${c.continent_code}">${c.continent_name}</option>`)
-        .join("");
+    .filter(c => c.countries) // ONLY continents with countries
+    .map(c => `<option value="${c.continent_code}">${c.continent_name}</option>`)
+    .join("");
 
     sel.addEventListener("change", () => {
         loadCountries(sel.value);
