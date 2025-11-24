@@ -165,7 +165,13 @@ async function loadCountries(code) {
         if (!res.ok) throw new Error("Continent file missing");
 
         const continentData = await res.json();
-        const countries = continentData.countries || [];
+        if (!continentData.countries) {
+    document.getElementById("countrySelect").innerHTML =
+        `<option value="ALL">All Countries</option>`;
+    return;
+}
+
+const countries = continentData.countries || [];
 
         const sel = document.getElementById("countrySelect");
         sel.innerHTML = `<option value="ALL">All Countries</option>` +
