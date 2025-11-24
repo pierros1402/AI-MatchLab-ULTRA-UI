@@ -1,6 +1,6 @@
 // =====================================================================
 // AI MATCHLAB ULTRA — FINAL CLEAN VERSION (NO SERVICE WORKER)
-// Mobile-Install-Ready, Zero Caching, Zero SW Logic #
+// Mobile-Install-Ready, Zero Caching, Zero SW Logic 
 // =====================================================================
 
 // ----------------------------------------------------------
