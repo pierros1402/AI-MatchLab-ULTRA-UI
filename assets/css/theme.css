@@ -18,15 +18,28 @@
 }
 
 [data-theme="light"] {
-  --ml-bg: #f3f4f6;
-  --ml-bg-elevated: #f9fafb;
+  /* Softer neutral background instead of pure white */
+  --ml-bg: #e6e9ee;
+  --ml-bg-elevated: #eef1f5;
   --ml-bg-card: #ffffff;
-  --ml-bg-card-soft: #f9fafb;
-  --ml-border-subtle: rgba(148, 163, 184, 0.5);
-  --ml-text: #111827;
-  --ml-text-soft: #6b7280;
-  --ml-header-glass: rgba(243, 244, 246, 0.9);
-  --ml-shadow-soft: 0 12px 30px rgba(148, 163, 184, 0.4);
+  --ml-bg-card-soft: #f3f5f9;
+
+  /* Stronger borders for visibility */
+  --ml-border-subtle: rgba(55, 65, 81, 0.45);
+
+  /* Darker text for contrast */
+  --ml-text: #0f172a;          /* almost-black navy */
+  --ml-text-soft: #475569;     /* slate grey */
+
+  /* Header slight grey tint */
+  --ml-header-glass: rgba(230, 233, 238, 0.92);
+
+  /* Softer shadows */
+  --ml-shadow-soft: 0 10px 26px rgba(0, 0, 0, 0.12);
+
+  /* Accent colors UNCHANGED (perfect as is) */
+  /* You already have strong clean cyan/blue tones */
+}
 }
 
 *,
