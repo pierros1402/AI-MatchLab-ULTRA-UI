@@ -1,349 +1,799 @@
 // ================================================================
-// AI MATCHLAB ULTRA – FRONTEND ENGINE (v2.0 AUTO-CLEAN BUILD)
-// - Default continent: EUROPE (EU)
-// - Auto-clean dropdowns
-// - 5 panels: League / Country / Competition / Standings / Insights (standings/insights placeholder-ready)
+// AI MATCHLAB ULTRA – FRONTEND ENGINE (v2.1 ULTRA)
+// - Χρησιμοποιεί /data/continents.json (με key "continents")
+// - Continent → Country → League → Matches
+// - Γεμίζει: League Info / Country Info / Competition Info / Standings / Insights
+// - Tabs: live / upcoming / recent / smartmoney / matrix (UI-level handling)
 // ================================================================
 
-// Simple JSON loader with cache-bypass
+const CONTINENTS_PATH = "/data/continents.json";
+const MAIN_WORKER_BASE = "https://aimatchlab-main.pierros1402.workers.dev";
+
+// -----------------------
+// 0. GLOBAL STATE
+// -----------------------
+
+const AIML_STATE = {
+  continents: [],
+  currentContinent: null,
+  currentCountry: null,
+  currentLeague: null,
+  currentTab: "live",
+  autoRefreshInterval: null
+};
+
+// -----------------------
+// 1. DOM REFERENCES
+// -----------------------
+
+const dom = {
+  continentSelect: document.getElementById("continentSelect"),
+  countrySelect: document.getElementById("countrySelect"),
+  leagueSelect: document.getElementById("leagueSelect"),
+
+  matchesContainer: document.getElementById("matchesContainer"),
+  leagueInfoContainer: document.getElementById("leagueInfoContainer"),
+  countryInfoContainer: document.getElementById("countryInfoContainer"),
+  competitionInfoContainer: document.getElementById("competitionInfoContainer"),
+  standingsContainer: document.getElementById("standingsContainer"),
+  insightsContainer: document.getElementById("insightsContainer"),
+
+  autoRefreshStatus: document.getElementById("autoRefreshStatus"),
+  installBtn: document.getElementById("installBtn"),
+  refreshBtn: document.getElementById("refreshBtn"),
+  themeToggleBtn: document.getElementById("themeToggleBtn"),
+
+  updateBar: document.getElementById("updateBar"),
+  reloadBtn: document.getElementById("reloadBtn"),
+
+  footerYear: document.getElementById("footerYear"),
+  footerVersion: document.getElementById("footerVersion"),
+  appVersion: document.getElementById("appVersion"),
+
+  footerLegalBtn: document.getElementById("footerLegalBtn")
+};
+
+// -----------------------
+// 2. HELPER: JSON LOADER
+// -----------------------
+
 async function loadJSON(path) {
-    try {
-        const res = await fetch(path + "?v=" + Date.now());
-        if (!res.ok) throw new Error(`Failed to load ${path}`);
-        return await res.json();
-    } catch (err) {
-        console.error("JSON Load Error:", path, err);
-        return null;
-    }
+  try {
+    const res = await fetch(path + "?v=" + Date.now(), { cache: "no-store" });
+    if (!res.ok) throw new Error(`Failed to load ${path} (${res.status})`);
+    return await res.json();
+  } catch (err) {
+    console.error("JSON Load Error:", path, err);
+    return null;
+  }
 }
 
-// Global cache
-const continentsCache = {};
+// -----------------------
+// 3. INIT APP
+// -----------------------
 
-// Clear a <select> by id
-function clearSelect(id) {
-    const el = document.getElementById(id);
-    if (el) el.innerHTML = "";
+async function initApp() {
+  setupTabs();
+  setupThemeToggle();
+  setupRefreshButton();
+  setupInstallPrompt();
+  setupFooterMeta();
+
+  // Optionally: mark matchesContainer as "card-match" for styling
+  if (dom.matchesContainer) {
+    dom.matchesContainer.classList.add("ml-card-match");
+  }
+
+  await initContinents();
+
+  startAutoRefresh();
 }
 
-// Infer competition type from name
-function inferCompetitionType(name) {
-    if (!name) return "Competition";
-    const n = name.toLowerCase();
+// -----------------------
+// 4. CONTINENTS INIT
+// -----------------------
 
-    if (n.includes("super cup") || n.includes("supercup") || n.includes("supercopa")) return "Super Cup";
-    if (n.includes("cup") || n.includes("trophy")) return "Cup";
-    if (n.includes("league") || n.includes("liga") || n.includes("division") || n.includes("divisió") || n.includes("bundesliga")) return "League";
-    if (n.includes("shield")) return "Trophy";
+async function initContinents() {
+  const data = await loadJSON(CONTINENTS_PATH);
+  if (!data || !Array.isArray(data.continents)) {
+    console.error("Invalid continents.json structure. Expected { continents: [...] }");
+    return;
+  }
 
-    return "Competition";
+  AIML_STATE.continents = data.continents.slice();
+
+  populateContinentsSelect();
+  wireSelectHandlers();
+
+  // Προσπάθεια default: Europe (EU), αλλιώς πρώτη ήπειρος
+  const europe = AIML_STATE.continents.find(c => c.continent_code === "EU");
+  if (europe) {
+    dom.continentSelect.value = "EU";
+    onContinentChanged();
+  } else if (AIML_STATE.continents.length > 0) {
+    dom.continentSelect.value = AIML_STATE.continents[0].continent_code;
+    onContinentChanged();
+  }
 }
 
-// ================================================================
-// POPULATE CONTINENTS
-// ================================================================
-function populateContinents(list) {
-    const sel = document.getElementById("continentSelect");
-    if (!sel) return;
+// -----------------------
+// 5. POPULATE CONTINENTS
+// -----------------------
 
-    sel.innerHTML = list
-        .filter(c => c.continent_code && c.continent_name)
-        .map(c => `<option value="${c.continent_code}">${c.continent_name}</option>`)
-        .join("");
+function populateContinentsSelect() {
+  if (!dom.continentSelect) return;
 
-    sel.onchange = () => {
-        const code = sel.value;
-        loadCountries(code);
-    };
+  dom.continentSelect.innerHTML = "";
+  const placeholder = document.createElement("option");
+  placeholder.value = "";
+  placeholder.textContent = "Select Continent";
+  dom.continentSelect.appendChild(placeholder);
 
-    if (continentsCache["EU"]) {
-        sel.value = "EU";
-        loadCountries("EU");
-    } else {
-        const first = list.find(c => Array.isArray(c.countries));
-        if (first) {
-            sel.value = first.continent_code;
-            loadCountries(first.continent_code);
-        }
-    }
+  AIML_STATE.continents.forEach(cont => {
+    const opt = document.createElement("option");
+    opt.value = cont.continent_code;
+    opt.textContent = cont.continent_name;
+    dom.continentSelect.appendChild(opt);
+  });
 }
 
-// ================================================================
-// LOAD COUNTRIES
-// ================================================================
-function loadCountries(continentCode) {
-    const continentData = continentsCache[continentCode];
-    const countrySel = document.getElementById("countrySelect");
-    const leagueSel = document.getElementById("leagueSelect");
-    const competitionInfo = document.getElementById("competitionInfoContainer");
-    const countryInfo = document.getElementById("countryInfoContainer");
+// -----------------------
+// 6. WIRE SELECT HANDLERS
+// -----------------------
 
-    if (!countrySel || !leagueSel) return;
-
-    clearSelect("countrySelect");
-    clearSelect("leagueSelect");
-
-    if (!continentData || !Array.isArray(continentData.countries)) {
-        countrySel.innerHTML = `<option value="ALL">All Countries</option>`;
-        if (countryInfo) {
-            countryInfo.innerHTML = `<p>Select a country to view info.</p>`;
-        }
-        if (competitionInfo && continentData) {
-            competitionInfo.innerHTML = `
-                <p><strong>Region:</strong> ${continentData.continent_name || continentCode}</p>
-                <p><strong>Scope:</strong> ${continentCode === "INT" ? "International / Global" : "Continental"}</p>
-                <p><strong>Countries:</strong> 0</p>
-                <p><strong>Leagues:</strong> 0</p>
-                <p><strong>Tier Range:</strong> N/A</p>
-            `;
-        }
-        loadLeagues(continentCode, "ALL");
-        return;
-    }
-
-    const countries = continentData.countries
-        .filter(c => c.country_code && c.country_name)
-        .sort((a, b) => a.country_name.localeCompare(b.country_name));
-
-    countrySel.innerHTML =
-        `<option value="ALL">All Countries</option>` +
-        countries
-            .map(c => `<option value="${c.country_code}">${c.country_name}</option>`)
-            .join("");
-
-    if (countryInfo) {
-        countryInfo.innerHTML = `<p>Select a country to view info.</p>`;
-    }
-
-    if (competitionInfo) {
-        let totalLeagues = 0;
-        const leagueTiers = [];
-
-        continentData.countries.forEach(c => {
-            if (Array.isArray(c.leagues)) {
-                totalLeagues += c.leagues.length;
-                c.leagues.forEach(l => {
-                    if (typeof l.tier === "number") leagueTiers.push(l.tier);
-                });
-            }
-        });
-
-        const minTier = leagueTiers.length ? Math.min(...leagueTiers) : null;
-        const maxTier = leagueTiers.length ? Math.max(...leagueTiers) : null;
-        const scope = (continentCode === "INT" ? "International / Global" : "Continental");
-
-        competitionInfo.innerHTML = `
-            <p><strong>Region:</strong> ${continentData.continent_name || continentCode}</p>
-            <p><strong>Scope:</strong> ${scope}</p>
-            <p><strong>Countries:</strong> ${Array.isArray(continentData.countries) ? continentData.countries.length : 0}</p>
-            <p><strong>Leagues:</strong> ${totalLeagues}</p>
-            <p><strong>Tier Range:</strong> ${minTier !== null ? `${minTier}–${maxTier}` : "N/A"}</p>
-        `;
-    }
-
-    countrySel.onchange = () => {
-        const code = countrySel.value;
-
-        if (countryInfo) {
-            if (code === "ALL") {
-                countryInfo.innerHTML = `<p>Select a country to view info.</p>`;
-            } else {
-                const c = continentData.countries.find(x => x.country_code === code);
-                if (c) {
-                    const leagueCount = Array.isArray(c.leagues) ? c.leagues.length : 0;
-                    countryInfo.innerHTML = `
-                        <p><strong>Name:</strong> ${c.country_name}</p>
-                        <p><strong>Code:</strong> ${c.country_code}</p>
-                        <p><strong>Timezone:</strong> ${c.timezone || "N/A"}</p>
-                        <p><strong>Leagues:</strong> ${leagueCount}</p>
-                    `;
-                } else {
-                    countryInfo.innerHTML = `<p>Country not found.</p>`;
-                }
-            }
-        }
-
-        loadLeagues(continentCode, code);
-    };
-
-    loadLeagues(continentCode, "ALL");
+function wireSelectHandlers() {
+  if (dom.continentSelect) {
+    dom.continentSelect.addEventListener("change", onContinentChanged);
+  }
+  if (dom.countrySelect) {
+    dom.countrySelect.addEventListener("change", onCountryChanged);
+  }
+  if (dom.leagueSelect) {
+    dom.leagueSelect.addEventListener("change", onLeagueChanged);
+  }
 }
 
-// ================================================================
-// LOAD LEAGUES
-// ================================================================
-function loadLeagues(continentCode, countryCode) {
-    const continentData = continentsCache[continentCode];
-    if (!continentData) return;
+// -----------------------
+// 7. CONTINENT CHANGE
+// -----------------------
 
-    let leagues = [];
+function onContinentChanged() {
+  const code = dom.continentSelect.value;
 
-    if (countryCode === "ALL") {
-        if (Array.isArray(continentData.countries)) {
-            continentData.countries.forEach(country => {
-                if (Array.isArray(country.leagues)) leagues.push(...country.leagues);
-            });
-        }
-    } else {
-        const country = Array.isArray(continentData.countries)
-            ? continentData.countries.find(c => c.country_code === countryCode)
-            : null;
-        if (country && Array.isArray(country.leagues)) {
-            leagues = [...country.leagues];
-        }
-    }
+  AIML_STATE.currentLeague = null;
+  AIML_STATE.currentCountry = null;
+  AIML_STATE.currentContinent =
+    AIML_STATE.continents.find(c => c.continent_code === code) || null;
 
-    leagues = leagues
-        .filter(l => l.league_id && l.display_name)
-        .sort((a, b) => a.display_name.localeCompare(b.display_name));
-
-    const sel = document.getElementById("leagueSelect");
-    if (!sel) return;
-
-    clearSelect("leagueSelect");
-
-    sel.innerHTML =
-        `<option value="ALL">All Leagues</option>` +
-        leagues
-            .map(l => `<option value="${l.league_id}">${l.display_name}</option>`)
-            .join("");
-
-    sel.onchange = () => {
-        displayLeagueInfo(continentCode, countryCode, sel.value);
-    };
-
-    displayLeagueInfo(continentCode, countryCode, "ALL");
+  populateCountriesSelect();
+  rebuildLeagueOptions();
+  updateCountryInfoPanel();
+  updateLeagueInfoPanel();
+  updateCompetitionInfoPanel();
+  updateStandingsPanel();
+  updateInsightsPanel();
+  clearMatchesIfNoLeague();
 }
 
-// ================================================================
-// DISPLAY LEAGUE INFO + COMPETITION INFO
-// ================================================================
-function displayLeagueInfo(continentCode, countryCode, leagueId) {
-    const continentData = continentsCache[continentCode];
-    if (!continentData) return;
+// -----------------------
+// 8. POPULATE COUNTRIES
+// -----------------------
 
-    let leagues = [];
+function populateCountriesSelect() {
+  if (!dom.countrySelect) return;
 
-    if (countryCode === "ALL") {
-        if (Array.isArray(continentData.countries)) {
-            continentData.countries.forEach(c => {
-                if (Array.isArray(c.leagues)) leagues.push(...c.leagues);
-            });
-        }
-    } else {
-        const country = Array.isArray(continentData.countries)
-            ? continentData.countries.find(c => c.country_code === countryCode)
-            : null;
-        if (country && Array.isArray(country.leagues)) {
-            leagues = [...country.leagues];
-        }
+  dom.countrySelect.innerHTML = "";
+
+  const allOpt = document.createElement("option");
+  allOpt.value = "ALL";
+  allOpt.textContent = "All Countries";
+  dom.countrySelect.appendChild(allOpt);
+
+  const cont = AIML_STATE.currentContinent;
+  if (!cont || !Array.isArray(cont.countries)) return;
+
+  const sortedCountries = cont.countries
+    .filter(c => c.country_code && c.country_name)
+    .sort((a, b) => a.country_name.localeCompare(b.country_name));
+
+  sortedCountries.forEach(country => {
+    const opt = document.createElement("option");
+    opt.value = country.country_code;
+    opt.textContent = country.country_name;
+    dom.countrySelect.appendChild(opt);
+  });
+
+  dom.countrySelect.value = "ALL";
+}
+
+// -----------------------
+// 9. COUNTRY CHANGE
+// -----------------------
+
+function onCountryChanged() {
+  const code = dom.countrySelect.value;
+  const cont = AIML_STATE.currentContinent;
+
+  if (!cont) return;
+
+  if (code === "ALL" || !code) {
+    AIML_STATE.currentCountry = null;
+  } else {
+    AIML_STATE.currentCountry =
+      (cont.countries || []).find(c => c.country_code === code) || null;
+  }
+
+  AIML_STATE.currentLeague = null;
+
+  rebuildLeagueOptions();
+  updateCountryInfoPanel();
+  updateLeagueInfoPanel();
+  updateCompetitionInfoPanel();
+  updateStandingsPanel();
+  updateInsightsPanel();
+  clearMatchesIfNoLeague();
+}
+
+// -----------------------
+// 10. REBUILD LEAGUE OPTIONS
+// -----------------------
+
+function rebuildLeagueOptions() {
+  if (!dom.leagueSelect) return;
+
+  dom.leagueSelect.innerHTML = "";
+  const allOpt = document.createElement("option");
+  allOpt.value = "ALL";
+  allOpt.textContent = "All Leagues";
+  dom.leagueSelect.appendChild(allOpt);
+
+  const cont = AIML_STATE.currentContinent;
+  if (!cont || !Array.isArray(cont.countries)) return;
+
+  let countriesToUse = [];
+
+  if (AIML_STATE.currentCountry) {
+    countriesToUse = [AIML_STATE.currentCountry];
+  } else {
+    countriesToUse = cont.countries;
+  }
+
+  const leagueMap = new Map();
+
+  countriesToUse.forEach(country => {
+    (country.leagues || []).forEach(league => {
+      if (!league.league_id) return;
+      if (!league.display_name) return;
+      if (!leagueMap.has(league.league_id)) {
+        leagueMap.set(league.league_id, { league, country });
+      }
+    });
+  });
+
+  const leagueEntries = Array.from(leagueMap.values()).sort((a, b) =>
+    a.league.display_name.localeCompare(b.league.display_name)
+  );
+
+  leagueEntries.forEach(entry => {
+    const opt = document.createElement("option");
+    opt.value = entry.league.league_id;
+    opt.textContent = entry.league.display_name;
+    dom.leagueSelect.appendChild(opt);
+  });
+
+  dom.leagueSelect.value = "ALL";
+}
+
+// -----------------------
+// 11. LEAGUE CHANGE
+// -----------------------
+
+function onLeagueChanged() {
+  const leagueId = dom.leagueSelect.value;
+  const cont = AIML_STATE.currentContinent;
+
+  AIML_STATE.currentLeague = null;
+
+  if (!cont || !leagueId || leagueId === "ALL") {
+    updateLeagueInfoPanel();
+    updateCompetitionInfoPanel();
+    updateStandingsPanel();
+    updateInsightsPanel();
+    clearMatchesIfNoLeague();
+    return;
+  }
+
+  let found = null;
+  let foundCountry = null;
+
+  (cont.countries || []).forEach(country => {
+    (country.leagues || []).forEach(league => {
+      if (league.league_id === leagueId && !found) {
+        found = league;
+        foundCountry = country;
+      }
+    });
+  });
+
+  if (!found) {
+    updateLeagueInfoPanel();
+    updateCompetitionInfoPanel();
+    updateStandingsPanel();
+    updateInsightsPanel();
+    clearMatchesIfNoLeague();
+    return;
+  }
+
+  AIML_STATE.currentLeague = {
+    league: found,
+    country: foundCountry,
+    continent: cont
+  };
+
+  updateLeagueInfoPanel();
+  updateCompetitionInfoPanel();
+  updateStandingsPanel();
+  updateInsightsPanel();
+  loadMatchesForCurrentLeague();
+}
+
+// -----------------------
+// 12. MATCHES LOADER
+// -----------------------
+
+async function loadMatchesForCurrentLeague(isAutoRefresh = false) {
+  const stateLeague = AIML_STATE.currentLeague;
+  if (!stateLeague || !stateLeague.league) {
+    clearMatchesIfNoLeague();
+    return;
+  }
+
+  const leagueId = stateLeague.league.league_id;
+  const tab = AIML_STATE.currentTab || "live";
+
+  if (!dom.matchesContainer) return;
+
+  if (!isAutoRefresh) {
+    dom.matchesContainer.innerHTML = `
+      <div class="ml-placeholder">
+        <p>Loading ${tab} matches for ${stateLeague.league.display_name}...</p>
+      </div>
+    `;
+  }
+
+  try {
+    // Βασικό endpoint – μπορείς να το προσαρμόσεις αν αλλάξει ο worker
+    const url = `${MAIN_WORKER_BASE}/live?league=${encodeURIComponent(
+      leagueId
+    )}&source=A&tab=${encodeURIComponent(tab)}`;
+
+    const res = await fetch(url, { cache: "no-store" });
+    if (!res.ok) {
+      dom.matchesContainer.innerHTML = `
+        <div class="ml-placeholder">
+          <p>Unable to load matches (HTTP ${res.status}).</p>
+        </div>`;
+      return;
     }
 
-    leagues = leagues.filter(l => l.league_id && l.display_name);
+    const json = await res.json();
 
-    const leagueInfoEl = document.getElementById("leagueInfoContainer");
-    const competitionInfoEl = document.getElementById("competitionInfoContainer");
+    // Περιμένουμε κάτι σαν { matches: [...] }, αλλιώς placeholder
+    const matches = Array.isArray(json.matches) ? json.matches : [];
 
-    if (!leagueInfoEl) return;
-
-    if (leagueId === "ALL") {
-        leagueInfoEl.innerHTML = `<p>Select a league to view info.</p>`;
-
-        if (competitionInfoEl) {
-            let totalLeagues = 0;
-            const leagueTiers = [];
-
-            if (Array.isArray(continentData.countries)) {
-                continentData.countries.forEach(c => {
-                    if (Array.isArray(c.leagues)) {
-                        totalLeagues += c.leagues.length;
-                        c.leagues.forEach(l => {
-                            if (typeof l.tier === "number") leagueTiers.push(l.tier);
-                        });
-                    }
-                });
-            }
-
-            const minTier = leagueTiers.length ? Math.min(...leagueTiers) : null;
-            const maxTier = leagueTiers.length ? Math.max(...leagueTiers) : null;
-            const scope = (continentCode === "INT" ? "International / Global" : "Continental");
-
-            competitionInfoEl.innerHTML = `
-                <p><strong>Region:</strong> ${continentData.continent_name || continentCode}</p>
-                <p><strong>Scope:</strong> ${scope}</p>
-                <p><strong>Countries:</strong> ${Array.isArray(continentData.countries) ? continentData.countries.length : 0}</p>
-                <p><strong>Leagues:</strong> ${totalLeagues}</p>
-                <p><strong>Tier Range:</strong> ${minTier !== null ? `${minTier}–${maxTier}` : "N/A"}</p>
-            `;
-        }
-
-        return;
+    if (!matches.length) {
+      dom.matchesContainer.innerHTML = `
+        <div class="ml-placeholder">
+          <p>No ${tab} matches available for this league.</p>
+        </div>`;
+      return;
     }
 
-    const league = leagues.find(l => l.league_id === leagueId);
-    if (!league) {
-        leagueInfoEl.innerHTML = `<p>League not found.</p>`;
-        if (competitionInfoEl) {
-            competitionInfoEl.innerHTML = `<p>Select a league or region to view competition details.</p>`;
-        }
-        return;
-    }
+    renderMatchesList(matches);
+  } catch (err) {
+    console.error("Error loading matches:", err);
+    dom.matchesContainer.innerHTML = `
+      <div class="ml-placeholder">
+        <p>Error loading matches. Please try again.</p>
+      </div>`;
+  }
+}
 
-    leagueInfoEl.innerHTML = `
-        <p><strong>Name:</strong> ${league.display_name}</p>
-        <p><strong>ID:</strong> ${league.league_id}</p>
-        <p><strong>Tier:</strong> ${league.tier || "N/A"}</p>
-        <p><strong>Betting:</strong> ${
-            league.betting && league.betting.availability ? "Available" : "Unknown / No"
-        }</p>
+function clearMatchesIfNoLeague() {
+  if (!dom.matchesContainer) return;
+  dom.matchesContainer.innerHTML = `
+    <div class="ml-placeholder">
+      <p>Select a league to load matches.</p>
+    </div>
+  `;
+}
+
+// -----------------------
+// 13. RENDER MATCHES
+// -----------------------
+
+function renderMatchesList(matches) {
+  if (!dom.matchesContainer) return;
+
+  dom.matchesContainer.innerHTML = "";
+
+  matches.forEach(m => {
+    const row = document.createElement("div");
+    row.className = "ml-match-row";
+
+    const home = m.home || m.home_team || "Home";
+    const away = m.away || m.away_team || "Away";
+    const score = m.score || m.result || "-";
+    const status = m.status || m.state || "Scheduled";
+    const kickoff = m.kickoff || m.time || "";
+
+    const metaStatus = status.toUpperCase();
+    const metaTime = kickoff ? kickoff : "";
+
+    row.innerHTML = `
+      <div class="ml-match-teams">
+        <div class="ml-team-line">
+          <span>${home}</span>
+          <span>${formatScorePart(score, "home")}</span>
+        </div>
+        <div class="ml-team-line">
+          <span>${away}</span>
+          <span>${formatScorePart(score, "away")}</span>
+        </div>
+      </div>
+      <div class="ml-match-meta">
+        <span>${metaStatus}</span>
+        <span>${metaTime}</span>
+      </div>
     `;
 
-    if (competitionInfoEl) {
-        const scope = (continentCode === "INT" ? "International / Global" : "Continental");
-        const type = inferCompetitionType(league.display_name);
-        const importance = typeof league.importance_score === "number"
-            ? league.importance_score
-            : null;
-        const betting = league.betting && league.betting.availability ? "Available" : "Unknown / No";
-        const regionName = continentData.continent_name || continentCode;
-
-        competitionInfoEl.innerHTML = `
-            <p><strong>Competition:</strong> ${league.display_name}</p>
-            <p><strong>Type:</strong> ${type}</p>
-            <p><strong>Region:</strong> ${regionName}</p>
-            <p><strong>Scope:</strong> ${scope}</p>
-            <p><strong>Tier:</strong> ${league.tier || "N/A"}</p>
-            <p><strong>Importance:</strong> ${importance !== null ? importance : "N/A"}</p>
-            <p><strong>Betting:</strong> ${betting}</p>
-        `;
-    }
+    dom.matchesContainer.appendChild(row);
+  });
 }
 
-// ================================================================
-// INITIALIZATION
-// ================================================================
-async function initApp() {
-    const data = await loadJSON("./data/continents.json");
-    if (!data || !Array.isArray(data)) {
-        console.error("Invalid continents.json");
-        return;
-    }
+function formatScorePart(score, side) {
+  if (!score || typeof score !== "string") return "-";
+  const parts = score.split("-");
+  if (parts.length !== 2) return score;
+  return side === "home" ? parts[0].trim() : parts[1].trim();
+}
 
-    data.forEach(cont => {
-        if (cont.continent_code) {
-            continentsCache[cont.continent_code] = cont;
-        }
+// -----------------------
+// 14. INFO PANELS
+// -----------------------
+
+function updateLeagueInfoPanel() {
+  if (!dom.leagueInfoContainer) return;
+
+  const st = AIML_STATE;
+  const block = st.currentLeague;
+
+  if (!block) {
+    dom.leagueInfoContainer.innerHTML = `
+      <div class="ml-placeholder small">
+        <p>Select a league to view information.</p>
+      </div>
+    `;
+    return;
+  }
+
+  const { league, country, continent } = block;
+
+  const tier = league.tier != null ? league.tier : "N/A";
+  const cluster = country.region_cluster || "-";
+  const tz = country.timezone || "-";
+
+  dom.leagueInfoContainer.innerHTML = `
+    <div class="ml-info-block">
+      <p><strong>League:</strong> ${league.display_name}</p>
+      <p><strong>Tier:</strong> ${tier}</p>
+      <p><strong>Country:</strong> ${country.country_name}</p>
+      <p><strong>Continent:</strong> ${continent.continent_name}</p>
+      <p><strong>Region Cluster:</strong> ${cluster}</p>
+      <p><strong>Timezone:</strong> ${tz}</p>
+      <p><strong>Code:</strong> ${league.league_id}</p>
+    </div>
+  `;
+}
+
+function updateCountryInfoPanel() {
+  if (!dom.countryInfoContainer) return;
+
+  const st = AIML_STATE;
+  const cont = st.currentContinent;
+
+  if (!cont) {
+    dom.countryInfoContainer.innerHTML = `
+      <div class="ml-placeholder small">
+        <p>Select a continent to view country information.</p>
+      </div>
+    `;
+    return;
+  }
+
+  if (!st.currentCountry) {
+    // ALL countries of continent
+    const totalCountries = (cont.countries || []).length;
+    const totalLeagues = (cont.countries || []).reduce(
+      (acc, c) => acc + (c.leagues ? c.leagues.length : 0),
+      0
+    );
+
+    dom.countryInfoContainer.innerHTML = `
+      <div class="ml-info-block">
+        <p><strong>Continent:</strong> ${cont.continent_name}</p>
+        <p><strong>Total Countries:</strong> ${totalCountries}</p>
+        <p><strong>Total Leagues:</strong> ${totalLeagues}</p>
+      </div>
+    `;
+    return;
+  }
+
+  const c = st.currentCountry;
+
+  const leaguesCount = (c.leagues || []).length;
+  const tz = c.timezone || "-";
+  const cluster = c.region_cluster || "-";
+
+  dom.countryInfoContainer.innerHTML = `
+    <div class="ml-info-block">
+      <p><strong>Country:</strong> ${c.country_name}</p>
+      <p><strong>Code:</strong> ${c.country_code}</p>
+      <p><strong>Timezone:</strong> ${tz}</p>
+      <p><strong>Region Cluster:</strong> ${cluster}</p>
+      <p><strong>Leagues:</strong> ${leaguesCount}</p>
+    </div>
+  `;
+}
+
+function inferCompetitionType(leagueId) {
+  if (!leagueId) return "Domestic Competition";
+  const id = leagueId.toUpperCase();
+
+  if (id.endsWith("CUP")) return "Domestic Cup";
+  if (id.endsWith("SUP") || id.endsWith("SC")) return "Super Cup";
+  if (id.includes("U20") || id.includes("U19") || id.includes("U21"))
+    return "Youth Competition";
+  return "Domestic League";
+}
+
+function updateCompetitionInfoPanel() {
+  if (!dom.competitionInfoContainer) return;
+
+  const st = AIML_STATE;
+  const block = st.currentLeague;
+
+  if (!block) {
+    dom.competitionInfoContainer.innerHTML = `
+      <div class="ml-placeholder small">
+        <p>Select a league or region to view competition details.</p>
+      </div>
+    `;
+    return;
+  }
+
+  const { league, country, continent } = block;
+  const type = inferCompetitionType(league.league_id);
+  const tier = league.tier != null ? league.tier : "N/A";
+
+  dom.competitionInfoContainer.innerHTML = `
+    <div class="ml-info-block">
+      <p><strong>Competition:</strong> ${league.display_name}</p>
+      <p><strong>Type:</strong> ${type}</p>
+      <p><strong>Tier:</strong> ${tier}</p>
+      <p><strong>Nation:</strong> ${country.country_name}</p>
+      <p><strong>Confed / Region:</strong> ${continent.continent_name}</p>
+      <p><strong>Internal Code:</strong> ${league.league_id}</p>
+    </div>
+  `;
+}
+
+function updateStandingsPanel() {
+  if (!dom.standingsContainer) return;
+
+  const st = AIML_STATE;
+  const block = st.currentLeague;
+
+  if (!block) {
+    dom.standingsContainer.innerHTML = `
+      <div class="ml-placeholder small">
+        <p>League standings will appear here.</p>
+      </div>
+    `;
+    return;
+  }
+
+  const { league, country } = block;
+
+  // Πλήρως έτοιμο panel για μελλοντική live σύνδεση.
+  dom.standingsContainer.innerHTML = `
+    <div class="ml-info-block">
+      <p><strong>Standings Source:</strong> Not yet connected</p>
+      <p>When integrated, table for <strong>${league.display_name}</strong> (${country.country_name}) will be shown here.</p>
+    </div>
+  `;
+}
+
+function updateInsightsPanel() {
+  if (!dom.insightsContainer) return;
+
+  const st = AIML_STATE;
+  const block = st.currentLeague;
+
+  if (!block) {
+    dom.insightsContainer.innerHTML = `
+      <div class="ml-placeholder small">
+        <p>Insights / xG / SmartMoney will appear here.</p>
+      </div>
+    `;
+    return;
+  }
+
+  const { league, country } = block;
+  const tier = league.tier != null ? league.tier : "N/A";
+
+  dom.insightsContainer.innerHTML = `
+    <div class="ml-info-block">
+      <p><strong>Insights Profile:</strong></p>
+      <p>League: <strong>${league.display_name}</strong></p>
+      <p>Country: ${country.country_name}</p>
+      <p>Tier: ${tier}</p>
+      <p>Tab Mode: ${AIML_STATE.currentTab.toUpperCase()}</p>
+      <p class="ml-text-soft">This panel is ready for future integration of xG, SmartMoney and advanced signals.</p>
+    </div>
+  `;
+}
+
+// -----------------------
+// 15. TABS HANDLING
+// -----------------------
+
+function setupTabs() {
+  const tabs = document.querySelectorAll(".ml-tab");
+  if (!tabs.length) return;
+
+  tabs.forEach(tabBtn => {
+    tabBtn.addEventListener("click", () => {
+      const mode = tabBtn.getAttribute("data-tab") || "live";
+      AIML_STATE.currentTab = mode;
+
+      tabs.forEach(b => b.classList.remove("ml-tab-active"));
+      tabBtn.classList.add("ml-tab-active");
+
+      // Αν υπάρχει ήδη league, ξαναφορτώνουμε matches για αυτό το tab
+      if (AIML_STATE.currentLeague) {
+        loadMatchesForCurrentLeague();
+        updateInsightsPanel();
+      }
     });
-
-    populateContinents(data);
-
-    const footerYear = document.getElementById("footerYear");
-    if (footerYear) {
-        footerYear.textContent = new Date().getFullYear();
-    }
+  });
 }
 
-// ================================================================
+// -----------------------
+// 16. THEME TOGGLE
+// -----------------------
+
+function setupThemeToggle() {
+  if (!dom.themeToggleBtn) return;
+  const html = document.documentElement;
+
+  function applyThemeIcon() {
+    const theme = html.getAttribute("data-theme") || "dark";
+    dom.themeToggleBtn.textContent = theme === "dark" ? "🌗" : "☀";
+  }
+
+  dom.themeToggleBtn.addEventListener("click", () => {
+    const current = html.getAttribute("data-theme") || "dark";
+    const next = current === "dark" ? "light" : "dark";
+    html.setAttribute("data-theme", next);
+    applyThemeIcon();
+  });
+
+  applyThemeIcon();
+}
+
+// -----------------------
+// 17. REFRESH BUTTON
+// -----------------------
+
+function setupRefreshButton() {
+  if (!dom.refreshBtn) return;
+
+  dom.refreshBtn.addEventListener("click", () => {
+    if (AIML_STATE.currentLeague) {
+      loadMatchesForCurrentLeague();
+    } else if (AIML_STATE.currentContinent) {
+      onContinentChanged();
+    } else {
+      initContinents();
+    }
+  });
+}
+
+// -----------------------
+// 18. AUTO REFRESH
+// -----------------------
+
+function startAutoRefresh() {
+  if (!dom.autoRefreshStatus) return;
+
+  if (AIML_STATE.autoRefreshInterval) {
+    clearInterval(AIML_STATE.autoRefreshInterval);
+  }
+
+  const dot = dom.autoRefreshStatus.querySelector(".dot");
+  const label = dom.autoRefreshStatus.querySelector(".label");
+
+  function markActive() {
+    if (label) label.textContent = "auto-refresh ON";
+  }
+
+  markActive();
+
+  AIML_STATE.autoRefreshInterval = setInterval(() => {
+    if (AIML_STATE.currentLeague) {
+      loadMatchesForCurrentLeague(true);
+      if (dot) {
+        dot.classList.add("active");
+        setTimeout(() => dot.classList.remove("active"), 900);
+      }
+    }
+  }, 60000); // κάθε 60"
+}
+
+// -----------------------
+// 19. INSTALL PROMPT (PWA-LITE)
+// -----------------------
+
+let deferredPrompt = null;
+
+function setupInstallPrompt() {
+  if (!dom.installBtn) return;
+
+  window.addEventListener("beforeinstallprompt", e => {
+    e.preventDefault();
+    deferredPrompt = e;
+    dom.installBtn.classList.remove("ml-hidden");
+  });
+
+  dom.installBtn.addEventListener("click", async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    dom.installBtn.classList.add("ml-hidden");
+  });
+}
+
+// -----------------------
+// 20. FOOTER META
+// -----------------------
+
+function setupFooterMeta() {
+  if (dom.footerYear) {
+    dom.footerYear.textContent = new Date().getFullYear();
+  }
+  if (dom.footerVersion && dom.appVersion) {
+    dom.footerVersion.textContent = "Build " + dom.appVersion.textContent;
+  }
+
+  if (dom.footerLegalBtn) {
+    dom.footerLegalBtn.addEventListener("click", () => {
+      alert(
+        "AI MatchLab ULTRA – Professional Football Intelligence.\nData sources and betting integrations are for informational purposes only."
+      );
+    });
+  }
+
+  if (dom.reloadBtn && dom.updateBar) {
+    dom.reloadBtn.addEventListener("click", () => {
+      window.location.reload();
+    });
+  }
+}
+
+// -----------------------
 // BOOT
-// ================================================================
+// -----------------------
+
 document.addEventListener("DOMContentLoaded", initApp);
