@@ -5,13 +5,44 @@
       "continent_name": "Europe",
       "countries": [
         {
+          "country_code": "AL",
+          "country_name": "Albania",
+          "timezone": "Europe/Tirane",
+          "region_cluster": "Europe_Balkans",
+          "leagues": [
+            {
+              "league_id": "ALB1",
+              "display_name": "Kategoria Superiore",
+              "tier": 1
+            },
+            {
+              "league_id": "ALB2",
+              "display_name": "Kategoria e Parë",
+              "tier": 2
+            },
+            {
+              "league_id": "ALB_CUP",
+              "display_name": "Kupa e Shqipërisë",
+              "tier": 1
+            }
+          ]
+        },
+        {
           "country_code": "AD",
           "country_name": "Andorra",
           "timezone": "Europe/Andorra",
           "region_cluster": "Europe_Iberia",
           "leagues": [
-            { "league_id": "AND1", "display_name": "Primera Divisió", "tier": 1 },
-            { "league_id": "ANDCUP", "display_name": "Copa Constitució", "tier": 1 }
+            {
+              "league_id": "AND1",
+              "display_name": "Primera Divisió",
+              "tier": 1
+            },
+            {
+              "league_id": "ANDCUP",
+              "display_name": "Copa Constitució",
+              "tier": 1
+            }
           ]
         },
         {
@@ -20,9 +51,21 @@
           "timezone": "Asia/Yerevan",
           "region_cluster": "Europe_Caucasus",
           "leagues": [
-            { "league_id": "ARM1", "display_name": "Armenian Premier League", "tier": 1 },
-            { "league_id": "ARM2", "display_name": "Armenian First League", "tier": 2 },
-            { "league_id": "ARMCUP", "display_name": "Armenian Cup", "tier": 1 }
+            {
+              "league_id": "ARM1",
+              "display_name": "Armenian Premier League",
+              "tier": 1
+            },
+            {
+              "league_id": "ARM2",
+              "display_name": "Armenian First League",
+              "tier": 2
+            },
+            {
+              "league_id": "ARMCUP",
+              "display_name": "Armenian Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -31,9 +74,21 @@
           "timezone": "Europe/Vienna",
           "region_cluster": "Europe_Central",
           "leagues": [
-            { "league_id": "AUT1", "display_name": "Bundesliga", "tier": 1 },
-            { "league_id": "AUT2", "display_name": "2. Liga", "tier": 2 },
-            { "league_id": "AUTCUP", "display_name": "ÖFB Cup", "tier": 1 }
+            {
+              "league_id": "AUT1",
+              "display_name": "Bundesliga",
+              "tier": 1
+            },
+            {
+              "league_id": "AUT2",
+              "display_name": "2. Liga",
+              "tier": 2
+            },
+            {
+              "league_id": "AUTCUP",
+              "display_name": "ÖFB Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -42,8 +97,16 @@
           "timezone": "Asia/Baku",
           "region_cluster": "Europe_Caucasus",
           "leagues": [
-            { "league_id": "AZE1", "display_name": "Premier League", "tier": 1 },
-            { "league_id": "AZECUP", "display_name": "Azerbaijan Cup", "tier": 1 }
+            {
+              "league_id": "AZE1",
+              "display_name": "Premier League",
+              "tier": 1
+            },
+            {
+              "league_id": "AZECUP",
+              "display_name": "Azerbaijan Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -52,9 +115,21 @@
           "timezone": "Europe/Minsk",
           "region_cluster": "Europe_East",
           "leagues": [
-            { "league_id": "BLR1", "display_name": "Vysshaya Liga", "tier": 1 },
-            { "league_id": "BLR2", "display_name": "Pershaya Liga", "tier": 2 },
-            { "league_id": "BLRCUP", "display_name": "Belarusian Cup", "tier": 1 }
+            {
+              "league_id": "BLR1",
+              "display_name": "Vysshaya Liga",
+              "tier": 1
+            },
+            {
+              "league_id": "BLR2",
+              "display_name": "Pershaya Liga",
+              "tier": 2
+            },
+            {
+              "league_id": "BLRCUP",
+              "display_name": "Belarusian Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -63,9 +138,21 @@
           "timezone": "Europe/Brussels",
           "region_cluster": "Europe_Benelux",
           "leagues": [
-            { "league_id": "BEL1", "display_name": "Jupiler Pro League", "tier": 1 },
-            { "league_id": "BEL2", "display_name": "Challenger Pro League", "tier": 2 },
-            { "league_id": "BELCUP", "display_name": "Belgian Cup", "tier": 1 }
+            {
+              "league_id": "BEL1",
+              "display_name": "Jupiler Pro League",
+              "tier": 1
+            },
+            {
+              "league_id": "BEL2",
+              "display_name": "Challenger Pro League",
+              "tier": 2
+            },
+            {
+              "league_id": "BELCUP",
+              "display_name": "Belgian Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -74,8 +161,16 @@
           "timezone": "Europe/Sarajevo",
           "region_cluster": "Europe_Balkans",
           "leagues": [
-            { "league_id": "BIH1", "display_name": "Premier Liga", "tier": 1 },
-            { "league_id": "BIHCUP", "display_name": "Kup Bosne i Hercegovine", "tier": 1 }
+            {
+              "league_id": "BIH1",
+              "display_name": "Premier Liga",
+              "tier": 1
+            },
+            {
+              "league_id": "BIHCUP",
+              "display_name": "Kup Bosne i Hercegovine",
+              "tier": 1
+            }
           ]
         },
         {
@@ -84,9 +179,21 @@
           "timezone": "Europe/Sofia",
           "region_cluster": "Europe_Balkans",
           "leagues": [
-            { "league_id": "BUL1", "display_name": "First League", "tier": 1 },
-            { "league_id": "BUL2", "display_name": "Second League", "tier": 2 },
-            { "league_id": "BULCUP", "display_name": "Bulgarian Cup", "tier": 1 }
+            {
+              "league_id": "BUL1",
+              "display_name": "First League",
+              "tier": 1
+            },
+            {
+              "league_id": "BUL2",
+              "display_name": "Second League",
+              "tier": 2
+            },
+            {
+              "league_id": "BULCUP",
+              "display_name": "Bulgarian Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -95,8 +202,16 @@
           "timezone": "Europe/Zagreb",
           "region_cluster": "Europe_Balkans",
           "leagues": [
-            { "league_id": "CRO1", "display_name": "HNL", "tier": 1 },
-            { "league_id": "CROCUP", "display_name": "Croatian Cup", "tier": 1 }
+            {
+              "league_id": "CRO1",
+              "display_name": "HNL",
+              "tier": 1
+            },
+            {
+              "league_id": "CROCUP",
+              "display_name": "Croatian Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -105,8 +220,16 @@
           "timezone": "Asia/Nicosia",
           "region_cluster": "Europe_Mediterranean",
           "leagues": [
-            { "league_id": "CYP1", "display_name": "First Division", "tier": 1 },
-            { "league_id": "CYPCUP", "display_name": "Cypriot Cup", "tier": 1 }
+            {
+              "league_id": "CYP1",
+              "display_name": "First Division",
+              "tier": 1
+            },
+            {
+              "league_id": "CYPCUP",
+              "display_name": "Cypriot Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -115,9 +238,21 @@
           "timezone": "Europe/Prague",
           "region_cluster": "Europe_Central",
           "leagues": [
-            { "league_id": "CZE1", "display_name": "Fortuna Liga", "tier": 1 },
-            { "league_id": "CZE2", "display_name": "National League", "tier": 2 },
-            { "league_id": "CZECUP", "display_name": "Czech Cup", "tier": 1 }
+            {
+              "league_id": "CZE1",
+              "display_name": "Fortuna Liga",
+              "tier": 1
+            },
+            {
+              "league_id": "CZE2",
+              "display_name": "National League",
+              "tier": 2
+            },
+            {
+              "league_id": "CZECUP",
+              "display_name": "Czech Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -126,9 +261,21 @@
           "timezone": "Europe/Copenhagen",
           "region_cluster": "Europe_North",
           "leagues": [
-            { "league_id": "DEN1", "display_name": "Superliga", "tier": 1 },
-            { "league_id": "DEN2", "display_name": "1st Division", "tier": 2 },
-            { "league_id": "DENCUP", "display_name": "Danish Cup", "tier": 1 }
+            {
+              "league_id": "DEN1",
+              "display_name": "Superliga",
+              "tier": 1
+            },
+            {
+              "league_id": "DEN2",
+              "display_name": "1st Division",
+              "tier": 2
+            },
+            {
+              "league_id": "DENCUP",
+              "display_name": "Danish Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -137,8 +284,16 @@
           "timezone": "Europe/Tallinn",
           "region_cluster": "Europe_Baltic",
           "leagues": [
-            { "league_id": "EST1", "display_name": "Meistriliiga", "tier": 1 },
-            { "league_id": "ESTCUP", "display_name": "Estonian Cup", "tier": 1 }
+            {
+              "league_id": "EST1",
+              "display_name": "Meistriliiga",
+              "tier": 1
+            },
+            {
+              "league_id": "ESTCUP",
+              "display_name": "Estonian Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -147,9 +302,21 @@
           "timezone": "Europe/Helsinki",
           "region_cluster": "Europe_North",
           "leagues": [
-            { "league_id": "FIN1", "display_name": "Veikkausliiga", "tier": 1 },
-            { "league_id": "FIN2", "display_name": "Ykkönen", "tier": 2 },
-            { "league_id": "FINCUP", "display_name": "Finnish Cup", "tier": 1 }
+            {
+              "league_id": "FIN1",
+              "display_name": "Veikkausliiga",
+              "tier": 1
+            },
+            {
+              "league_id": "FIN2",
+              "display_name": "Ykkönen",
+              "tier": 2
+            },
+            {
+              "league_id": "FINCUP",
+              "display_name": "Finnish Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -158,9 +325,21 @@
           "timezone": "Europe/Paris",
           "region_cluster": "Europe_West",
           "leagues": [
-            { "league_id": "FRA1", "display_name": "Ligue 1", "tier": 1 },
-            { "league_id": "FRA2", "display_name": "Ligue 2", "tier": 2 },
-            { "league_id": "FRACUP", "display_name": "Coupe de France", "tier": 1 }
+            {
+              "league_id": "FRA1",
+              "display_name": "Ligue 1",
+              "tier": 1
+            },
+            {
+              "league_id": "FRA2",
+              "display_name": "Ligue 2",
+              "tier": 2
+            },
+            {
+              "league_id": "FRACUP",
+              "display_name": "Coupe de France",
+              "tier": 1
+            }
           ]
         },
         {
@@ -169,8 +348,16 @@
           "timezone": "Asia/Tbilisi",
           "region_cluster": "Europe_Caucasus",
           "leagues": [
-            { "league_id": "GEO1", "display_name": "Erovnuli Liga", "tier": 1 },
-            { "league_id": "GEOCUP", "display_name": "David Kipiani Cup", "tier": 1 }
+            {
+              "league_id": "GEO1",
+              "display_name": "Erovnuli Liga",
+              "tier": 1
+            },
+            {
+              "league_id": "GEOCUP",
+              "display_name": "David Kipiani Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -179,9 +366,21 @@
           "timezone": "Europe/Berlin",
           "region_cluster": "Europe_Central",
           "leagues": [
-            { "league_id": "GER1", "display_name": "Bundesliga", "tier": 1 },
-            { "league_id": "GER2", "display_name": "2. Bundesliga", "tier": 2 },
-            { "league_id": "GERCUP", "display_name": "DFB-Pokal", "tier": 1 }
+            {
+              "league_id": "GER1",
+              "display_name": "Bundesliga",
+              "tier": 1
+            },
+            {
+              "league_id": "GER2",
+              "display_name": "2. Bundesliga",
+              "tier": 2
+            },
+            {
+              "league_id": "GERCUP",
+              "display_name": "DFB-Pokal",
+              "tier": 1
+            }
           ]
         },
         {
@@ -190,9 +389,21 @@
           "timezone": "Europe/Athens",
           "region_cluster": "Europe_Mediterranean",
           "leagues": [
-            { "league_id": "GRE1", "display_name": "Super League", "tier": 1 },
-            { "league_id": "GRE2", "display_name": "Super League 2", "tier": 2 },
-            { "league_id": "GRECUP", "display_name": "Greek Cup", "tier": 1 }
+            {
+              "league_id": "GRE1",
+              "display_name": "Super League",
+              "tier": 1
+            },
+            {
+              "league_id": "GRE2",
+              "display_name": "Super League 2",
+              "tier": 2
+            },
+            {
+              "league_id": "GRECUP",
+              "display_name": "Greek Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -201,9 +412,21 @@
           "timezone": "Europe/Budapest",
           "region_cluster": "Europe_Central",
           "leagues": [
-            { "league_id": "HUN1", "display_name": "NB I", "tier": 1 },
-            { "league_id": "HUN2", "display_name": "NB II", "tier": 2 },
-            { "league_id": "HUNCUP", "display_name": "Magyar Kupa", "tier": 1 }
+            {
+              "league_id": "HUN1",
+              "display_name": "NB I",
+              "tier": 1
+            },
+            {
+              "league_id": "HUN2",
+              "display_name": "NB II",
+              "tier": 2
+            },
+            {
+              "league_id": "HUNCUP",
+              "display_name": "Magyar Kupa",
+              "tier": 1
+            }
           ]
         },
         {
@@ -212,8 +435,16 @@
           "timezone": "Atlantic/Reykjavik",
           "region_cluster": "Europe_North",
           "leagues": [
-            { "league_id": "ISL1", "display_name": "Úrvalsdeild", "tier": 1 },
-            { "league_id": "ISLCUP", "display_name": "Icelandic Cup", "tier": 1 }
+            {
+              "league_id": "ISL1",
+              "display_name": "Úrvalsdeild",
+              "tier": 1
+            },
+            {
+              "league_id": "ISLCUP",
+              "display_name": "Icelandic Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -222,9 +453,21 @@
           "timezone": "Europe/Dublin",
           "region_cluster": "Europe_West",
           "leagues": [
-            { "league_id": "IRL1", "display_name": "Premier Division", "tier": 1 },
-            { "league_id": "IRL2", "display_name": "First Division", "tier": 2 },
-            { "league_id": "IRLCUP", "display_name": "FAI Cup", "tier": 1 }
+            {
+              "league_id": "IRL1",
+              "display_name": "Premier Division",
+              "tier": 1
+            },
+            {
+              "league_id": "IRL2",
+              "display_name": "First Division",
+              "tier": 2
+            },
+            {
+              "league_id": "IRLCUP",
+              "display_name": "FAI Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -233,9 +476,21 @@
           "timezone": "Asia/Jerusalem",
           "region_cluster": "Europe_MiddleEast",
           "leagues": [
-            { "league_id": "ISR1", "display_name": "Ligat ha'Al", "tier": 1 },
-            { "league_id": "ISR2", "display_name": "Liga Leumit", "tier": 2 },
-            { "league_id": "ISRCUP", "display_name": "Israel State Cup", "tier": 1 }
+            {
+              "league_id": "ISR1",
+              "display_name": "Ligat ha'Al",
+              "tier": 1
+            },
+            {
+              "league_id": "ISR2",
+              "display_name": "Liga Leumit",
+              "tier": 2
+            },
+            {
+              "league_id": "ISRCUP",
+              "display_name": "Israel State Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -244,9 +499,21 @@
           "timezone": "Europe/Rome",
           "region_cluster": "Europe_South",
           "leagues": [
-            { "league_id": "ITA1", "display_name": "Serie A", "tier": 1 },
-            { "league_id": "ITA2", "display_name": "Serie B", "tier": 2 },
-            { "league_id": "ITACUP", "display_name": "Coppa Italia", "tier": 1 }
+            {
+              "league_id": "ITA1",
+              "display_name": "Serie A",
+              "tier": 1
+            },
+            {
+              "league_id": "ITA2",
+              "display_name": "Serie B",
+              "tier": 2
+            },
+            {
+              "league_id": "ITACUP",
+              "display_name": "Coppa Italia",
+              "tier": 1
+            }
           ]
         },
         {
@@ -255,8 +522,16 @@
           "timezone": "Europe/Riga",
           "region_cluster": "Europe_Baltic",
           "leagues": [
-            { "league_id": "LVA1", "display_name": "Virslīga", "tier": 1 },
-            { "league_id": "LVACUP", "display_name": "Latvian Cup", "tier": 1 }
+            {
+              "league_id": "LVA1",
+              "display_name": "Virslīga",
+              "tier": 1
+            },
+            {
+              "league_id": "LVACUP",
+              "display_name": "Latvian Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -265,8 +540,16 @@
           "timezone": "Europe/Vilnius",
           "region_cluster": "Europe_Baltic",
           "leagues": [
-            { "league_id": "LTU1", "display_name": "A Lyga", "tier": 1 },
-            { "league_id": "LTUCUP", "display_name": "Lithuanian Cup", "tier": 1 }
+            {
+              "league_id": "LTU1",
+              "display_name": "A Lyga",
+              "tier": 1
+            },
+            {
+              "league_id": "LTUCUP",
+              "display_name": "Lithuanian Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -275,8 +558,16 @@
           "timezone": "Europe/Luxembourg",
           "region_cluster": "Europe_Benelux",
           "leagues": [
-            { "league_id": "LUX1", "display_name": "National Division", "tier": 1 },
-            { "league_id": "LUXCUP", "display_name": "Luxembourg Cup", "tier": 1 }
+            {
+              "league_id": "LUX1",
+              "display_name": "National Division",
+              "tier": 1
+            },
+            {
+              "league_id": "LUXCUP",
+              "display_name": "Luxembourg Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -285,8 +576,16 @@
           "timezone": "Europe/Malta",
           "region_cluster": "Europe_Mediterranean",
           "leagues": [
-            { "league_id": "MLT1", "display_name": "Premier League", "tier": 1 },
-            { "league_id": "MLTCUP", "display_name": "FA Trophy", "tier": 1 }
+            {
+              "league_id": "MLT1",
+              "display_name": "Premier League",
+              "tier": 1
+            },
+            {
+              "league_id": "MLTCUP",
+              "display_name": "FA Trophy",
+              "tier": 1
+            }
           ]
         },
         {
@@ -295,8 +594,16 @@
           "timezone": "Europe/Chisinau",
           "region_cluster": "Europe_East",
           "leagues": [
-            { "league_id": "MDA1", "display_name": "Super Liga", "tier": 1 },
-            { "league_id": "MDACUP", "display_name": "Moldovan Cup", "tier": 1 }
+            {
+              "league_id": "MDA1",
+              "display_name": "Super Liga",
+              "tier": 1
+            },
+            {
+              "league_id": "MDACUP",
+              "display_name": "Moldovan Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -305,8 +612,16 @@
           "timezone": "Europe/Podgorica",
           "region_cluster": "Europe_Balkans",
           "leagues": [
-            { "league_id": "MNE1", "display_name": "First League", "tier": 1 },
-            { "league_id": "MNECUP", "display_name": "Montenegrin Cup", "tier": 1 }
+            {
+              "league_id": "MNE1",
+              "display_name": "First League",
+              "tier": 1
+            },
+            {
+              "league_id": "MNECUP",
+              "display_name": "Montenegrin Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -315,9 +630,21 @@
           "timezone": "Europe/Amsterdam",
           "region_cluster": "Europe_Benelux",
           "leagues": [
-            { "league_id": "NED1", "display_name": "Eredivisie", "tier": 1 },
-            { "league_id": "NED2", "display_name": "Eerste Divisie", "tier": 2 },
-            { "league_id": "NEDCUP", "display_name": "KNVB Cup", "tier": 1 }
+            {
+              "league_id": "NED1",
+              "display_name": "Eredivisie",
+              "tier": 1
+            },
+            {
+              "league_id": "NED2",
+              "display_name": "Eerste Divisie",
+              "tier": 2
+            },
+            {
+              "league_id": "NEDCUP",
+              "display_name": "KNVB Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -326,8 +653,16 @@
           "timezone": "Europe/Skopje",
           "region_cluster": "Europe_Balkans",
           "leagues": [
-            { "league_id": "MKD1", "display_name": "First League", "tier": 1 },
-            { "league_id": "MKDCUP", "display_name": "Macedonian Cup", "tier": 1 }
+            {
+              "league_id": "MKD1",
+              "display_name": "First League",
+              "tier": 1
+            },
+            {
+              "league_id": "MKDCUP",
+              "display_name": "Macedonian Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -336,9 +671,21 @@
           "timezone": "Europe/Oslo",
           "region_cluster": "Europe_North",
           "leagues": [
-            { "league_id": "NOR1", "display_name": "Eliteserien", "tier": 1 },
-            { "league_id": "NOR2", "display_name": "OBOS-ligaen", "tier": 2 },
-            { "league_id": "NORCUP", "display_name": "Norwegian Cup", "tier": 1 }
+            {
+              "league_id": "NOR1",
+              "display_name": "Eliteserien",
+              "tier": 1
+            },
+            {
+              "league_id": "NOR2",
+              "display_name": "OBOS-ligaen",
+              "tier": 2
+            },
+            {
+              "league_id": "NORCUP",
+              "display_name": "Norwegian Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -347,9 +694,21 @@
           "timezone": "Europe/Warsaw",
           "region_cluster": "Europe_Central",
           "leagues": [
-            { "league_id": "POL1", "display_name": "Ekstraklasa", "tier": 1 },
-            { "league_id": "POL2", "display_name": "I liga", "tier": 2 },
-            { "league_id": "POLCUP", "display_name": "Polish Cup", "tier": 1 }
+            {
+              "league_id": "POL1",
+              "display_name": "Ekstraklasa",
+              "tier": 1
+            },
+            {
+              "league_id": "POL2",
+              "display_name": "I liga",
+              "tier": 2
+            },
+            {
+              "league_id": "POLCUP",
+              "display_name": "Polish Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -358,9 +717,21 @@
           "timezone": "Europe/Lisbon",
           "region_cluster": "Europe_Iberia",
           "leagues": [
-            { "league_id": "POR1", "display_name": "Primeira Liga", "tier": 1 },
-            { "league_id": "POR2", "display_name": "Liga Portugal 2", "tier": 2 },
-            { "league_id": "PORCUP", "display_name": "Taça de Portugal", "tier": 1 }
+            {
+              "league_id": "POR1",
+              "display_name": "Primeira Liga",
+              "tier": 1
+            },
+            {
+              "league_id": "POR2",
+              "display_name": "Liga Portugal 2",
+              "tier": 2
+            },
+            {
+              "league_id": "PORCUP",
+              "display_name": "Taça de Portugal",
+              "tier": 1
+            }
           ]
         },
         {
@@ -369,9 +740,21 @@
           "timezone": "Europe/Bucharest",
           "region_cluster": "Europe_East",
           "leagues": [
-            { "league_id": "ROU1", "display_name": "Liga I", "tier": 1 },
-            { "league_id": "ROU2", "display_name": "Liga II", "tier": 2 },
-            { "league_id": "ROUCUP", "display_name": "Cupa României", "tier": 1 }
+            {
+              "league_id": "ROU1",
+              "display_name": "Liga I",
+              "tier": 1
+            },
+            {
+              "league_id": "ROU2",
+              "display_name": "Liga II",
+              "tier": 2
+            },
+            {
+              "league_id": "ROUCUP",
+              "display_name": "Cupa României",
+              "tier": 1
+            }
           ]
         },
         {
@@ -380,8 +763,16 @@
           "timezone": "Europe/Belgrade",
           "region_cluster": "Europe_Balkans",
           "leagues": [
-            { "league_id": "SRB1", "display_name": "SuperLiga", "tier": 1 },
-            { "league_id": "SRBCUP", "display_name": "Serbian Cup", "tier": 1 }
+            {
+              "league_id": "SRB1",
+              "display_name": "SuperLiga",
+              "tier": 1
+            },
+            {
+              "league_id": "SRBCUP",
+              "display_name": "Serbian Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -390,8 +781,16 @@
           "timezone": "Europe/Bratislava",
           "region_cluster": "Europe_Central",
           "leagues": [
-            { "league_id": "SVK1", "display_name": "Fortuna Liga", "tier": 1 },
-            { "league_id": "SVKCUP", "display_name": "Slovak Cup", "tier": 1 }
+            {
+              "league_id": "SVK1",
+              "display_name": "Fortuna Liga",
+              "tier": 1
+            },
+            {
+              "league_id": "SVKCUP",
+              "display_name": "Slovak Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -400,8 +799,16 @@
           "timezone": "Europe/Ljubljana",
           "region_cluster": "Europe_Central",
           "leagues": [
-            { "league_id": "SVN1", "display_name": "PrvaLiga", "tier": 1 },
-            { "league_id": "SVNCUP", "display_name": "Slovenian Cup", "tier": 1 }
+            {
+              "league_id": "SVN1",
+              "display_name": "PrvaLiga",
+              "tier": 1
+            },
+            {
+              "league_id": "SVNCUP",
+              "display_name": "Slovenian Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -410,9 +817,21 @@
           "timezone": "Europe/Madrid",
           "region_cluster": "Europe_South",
           "leagues": [
-            { "league_id": "ESP1", "display_name": "La Liga", "tier": 1 },
-            { "league_id": "ESP2", "display_name": "Segunda División", "tier": 2 },
-            { "league_id": "ESPCUP", "display_name": "Copa del Rey", "tier": 1 }
+            {
+              "league_id": "ESP1",
+              "display_name": "La Liga",
+              "tier": 1
+            },
+            {
+              "league_id": "ESP2",
+              "display_name": "Segunda División",
+              "tier": 2
+            },
+            {
+              "league_id": "ESPCUP",
+              "display_name": "Copa del Rey",
+              "tier": 1
+            }
           ]
         },
         {
@@ -421,9 +840,21 @@
           "timezone": "Europe/Stockholm",
           "region_cluster": "Europe_North",
           "leagues": [
-            { "league_id": "SWE1", "display_name": "Allsvenskan", "tier": 1 },
-            { "league_id": "SWE2", "display_name": "Superettan", "tier": 2 },
-            { "league_id": "SWECUP", "display_name": "Svenska Cupen", "tier": 1 }
+            {
+              "league_id": "SWE1",
+              "display_name": "Allsvenskan",
+              "tier": 1
+            },
+            {
+              "league_id": "SWE2",
+              "display_name": "Superettan",
+              "tier": 2
+            },
+            {
+              "league_id": "SWECUP",
+              "display_name": "Svenska Cupen",
+              "tier": 1
+            }
           ]
         },
         {
@@ -432,9 +863,21 @@
           "timezone": "Europe/Zurich",
           "region_cluster": "Europe_Central",
           "leagues": [
-            { "league_id": "SUI1", "display_name": "Super League", "tier": 1 },
-            { "league_id": "SUI2", "display_name": "Challenge League", "tier": 2 },
-            { "league_id": "SUICUP", "display_name": "Swiss Cup", "tier": 1 }
+            {
+              "league_id": "SUI1",
+              "display_name": "Super League",
+              "tier": 1
+            },
+            {
+              "league_id": "SUI2",
+              "display_name": "Challenge League",
+              "tier": 2
+            },
+            {
+              "league_id": "SUICUP",
+              "display_name": "Swiss Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -443,9 +886,21 @@
           "timezone": "Europe/Istanbul",
           "region_cluster": "Europe_MiddleEast",
           "leagues": [
-            { "league_id": "TUR1", "display_name": "Süper Lig", "tier": 1 },
-            { "league_id": "TUR2", "display_name": "1. Lig", "tier": 2 },
-            { "league_id": "TURCUP", "display_name": "Turkish Cup", "tier": 1 }
+            {
+              "league_id": "TUR1",
+              "display_name": "Süper Lig",
+              "tier": 1
+            },
+            {
+              "league_id": "TUR2",
+              "display_name": "1. Lig",
+              "tier": 2
+            },
+            {
+              "league_id": "TURCUP",
+              "display_name": "Turkish Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -454,8 +909,16 @@
           "timezone": "Europe/Kyiv",
           "region_cluster": "Europe_East",
           "leagues": [
-            { "league_id": "UKR1", "display_name": "Premier League", "tier": 1 },
-            { "league_id": "UKRCUP", "display_name": "Ukrainian Cup", "tier": 1 }
+            {
+              "league_id": "UKR1",
+              "display_name": "Premier League",
+              "tier": 1
+            },
+            {
+              "league_id": "UKRCUP",
+              "display_name": "Ukrainian Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -464,11 +927,31 @@
           "timezone": "Europe/London",
           "region_cluster": "Europe_UK",
           "leagues": [
-            { "league_id": "ENG1", "display_name": "Premier League", "tier": 1 },
-            { "league_id": "ENG2", "display_name": "Championship", "tier": 2 },
-            { "league_id": "ENG3", "display_name": "League One", "tier": 3 },
-            { "league_id": "ENG4", "display_name": "League Two", "tier": 4 },
-            { "league_id": "ENGCUP", "display_name": "FA Cup", "tier": 1 }
+            {
+              "league_id": "ENG1",
+              "display_name": "Premier League",
+              "tier": 1
+            },
+            {
+              "league_id": "ENG2",
+              "display_name": "Championship",
+              "tier": 2
+            },
+            {
+              "league_id": "ENG3",
+              "display_name": "League One",
+              "tier": 3
+            },
+            {
+              "league_id": "ENG4",
+              "display_name": "League Two",
+              "tier": 4
+            },
+            {
+              "league_id": "ENGCUP",
+              "display_name": "FA Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -477,9 +960,21 @@
           "timezone": "Europe/London",
           "region_cluster": "Europe_UK",
           "leagues": [
-            { "league_id": "SCO1", "display_name": "Premiership", "tier": 1 },
-            { "league_id": "SCO2", "display_name": "Championship", "tier": 2 },
-            { "league_id": "SCOCUP", "display_name": "Scottish Cup", "tier": 1 }
+            {
+              "league_id": "SCO1",
+              "display_name": "Premiership",
+              "tier": 1
+            },
+            {
+              "league_id": "SCO2",
+              "display_name": "Championship",
+              "tier": 2
+            },
+            {
+              "league_id": "SCOCUP",
+              "display_name": "Scottish Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -488,8 +983,16 @@
           "timezone": "Europe/London",
           "region_cluster": "Europe_UK",
           "leagues": [
-            { "league_id": "WAL1", "display_name": "Cymru Premier", "tier": 1 },
-            { "league_id": "WALCUP", "display_name": "Welsh Cup", "tier": 1 }
+            {
+              "league_id": "WAL1",
+              "display_name": "Cymru Premier",
+              "tier": 1
+            },
+            {
+              "league_id": "WALCUP",
+              "display_name": "Welsh Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -498,8 +1001,16 @@
           "timezone": "Europe/London",
           "region_cluster": "Europe_UK",
           "leagues": [
-            { "league_id": "NIR1", "display_name": "NIFL Premiership", "tier": 1 },
-            { "league_id": "NIRCUP", "display_name": "Irish Cup", "tier": 1 }
+            {
+              "league_id": "NIR1",
+              "display_name": "NIFL Premiership",
+              "tier": 1
+            },
+            {
+              "league_id": "NIRCUP",
+              "display_name": "Irish Cup",
+              "tier": 1
+            }
           ]
         }
       ]
@@ -514,8 +1025,16 @@
           "timezone": "Africa/Algiers",
           "region_cluster": "Africa_North",
           "leagues": [
-            { "league_id": "ALG1", "display_name": "Ligue 1", "tier": 1 },
-            { "league_id": "ALGCUP", "display_name": "Algerian Cup", "tier": 1 }
+            {
+              "league_id": "ALG1",
+              "display_name": "Ligue 1",
+              "tier": 1
+            },
+            {
+              "league_id": "ALGCUP",
+              "display_name": "Algerian Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -524,7 +1043,11 @@
           "timezone": "Africa/Luanda",
           "region_cluster": "Africa_South",
           "leagues": [
-            { "league_id": "ANG1", "display_name": "Girabola", "tier": 1 }
+            {
+              "league_id": "ANG1",
+              "display_name": "Girabola",
+              "tier": 1
+            }
           ]
         },
         {
@@ -533,7 +1056,11 @@
           "timezone": "Africa/Porto-Novo",
           "region_cluster": "Africa_West",
           "leagues": [
-            { "league_id": "BEN1", "display_name": "Benin Premier League", "tier": 1 }
+            {
+              "league_id": "BEN1",
+              "display_name": "Benin Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -542,7 +1069,11 @@
           "timezone": "Africa/Gaborone",
           "region_cluster": "Africa_South",
           "leagues": [
-            { "league_id": "BOT1", "display_name": "Botswana Premier League", "tier": 1 }
+            {
+              "league_id": "BOT1",
+              "display_name": "Botswana Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -551,7 +1082,11 @@
           "timezone": "Africa/Ouagadougou",
           "region_cluster": "Africa_West",
           "leagues": [
-            { "league_id": "BFA1", "display_name": "Burkinabé Premier League", "tier": 1 }
+            {
+              "league_id": "BFA1",
+              "display_name": "Burkinabé Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -560,7 +1095,11 @@
           "timezone": "Africa/Bujumbura",
           "region_cluster": "Africa_East",
           "leagues": [
-            { "league_id": "BDI1", "display_name": "Ligue A", "tier": 1 }
+            {
+              "league_id": "BDI1",
+              "display_name": "Ligue A",
+              "tier": 1
+            }
           ]
         },
         {
@@ -569,7 +1108,11 @@
           "timezone": "Africa/Douala",
           "region_cluster": "Africa_Central",
           "leagues": [
-            { "league_id": "CMR1", "display_name": "Elite One", "tier": 1 }
+            {
+              "league_id": "CMR1",
+              "display_name": "Elite One",
+              "tier": 1
+            }
           ]
         },
         {
@@ -578,7 +1121,11 @@
           "timezone": "Atlantic/Cape_Verde",
           "region_cluster": "Africa_West",
           "leagues": [
-            { "league_id": "CPV1", "display_name": "Campeonato Nacional", "tier": 1 }
+            {
+              "league_id": "CPV1",
+              "display_name": "Campeonato Nacional",
+              "tier": 1
+            }
           ]
         },
         {
@@ -587,7 +1134,11 @@
           "timezone": "Africa/Bangui",
           "region_cluster": "Africa_Central",
           "leagues": [
-            { "league_id": "CAF1", "display_name": "Ligue de Bangui", "tier": 1 }
+            {
+              "league_id": "CAF1",
+              "display_name": "Ligue de Bangui",
+              "tier": 1
+            }
           ]
         },
         {
@@ -596,7 +1147,11 @@
           "timezone": "Africa/Ndjamena",
           "region_cluster": "Africa_Central",
           "leagues": [
-            { "league_id": "TCD1", "display_name": "Ligue de N'Djamena", "tier": 1 }
+            {
+              "league_id": "TCD1",
+              "display_name": "Ligue de N'Djamena",
+              "tier": 1
+            }
           ]
         },
         {
@@ -605,7 +1160,11 @@
           "timezone": "Indian/Comoro",
           "region_cluster": "Africa_East",
           "leagues": [
-            { "league_id": "COM1", "display_name": "Comoros Premier League", "tier": 1 }
+            {
+              "league_id": "COM1",
+              "display_name": "Comoros Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -614,7 +1173,11 @@
           "timezone": "Africa/Brazzaville",
           "region_cluster": "Africa_Central",
           "leagues": [
-            { "league_id": "COG1", "display_name": "Ligue 1", "tier": 1 }
+            {
+              "league_id": "COG1",
+              "display_name": "Ligue 1",
+              "tier": 1
+            }
           ]
         },
         {
@@ -623,7 +1186,11 @@
           "timezone": "Africa/Kinshasa",
           "region_cluster": "Africa_Central",
           "leagues": [
-            { "league_id": "COD1", "display_name": "Linafoot", "tier": 1 }
+            {
+              "league_id": "COD1",
+              "display_name": "Linafoot",
+              "tier": 1
+            }
           ]
         },
         {
@@ -632,7 +1199,11 @@
           "timezone": "Africa/Djibouti",
           "region_cluster": "Africa_East",
           "leagues": [
-            { "league_id": "DJI1", "display_name": "Djibouti Premier League", "tier": 1 }
+            {
+              "league_id": "DJI1",
+              "display_name": "Djibouti Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -641,8 +1212,16 @@
           "timezone": "Africa/Cairo",
           "region_cluster": "Africa_North",
           "leagues": [
-            { "league_id": "EGY1", "display_name": "Premier League", "tier": 1 },
-            { "league_id": "EGYCUP", "display_name": "Egypt Cup", "tier": 1 }
+            {
+              "league_id": "EGY1",
+              "display_name": "Premier League",
+              "tier": 1
+            },
+            {
+              "league_id": "EGYCUP",
+              "display_name": "Egypt Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -651,7 +1230,11 @@
           "timezone": "Africa/Malabo",
           "region_cluster": "Africa_Central",
           "leagues": [
-            { "league_id": "GNQ1", "display_name": "Liga Nacional de Fútbol", "tier": 1 }
+            {
+              "league_id": "GNQ1",
+              "display_name": "Liga Nacional de Fútbol",
+              "tier": 1
+            }
           ]
         },
         {
@@ -660,7 +1243,11 @@
           "timezone": "Africa/Asmara",
           "region_cluster": "Africa_East",
           "leagues": [
-            { "league_id": "ERI1", "display_name": "Eritrean Premier League", "tier": 1 }
+            {
+              "league_id": "ERI1",
+              "display_name": "Eritrean Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -669,7 +1256,11 @@
           "timezone": "Africa/Mbabane",
           "region_cluster": "Africa_South",
           "leagues": [
-            { "league_id": "SWZ1", "display_name": "Premier League of Eswatini", "tier": 1 }
+            {
+              "league_id": "SWZ1",
+              "display_name": "Premier League of Eswatini",
+              "tier": 1
+            }
           ]
         },
         {
@@ -678,7 +1269,11 @@
           "timezone": "Africa/Addis_Ababa",
           "region_cluster": "Africa_East",
           "leagues": [
-            { "league_id": "ETH1", "display_name": "Premier League", "tier": 1 }
+            {
+              "league_id": "ETH1",
+              "display_name": "Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -687,7 +1282,11 @@
           "timezone": "Africa/Libreville",
           "region_cluster": "Africa_Central",
           "leagues": [
-            { "league_id": "GAB1", "display_name": "Gabon Championnat National D1", "tier": 1 }
+            {
+              "league_id": "GAB1",
+              "display_name": "Gabon Championnat National D1",
+              "tier": 1
+            }
           ]
         },
         {
@@ -696,7 +1295,11 @@
           "timezone": "Africa/Banjul",
           "region_cluster": "Africa_West",
           "leagues": [
-            { "league_id": "GAM1", "display_name": "GFA League First Division", "tier": 1 }
+            {
+              "league_id": "GAM1",
+              "display_name": "GFA League First Division",
+              "tier": 1
+            }
           ]
         },
         {
@@ -705,7 +1308,11 @@
           "timezone": "Africa/Accra",
           "region_cluster": "Africa_West",
           "leagues": [
-            { "league_id": "GHA1", "display_name": "Ghana Premier League", "tier": 1 }
+            {
+              "league_id": "GHA1",
+              "display_name": "Ghana Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -714,7 +1321,11 @@
           "timezone": "Africa/Conakry",
           "region_cluster": "Africa_West",
           "leagues": [
-            { "league_id": "GUI1", "display_name": "Ligue 1 Pro", "tier": 1 }
+            {
+              "league_id": "GUI1",
+              "display_name": "Ligue 1 Pro",
+              "tier": 1
+            }
           ]
         },
         {
@@ -723,7 +1334,11 @@
           "timezone": "Africa/Bissau",
           "region_cluster": "Africa_West",
           "leagues": [
-            { "league_id": "GNB1", "display_name": "Campeonato Nacional da Guiné-Bissau", "tier": 1 }
+            {
+              "league_id": "GNB1",
+              "display_name": "Campeonato Nacional da Guiné-Bissau",
+              "tier": 1
+            }
           ]
         },
         {
@@ -732,7 +1347,11 @@
           "timezone": "Africa/Nairobi",
           "region_cluster": "Africa_East",
           "leagues": [
-            { "league_id": "KEN1", "display_name": "Kenyan Premier League", "tier": 1 }
+            {
+              "league_id": "KEN1",
+              "display_name": "Kenyan Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -741,7 +1360,11 @@
           "timezone": "Africa/Maseru",
           "region_cluster": "Africa_South",
           "leagues": [
-            { "league_id": "LES1", "display_name": "Lesotho Premier League", "tier": 1 }
+            {
+              "league_id": "LES1",
+              "display_name": "Lesotho Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -750,7 +1373,11 @@
           "timezone": "Africa/Monrovia",
           "region_cluster": "Africa_West",
           "leagues": [
-            { "league_id": "LBR1", "display_name": "Liberia First Division", "tier": 1 }
+            {
+              "league_id": "LBR1",
+              "display_name": "Liberia First Division",
+              "tier": 1
+            }
           ]
         },
         {
@@ -759,7 +1386,11 @@
           "timezone": "Africa/Tripoli",
           "region_cluster": "Africa_North",
           "leagues": [
-            { "league_id": "LBY1", "display_name": "Libyan Premier League", "tier": 1 }
+            {
+              "league_id": "LBY1",
+              "display_name": "Libyan Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -768,7 +1399,11 @@
           "timezone": "Indian/Antananarivo",
           "region_cluster": "Africa_East",
           "leagues": [
-            { "league_id": "MAD1", "display_name": "THB Champions League", "tier": 1 }
+            {
+              "league_id": "MAD1",
+              "display_name": "THB Champions League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -777,7 +1412,11 @@
           "timezone": "Africa/Blantyre",
           "region_cluster": "Africa_South",
           "leagues": [
-            { "league_id": "MWI1", "display_name": "Malawi Premier Division", "tier": 1 }
+            {
+              "league_id": "MWI1",
+              "display_name": "Malawi Premier Division",
+              "tier": 1
+            }
           ]
         },
         {
@@ -786,7 +1425,11 @@
           "timezone": "Africa/Bamako",
           "region_cluster": "Africa_West",
           "leagues": [
-            { "league_id": "MLI1", "display_name": "Malian Première Division", "tier": 1 }
+            {
+              "league_id": "MLI1",
+              "display_name": "Malian Première Division",
+              "tier": 1
+            }
           ]
         },
         {
@@ -795,7 +1438,11 @@
           "timezone": "Africa/Nouakchott",
           "region_cluster": "Africa_West",
           "leagues": [
-            { "league_id": "MTN1", "display_name": "Super D1", "tier": 1 }
+            {
+              "league_id": "MTN1",
+              "display_name": "Super D1",
+              "tier": 1
+            }
           ]
         },
         {
@@ -804,7 +1451,11 @@
           "timezone": "Indian/Mauritius",
           "region_cluster": "Africa_East",
           "leagues": [
-            { "league_id": "MRI1", "display_name": "Mauritian Premier League", "tier": 1 }
+            {
+              "league_id": "MRI1",
+              "display_name": "Mauritian Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -813,9 +1464,21 @@
           "timezone": "Africa/Casablanca",
           "region_cluster": "Africa_North",
           "leagues": [
-            { "league_id": "MAR1", "display_name": "Botola Pro 1", "tier": 1 },
-            { "league_id": "MAR2", "display_name": "Botola Pro 2", "tier": 2 },
-            { "league_id": "MARCUP", "display_name": "Moroccan Throne Cup", "tier": 1 }
+            {
+              "league_id": "MAR1",
+              "display_name": "Botola Pro 1",
+              "tier": 1
+            },
+            {
+              "league_id": "MAR2",
+              "display_name": "Botola Pro 2",
+              "tier": 2
+            },
+            {
+              "league_id": "MARCUP",
+              "display_name": "Moroccan Throne Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -824,7 +1487,11 @@
           "timezone": "Africa/Maputo",
           "region_cluster": "Africa_South",
           "leagues": [
-            { "league_id": "MOZ1", "display_name": "Moçambola", "tier": 1 }
+            {
+              "league_id": "MOZ1",
+              "display_name": "Moçambola",
+              "tier": 1
+            }
           ]
         },
         {
@@ -833,7 +1500,11 @@
           "timezone": "Africa/Windhoek",
           "region_cluster": "Africa_South",
           "leagues": [
-            { "league_id": "NAM1", "display_name": "Namibia Premier League", "tier": 1 }
+            {
+              "league_id": "NAM1",
+              "display_name": "Namibia Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -842,7 +1513,11 @@
           "timezone": "Africa/Niamey",
           "region_cluster": "Africa_West",
           "leagues": [
-            { "league_id": "NER1", "display_name": "Niger Premier League", "tier": 1 }
+            {
+              "league_id": "NER1",
+              "display_name": "Niger Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -851,7 +1526,11 @@
           "timezone": "Africa/Lagos",
           "region_cluster": "Africa_West",
           "leagues": [
-            { "league_id": "NGA1", "display_name": "Nigeria Professional Football League", "tier": 1 }
+            {
+              "league_id": "NGA1",
+              "display_name": "Nigeria Professional Football League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -860,7 +1539,11 @@
           "timezone": "Africa/Kigali",
           "region_cluster": "Africa_East",
           "leagues": [
-            { "league_id": "RWA1", "display_name": "Rwanda Premier League", "tier": 1 }
+            {
+              "league_id": "RWA1",
+              "display_name": "Rwanda Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -869,7 +1552,11 @@
           "timezone": "Africa/Sao_Tome",
           "region_cluster": "Africa_Central",
           "leagues": [
-            { "league_id": "STP1", "display_name": "São Tomé and Príncipe Championship", "tier": 1 }
+            {
+              "league_id": "STP1",
+              "display_name": "São Tomé and Príncipe Championship",
+              "tier": 1
+            }
           ]
         },
         {
@@ -878,7 +1565,11 @@
           "timezone": "Africa/Dakar",
           "region_cluster": "Africa_West",
           "leagues": [
-            { "league_id": "SEN1", "display_name": "Ligue 1", "tier": 1 }
+            {
+              "league_id": "SEN1",
+              "display_name": "Ligue 1",
+              "tier": 1
+            }
           ]
         },
         {
@@ -887,7 +1578,11 @@
           "timezone": "Indian/Mahe",
           "region_cluster": "Africa_East",
           "leagues": [
-            { "league_id": "SEY1", "display_name": "Seychelles First Division", "tier": 1 }
+            {
+              "league_id": "SEY1",
+              "display_name": "Seychelles First Division",
+              "tier": 1
+            }
           ]
         },
         {
@@ -896,7 +1591,11 @@
           "timezone": "Africa/Freetown",
           "region_cluster": "Africa_West",
           "leagues": [
-            { "league_id": "SLE1", "display_name": "Premier League", "tier": 1 }
+            {
+              "league_id": "SLE1",
+              "display_name": "Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -905,7 +1604,11 @@
           "timezone": "Africa/Mogadishu",
           "region_cluster": "Africa_East",
           "leagues": [
-            { "league_id": "SOM1", "display_name": "Somali First Division", "tier": 1 }
+            {
+              "league_id": "SOM1",
+              "display_name": "Somali First Division",
+              "tier": 1
+            }
           ]
         },
         {
@@ -914,9 +1617,21 @@
           "timezone": "Africa/Johannesburg",
           "region_cluster": "Africa_South",
           "leagues": [
-            { "league_id": "RSA1", "display_name": "Premier Division (PSL)", "tier": 1 },
-            { "league_id": "RSA2", "display_name": "National First Division", "tier": 2 },
-            { "league_id": "RSACUP", "display_name": "Nedbank Cup", "tier": 1 }
+            {
+              "league_id": "RSA1",
+              "display_name": "Premier Division (PSL)",
+              "tier": 1
+            },
+            {
+              "league_id": "RSA2",
+              "display_name": "National First Division",
+              "tier": 2
+            },
+            {
+              "league_id": "RSACUP",
+              "display_name": "Nedbank Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -925,7 +1640,11 @@
           "timezone": "Africa/Juba",
           "region_cluster": "Africa_East",
           "leagues": [
-            { "league_id": "SSD1", "display_name": "South Sudan Premier League", "tier": 1 }
+            {
+              "league_id": "SSD1",
+              "display_name": "South Sudan Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -934,7 +1653,11 @@
           "timezone": "Africa/Khartoum",
           "region_cluster": "Africa_North",
           "leagues": [
-            { "league_id": "SDN1", "display_name": "Sudan Premier League", "tier": 1 }
+            {
+              "league_id": "SDN1",
+              "display_name": "Sudan Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -943,7 +1666,11 @@
           "timezone": "Africa/Dar_es_Salaam",
           "region_cluster": "Africa_East",
           "leagues": [
-            { "league_id": "TZA1", "display_name": "Tanzanian Premier League", "tier": 1 }
+            {
+              "league_id": "TZA1",
+              "display_name": "Tanzanian Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -952,7 +1679,11 @@
           "timezone": "Africa/Lome",
           "region_cluster": "Africa_West",
           "leagues": [
-            { "league_id": "TGO1", "display_name": "Togolese Championnat National", "tier": 1 }
+            {
+              "league_id": "TGO1",
+              "display_name": "Togolese Championnat National",
+              "tier": 1
+            }
           ]
         },
         {
@@ -961,8 +1692,16 @@
           "timezone": "Africa/Tunis",
           "region_cluster": "Africa_North",
           "leagues": [
-            { "league_id": "TUN1", "display_name": "Ligue Professionnelle 1", "tier": 1 },
-            { "league_id": "TUNCUP", "display_name": "Tunisian Cup", "tier": 1 }
+            {
+              "league_id": "TUN1",
+              "display_name": "Ligue Professionnelle 1",
+              "tier": 1
+            },
+            {
+              "league_id": "TUNCUP",
+              "display_name": "Tunisian Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -971,7 +1710,11 @@
           "timezone": "Africa/Kampala",
           "region_cluster": "Africa_East",
           "leagues": [
-            { "league_id": "UGA1", "display_name": "Uganda Premier League", "tier": 1 }
+            {
+              "league_id": "UGA1",
+              "display_name": "Uganda Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -980,7 +1723,11 @@
           "timezone": "Africa/Lusaka",
           "region_cluster": "Africa_South",
           "leagues": [
-            { "league_id": "ZAM1", "display_name": "Zambian Super League", "tier": 1 }
+            {
+              "league_id": "ZAM1",
+              "display_name": "Zambian Super League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -989,7 +1736,11 @@
           "timezone": "Africa/Harare",
           "region_cluster": "Africa_South",
           "leagues": [
-            { "league_id": "ZIM1", "display_name": "Zimbabwe Premier Soccer League", "tier": 1 }
+            {
+              "league_id": "ZIM1",
+              "display_name": "Zimbabwe Premier Soccer League",
+              "tier": 1
+            }
           ]
         }
       ]
@@ -1004,7 +1755,11 @@
           "timezone": "Asia/Kabul",
           "region_cluster": "Asia_Central",
           "leagues": [
-            { "league_id": "AFG1", "display_name": "Afghan Premier League", "tier": 1 }
+            {
+              "league_id": "AFG1",
+              "display_name": "Afghan Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1013,7 +1768,11 @@
           "timezone": "Asia/Bahrain",
           "region_cluster": "Asia_MiddleEast",
           "leagues": [
-            { "league_id": "BHR1", "display_name": "Bahraini Premier League", "tier": 1 }
+            {
+              "league_id": "BHR1",
+              "display_name": "Bahraini Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1022,7 +1781,11 @@
           "timezone": "Asia/Dhaka",
           "region_cluster": "Asia_South",
           "leagues": [
-            { "league_id": "BGD1", "display_name": "Bangladesh Premier League", "tier": 1 }
+            {
+              "league_id": "BGD1",
+              "display_name": "Bangladesh Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1031,7 +1794,11 @@
           "timezone": "Asia/Thimphu",
           "region_cluster": "Asia_South",
           "leagues": [
-            { "league_id": "BHU1", "display_name": "Bhutan Premier League", "tier": 1 }
+            {
+              "league_id": "BHU1",
+              "display_name": "Bhutan Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1040,7 +1807,11 @@
           "timezone": "Asia/Brunei",
           "region_cluster": "Asia_Southeast",
           "leagues": [
-            { "league_id": "BRU1", "display_name": "Brunei Super League", "tier": 1 }
+            {
+              "league_id": "BRU1",
+              "display_name": "Brunei Super League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1049,7 +1820,11 @@
           "timezone": "Asia/Phnom_Penh",
           "region_cluster": "Asia_Southeast",
           "leagues": [
-            { "league_id": "CAM1", "display_name": "Cambodian Premier League", "tier": 1 }
+            {
+              "league_id": "CAM1",
+              "display_name": "Cambodian Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1058,9 +1833,21 @@
           "timezone": "Asia/Shanghai",
           "region_cluster": "Asia_East",
           "leagues": [
-            { "league_id": "CHN1", "display_name": "Chinese Super League", "tier": 1 },
-            { "league_id": "CHN2", "display_name": "China League One", "tier": 2 },
-            { "league_id": "CHNCUP", "display_name": "Chinese FA Cup", "tier": 1 }
+            {
+              "league_id": "CHN1",
+              "display_name": "Chinese Super League",
+              "tier": 1
+            },
+            {
+              "league_id": "CHN2",
+              "display_name": "China League One",
+              "tier": 2
+            },
+            {
+              "league_id": "CHNCUP",
+              "display_name": "Chinese FA Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1069,7 +1856,11 @@
           "timezone": "Asia/Taipei",
           "region_cluster": "Asia_East",
           "leagues": [
-            { "league_id": "TPE1", "display_name": "Taiwan Football Premier League", "tier": 1 }
+            {
+              "league_id": "TPE1",
+              "display_name": "Taiwan Football Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1078,7 +1869,11 @@
           "timezone": "Asia/Hong_Kong",
           "region_cluster": "Asia_East",
           "leagues": [
-            { "league_id": "HKG1", "display_name": "Hong Kong Premier League", "tier": 1 }
+            {
+              "league_id": "HKG1",
+              "display_name": "Hong Kong Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1087,8 +1882,16 @@
           "timezone": "Asia/Kolkata",
           "region_cluster": "Asia_South",
           "leagues": [
-            { "league_id": "IND1", "display_name": "Indian Super League", "tier": 1 },
-            { "league_id": "IND2", "display_name": "I-League", "tier": 2 }
+            {
+              "league_id": "IND1",
+              "display_name": "Indian Super League",
+              "tier": 1
+            },
+            {
+              "league_id": "IND2",
+              "display_name": "I-League",
+              "tier": 2
+            }
           ]
         },
         {
@@ -1097,8 +1900,16 @@
           "timezone": "Asia/Jakarta",
           "region_cluster": "Asia_Southeast",
           "leagues": [
-            { "league_id": "IDN1", "display_name": "Liga 1", "tier": 1 },
-            { "league_id": "IDN2", "display_name": "Liga 2", "tier": 2 }
+            {
+              "league_id": "IDN1",
+              "display_name": "Liga 1",
+              "tier": 1
+            },
+            {
+              "league_id": "IDN2",
+              "display_name": "Liga 2",
+              "tier": 2
+            }
           ]
         },
         {
@@ -1107,8 +1918,16 @@
           "timezone": "Asia/Tehran",
           "region_cluster": "Asia_MiddleEast",
           "leagues": [
-            { "league_id": "IRN1", "display_name": "Persian Gulf Pro League", "tier": 1 },
-            { "league_id": "IRNCUP", "display_name": "Hazfi Cup", "tier": 1 }
+            {
+              "league_id": "IRN1",
+              "display_name": "Persian Gulf Pro League",
+              "tier": 1
+            },
+            {
+              "league_id": "IRNCUP",
+              "display_name": "Hazfi Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1117,7 +1936,11 @@
           "timezone": "Asia/Baghdad",
           "region_cluster": "Asia_MiddleEast",
           "leagues": [
-            { "league_id": "IRQ1", "display_name": "Iraqi Premier League", "tier": 1 }
+            {
+              "league_id": "IRQ1",
+              "display_name": "Iraqi Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1126,9 +1949,21 @@
           "timezone": "Asia/Tokyo",
           "region_cluster": "Asia_East",
           "leagues": [
-            { "league_id": "JPN1", "display_name": "J1 League", "tier": 1 },
-            { "league_id": "JPN2", "display_name": "J2 League", "tier": 2 },
-            { "league_id": "JPNCUP", "display_name": "Emperor's Cup", "tier": 1 }
+            {
+              "league_id": "JPN1",
+              "display_name": "J1 League",
+              "tier": 1
+            },
+            {
+              "league_id": "JPN2",
+              "display_name": "J2 League",
+              "tier": 2
+            },
+            {
+              "league_id": "JPNCUP",
+              "display_name": "Emperor's Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1137,7 +1972,11 @@
           "timezone": "Asia/Amman",
           "region_cluster": "Asia_MiddleEast",
           "leagues": [
-            { "league_id": "JOR1", "display_name": "Jordan Premier League", "tier": 1 }
+            {
+              "league_id": "JOR1",
+              "display_name": "Jordan Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1146,8 +1985,16 @@
           "timezone": "Asia/Almaty",
           "region_cluster": "Asia_Central",
           "leagues": [
-            { "league_id": "KAZ1", "display_name": "Kazakhstan Premier League", "tier": 1 },
-            { "league_id": "KAZCUP", "display_name": "Kazakhstan Cup", "tier": 1 }
+            {
+              "league_id": "KAZ1",
+              "display_name": "Kazakhstan Premier League",
+              "tier": 1
+            },
+            {
+              "league_id": "KAZCUP",
+              "display_name": "Kazakhstan Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1156,7 +2003,11 @@
           "timezone": "Asia/Kuwait",
           "region_cluster": "Asia_MiddleEast",
           "leagues": [
-            { "league_id": "KUW1", "display_name": "Kuwait Premier League", "tier": 1 }
+            {
+              "league_id": "KUW1",
+              "display_name": "Kuwait Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1165,7 +2016,11 @@
           "timezone": "Asia/Bishkek",
           "region_cluster": "Asia_Central",
           "leagues": [
-            { "league_id": "KGZ1", "display_name": "Kyrgyz Premier League", "tier": 1 }
+            {
+              "league_id": "KGZ1",
+              "display_name": "Kyrgyz Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1174,7 +2029,11 @@
           "timezone": "Asia/Vientiane",
           "region_cluster": "Asia_Southeast",
           "leagues": [
-            { "league_id": "LAO1", "display_name": "Lao League 1", "tier": 1 }
+            {
+              "league_id": "LAO1",
+              "display_name": "Lao League 1",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1183,7 +2042,11 @@
           "timezone": "Asia/Beirut",
           "region_cluster": "Asia_MiddleEast",
           "leagues": [
-            { "league_id": "LBN1", "display_name": "Lebanese Premier League", "tier": 1 }
+            {
+              "league_id": "LBN1",
+              "display_name": "Lebanese Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1192,7 +2055,11 @@
           "timezone": "Asia/Kuala_Lumpur",
           "region_cluster": "Asia_Southeast",
           "leagues": [
-            { "league_id": "MAS1", "display_name": "Malaysia Super League", "tier": 1 }
+            {
+              "league_id": "MAS1",
+              "display_name": "Malaysia Super League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1201,7 +2068,11 @@
           "timezone": "Indian/Maldives",
           "region_cluster": "Asia_South",
           "leagues": [
-            { "league_id": "MDV1", "display_name": "Dhivehi Premier League", "tier": 1 }
+            {
+              "league_id": "MDV1",
+              "display_name": "Dhivehi Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1210,7 +2081,11 @@
           "timezone": "Asia/Ulaanbaatar",
           "region_cluster": "Asia_East",
           "leagues": [
-            { "league_id": "MNG1", "display_name": "Mongolia Premier League", "tier": 1 }
+            {
+              "league_id": "MNG1",
+              "display_name": "Mongolia Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1219,7 +2094,11 @@
           "timezone": "Asia/Yangon",
           "region_cluster": "Asia_Southeast",
           "leagues": [
-            { "league_id": "MYA1", "display_name": "Myanmar National League", "tier": 1 }
+            {
+              "league_id": "MYA1",
+              "display_name": "Myanmar National League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1228,7 +2107,11 @@
           "timezone": "Asia/Kathmandu",
           "region_cluster": "Asia_South",
           "leagues": [
-            { "league_id": "NEP1", "display_name": "Martyr's Memorial A-Division League", "tier": 1 }
+            {
+              "league_id": "NEP1",
+              "display_name": "Martyr's Memorial A-Division League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1237,7 +2120,11 @@
           "timezone": "Asia/Pyongyang",
           "region_cluster": "Asia_East",
           "leagues": [
-            { "league_id": "PRK1", "display_name": "DPR Korea Premier Football League", "tier": 1 }
+            {
+              "league_id": "PRK1",
+              "display_name": "DPR Korea Premier Football League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1246,7 +2133,11 @@
           "timezone": "Asia/Muscat",
           "region_cluster": "Asia_MiddleEast",
           "leagues": [
-            { "league_id": "OMA1", "display_name": "Oman Professional League", "tier": 1 }
+            {
+              "league_id": "OMA1",
+              "display_name": "Oman Professional League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1255,7 +2146,11 @@
           "timezone": "Asia/Karachi",
           "region_cluster": "Asia_South",
           "leagues": [
-            { "league_id": "PAK1", "display_name": "Pakistan Premier League", "tier": 1 }
+            {
+              "league_id": "PAK1",
+              "display_name": "Pakistan Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1264,7 +2159,11 @@
           "timezone": "Asia/Hebron",
           "region_cluster": "Asia_MiddleEast",
           "leagues": [
-            { "league_id": "PLE1", "display_name": "West Bank Premier League", "tier": 1 }
+            {
+              "league_id": "PLE1",
+              "display_name": "West Bank Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1273,7 +2172,11 @@
           "timezone": "Asia/Manila",
           "region_cluster": "Asia_Southeast",
           "leagues": [
-            { "league_id": "PHL1", "display_name": "Philippines Football League", "tier": 1 }
+            {
+              "league_id": "PHL1",
+              "display_name": "Philippines Football League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1282,8 +2185,16 @@
           "timezone": "Asia/Qatar",
           "region_cluster": "Asia_MiddleEast",
           "leagues": [
-            { "league_id": "QAT1", "display_name": "Qatar Stars League", "tier": 1 },
-            { "league_id": "QATCUP", "display_name": "Emir of Qatar Cup", "tier": 1 }
+            {
+              "league_id": "QAT1",
+              "display_name": "Qatar Stars League",
+              "tier": 1
+            },
+            {
+              "league_id": "QATCUP",
+              "display_name": "Emir of Qatar Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1292,9 +2203,21 @@
           "timezone": "Asia/Riyadh",
           "region_cluster": "Asia_MiddleEast",
           "leagues": [
-            { "league_id": "KSA1", "display_name": "Saudi Pro League", "tier": 1 },
-            { "league_id": "KSA2", "display_name": "Saudi First Division League", "tier": 2 },
-            { "league_id": "KSACUP", "display_name": "King Cup", "tier": 1 }
+            {
+              "league_id": "KSA1",
+              "display_name": "Saudi Pro League",
+              "tier": 1
+            },
+            {
+              "league_id": "KSA2",
+              "display_name": "Saudi First Division League",
+              "tier": 2
+            },
+            {
+              "league_id": "KSACUP",
+              "display_name": "King Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1303,7 +2226,11 @@
           "timezone": "Asia/Singapore",
           "region_cluster": "Asia_Southeast",
           "leagues": [
-            { "league_id": "SIN1", "display_name": "Singapore Premier League", "tier": 1 }
+            {
+              "league_id": "SIN1",
+              "display_name": "Singapore Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1312,9 +2239,21 @@
           "timezone": "Asia/Seoul",
           "region_cluster": "Asia_East",
           "leagues": [
-            { "league_id": "KOR1", "display_name": "K League 1", "tier": 1 },
-            { "league_id": "KOR2", "display_name": "K League 2", "tier": 2 },
-            { "league_id": "KORCUP", "display_name": "Korean FA Cup", "tier": 1 }
+            {
+              "league_id": "KOR1",
+              "display_name": "K League 1",
+              "tier": 1
+            },
+            {
+              "league_id": "KOR2",
+              "display_name": "K League 2",
+              "tier": 2
+            },
+            {
+              "league_id": "KORCUP",
+              "display_name": "Korean FA Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1323,7 +2262,11 @@
           "timezone": "Asia/Colombo",
           "region_cluster": "Asia_South",
           "leagues": [
-            { "league_id": "SRI1", "display_name": "Sri Lanka Super League", "tier": 1 }
+            {
+              "league_id": "SRI1",
+              "display_name": "Sri Lanka Super League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1332,7 +2275,11 @@
           "timezone": "Asia/Damascus",
           "region_cluster": "Asia_MiddleEast",
           "leagues": [
-            { "league_id": "SYR1", "display_name": "Syrian Premier League", "tier": 1 }
+            {
+              "league_id": "SYR1",
+              "display_name": "Syrian Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1341,7 +2288,11 @@
           "timezone": "Asia/Dushanbe",
           "region_cluster": "Asia_Central",
           "leagues": [
-            { "league_id": "TJK1", "display_name": "Tajikistan Higher League", "tier": 1 }
+            {
+              "league_id": "TJK1",
+              "display_name": "Tajikistan Higher League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1350,8 +2301,16 @@
           "timezone": "Asia/Bangkok",
           "region_cluster": "Asia_Southeast",
           "leagues": [
-            { "league_id": "THA1", "display_name": "Thai League 1", "tier": 1 },
-            { "league_id": "THA2", "display_name": "Thai League 2", "tier": 2 }
+            {
+              "league_id": "THA1",
+              "display_name": "Thai League 1",
+              "tier": 1
+            },
+            {
+              "league_id": "THA2",
+              "display_name": "Thai League 2",
+              "tier": 2
+            }
           ]
         },
         {
@@ -1360,7 +2319,11 @@
           "timezone": "Asia/Dili",
           "region_cluster": "Asia_Southeast",
           "leagues": [
-            { "league_id": "TLS1", "display_name": "Liga Futebol Amadora", "tier": 1 }
+            {
+              "league_id": "TLS1",
+              "display_name": "Liga Futebol Amadora",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1369,7 +2332,11 @@
           "timezone": "Asia/Ashgabat",
           "region_cluster": "Asia_Central",
           "leagues": [
-            { "league_id": "TKM1", "display_name": "Ýokary Liga", "tier": 1 }
+            {
+              "league_id": "TKM1",
+              "display_name": "Ýokary Liga",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1378,8 +2345,16 @@
           "timezone": "Asia/Dubai",
           "region_cluster": "Asia_MiddleEast",
           "leagues": [
-            { "league_id": "UAE1", "display_name": "UAE Pro League", "tier": 1 },
-            { "league_id": "UAECUP", "display_name": "President's Cup", "tier": 1 }
+            {
+              "league_id": "UAE1",
+              "display_name": "UAE Pro League",
+              "tier": 1
+            },
+            {
+              "league_id": "UAECUP",
+              "display_name": "President's Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1388,8 +2363,16 @@
           "timezone": "Asia/Tashkent",
           "region_cluster": "Asia_Central",
           "leagues": [
-            { "league_id": "UZB1", "display_name": "Uzbekistan Super League", "tier": 1 },
-            { "league_id": "UZBCUP", "display_name": "Uzbekistan Cup", "tier": 1 }
+            {
+              "league_id": "UZB1",
+              "display_name": "Uzbekistan Super League",
+              "tier": 1
+            },
+            {
+              "league_id": "UZBCUP",
+              "display_name": "Uzbekistan Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1398,8 +2381,16 @@
           "timezone": "Asia/Ho_Chi_Minh",
           "region_cluster": "Asia_Southeast",
           "leagues": [
-            { "league_id": "VIE1", "display_name": "V.League 1", "tier": 1 },
-            { "league_id": "VIECUP", "display_name": "Vietnamese Cup", "tier": 1 }
+            {
+              "league_id": "VIE1",
+              "display_name": "V.League 1",
+              "tier": 1
+            },
+            {
+              "league_id": "VIECUP",
+              "display_name": "Vietnamese Cup",
+              "tier": 1
+            }
           ]
         }
       ]
@@ -1414,7 +2405,11 @@
           "timezone": "Australia/Sydney",
           "region_cluster": "Oceania_Australia",
           "leagues": [
-            { "league_id": "AUS1", "display_name": "A-League", "tier": 1 }
+            {
+              "league_id": "AUS1",
+              "display_name": "A-League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1423,7 +2418,11 @@
           "timezone": "Pacific/Fiji",
           "region_cluster": "Oceania_Islands",
           "leagues": [
-            { "league_id": "FIJ1", "display_name": "Fiji Premier League", "tier": 1 }
+            {
+              "league_id": "FIJ1",
+              "display_name": "Fiji Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1432,7 +2431,11 @@
           "timezone": "Pacific/Auckland",
           "region_cluster": "Oceania_Islands",
           "leagues": [
-            { "league_id": "NZL1", "display_name": "New Zealand National League", "tier": 1 }
+            {
+              "league_id": "NZL1",
+              "display_name": "New Zealand National League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1441,7 +2444,11 @@
           "timezone": "Pacific/Port_Moresby",
           "region_cluster": "Oceania_Islands",
           "leagues": [
-            { "league_id": "PNG1", "display_name": "Papua New Guinea National Soccer League", "tier": 1 }
+            {
+              "league_id": "PNG1",
+              "display_name": "Papua New Guinea National Soccer League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1450,7 +2457,11 @@
           "timezone": "Pacific/Apia",
           "region_cluster": "Oceania_Islands",
           "leagues": [
-            { "league_id": "SAM1", "display_name": "Samoa National League", "tier": 1 }
+            {
+              "league_id": "SAM1",
+              "display_name": "Samoa National League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1459,7 +2470,11 @@
           "timezone": "Pacific/Guadalcanal",
           "region_cluster": "Oceania_Islands",
           "leagues": [
-            { "league_id": "SOL1", "display_name": "S-League", "tier": 1 }
+            {
+              "league_id": "SOL1",
+              "display_name": "S-League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1468,7 +2483,11 @@
           "timezone": "Pacific/Tahiti",
           "region_cluster": "Oceania_Islands",
           "leagues": [
-            { "league_id": "TAH1", "display_name": "Tahiti Ligue 1", "tier": 1 }
+            {
+              "league_id": "TAH1",
+              "display_name": "Tahiti Ligue 1",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1477,7 +2496,11 @@
           "timezone": "Pacific/Tongatapu",
           "region_cluster": "Oceania_Islands",
           "leagues": [
-            { "league_id": "TGA1", "display_name": "Tonga Major League", "tier": 1 }
+            {
+              "league_id": "TGA1",
+              "display_name": "Tonga Major League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1486,7 +2509,11 @@
           "timezone": "Pacific/Efate",
           "region_cluster": "Oceania_Islands",
           "leagues": [
-            { "league_id": "VAN1", "display_name": "Vanuatu Premier League", "tier": 1 }
+            {
+              "league_id": "VAN1",
+              "display_name": "Vanuatu Premier League",
+              "tier": 1
+            }
           ]
         }
       ]
@@ -1501,7 +2528,11 @@
           "timezone": "America/Anguilla",
           "region_cluster": "NorthAmerica_Caribbean",
           "leagues": [
-            { "league_id": "AIA1", "display_name": "Anguilla AFA League", "tier": 1 }
+            {
+              "league_id": "AIA1",
+              "display_name": "Anguilla AFA League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1510,7 +2541,11 @@
           "timezone": "America/Antigua",
           "region_cluster": "NorthAmerica_Caribbean",
           "leagues": [
-            { "league_id": "ATG1", "display_name": "Premier Division", "tier": 1 }
+            {
+              "league_id": "ATG1",
+              "display_name": "Premier Division",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1519,7 +2554,11 @@
           "timezone": "America/Aruba",
           "region_cluster": "NorthAmerica_Caribbean",
           "leagues": [
-            { "league_id": "ARU1", "display_name": "Division di Honor", "tier": 1 }
+            {
+              "league_id": "ARU1",
+              "display_name": "Division di Honor",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1528,7 +2567,11 @@
           "timezone": "America/Nassau",
           "region_cluster": "NorthAmerica_Caribbean",
           "leagues": [
-            { "league_id": "BAH1", "display_name": "BFA Senior League", "tier": 1 }
+            {
+              "league_id": "BAH1",
+              "display_name": "BFA Senior League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1537,7 +2580,11 @@
           "timezone": "America/Barbados",
           "region_cluster": "NorthAmerica_Caribbean",
           "leagues": [
-            { "league_id": "BRB1", "display_name": "Barbados Premier League", "tier": 1 }
+            {
+              "league_id": "BRB1",
+              "display_name": "Barbados Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1546,7 +2593,11 @@
           "timezone": "America/Belize",
           "region_cluster": "NorthAmerica_Central",
           "leagues": [
-            { "league_id": "BLZ1", "display_name": "Premier League of Belize", "tier": 1 }
+            {
+              "league_id": "BLZ1",
+              "display_name": "Premier League of Belize",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1555,7 +2606,11 @@
           "timezone": "Atlantic/Bermuda",
           "region_cluster": "NorthAmerica_Caribbean",
           "leagues": [
-            { "league_id": "BER1", "display_name": "Bermuda Premier Division", "tier": 1 }
+            {
+              "league_id": "BER1",
+              "display_name": "Bermuda Premier Division",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1564,8 +2619,16 @@
           "timezone": "America/Toronto",
           "region_cluster": "NorthAmerica_Central",
           "leagues": [
-            { "league_id": "CAN1", "display_name": "Canadian Premier League", "tier": 1 },
-            { "league_id": "CANMLS", "display_name": "MLS (Canadian clubs)", "tier": 1 }
+            {
+              "league_id": "CAN1",
+              "display_name": "Canadian Premier League",
+              "tier": 1
+            },
+            {
+              "league_id": "CANMLS",
+              "display_name": "MLS (Canadian clubs)",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1574,7 +2637,11 @@
           "timezone": "America/Cayman",
           "region_cluster": "NorthAmerica_Caribbean",
           "leagues": [
-            { "league_id": "CYM1", "display_name": "Cayman Premier League", "tier": 1 }
+            {
+              "league_id": "CYM1",
+              "display_name": "Cayman Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1583,7 +2650,11 @@
           "timezone": "America/Costa_Rica",
           "region_cluster": "NorthAmerica_Central",
           "leagues": [
-            { "league_id": "CRC1", "display_name": "Liga FPD", "tier": 1 }
+            {
+              "league_id": "CRC1",
+              "display_name": "Liga FPD",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1592,7 +2663,11 @@
           "timezone": "America/Curacao",
           "region_cluster": "NorthAmerica_Caribbean",
           "leagues": [
-            { "league_id": "CUW1", "display_name": "Sekshon Pagá", "tier": 1 }
+            {
+              "league_id": "CUW1",
+              "display_name": "Sekshon Pagá",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1601,7 +2676,11 @@
           "timezone": "America/Dominica",
           "region_cluster": "NorthAmerica_Caribbean",
           "leagues": [
-            { "league_id": "DMA1", "display_name": "Dominica Premier League", "tier": 1 }
+            {
+              "league_id": "DMA1",
+              "display_name": "Dominica Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1610,7 +2689,11 @@
           "timezone": "America/Santo_Domingo",
           "region_cluster": "NorthAmerica_Caribbean",
           "leagues": [
-            { "league_id": "DOM1", "display_name": "Liga Dominicana de Fútbol", "tier": 1 }
+            {
+              "league_id": "DOM1",
+              "display_name": "Liga Dominicana de Fútbol",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1619,7 +2702,11 @@
           "timezone": "America/El_Salvador",
           "region_cluster": "NorthAmerica_Central",
           "leagues": [
-            { "league_id": "SLV1", "display_name": "Primera División", "tier": 1 }
+            {
+              "league_id": "SLV1",
+              "display_name": "Primera División",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1628,7 +2715,11 @@
           "timezone": "America/Grenada",
           "region_cluster": "NorthAmerica_Caribbean",
           "leagues": [
-            { "league_id": "GRN1", "display_name": "Grenada Premier Division", "tier": 1 }
+            {
+              "league_id": "GRN1",
+              "display_name": "Grenada Premier Division",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1637,7 +2728,11 @@
           "timezone": "America/Guatemala",
           "region_cluster": "NorthAmerica_Central",
           "leagues": [
-            { "league_id": "GTM1", "display_name": "Liga Nacional", "tier": 1 }
+            {
+              "league_id": "GTM1",
+              "display_name": "Liga Nacional",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1646,7 +2741,11 @@
           "timezone": "America/Port-au-Prince",
           "region_cluster": "NorthAmerica_Caribbean",
           "leagues": [
-            { "league_id": "HAI1", "display_name": "Ligue Haïtienne", "tier": 1 }
+            {
+              "league_id": "HAI1",
+              "display_name": "Ligue Haïtienne",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1655,7 +2754,11 @@
           "timezone": "America/Tegucigalpa",
           "region_cluster": "NorthAmerica_Central",
           "leagues": [
-            { "league_id": "HON1", "display_name": "Liga Nacional", "tier": 1 }
+            {
+              "league_id": "HON1",
+              "display_name": "Liga Nacional",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1664,7 +2767,11 @@
           "timezone": "America/Jamaica",
           "region_cluster": "NorthAmerica_Caribbean",
           "leagues": [
-            { "league_id": "JAM1", "display_name": "Jamaica Premier League", "tier": 1 }
+            {
+              "league_id": "JAM1",
+              "display_name": "Jamaica Premier League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1673,9 +2780,21 @@
           "timezone": "America/Mexico_City",
           "region_cluster": "NorthAmerica_Central",
           "leagues": [
-            { "league_id": "MEX1", "display_name": "Liga MX", "tier": 1 },
-            { "league_id": "MEX2", "display_name": "Liga de Expansión MX", "tier": 2 },
-            { "league_id": "MEXCUP", "display_name": "Copa MX", "tier": 1 }
+            {
+              "league_id": "MEX1",
+              "display_name": "Liga MX",
+              "tier": 1
+            },
+            {
+              "league_id": "MEX2",
+              "display_name": "Liga de Expansión MX",
+              "tier": 2
+            },
+            {
+              "league_id": "MEXCUP",
+              "display_name": "Copa MX",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1684,7 +2803,11 @@
           "timezone": "America/Managua",
           "region_cluster": "NorthAmerica_Central",
           "leagues": [
-            { "league_id": "NCA1", "display_name": "Liga Primera", "tier": 1 }
+            {
+              "league_id": "NCA1",
+              "display_name": "Liga Primera",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1693,7 +2816,11 @@
           "timezone": "America/Panama",
           "region_cluster": "NorthAmerica_Central",
           "leagues": [
-            { "league_id": "PAN1", "display_name": "Liga Panameña de Fútbol", "tier": 1 }
+            {
+              "league_id": "PAN1",
+              "display_name": "Liga Panameña de Fútbol",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1702,7 +2829,11 @@
           "timezone": "America/Puerto_Rico",
           "region_cluster": "NorthAmerica_Caribbean",
           "leagues": [
-            { "league_id": "PUR1", "display_name": "Liga Puerto Rico", "tier": 1 }
+            {
+              "league_id": "PUR1",
+              "display_name": "Liga Puerto Rico",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1711,7 +2842,11 @@
           "timezone": "America/Port_of_Spain",
           "region_cluster": "NorthAmerica_Caribbean",
           "leagues": [
-            { "league_id": "TRI1", "display_name": "TT Premier Football League", "tier": 1 }
+            {
+              "league_id": "TRI1",
+              "display_name": "TT Premier Football League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1720,10 +2855,26 @@
           "timezone": "America/New_York",
           "region_cluster": "NorthAmerica_Central",
           "leagues": [
-            { "league_id": "USA1", "display_name": "Major League Soccer (MLS)", "tier": 1 },
-            { "league_id": "USA2", "display_name": "USL Championship", "tier": 2 },
-            { "league_id": "USA3", "display_name": "USL League One", "tier": 3 },
-            { "league_id": "USACUP", "display_name": "US Open Cup", "tier": 1 }
+            {
+              "league_id": "USA1",
+              "display_name": "Major League Soccer (MLS)",
+              "tier": 1
+            },
+            {
+              "league_id": "USA2",
+              "display_name": "USL Championship",
+              "tier": 2
+            },
+            {
+              "league_id": "USA3",
+              "display_name": "USL League One",
+              "tier": 3
+            },
+            {
+              "league_id": "USACUP",
+              "display_name": "US Open Cup",
+              "tier": 1
+            }
           ]
         }
       ]
@@ -1738,9 +2889,21 @@
           "timezone": "America/Argentina/Buenos_Aires",
           "region_cluster": "SouthAmerica_Conmebol",
           "leagues": [
-            { "league_id": "ARG1", "display_name": "Primera División", "tier": 1 },
-            { "league_id": "ARG2", "display_name": "Primera Nacional", "tier": 2 },
-            { "league_id": "ARGCUP", "display_name": "Copa Argentina", "tier": 1 }
+            {
+              "league_id": "ARG1",
+              "display_name": "Primera División",
+              "tier": 1
+            },
+            {
+              "league_id": "ARG2",
+              "display_name": "Primera Nacional",
+              "tier": 2
+            },
+            {
+              "league_id": "ARGCUP",
+              "display_name": "Copa Argentina",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1749,7 +2912,11 @@
           "timezone": "America/La_Paz",
           "region_cluster": "SouthAmerica_Conmebol",
           "leagues": [
-            { "league_id": "BOL1", "display_name": "Liga Profesional", "tier": 1 }
+            {
+              "league_id": "BOL1",
+              "display_name": "Liga Profesional",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1758,11 +2925,31 @@
           "timezone": "America/Sao_Paulo",
           "region_cluster": "SouthAmerica_Conmebol",
           "leagues": [
-            { "league_id": "BRA1", "display_name": "Serie A", "tier": 1 },
-            { "league_id": "BRA2", "display_name": "Serie B", "tier": 2 },
-            { "league_id": "BRA3", "display_name": "Serie C", "tier": 3 },
-            { "league_id": "BRA4", "display_name": "Serie D", "tier": 4 },
-            { "league_id": "BRACUP", "display_name": "Copa do Brasil", "tier": 1 }
+            {
+              "league_id": "BRA1",
+              "display_name": "Serie A",
+              "tier": 1
+            },
+            {
+              "league_id": "BRA2",
+              "display_name": "Serie B",
+              "tier": 2
+            },
+            {
+              "league_id": "BRA3",
+              "display_name": "Serie C",
+              "tier": 3
+            },
+            {
+              "league_id": "BRA4",
+              "display_name": "Serie D",
+              "tier": 4
+            },
+            {
+              "league_id": "BRACUP",
+              "display_name": "Copa do Brasil",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1771,9 +2958,21 @@
           "timezone": "America/Santiago",
           "region_cluster": "SouthAmerica_Conmebol",
           "leagues": [
-            { "league_id": "CHI1", "display_name": "Primera División", "tier": 1 },
-            { "league_id": "CHI2", "display_name": "Primera B", "tier": 2 },
-            { "league_id": "CHICUP", "display_name": "Copa Chile", "tier": 1 }
+            {
+              "league_id": "CHI1",
+              "display_name": "Primera División",
+              "tier": 1
+            },
+            {
+              "league_id": "CHI2",
+              "display_name": "Primera B",
+              "tier": 2
+            },
+            {
+              "league_id": "CHICUP",
+              "display_name": "Copa Chile",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1782,9 +2981,21 @@
           "timezone": "America/Bogota",
           "region_cluster": "SouthAmerica_Conmebol",
           "leagues": [
-            { "league_id": "COL1", "display_name": "Categoría Primera A", "tier": 1 },
-            { "league_id": "COL2", "display_name": "Categoría Primera B", "tier": 2 },
-            { "league_id": "COLCUP", "display_name": "Copa Colombia", "tier": 1 }
+            {
+              "league_id": "COL1",
+              "display_name": "Categoría Primera A",
+              "tier": 1
+            },
+            {
+              "league_id": "COL2",
+              "display_name": "Categoría Primera B",
+              "tier": 2
+            },
+            {
+              "league_id": "COLCUP",
+              "display_name": "Copa Colombia",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1793,8 +3004,16 @@
           "timezone": "America/Guayaquil",
           "region_cluster": "SouthAmerica_Conmebol",
           "leagues": [
-            { "league_id": "ECU1", "display_name": "Serie A", "tier": 1 },
-            { "league_id": "ECU2", "display_name": "Serie B", "tier": 2 }
+            {
+              "league_id": "ECU1",
+              "display_name": "Serie A",
+              "tier": 1
+            },
+            {
+              "league_id": "ECU2",
+              "display_name": "Serie B",
+              "tier": 2
+            }
           ]
         },
         {
@@ -1803,7 +3022,11 @@
           "timezone": "Atlantic/Stanley",
           "region_cluster": "SouthAmerica_Islands",
           "leagues": [
-            { "league_id": "FLK1", "display_name": "Stanley League", "tier": 1 }
+            {
+              "league_id": "FLK1",
+              "display_name": "Stanley League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1812,7 +3035,11 @@
           "timezone": "America/Guyana",
           "region_cluster": "SouthAmerica_Conmebol",
           "leagues": [
-            { "league_id": "GUY1", "display_name": "GFF Elite League", "tier": 1 }
+            {
+              "league_id": "GUY1",
+              "display_name": "GFF Elite League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1821,8 +3048,16 @@
           "timezone": "America/Asuncion",
           "region_cluster": "SouthAmerica_Conmebol",
           "leagues": [
-            { "league_id": "PAR1", "display_name": "Primera División", "tier": 1 },
-            { "league_id": "PARCUP", "display_name": "Copa Paraguay", "tier": 1 }
+            {
+              "league_id": "PAR1",
+              "display_name": "Primera División",
+              "tier": 1
+            },
+            {
+              "league_id": "PARCUP",
+              "display_name": "Copa Paraguay",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1831,8 +3066,16 @@
           "timezone": "America/Lima",
           "region_cluster": "SouthAmerica_Conmebol",
           "leagues": [
-            { "league_id": "PER1", "display_name": "Liga 1", "tier": 1 },
-            { "league_id": "PER2", "display_name": "Liga 2", "tier": 2 }
+            {
+              "league_id": "PER1",
+              "display_name": "Liga 1",
+              "tier": 1
+            },
+            {
+              "league_id": "PER2",
+              "display_name": "Liga 2",
+              "tier": 2
+            }
           ]
         },
         {
@@ -1841,7 +3084,11 @@
           "timezone": "America/Paramaribo",
           "region_cluster": "SouthAmerica_Conmebol",
           "leagues": [
-            { "league_id": "SUR1", "display_name": "SVB Eerste Divisie", "tier": 1 }
+            {
+              "league_id": "SUR1",
+              "display_name": "SVB Eerste Divisie",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1850,8 +3097,16 @@
           "timezone": "America/Montevideo",
           "region_cluster": "SouthAmerica_Conmebol",
           "leagues": [
-            { "league_id": "URU1", "display_name": "Primera División", "tier": 1 },
-            { "league_id": "URUCUP", "display_name": "Copa Uruguay", "tier": 1 }
+            {
+              "league_id": "URU1",
+              "display_name": "Primera División",
+              "tier": 1
+            },
+            {
+              "league_id": "URUCUP",
+              "display_name": "Copa Uruguay",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1860,7 +3115,11 @@
           "timezone": "America/Caracas",
           "region_cluster": "SouthAmerica_Conmebol",
           "leagues": [
-            { "league_id": "VEN1", "display_name": "Primera División", "tier": 1 }
+            {
+              "league_id": "VEN1",
+              "display_name": "Primera División",
+              "tier": 1
+            }
           ]
         }
       ]
@@ -1875,10 +3134,26 @@
           "timezone": "UTC",
           "region_cluster": "World",
           "leagues": [
-            { "league_id": "WCUP", "display_name": "FIFA World Cup", "tier": 1 },
-            { "league_id": "WCUPQ", "display_name": "World Cup Qualifiers", "tier": 1 },
-            { "league_id": "OLYMP", "display_name": "Olympic Games (Men)", "tier": 1 },
-            { "league_id": "OLYMPW", "display_name": "Olympic Games (Women)", "tier": 1 }
+            {
+              "league_id": "WCUP",
+              "display_name": "FIFA World Cup",
+              "tier": 1
+            },
+            {
+              "league_id": "WCUPQ",
+              "display_name": "World Cup Qualifiers",
+              "tier": 1
+            },
+            {
+              "league_id": "OLYMP",
+              "display_name": "Olympic Games (Men)",
+              "tier": 1
+            },
+            {
+              "league_id": "OLYMPW",
+              "display_name": "Olympic Games (Women)",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1887,12 +3162,36 @@
           "timezone": "UTC",
           "region_cluster": "International_Europe",
           "leagues": [
-            { "league_id": "UCL", "display_name": "UEFA Champions League", "tier": 1 },
-            { "league_id": "UEL", "display_name": "UEFA Europa League", "tier": 1 },
-            { "league_id": "UECL", "display_name": "UEFA Europa Conference League", "tier": 1 },
-            { "league_id": "UCLQ", "display_name": "Champions League Qualifiers", "tier": 1 },
-            { "league_id": "NLEU", "display_name": "UEFA Nations League", "tier": 1 },
-            { "league_id": "EURO", "display_name": "UEFA Euro", "tier": 1 }
+            {
+              "league_id": "UCL",
+              "display_name": "UEFA Champions League",
+              "tier": 1
+            },
+            {
+              "league_id": "UEL",
+              "display_name": "UEFA Europa League",
+              "tier": 1
+            },
+            {
+              "league_id": "UECL",
+              "display_name": "UEFA Europa Conference League",
+              "tier": 1
+            },
+            {
+              "league_id": "UCLQ",
+              "display_name": "Champions League Qualifiers",
+              "tier": 1
+            },
+            {
+              "league_id": "NLEU",
+              "display_name": "UEFA Nations League",
+              "tier": 1
+            },
+            {
+              "league_id": "EURO",
+              "display_name": "UEFA Euro",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1901,10 +3200,26 @@
           "timezone": "UTC",
           "region_cluster": "International_SouthAmerica",
           "leagues": [
-            { "league_id": "LIB", "display_name": "Copa Libertadores", "tier": 1 },
-            { "league_id": "SUD", "display_name": "Copa Sudamericana", "tier": 1 },
-            { "league_id": "RCUP", "display_name": "Recopa Sudamericana", "tier": 1 },
-            { "league_id": "COPAAM", "display_name": "Copa América", "tier": 1 }
+            {
+              "league_id": "LIB",
+              "display_name": "Copa Libertadores",
+              "tier": 1
+            },
+            {
+              "league_id": "SUD",
+              "display_name": "Copa Sudamericana",
+              "tier": 1
+            },
+            {
+              "league_id": "RCUP",
+              "display_name": "Recopa Sudamericana",
+              "tier": 1
+            },
+            {
+              "league_id": "COPAAM",
+              "display_name": "Copa América",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1913,9 +3228,21 @@
           "timezone": "UTC",
           "region_cluster": "International_NorthAmerica",
           "leagues": [
-            { "league_id": "CCL", "display_name": "CONCACAF Champions Cup", "tier": 1 },
-            { "league_id": "CGOLD", "display_name": "CONCACAF Gold Cup", "tier": 1 },
-            { "league_id": "NLNA", "display_name": "CONCACAF Nations League", "tier": 1 }
+            {
+              "league_id": "CCL",
+              "display_name": "CONCACAF Champions Cup",
+              "tier": 1
+            },
+            {
+              "league_id": "CGOLD",
+              "display_name": "CONCACAF Gold Cup",
+              "tier": 1
+            },
+            {
+              "league_id": "NLNA",
+              "display_name": "CONCACAF Nations League",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1924,9 +3251,21 @@
           "timezone": "UTC",
           "region_cluster": "International_Africa",
           "leagues": [
-            { "league_id": "CAFCL", "display_name": "CAF Champions League", "tier": 1 },
-            { "league_id": "CAFCC", "display_name": "CAF Confederation Cup", "tier": 1 },
-            { "league_id": "AFCON", "display_name": "Africa Cup of Nations", "tier": 1 }
+            {
+              "league_id": "CAFCL",
+              "display_name": "CAF Champions League",
+              "tier": 1
+            },
+            {
+              "league_id": "CAFCC",
+              "display_name": "CAF Confederation Cup",
+              "tier": 1
+            },
+            {
+              "league_id": "AFCON",
+              "display_name": "Africa Cup of Nations",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1935,9 +3274,21 @@
           "timezone": "UTC",
           "region_cluster": "International_Asia",
           "leagues": [
-            { "league_id": "AFC1", "display_name": "AFC Champions League Elite", "tier": 1 },
-            { "league_id": "AFC2", "display_name": "AFC Champions League Two", "tier": 1 },
-            { "league_id": "ACUP", "display_name": "AFC Asian Cup", "tier": 1 }
+            {
+              "league_id": "AFC1",
+              "display_name": "AFC Champions League Elite",
+              "tier": 1
+            },
+            {
+              "league_id": "AFC2",
+              "display_name": "AFC Champions League Two",
+              "tier": 1
+            },
+            {
+              "league_id": "ACUP",
+              "display_name": "AFC Asian Cup",
+              "tier": 1
+            }
           ]
         },
         {
@@ -1946,8 +3297,16 @@
           "timezone": "UTC",
           "region_cluster": "International_Oceania",
           "leagues": [
-            { "league_id": "OFC1", "display_name": "OFC Champions League", "tier": 1 },
-            { "league_id": "OFCCUP", "display_name": "OFC Nations Cup", "tier": 1 }
+            {
+              "league_id": "OFC1",
+              "display_name": "OFC Champions League",
+              "tier": 1
+            },
+            {
+              "league_id": "OFCCUP",
+              "display_name": "OFC Nations Cup",
+              "tier": 1
+            }
           ]
         }
       ]

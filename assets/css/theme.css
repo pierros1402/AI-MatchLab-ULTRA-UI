@@ -17,29 +17,19 @@
   --ml-header-glass: rgba(15, 23, 42, 0.85);
 }
 
+
 [data-theme="light"] {
-  /* Softer neutral background instead of pure white */
-  --ml-bg: #e6e9ee;
-  --ml-bg-elevated: #eef1f5;
-  --ml-bg-card: #ffffff;
-  --ml-bg-card-soft: #f3f5f9;
-
-  /* Stronger borders for visibility */
-  --ml-border-subtle: rgba(55, 65, 81, 0.45);
-
-  /* Darker text for contrast */
-  --ml-text: #0f172a;          /* almost-black navy */
-  --ml-text-soft: #475569;     /* slate grey */
-
-  /* Header slight grey tint */
-  --ml-header-glass: rgba(230, 233, 238, 0.92);
-
-  /* Softer shadows */
-  --ml-shadow-soft: 0 10px 26px rgba(0, 0, 0, 0.12);
-
-  /* Accent colors UNCHANGED (perfect as is) */
-  /* You already have strong clean cyan/blue tones */
+  --ml-bg: #d7d9dd;
+  --ml-bg-elevated: #e1e3e7;
+  --ml-bg-card: #f1f2f4;
+  --ml-bg-card-soft: #e9ebee;
+  --ml-border-subtle: rgba(70, 78, 96, 0.38);
+  --ml-text: #1b1f29;
+  --ml-text-soft: #4a5261;
+  --ml-header-glass: rgba(230, 232, 236, 0.82);
+  --ml-shadow-soft: 0 10px 16px rgba(0,0,0,0.10);
 }
+
 }
 
 *,
@@ -693,3 +683,5 @@ body {
 .ml-timeline-minute {
   font-weight: 600;
 }
+
+[data-theme="light"] body { background: var(--ml-bg); }
