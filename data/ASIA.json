@@ -8,17 +8,38 @@
       "timezone": "Asia/Kabul",
       "region_cluster": "Asia_Central",
       "leagues": [
-        { "league_id": "AFG1", "display_name": "Afghan Premier League", "tier": 1, "importance_score": 20, "betting": { "availability": false } }
+        { "league_id": "AFG1", "display_name": "Afghan Premier League", "tier": 1 }
       ]
     },
     {
-      "country_code": "AU",
-      "country_name": "Australia",
-      "timezone": "Australia/Sydney",
-      "region_cluster": "Asia_East",
+      "country_code": "AM",
+      "country_name": "Armenia",
+      "timezone": "Asia/Yerevan",
+      "region_cluster": "Asia_West",
       "leagues": [
-        { "league_id": "AUS1", "display_name": "A-League", "tier": 1, "importance_score": 78, "betting": { "availability": true } },
-        { "league_id": "AUSC", "display_name": "Australia Cup", "tier": 1, "importance_score": 40, "betting": { "availability": true } }
+        { "league_id": "ARM1", "display_name": "Premier League", "tier": 1 },
+        { "league_id": "ARM2", "display_name": "First League", "tier": 2 },
+        { "league_id": "ARMCUP", "display_name": "Armenian Cup", "tier": 1 }
+      ]
+    },
+    {
+      "country_code": "AZ",
+      "country_name": "Azerbaijan",
+      "timezone": "Asia/Baku",
+      "region_cluster": "Asia_West",
+      "leagues": [
+        { "league_id": "AZE1", "display_name": "Premier League", "tier": 1 },
+        { "league_id": "AZECUP", "display_name": "Azerbaijan Cup", "tier": 1 }
+      ]
+    },
+    {
+      "country_code": "BH",
+      "country_name": "Bahrain",
+      "timezone": "Asia/Bahrain",
+      "region_cluster": "Asia_MiddleEast",
+      "leagues": [
+        { "league_id": "BHR1", "display_name": "Premier League", "tier": 1 },
+        { "league_id": "BHRCUP", "display_name": "Bahraini King's Cup", "tier": 1 }
       ]
     },
     {
@@ -27,65 +48,47 @@
       "timezone": "Asia/Dhaka",
       "region_cluster": "Asia_South",
       "leagues": [
-        { "league_id": "BAN1", "display_name": "Premier League", "tier": 1, "importance_score": 32, "betting": { "availability": true } },
-        { "league_id": "BANC", "display_name": "Bangladesh Cup", "tier": 1, "importance_score": 18, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "BH",
-      "country_name": "Bahrain",
-      "timezone": "Asia/Bahrain",
-      "region_cluster": "Asia_West",
-      "leagues": [
-        { "league_id": "BHR1", "display_name": "Premier League", "tier": 1, "importance_score": 42, "betting": { "availability": true } },
-        { "league_id": "BHRC", "display_name": "King's Cup", "tier": 1, "importance_score": 26, "betting": { "availability": true } }
+        { "league_id": "BAN1", "display_name": "Bangladesh Premier League", "tier": 1 }
       ]
     },
     {
       "country_code": "BT",
       "country_name": "Bhutan",
       "timezone": "Asia/Thimphu",
-      "region_cluster": "Asia_Central",
+      "region_cluster": "Asia_South",
       "leagues": [
-        { "league_id": "BHU1", "display_name": "Premier League", "tier": 1, "importance_score": 10, "betting": { "availability": false } }
+        { "league_id": "BHU1", "display_name": "Bhutan Premier League", "tier": 1 }
       ]
     },
     {
       "country_code": "BN",
       "country_name": "Brunei",
       "timezone": "Asia/Brunei",
-      "region_cluster": "Asia_East",
+      "region_cluster": "Asia_SouthEast",
       "leagues": [
-        { "league_id": "BRU1", "display_name": "Brunei Super League", "tier": 1, "importance_score": 14, "betting": { "availability": false } }
+        { "league_id": "BRU1", "display_name": "Brunei Super League", "tier": 1 }
       ]
     },
     {
       "country_code": "KH",
       "country_name": "Cambodia",
       "timezone": "Asia/Phnom_Penh",
-      "region_cluster": "Asia_Southeast",
+      "region_cluster": "Asia_SouthEast",
       "leagues": [
-        { "league_id": "CAM1", "display_name": "Cambodian Premier League", "tier": 1, "importance_score": 26, "betting": { "availability": true } }
+        { "league_id": "CAM1", "display_name": "Cambodian Premier League", "tier": 1 },
+        { "league_id": "CAMCUP", "display_name": "Hun Sen Cup", "tier": 1 }
       ]
     },
     {
       "country_code": "CN",
-      "country_name": "China",
+      "country_name": "China PR",
       "timezone": "Asia/Shanghai",
       "region_cluster": "Asia_East",
       "leagues": [
-        { "league_id": "CHN1", "display_name": "Chinese Super League", "tier": 1, "importance_score": 82, "betting": { "availability": true } },
-        { "league_id": "CHN2", "display_name": "China League One", "tier": 2, "importance_score": 60, "betting": { "availability": true } },
-        { "league_id": "CHNC", "display_name": "Chinese FA Cup", "tier": 1, "importance_score": 50, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "TW",
-      "country_name": "Chinese Taipei",
-      "timezone": "Asia/Taipei",
-      "region_cluster": "Asia_East",
-      "leagues": [
-        { "league_id": "TPE1", "display_name": "Taiwan Football Premier League", "tier": 1, "importance_score": 20, "betting": { "availability": false } }
+        { "league_id": "CHN1", "display_name": "Chinese Super League", "tier": 1 },
+        { "league_id": "CHN2", "display_name": "China League One", "tier": 2 },
+        { "league_id": "CHN3", "display_name": "China League Two", "tier": 3 },
+        { "league_id": "CHNCUP", "display_name": "Chinese FA Cup", "tier": 1 }
       ]
     },
     {
@@ -94,8 +97,8 @@
       "timezone": "Asia/Hong_Kong",
       "region_cluster": "Asia_East",
       "leagues": [
-        { "league_id": "HKG1", "display_name": "Premier League", "tier": 1, "importance_score": 40, "betting": { "availability": true } },
-        { "league_id": "HKGC", "display_name": "Senior Shield", "tier": 1, "importance_score": 22, "betting": { "availability": true } }
+        { "league_id": "HKG1", "display_name": "Hong Kong Premier League", "tier": 1 },
+        { "league_id": "HKGCUP", "display_name": "Hong Kong FA Cup", "tier": 1 }
       ]
     },
     {
@@ -104,51 +107,41 @@
       "timezone": "Asia/Kolkata",
       "region_cluster": "Asia_South",
       "leagues": [
-        { "league_id": "IND1", "display_name": "Indian Super League", "tier": 1, "importance_score": 70, "betting": { "availability": true } },
-        { "league_id": "IND2", "display_name": "I-League", "tier": 2, "importance_score": 48, "betting": { "availability": true } },
-        { "league_id": "INDC", "display_name": "Super Cup", "tier": 1, "importance_score": 30, "betting": { "availability": true } }
+        { "league_id": "IND1", "display_name": "Indian Super League", "tier": 1 },
+        { "league_id": "IND2", "display_name": "I-League", "tier": 2 },
+        { "league_id": "INDCUP", "display_name": "Super Cup", "tier": 1 }
       ]
     },
     {
       "country_code": "ID",
       "country_name": "Indonesia",
       "timezone": "Asia/Jakarta",
-      "region_cluster": "Asia_Southeast",
+      "region_cluster": "Asia_SouthEast",
       "leagues": [
-        { "league_id": "IDN1", "display_name": "Liga 1", "tier": 1, "importance_score": 64, "betting": { "availability": true } },
-        { "league_id": "IDNC", "display_name": "Piala Indonesia", "tier": 1, "importance_score": 36, "betting": { "availability": true } }
+        { "league_id": "IDN1", "display_name": "Liga 1", "tier": 1 },
+        { "league_id": "IDN2", "display_name": "Liga 2", "tier": 2 },
+        { "league_id": "IDNCUP", "display_name": "Piala Indonesia", "tier": 1 }
       ]
     },
     {
       "country_code": "IR",
       "country_name": "Iran",
       "timezone": "Asia/Tehran",
-      "region_cluster": "Asia_West",
+      "region_cluster": "Asia_MiddleEast",
       "leagues": [
-        { "league_id": "IRN1", "display_name": "Persian Gulf Pro League", "tier": 1, "importance_score": 74, "betting": { "availability": true } },
-        { "league_id": "IRN2", "display_name": "Azadegan League", "tier": 2, "importance_score": 46, "betting": { "availability": true } },
-        { "league_id": "IRNC", "display_name": "Hazfi Cup", "tier": 1, "importance_score": 38, "betting": { "availability": true } }
+        { "league_id": "IRN1", "display_name": "Persian Gulf Pro League", "tier": 1 },
+        { "league_id": "IRN2", "display_name": "Azadegan League", "tier": 2 },
+        { "league_id": "IRNCUP", "display_name": "Hazfi Cup", "tier": 1 }
       ]
     },
     {
       "country_code": "IQ",
       "country_name": "Iraq",
       "timezone": "Asia/Baghdad",
-      "region_cluster": "Asia_West",
+      "region_cluster": "Asia_MiddleEast",
       "leagues": [
-        { "league_id": "IRQ1", "display_name": "Iraqi Premier League", "tier": 1, "importance_score": 56, "betting": { "availability": true } },
-        { "league_id": "IRQC", "display_name": "Iraq FA Cup", "tier": 1, "importance_score": 30, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "IL",
-      "country_name": "Israel",
-      "timezone": "Asia/Jerusalem",
-      "region_cluster": "Asia_West",
-      "leagues": [
-        { "league_id": "ISR1", "display_name": "Ligat Ha'Al", "tier": 1, "importance_score": 72, "betting": { "availability": true } },
-        { "league_id": "ISR2", "display_name": "Liga Leumit", "tier": 2, "importance_score": 52, "betting": { "availability": true } },
-        { "league_id": "ISRC", "display_name": "Israel State Cup", "tier": 1, "importance_score": 40, "betting": { "availability": true } }
+        { "league_id": "IRQ1", "display_name": "Iraqi Premier League", "tier": 1 },
+        { "league_id": "IRQCUP", "display_name": "Iraqi FA Cup", "tier": 1 }
       ]
     },
     {
@@ -157,31 +150,42 @@
       "timezone": "Asia/Tokyo",
       "region_cluster": "Asia_East",
       "leagues": [
-        { "league_id": "JPN1", "display_name": "J1 League", "tier": 1, "importance_score": 94, "betting": { "availability": true } },
-        { "league_id": "JPN2", "display_name": "J2 League", "tier": 2, "importance_score": 78, "betting": { "availability": true } },
-        { "league_id": "JPN3", "display_name": "J3 League", "tier": 3, "importance_score": 62, "betting": { "availability": true } },
-        { "league_id": "JPNC", "display_name": "Emperor's Cup", "tier": 1, "importance_score": 68, "betting": { "availability": true } }
+        { "league_id": "JPN1", "display_name": "J1 League", "tier": 1 },
+        { "league_id": "JPN2", "display_name": "J2 League", "tier": 2 },
+        { "league_id": "JPN3", "display_name": "J3 League", "tier": 3 },
+        { "league_id": "JPNCUP", "display_name": "Emperor's Cup", "tier": 1 },
+        { "league_id": "JPNSUP", "display_name": "Japanese Super Cup", "tier": 1 }
       ]
     },
     {
       "country_code": "JO",
       "country_name": "Jordan",
       "timezone": "Asia/Amman",
-      "region_cluster": "Asia_West",
+      "region_cluster": "Asia_MiddleEast",
       "leagues": [
-        { "league_id": "JOR1", "display_name": "Pro League", "tier": 1, "importance_score": 40, "betting": { "availability": true } },
-        { "league_id": "JORC", "display_name": "Jordan FA Cup", "tier": 1, "importance_score": 20, "betting": { "availability": true } }
+        { "league_id": "JOR1", "display_name": "Jordan Premier League", "tier": 1 },
+        { "league_id": "JORCUP", "display_name": "Jordan FA Cup", "tier": 1 }
+      ]
+    },
+    {
+      "country_code": "KZ",
+      "country_name": "Kazakhstan",
+      "timezone": "Asia/Almaty",
+      "region_cluster": "Asia_Central",
+      "leagues": [
+        { "league_id": "KAZ1", "display_name": "Premier League", "tier": 1 },
+        { "league_id": "KAZ2", "display_name": "First Division", "tier": 2 },
+        { "league_id": "KAZCUP", "display_name": "Kazakhstan Cup", "tier": 1 }
       ]
     },
     {
       "country_code": "KW",
       "country_name": "Kuwait",
       "timezone": "Asia/Kuwait",
-      "region_cluster": "Asia_West",
-
+      "region_cluster": "Asia_MiddleEast",
       "leagues": [
-        { "league_id": "KUW1", "display_name": "Premier League", "tier": 1, "importance_score": 44, "betting": { "availability": true } },
-        { "league_id": "KUWC", "display_name": "Kuwait Emir Cup", "tier": 1, "importance_score": 26, "betting": { "availability": true } }
+        { "league_id": "KUW1", "display_name": "Kuwait Premier League", "tier": 1 },
+        { "league_id": "KUWCUP", "display_name": "Emir Cup", "tier": 1 }
       ]
     },
     {
@@ -190,26 +194,26 @@
       "timezone": "Asia/Bishkek",
       "region_cluster": "Asia_Central",
       "leagues": [
-        { "league_id": "KGZ1", "display_name": "Kyrgyz Premier League", "tier": 1, "importance_score": 22, "betting": { "availability": true } }
+        { "league_id": "KGZ1", "display_name": "Kyrgyz Premier League", "tier": 1 }
       ]
     },
     {
       "country_code": "LA",
       "country_name": "Laos",
       "timezone": "Asia/Vientiane",
-      "region_cluster": "Asia_Southeast",
+      "region_cluster": "Asia_SouthEast",
       "leagues": [
-        { "league_id": "LAO1", "display_name": "Lao League 1", "tier": 1, "importance_score": 12, "betting": { "availability": false } }
+        { "league_id": "LAO1", "display_name": "Lao League 1", "tier": 1 }
       ]
     },
     {
       "country_code": "LB",
       "country_name": "Lebanon",
       "timezone": "Asia/Beirut",
-      "region_cluster": "Asia_West",
+      "region_cluster": "Asia_MiddleEast",
       "leagues": [
-        { "league_id": "LBN1", "display_name": "Premier League", "tier": 1, "importance_score": 36, "betting": { "availability": true } },
-        { "league_id": "LBNC", "display_name": "Lebanese FA Cup", "tier": 1, "importance_score": 20, "betting": { "availability": true } }
+        { "league_id": "LBN1", "display_name": "Lebanese Premier League", "tier": 1 },
+        { "league_id": "LBNCUP", "display_name": "Lebanese FA Cup", "tier": 1 }
       ]
     },
     {
@@ -218,17 +222,17 @@
       "timezone": "Asia/Macau",
       "region_cluster": "Asia_East",
       "leagues": [
-        { "league_id": "MAC1", "display_name": "Liga de Elite", "tier": 1, "importance_score": 18, "betting": { "availability": true } }
+        { "league_id": "MAC1", "display_name": "Liga de Elite", "tier": 1 }
       ]
     },
     {
       "country_code": "MY",
       "country_name": "Malaysia",
       "timezone": "Asia/Kuala_Lumpur",
-      "region_cluster": "Asia_Southeast",
+      "region_cluster": "Asia_SouthEast",
       "leagues": [
-        { "league_id": "MYS1", "display_name": "Super League", "tier": 1, "importance_score": 54, "betting": { "availability": true } },
-        { "league_id": "MYSC", "display_name": "Malaysia Cup", "tier": 1, "importance_score": 32, "betting": { "availability": true } }
+        { "league_id": "MAS1", "display_name": "Malaysia Super League", "tier": 1 },
+        { "league_id": "MASCUP", "display_name": "Malaysia Cup", "tier": 1 }
       ]
     },
     {
@@ -237,25 +241,25 @@
       "timezone": "Indian/Maldives",
       "region_cluster": "Asia_South",
       "leagues": [
-        { "league_id": "MDV1", "display_name": "Dhivehi Premier League", "tier": 1, "importance_score": 20, "betting": { "availability": true } }
+        { "league_id": "MDV1", "display_name": "Dhivehi Premier League", "tier": 1 }
       ]
     },
     {
       "country_code": "MN",
       "country_name": "Mongolia",
       "timezone": "Asia/Ulaanbaatar",
-      "region_cluster": "Asia_Central",
+      "region_cluster": "Asia_CentralEast",
       "leagues": [
-        { "league_id": "MNG1", "display_name": "Premier League", "tier": 1, "importance_score": 22, "betting": { "availability": true } }
+        { "league_id": "MNG1", "display_name": "Mongolian Premier League", "tier": 1 }
       ]
     },
     {
       "country_code": "MM",
       "country_name": "Myanmar",
       "timezone": "Asia/Yangon",
-      "region_cluster": "Asia_Southeast",
+      "region_cluster": "Asia_SouthEast",
       "leagues": [
-        { "league_id": "MYA1", "display_name": "National League", "tier": 1, "importance_score": 26, "betting": { "availability": true } }
+        { "league_id": "MYA1", "display_name": "Myanmar National League", "tier": 1 }
       ]
     },
     {
@@ -264,7 +268,7 @@
       "timezone": "Asia/Kathmandu",
       "region_cluster": "Asia_South",
       "leagues": [
-        { "league_id": "NPL1", "display_name": "A Division League", "tier": 1, "importance_score": 18, "betting": { "availability": true } }
+        { "league_id": "NEP1", "display_name": "Martyr's Memorial A-Division League", "tier": 1 }
       ]
     },
     {
@@ -273,83 +277,7 @@
       "timezone": "Asia/Pyongyang",
       "region_cluster": "Asia_East",
       "leagues": [
-        { "league_id": "PRK1", "display_name": "DPR Korea League", "tier": 1, "importance_score": 14, "betting": { "availability": false } }
-      ]
-    },
-    {
-      "country_code": "OM",
-      "country_name": "Oman",
-      "timezone": "Asia/Muscat",
-      "region_cluster": "Asia_West",
-      "leagues": [
-        { "league_id": "OMN1", "display_name": "Professional League", "tier": 1, "importance_score": 40, "betting": { "availability": true } },
-        { "league_id": "OMNC", "display_name": "Sultan's Cup", "tier": 1, "importance_score": 24, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "PK",
-      "country_name": "Pakistan",
-      "timezone": "Asia/Karachi",
-      "region_cluster": "Asia_South",
-      "leagues": [
-        { "league_id": "PAK1", "display_name": "Pakistan Premier League", "tier": 1, "importance_score": 16, "betting": { "availability": false } }
-      ]
-    },
-    {
-      "country_code": "PS",
-      "country_name": "Palestine",
-      "timezone": "Asia/Gaza",
-      "region_cluster": "Asia_West",
-      "leagues": [
-        { "league_id": "PLE1", "display_name": "West Bank Premier League", "tier": 1, "importance_score": 20, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "PH",
-      "country_name": "Philippines",
-      "timezone": "Asia/Manila",
-      "region_cluster": "Asia_Southeast",
-      "leagues": [
-        { "league_id": "PHI1", "display_name": "Philippines Football League", "tier": 1, "importance_score": 28, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "QA",
-      "country_name": "Qatar",
-      "timezone": "Asia/Qatar",
-      "region_cluster": "Asia_West",
-      "leagues": [
-        { "league_id": "QAT1", "display_name": "Stars League", "tier": 1, "importance_score": 76, "betting": { "availability": true } },
-        { "league_id": "QATC", "display_name": "Emir Cup", "tier": 1, "importance_score": 42, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "SA",
-      "country_name": "Saudi Arabia",
-      "timezone": "Asia/Riyadh",
-      "region_cluster": "Asia_West",
-      "leagues": [
-        { "league_id": "KSA1", "display_name": "Saudi Pro League", "tier": 1, "importance_score": 92, "betting": { "availability": true } },
-        { "league_id": "KSA2", "display_name": "First Division League", "tier": 2, "importance_score": 64, "betting": { "availability": true } },
-        { "league_id": "KSAC", "display_name": "King Cup", "tier": 1, "importance_score": 60, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "SG",
-      "country_name": "Singapore",
-      "timezone": "Asia/Singapore",
-      "region_cluster": "Asia_Southeast",
-      "leagues": [
-        { "league_id": "SGP1", "display_name": "Singapore Premier League", "tier": 1, "importance_score": 32, "betting": { "availability": true } }
-      ]
-    },
-    {
-      "country_code": "LK",
-      "country_name": "Sri Lanka",
-      "timezone": "Asia/Colombo",
-      "region_cluster": "Asia_South",
-      "leagues": [
-        { "league_id": "LKA1", "display_name": "Champions League", "tier": 1, "importance_score": 12, "betting": { "availability": false } }
+        { "league_id": "PRK1", "display_name": "DPR Korea Premier Football League", "tier": 1 }
       ]
     },
     {
@@ -358,27 +286,110 @@
       "timezone": "Asia/Seoul",
       "region_cluster": "Asia_East",
       "leagues": [
-        { "league_id": "KOR1", "display_name": "K League 1", "tier": 1, "importance_score": 90, "betting": { "availability": true } },
-        { "league_id": "KOR2", "display_name": "K League 2", "tier": 2, "importance_score": 70, "betting": { "availability": true } },
-        { "league_id": "KORC", "display_name": "FA Cup", "tier": 1, "importance_score": 56, "betting": { "availability": true } }
+        { "league_id": "KOR1", "display_name": "K League 1", "tier": 1 },
+        { "league_id": "KOR2", "display_name": "K League 2", "tier": 2 },
+        { "league_id": "KOR3", "display_name": "K3 League", "tier": 3 },
+        { "league_id": "KORCUP", "display_name": "Korean FA Cup", "tier": 1 }
+      ]
+    },
+    {
+      "country_code": "OM",
+      "country_name": "Oman",
+      "timezone": "Asia/Muscat",
+      "region_cluster": "Asia_MiddleEast",
+      "leagues": [
+        { "league_id": "OMA1", "display_name": "Oman Professional League", "tier": 1 },
+        { "league_id": "OMACUP", "display_name": "Sultan Qaboos Cup", "tier": 1 }
+      ]
+    },
+    {
+      "country_code": "PK",
+      "country_name": "Pakistan",
+      "timezone": "Asia/Karachi",
+      "region_cluster": "Asia_South",
+      "leagues": [
+        { "league_id": "PAK1", "display_name": "Pakistan Premier League", "tier": 1 }
+      ]
+    },
+    {
+      "country_code": "PS",
+      "country_name": "Palestine",
+      "timezone": "Asia/Gaza",
+      "region_cluster": "Asia_MiddleEast",
+      "leagues": [
+        { "league_id": "PLE1", "display_name": "West Bank Premier League", "tier": 1 },
+        { "league_id": "PLE2", "display_name": "Gaza Strip Premier League", "tier": 1 }
+      ]
+    },
+    {
+      "country_code": "PH",
+      "country_name": "Philippines",
+      "timezone": "Asia/Manila",
+      "region_cluster": "Asia_SouthEast",
+      "leagues": [
+        { "league_id": "PHI1", "display_name": "Philippines Football League", "tier": 1 }
+      ]
+    },
+    {
+      "country_code": "QA",
+      "country_name": "Qatar",
+      "timezone": "Asia/Qatar",
+      "region_cluster": "Asia_MiddleEast",
+      "leagues": [
+        { "league_id": "QAT1", "display_name": "Qatar Stars League", "tier": 1 },
+        { "league_id": "QAT2", "display_name": "Qatari Second Division", "tier": 2 },
+        { "league_id": "QATCUP", "display_name": "Amir Cup", "tier": 1 },
+        { "league_id": "QATSUP", "display_name": "Qatar Super Cup", "tier": 1 }
+      ]
+    },
+    {
+      "country_code": "SA",
+      "country_name": "Saudi Arabia",
+      "timezone": "Asia/Riyadh",
+      "region_cluster": "Asia_MiddleEast",
+      "leagues": [
+        { "league_id": "KSA1", "display_name": "Saudi Pro League", "tier": 1 },
+        { "league_id": "KSA2", "display_name": "Saudi First Division League", "tier": 2 },
+        { "league_id": "KSACUP", "display_name": "King Cup", "tier": 1 },
+        { "league_id": "KSASUP", "display_name": "Saudi Super Cup", "tier": 1 }
+      ]
+    },
+    {
+      "country_code": "SG",
+      "country_name": "Singapore",
+      "timezone": "Asia/Singapore",
+      "region_cluster": "Asia_SouthEast",
+      "leagues": [
+        { "league_id": "SIN1", "display_name": "Singapore Premier League", "tier": 1 },
+        { "league_id": "SINCUP", "display_name": "Singapore Cup", "tier": 1 }
+      ]
+    },
+    {
+      "country_code": "LK",
+      "country_name": "Sri Lanka",
+      "timezone": "Asia/Colombo",
+      "region_cluster": "Asia_South",
+      "leagues": [
+        { "league_id": "SRI1", "display_name": "Sri Lanka Super League", "tier": 1 }
       ]
     },
     {
       "country_code": "SY",
       "country_name": "Syria",
       "timezone": "Asia/Damascus",
-      "region_cluster": "Asia_West",
+      "region_cluster": "Asia_MiddleEast",
       "leagues": [
-        { "league_id": "SYR1", "display_name": "Premier League", "tier": 1, "importance_score": 26, "betting": { "availability": true } }
+        { "league_id": "SYR1", "display_name": "Syrian Premier League", "tier": 1 },
+        { "league_id": "SYRCUP", "display_name": "Syrian Cup", "tier": 1 }
       ]
     },
     {
-      "country_code": "TL",
-      "country_name": "Timor-Leste",
-      "timezone": "Asia/Dili",
-      "region_cluster": "Asia_Southeast",
+      "country_code": "TW",
+      "country_name": "Taiwan",
+      "timezone": "Asia/Taipei",
+      "region_cluster": "Asia_East",
       "leagues": [
-        { "league_id": "TLS1", "display_name": "Liga Futebol Amadora", "tier": 1, "importance_score": 10, "betting": { "availability": false } }
+        { "league_id": "TPE1", "display_name": "Taiwan Football Premier League", "tier": 1 }
       ]
     },
     {
@@ -387,18 +398,28 @@
       "timezone": "Asia/Dushanbe",
       "region_cluster": "Asia_Central",
       "leagues": [
-        { "league_id": "TJK1", "display_name": "Vysshaya Liga", "tier": 1, "importance_score": 22, "betting": { "availability": true } }
+        { "league_id": "TJK1", "display_name": "Tajikistan Higher League", "tier": 1 },
+        { "league_id": "TJKCUP", "display_name": "Tajikistan Cup", "tier": 1 }
       ]
     },
     {
       "country_code": "TH",
       "country_name": "Thailand",
       "timezone": "Asia/Bangkok",
-      "region_cluster": "Asia_Southeast",
+      "region_cluster": "Asia_SouthEast",
       "leagues": [
-        { "league_id": "THA1", "display_name": "Thai League 1", "tier": 1, "importance_score": 64, "betting": { "availability": true } },
-        { "league_id": "THA2", "display_name": "Thai League 2", "tier": 2, "importance_score": 44, "betting": { "availability": true } },
-        { "league_id": "THAC", "display_name": "FA Cup", "tier": 1, "importance_score": 36, "betting": { "availability": true } }
+        { "league_id": "THA1", "display_name": "Thai League 1", "tier": 1 },
+        { "league_id": "THA2", "display_name": "Thai League 2", "tier": 2 },
+        { "league_id": "THACUP", "display_name": "Thai FA Cup", "tier": 1 }
+      ]
+    },
+    {
+      "country_code": "TL",
+      "country_name": "Timor-Leste",
+      "timezone": "Asia/Dili",
+      "region_cluster": "Asia_SouthEast",
+      "leagues": [
+        { "league_id": "TLS1", "display_name": "Liga Futebol Amadora", "tier": 1 }
       ]
     },
     {
@@ -407,17 +428,20 @@
       "timezone": "Asia/Ashgabat",
       "region_cluster": "Asia_Central",
       "leagues": [
-        { "league_id": "TKM1", "display_name": "Ýokary Liga", "tier": 1, "importance_score": 20, "betting": { "availability": true } }
+        { "league_id": "TKM1", "display_name": "Ýokary Liga", "tier": 1 },
+        { "league_id": "TKMCUP", "display_name": "Turkmenistan Cup", "tier": 1 }
       ]
     },
     {
       "country_code": "AE",
       "country_name": "United Arab Emirates",
       "timezone": "Asia/Dubai",
-      "region_cluster": "Asia_West",
+      "region_cluster": "Asia_MiddleEast",
       "leagues": [
-        { "league_id": "UAE1", "display_name": "UAE Pro League", "tier": 1, "importance_score": 72, "betting": { "availability": true } },
-        { "league_id": "UAEC", "display_name": "President's Cup", "tier": 1, "importance_score": 40, "betting": { "availability": true } }
+        { "league_id": "UAE1", "display_name": "UAE Pro League", "tier": 1 },
+        { "league_id": "UAE2", "display_name": "UAE First Division League", "tier": 2 },
+        { "league_id": "UAECUP", "display_name": "President's Cup", "tier": 1 },
+        { "league_id": "UAESUP", "display_name": "UAE Super Cup", "tier": 1 }
       ]
     },
     {
@@ -426,28 +450,29 @@
       "timezone": "Asia/Tashkent",
       "region_cluster": "Asia_Central",
       "leagues": [
-        { "league_id": "UZB1", "display_name": "Super League", "tier": 1, "importance_score": 54, "betting": { "availability": true } },
-        { "league_id": "UZBC", "display_name": "Uzbekistan Cup", "tier": 1, "importance_score": 30, "betting": { "availability": true } }
+        { "league_id": "UZB1", "display_name": "Uzbekistan Super League", "tier": 1 },
+        { "league_id": "UZB2", "display_name": "Uzbekistan Pro League", "tier": 2 },
+        { "league_id": "UZBCUP", "display_name": "Uzbekistan Cup", "tier": 1 }
       ]
     },
     {
       "country_code": "VN",
       "country_name": "Vietnam",
       "timezone": "Asia/Ho_Chi_Minh",
-      "region_cluster": "Asia_Southeast",
+      "region_cluster": "Asia_SouthEast",
       "leagues": [
-        { "league_id": "VNM1", "display_name": "V.League 1", "tier": 1, "importance_score": 56, "betting": { "availability": true } },
-        { "league_id": "VNM2", "display_name": "V.League 2", "tier": 2, "importance_score": 34, "betting": { "availability": true } },
-        { "league_id": "VNMC", "display_name": "Vietnam National Cup", "tier": 1, "importance_score": 26, "betting": { "availability": true } }
+        { "league_id": "VIE1", "display_name": "V.League 1", "tier": 1 },
+        { "league_id": "VIE2", "display_name": "V.League 2", "tier": 2 },
+        { "league_id": "VIECUP", "display_name": "Vietnamese National Cup", "tier": 1 }
       ]
     },
     {
       "country_code": "YE",
       "country_name": "Yemen",
       "timezone": "Asia/Aden",
-      "region_cluster": "Asia_West",
+      "region_cluster": "Asia_MiddleEast",
       "leagues": [
-        { "league_id": "YEM1", "display_name": "Yemeni League", "tier": 1, "importance_score": 10, "betting": { "availability": false } }
+        { "league_id": "YEM1", "display_name": "Yemen League", "tier": 1 }
       ]
     }
   ]
