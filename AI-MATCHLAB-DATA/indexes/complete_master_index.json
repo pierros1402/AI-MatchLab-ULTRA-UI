@@ -1,0 +1,24 @@
+{
+  "version": "2025.1.0",
+  "generated_at": "2025-11-25T00:00:00Z",
+  "continents": ["Europe"],
+  "countries": [
+    "AL", "AD", "AM", "AZ", "BY",
+    "BA", "BG", "HR", "CY", "EE"
+  ],
+  "total_countries": 10,
+  "total_leagues": 27,
+  "indexes": {
+    "countries_index": "/indexes/countries_index.json",
+    "leagues_index": "/indexes/leagues_index.json",
+    "teams_global_index": "/indexes/teams_global_index.json"
+  },
+  "structure": {
+    "europe": {
+      "path": "/europe/",
+      "countries_subfolder": "/europe/countries/",
+      "leagues_subfolder": "/europe/leagues/",
+      "teams_subfolder": "/europe/teams/"
+    }
+  }
+}

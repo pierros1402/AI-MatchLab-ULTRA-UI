@@ -1,0 +1,77 @@
+{
+  "league_id": "CRO1",
+  "league_name": "SuperSport HNL",
+  "country_code": "HR",
+  "teams": [
+    {
+      "team_id": "CRO1_DINAMO",
+      "name": "GNK Dinamo Zagreb",
+      "short_name": "Dinamo",
+      "alt_names": ["Dinamo Zagreb", "GNK Dinamo"],
+      "status": "active"
+    },
+    {
+      "team_id": "CRO1_HAJDUK",
+      "name": "HNK Hajduk Split",
+      "short_name": "Hajduk",
+      "alt_names": ["Hajduk Split", "HNK Hajduk"],
+      "status": "active"
+    },
+    {
+      "team_id": "CRO1_RIJEKA",
+      "name": "HNK Rijeka",
+      "short_name": "Rijeka",
+      "alt_names": ["NK Rijeka"],
+      "status": "active"
+    },
+    {
+      "team_id": "CRO1_OSIJEK",
+      "name": "NK Osijek",
+      "short_name": "Osijek",
+      "alt_names": ["Osijek FC"],
+      "status": "active"
+    },
+    {
+      "team_id": "CRO1_VARAZDIN",
+      "name": "NK Varaždin",
+      "short_name": "Varaždin",
+      "alt_names": ["Varazdin"],
+      "status": "active"
+    },
+    {
+      "team_id": "CRO1_SLOBODA",
+      "name": "NK Slaven Belupo",
+      "short_name": "Slaven",
+      "alt_names": ["Slaven Belupo", "Belupo"],
+      "status": "active"
+    },
+    {
+      "team_id": "CRO1_ISTRA",
+      "name": "NK Istra 1961",
+      "short_name": "Istra",
+      "alt_names": ["Istra 1961"],
+      "status": "active"
+    },
+    {
+      "team_id": "CRO1_LOKOMOTIVA",
+      "name": "NK Lokomotiva",
+      "short_name": "Lokomotiva",
+      "alt_names": ["Lokomotiva Zagreb"],
+      "status": "active"
+    },
+    {
+      "team_id": "CRO1_GORICA",
+      "name": "HNK Gorica",
+      "short_name": "Gorica",
+      "alt_names": [],
+      "status": "active"
+    },
+    {
+      "team_id": "CRO1_RUDEŠ",
+      "name": "NK Rudeš",
+      "short_name": "Rudeš",
+      "alt_names": ["Rudes"],
+      "status": "active"
+    }
+  ]
+}

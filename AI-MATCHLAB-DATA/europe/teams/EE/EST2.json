@@ -1,0 +1,17 @@
+{
+  "league_id": "EST2",
+  "league_name": "Esiliiga",
+  "country_code": "EE",
+  "teams": [
+    { "team_id": "EST2_ELVA", "name": "FC Elva", "short_name": "Elva", "alt_names": [], "status": "active" },
+    { "team_id": "EST2_TALLINNAKALEV2", "name": "Tallinna Kalev U21", "short_name": "Kalev U21", "alt_names": [], "status": "active" },
+    { "team_id": "EST2_PARNULAAGRI", "name": "Viimsi JK", "short_name": "Viimsi", "alt_names": [], "status": "active" },
+    { "team_id": "EST2_TABASALU", "name": "Tabasalu JK", "short_name": "Tabasalu", "alt_names": [], "status": "active" },
+    { "team_id": "EST2_VILJANDI", "name": "Viljandi Tulevik", "short_name": "Tulevik", "alt_names": [], "status": "active" },
+    { "team_id": "EST2_FA", "name": "FCI Levadia U21", "short_name": "Levadia U21", "alt_names": [], "status": "active" },
+    { "team_id": "EST2_TALLINNAFLORA2", "name": "FC Flora U21", "short_name": "Flora U21", "alt_names": [], "status": "active" },
+    { "team_id": "EST2_PAIDE2", "name": "Paide Linnameeskond U21", "short_name": "Paide U21", "alt_names": [], "status": "active" },
+    { "team_id": "EST2_NOMMEUNITED", "name": "Nõmme United", "short_name": "Nõmme United", "alt_names": ["Nomme United"], "status": "active" },
+    { "team_id": "EST2_ALLIKU", "name": "Alliku United", "short_name": "Alliku", "alt_names": [], "status": "active" }
+  ]
+}

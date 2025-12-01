@@ -1,0 +1,23 @@
+{
+  "league_id": "BLR2",
+  "league_name": "Belarusian First League",
+  "country_code": "BY",
+  "teams": [
+    { "team_id": "BLR2_LIDA", "name": "FC Lida", "short_name": "Lida", "alt_names": [], "status": "active" },
+    { "team_id": "BLR2_BARANOVICHI", "name": "FC Baranovichi", "short_name": "Baranovichi", "alt_names": [], "status": "active" },
+    { "team_id": "BLR2_MOZYR", "name": "Slavia Mozyr", "short_name": "Slavia", "alt_names": ["FC Slavia Mozyr"], "status": "active" },
+    { "team_id": "BLR2_ARIS", "name": "FC Arsenal Dzerzhinsk", "short_name": "Arsenal", "alt_names": ["Arsenal Dzerzhinsk"], "status": "active" },
+    { "team_id": "BLR2_DNEPR", "name": "FC Dnepr Mogilev", "short_name": "Dnepr", "alt_names": [], "status": "active" },
+    { "team_id": "BLR2_ORSHA", "name": "FC Orsha", "short_name": "Orsha", "alt_names": [], "status": "active" },
+    { "team_id": "BLR2_OSIPOVICHI", "name": "FC Osipovichi", "short_name": "Osipovichi", "alt_names": [], "status": "active" },
+    { "team_id": "BLR2_VICTORY", "name": "FC Viktoryja Marjina Horka", "short_name": "Viktoryja", "alt_names": ["Victory Maryina Gorka"], "status": "active" },
+    { "team_id": "BLR2_GRANIT", "name": "FC Granit Mikashevichi", "short_name": "Granit", "alt_names": ["Granit Mikashevichi"], "status": "active" },
+    { "team_id": "BLR2_ZHLBIN", "name": "Lokomotiv Zhlobin", "short_name": "Zhlobin", "alt_names": [], "status": "active" },
+    { "team_id": "BLR2_KORELICHI", "name": "FC Krumkachy", "short_name": "Krumkachy", "alt_names": ["Krumkachy Minsk"], "status": "active" },
+    { "team_id": "BLR2_VOLNA", "name": "Volna Pinsk", "short_name": "Volna", "alt_names": [], "status": "active" },
+    { "team_id": "BLR2_KHIMIK", "name": "Khimik Svetlogorsk", "short_name": "Khimik", "alt_names": [], "status": "active" },
+    { "team_id": "BLR2_RECHITSA", "name": "Rechitsa-2014", "short_name": "Rechitsa", "alt_names": [], "status": "active" },
+    { "team_id": "BLR2_NAFITAN", "name": "Naftan Novopolotsk", "short_name": "Naftan", "alt_names": [], "status": "active" },
+    { "team_id": "BLR2_ZHODINO", "name": "Torpedo-BelAZ-2 Zhodino", "short_name": "Torpedo-2", "alt_names": [], "status": "active" }
+  ]
+}

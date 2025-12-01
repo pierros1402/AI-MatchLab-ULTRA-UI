@@ -1,0 +1,37 @@
+{
+  "leagues": {
+    "ALB1": { "country": "AL", "path": "/europe/teams/AL/ALB1.json" },
+    "AND1": { "country": "AD", "path": "/europe/teams/AD/AND1.json" },
+    "ARM1": { "country": "AM", "path": "/europe/teams/AM/ARM1.json" },
+
+    "AZE1": { "country": "AZ", "path": "/europe/teams/AZ/AZE1.json" },
+    "AZE_CUP": { "country": "AZ", "path": "/europe/teams/AZ/AZE_CUP.json" },
+    "AZE_SUPERCUP": { "country": "AZ", "path": "/europe/teams/AZ/AZE_SUPERCUP.json" },
+
+    "BLR1": { "country": "BY", "path": "/europe/teams/BY/BLR1.json" },
+    "BLR2": { "country": "BY", "path": "/europe/teams/BY/BLR2.json" },
+    "BLR_CUP": { "country": "BY", "path": "/europe/teams/BY/BLR_CUP.json" },
+    "BLR_SUPERCUP": { "country": "BY", "path": "/europe/teams/BY/BLR_SUPERCUP.json" },
+
+    "BIH1": { "country": "BA", "path": "/europe/teams/BA/BIH1.json" },
+    "BIH_CUP": { "country": "BA", "path": "/europe/teams/BA/BIH_CUP.json" },
+
+    "BUL1": { "country": "BG", "path": "/europe/teams/BG/BUL1.json" },
+    "BUL2": { "country": "BG", "path": "/europe/teams/BG/BUL2.json" },
+    "BUL_CUP": { "country": "BG", "path": "/europe/teams/BG/BUL_CUP.json" },
+    "BUL_SUPERCUP": { "country": "BG", "path": "/europe/teams/BG/BUL_SUPERCUP.json" },
+
+    "CRO1": { "country": "HR", "path": "/europe/teams/HR/CRO1.json" },
+    "CRO2": { "country": "HR", "path": "/europe/teams/HR/CRO2.json" },
+    "CRO_CUP": { "country": "HR", "path": "/europe/teams/HR/CRO_CUP.json" },
+
+    "CYP1": { "country": "CY", "path": "/europe/teams/CY/CYP1.json" },
+    "CYP2": { "country": "CY", "path": "/europe/teams/CY/CYP2.json" },
+    "CYP_CUP": { "country": "CY", "path": "/europe/teams/CY/CYP_CUP.json" },
+    "CYP_SUPERCUP": { "country": "CY", "path": "/europe/teams/CY/CYP_SUPERCUP.json" },
+
+    "EST1": { "country": "EE", "path": "/europe/teams/EE/EST1.json" },
+    "EST2": { "country": "EE", "path": "/europe/teams/EE/EST2.json" },
+    "EST_CUP": { "country": "EE", "path": "/europe/teams/EE/EST_CUP.json" }
+  }
+}

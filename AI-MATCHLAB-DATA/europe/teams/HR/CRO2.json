@@ -1,0 +1,17 @@
+{
+  "league_id": "CRO2",
+  "league_name": "Druga HNL",
+  "country_code": "HR",
+  "teams": [
+    { "team_id": "CRO2_DUBRAVA", "name": "NK Dubrava", "short_name": "Dubrava", "alt_names": [], "status": "active" },
+    { "team_id": "CRO2_DUGOPOLJE", "name": "NK Dugopolje", "short_name": "Dugopolje", "alt_names": [], "status": "active" },
+    { "team_id": "CRO2_KUSTOŠIJA", "name": "NK Kustošija", "short_name": "Kustošija", "alt_names": ["Kustosija"], "status": "active" },
+    { "team_id": "CRO2_JARUN", "name": "NK Jarun", "short_name": "Jarun", "alt_names": [], "status": "active" },
+    { "team_id": "CRO2_SOLIN", "name": "NK Solin", "short_name": "Solin", "alt_names": [], "status": "active" },
+    { "team_id": "CRO2_OPATIJA", "name": "NK Opatija", "short_name": "Opatija", "alt_names": [], "status": "active" },
+    { "team_id": "CRO2_CIBALIA", "name": "HNK Cibalia", "short_name": "Cibalia", "alt_names": [], "status": "active" },
+    { "team_id": "CRO2_VINOGRADAR", "name": "Vinogradar", "short_name": "Vinogradar", "alt_names": [], "status": "active" },
+    { "team_id": "CRO2_KRIZEVCI", "name": "NK Križevci", "short_name": "Križevci", "alt_names": [], "status": "active" },
+    { "team_id": "CRO2_TRNJE", "name": "NK Trnje", "short_name": "Trnje", "alt_names": [], "status": "active" }
+  ]
+}

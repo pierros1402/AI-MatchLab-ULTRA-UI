@@ -1,0 +1,16 @@
+{
+  "league_id": "CRO_CUP",
+  "league_name": "Croatian Cup",
+  "country_code": "HR",
+  "teams": [
+    { "team_id": "CRO1_DINAMO", "name": "GNK Dinamo Zagreb" },
+    { "team_id": "CRO1_HAJDUK", "name": "HNK Hajduk Split" },
+    { "team_id": "CRO1_RIJEKA", "name": "HNK Rijeka" },
+    { "team_id": "CRO1_OSIJEK", "name": "NK Osijek" },
+    { "team_id": "CRO1_GORICA", "name": "HNK Gorica" },
+    { "team_id": "CRO1_ISTRA", "name": "NK Istra 1961" },
+    { "team_id": "CRO1_SLOBODA", "name": "NK Slaven Belupo" },
+    { "team_id": "CRO2_CIBALIA", "name": "HNK Cibalia" },
+    { "team_id": "CRO2_DUGOPOLJE", "name": "NK Dugopolje" }
+  ]
+}

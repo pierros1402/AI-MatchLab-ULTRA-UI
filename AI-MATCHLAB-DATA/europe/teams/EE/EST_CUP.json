@@ -1,0 +1,15 @@
+{
+  "league_id": "EST_CUP",
+  "league_name": "Estonian Cup",
+  "country_code": "EE",
+  "teams": [
+    { "team_id": "EST1_FLORA", "name": "FC Flora Tallinn" },
+    { "team_id": "EST1_LEVADIA", "name": "FCI Levadia Tallinn" },
+    { "team_id": "EST1_NOMME_KALJU", "name": "Nõmme Kalju FC" },
+    { "team_id": "EST1_PAIDE", "name": "Paide Linnameeskond" },
+    { "team_id": "EST1_PARNUP", "name": "Pärnu Vaprus" },
+    { "team_id": "EST2_FA", "name": "FCI Levadia U21" },
+    { "team_id": "EST2_TALLINNAFLORA2", "name": "FC Flora U21" },
+    { "team_id": "EST2_NOMMEUNITED", "name": "Nõmme United" }
+  ]
+}

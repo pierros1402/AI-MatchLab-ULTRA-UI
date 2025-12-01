@@ -1,0 +1,91 @@
+{
+  "league_id": "CYP1",
+  "league_name": "Cyta First Division",
+  "country_code": "CY",
+  "teams": [
+    {
+      "team_id": "CYP1_APOEL",
+      "name": "APOEL Nicosia",
+      "short_name": "APOEL",
+      "alt_names": ["APOEL FC", "APOEL Lefkosia"],
+      "status": "active"
+    },
+    {
+      "team_id": "CYP1_OMONIA",
+      "name": "Omonia Nicosia",
+      "short_name": "Omonia",
+      "alt_names": ["AC Omonia", "Omonia FC"],
+      "status": "active"
+    },
+    {
+      "team_id": "CYP1_AEL",
+      "name": "AEL Limassol",
+      "short_name": "AEL",
+      "alt_names": ["AEL Limassol FC"],
+      "status": "active"
+    },
+    {
+      "team_id": "CYP1_APOLLON",
+      "name": "Apollon Limassol",
+      "short_name": "Apollon",
+      "alt_names": ["Apollon FC"],
+      "status": "active"
+    },
+    {
+      "team_id": "CYP1_ANORTHOSIS",
+      "name": "Anorthosis Famagusta",
+      "short_name": "Anorthosis",
+      "alt_names": ["Anorthosis Ammochostos"],
+      "status": "active"
+    },
+    {
+      "team_id": "CYP1_ARSENAL_LIM",
+      "name": "Aris Limassol",
+      "short_name": "Aris",
+      "alt_names": ["Aris Limassol FC"],
+      "status": "active"
+    },
+    {
+      "team_id": "CYP1_PAFOS",
+      "name": "Pafos FC",
+      "short_name": "Pafos",
+      "alt_names": ["Paphos FC"],
+      "status": "active"
+    },
+    {
+      "team_id": "CYP1_AEK",
+      "name": "AEK Larnaca",
+      "short_name": "AEK",
+      "alt_names": ["AEK Larnaka"],
+      "status": "active"
+    },
+    {
+      "team_id": "CYP1_DOXA",
+      "name": "Doxa Katokopias",
+      "short_name": "Doxa",
+      "alt_names": [],
+      "status": "active"
+    },
+    {
+      "team_id": "CYP1_ENAD",
+      "name": "ENAD Polis Chrysochous",
+      "short_name": "ENAD",
+      "alt_names": [],
+      "status": "active"
+    },
+    {
+      "team_id": "CYP1_NEASAL",
+      "name": "Nea Salamina",
+      "short_name": "Nea Salamina",
+      "alt_names": ["Nea Salamina Famagusta"],
+      "status": "active"
+    },
+    {
+      "team_id": "CYP1_ETHNIKOS",
+      "name": "Ethnikos Achna",
+      "short_name": "Ethnikos",
+      "alt_names": ["Ethnikos Achnas"],
+      "status": "active"
+    }
+  ]
+}

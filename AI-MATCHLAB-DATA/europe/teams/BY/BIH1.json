@@ -1,0 +1,91 @@
+{
+  "league_id": "BIH1",
+  "league_name": "Premijer Liga Bosne i Hercegovine",
+  "country_code": "BA",
+  "teams": [
+    {
+      "team_id": "BIH1_ZELJEZNICAR",
+      "name": "FK Željezničar",
+      "short_name": "Željezničar",
+      "alt_names": ["Zeljeznicar", "FK Zeljeznicar Sarajevo"],
+      "status": "active"
+    },
+    {
+      "team_id": "BIH1_SARAJEVO",
+      "name": "FK Sarajevo",
+      "short_name": "Sarajevo",
+      "alt_names": ["FK Sarajevo 1946"],
+      "status": "active"
+    },
+    {
+      "team_id": "BIH1_ZRINJSKI",
+      "name": "HŠK Zrinjski Mostar",
+      "short_name": "Zrinjski",
+      "alt_names": ["Zrinjski Mostar", "HŠK Zrinjski"],
+      "status": "active"
+    },
+    {
+      "team_id": "BIH1_VELEZ",
+      "name": "FK Velež Mostar",
+      "short_name": "Velež",
+      "alt_names": ["Velez Mostar"],
+      "status": "active"
+    },
+    {
+      "team_id": "BIH1_TUZLACITY",
+      "name": "FK Tuzla City",
+      "short_name": "Tuzla City",
+      "alt_names": ["Tuzla"],
+      "status": "active"
+    },
+    {
+      "team_id": "BIH1_SLOBODA",
+      "name": "FK Sloboda Tuzla",
+      "short_name": "Sloboda",
+      "alt_names": ["Sloboda Tuzla"],
+      "status": "active"
+    },
+    {
+      "team_id": "BIH1_SIROKI",
+      "name": "NK Široki Brijeg",
+      "short_name": "Široki Brijeg",
+      "alt_names": ["Siroki Brijeg"],
+      "status": "active"
+    },
+    {
+      "team_id": "BIH1_POSUSJE",
+      "name": "HŠK Posušje",
+      "short_name": "Posušje",
+      "alt_names": ["Posusje"],
+      "status": "active"
+    },
+    {
+      "team_id": "BIH1_IGMAN",
+      "name": "FK Igman Konjic",
+      "short_name": "Igman",
+      "alt_names": ["Igman Konjic"],
+      "status": "active"
+    },
+    {
+      "team_id": "BIH1_BORAC",
+      "name": "FK Borac Banja Luka",
+      "short_name": "Borac",
+      "alt_names": ["Borac Banja Luka"],
+      "status": "active"
+    },
+    {
+      "team_id": "BIH1_SLOGA",
+      "name": "FK Sloga Doboj",
+      "short_name": "Sloga",
+      "alt_names": ["Sloga Doboj"],
+      "status": "active"
+    },
+    {
+      "team_id": "BIH1_GOŠK",
+      "name": "NK GOŠK Gabela",
+      "short_name": "GOŠK",
+      "alt_names": ["GOSK Gabela"],
+      "status": "active"
+    }
+  ]
+}

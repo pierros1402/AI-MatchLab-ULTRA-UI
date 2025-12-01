@@ -1,0 +1,77 @@
+{
+  "league_id": "ALB1",
+  "league_name": "Kategoria Superiore",
+  "country_code": "AL",
+  "teams": [
+    {
+      "team_id": "ALB1_PARTIZANI",
+      "name": "FK Partizani",
+      "short_name": "Partizani",
+      "alt_names": ["Partizani Tirana", "FK Partizani Tirana"],
+      "status": "active"
+    },
+    {
+      "team_id": "ALB1_TIRANA",
+      "name": "KF Tirana",
+      "short_name": "Tirana",
+      "alt_names": ["SK Tirana", "Tirana"],
+      "status": "active"
+    },
+    {
+      "team_id": "ALB1_VLLAZNIA",
+      "name": "KF Vllaznia Shkodër",
+      "short_name": "Vllaznia",
+      "alt_names": ["Vllaznia Shkoder", "Vllaznia Shkodër"],
+      "status": "active"
+    },
+    {
+      "team_id": "ALB1_SKENDERBEU",
+      "name": "KF Skënderbeu Korçë",
+      "short_name": "Skenderbeu",
+      "alt_names": ["Skenderbeu Korce", "Skënderbeu"],
+      "status": "active"
+    },
+    {
+      "team_id": "ALB1_ERZENI",
+      "name": "KS Egnatia",
+      "short_name": "Egnatia",
+      "alt_names": ["Egnatia Rrogozhinë", "KS Egnatia"],
+      "status": "active"
+    },
+    {
+      "team_id": "ALB1_TEUTA",
+      "name": "KF Teuta",
+      "short_name": "Teuta",
+      "alt_names": ["Teuta Durrës", "KF Teuta Durres"],
+      "status": "active"
+    },
+    {
+      "team_id": "ALB1_LACI",
+      "name": "KF Laçi",
+      "short_name": "Laci",
+      "alt_names": ["Laçi", "Kf Laci"],
+      "status": "active"
+    },
+    {
+      "team_id": "ALB1_KUKESI",
+      "name": "FK Kukësi",
+      "short_name": "Kukesi",
+      "alt_names": ["Kukës", "FK Kukesi"],
+      "status": "active"
+    },
+    {
+      "team_id": "ALB1_ERZEN",
+      "name": "KS Erzeni",
+      "short_name": "Erzeni",
+      "alt_names": ["Erzeni Shijak", "KS Erzeni Shijak"],
+      "status": "active"
+    },
+    {
+      "team_id": "ALB1_APOLONIA",
+      "name": "KF Apolonia",
+      "short_name": "Apolonia",
+      "alt_names": ["Apolonia Fier", "KF Apolonia Fier"],
+      "status": "active"
+    }
+  ]
+}

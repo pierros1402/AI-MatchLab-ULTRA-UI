@@ -1,0 +1,17 @@
+{
+  "league_id": "AZE_CUP",
+  "league_name": "Azerbaijan Cup",
+  "country_code": "AZ",
+  "teams": [
+    { "team_id": "AZE1_QARABAG", "name": "Qarabağ FK", "alt_names": [] },
+    { "team_id": "AZE1_NEFTCHI", "name": "Neftçi PFK", "alt_names": [] },
+    { "team_id": "AZE1_QABALA", "name": "Gabala FK", "alt_names": [] },
+    { "team_id": "AZE1_SABAH", "name": "Sabah FK", "alt_names": [] },
+    { "team_id": "AZE1_SUMQAYIT", "name": "Sumgayit FK", "alt_names": [] },
+    { "team_id": "AZE1_ZIRA", "name": "Zira FK", "alt_names": [] },
+    { "team_id": "AZE1_SABAIL", "name": "Sabail FK", "alt_names": [] },
+    { "team_id": "AZE1_KEŞLA", "name": "Shamakhi FK", "alt_names": [] },
+    { "team_id": "AZE1_KAPAZ", "name": "Kəpəz PFK", "alt_names": [] },
+    { "team_id": "AZE1_TURAN", "name": "Turan-Tovuz IK", "alt_names": [] }
+  ]
+}

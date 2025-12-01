@@ -1,0 +1,19 @@
+/* ============================================================
+   AI MATCHLAB ULTRA — ACCORDION CORE
+   ============================================================ */
+
+.accordion-item {
+  margin: 0;
+}
+
+.accordion-header {
+  user-select: none;
+}
+
+.accordion-body {
+  display: none;
+}
+
+.accordion-body.active {
+  display: block;
+}

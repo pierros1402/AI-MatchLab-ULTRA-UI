@@ -1,0 +1,77 @@
+{
+  "league_id": "AZE1",
+  "league_name": "Azerbaijan Premier League",
+  "country_code": "AZ",
+  "teams": [
+    {
+      "team_id": "AZE1_QARABAG",
+      "name": "Qarabağ FK",
+      "short_name": "Qarabag",
+      "alt_names": ["Qarabag Agdam", "FK Qarabag", "Qarabag FK"],
+      "status": "active"
+    },
+    {
+      "team_id": "AZE1_NEFTCHI",
+      "name": "Neftçi PFK",
+      "short_name": "Neftchi",
+      "alt_names": ["Neftçi Baku", "Neftchi Baku", "PFC Neftci"],
+      "status": "active"
+    },
+    {
+      "team_id": "AZE1_QABALA",
+      "name": "Gabala FK",
+      "short_name": "Gabala",
+      "alt_names": ["Qabala FK", "Gabala SC"],
+      "status": "active"
+    },
+    {
+      "team_id": "AZE1_SABAH",
+      "name": "Sabah FK",
+      "short_name": "Sabah",
+      "alt_names": ["Sabah Baku"],
+      "status": "active"
+    },
+    {
+      "team_id": "AZE1_SUMQAYIT",
+      "name": "Sumgayit FK",
+      "short_name": "Sumgayit",
+      "alt_names": ["Sumqayit FK"],
+      "status": "active"
+    },
+    {
+      "team_id": "AZE1_ZIRA",
+      "name": "Zira FK",
+      "short_name": "Zira",
+      "alt_names": ["Zira Baku", "Zirə FK"],
+      "status": "active"
+    },
+    {
+      "team_id": "AZE1_SABAIL",
+      "name": "Sabail FK",
+      "short_name": "Sabail",
+      "alt_names": ["Səbail", "Səbail FK"],
+      "status": "active"
+    },
+    {
+      "team_id": "AZE1_KEŞLA",
+      "name": "Shamakhi FK",
+      "short_name": "Shamakhi",
+      "alt_names": ["Kesla FK", "Keşla", "FC Shamakhi"],
+      "status": "active"
+    },
+    {
+      "team_id": "AZE1_KAPAZ",
+      "name": "Kəpəz PFK",
+      "short_name": "Kapaz",
+      "alt_names": ["Kapaz PFK", "Kəpəz"],
+      "status": "active"
+    },
+    {
+      "team_id": "AZE1_TURAN",
+      "name": "Turan-Tovuz IK",
+      "short_name": "Turan",
+      "alt_names": ["Turan IK", "Turan Tovuz"],
+      "status": "active"
+    }
+  ]
+}

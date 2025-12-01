@@ -1,0 +1,77 @@
+{
+  "league_id": "EST1",
+  "league_name": "Meistriliiga",
+  "country_code": "EE",
+  "teams": [
+    {
+      "team_id": "EST1_FLORA",
+      "name": "FC Flora Tallinn",
+      "short_name": "Flora",
+      "alt_names": ["Flora Tallinn"],
+      "status": "active"
+    },
+    {
+      "team_id": "EST1_LEVADIA",
+      "name": "FCI Levadia Tallinn",
+      "short_name": "Levadia",
+      "alt_names": ["Levadia Tallinn"],
+      "status": "active"
+    },
+    {
+      "team_id": "EST1_NOMME_KALJU",
+      "name": "Nõmme Kalju FC",
+      "short_name": "Nõmme Kalju",
+      "alt_names": ["Nomme Kalju"],
+      "status": "active"
+    },
+    {
+      "team_id": "EST1_PAIDE",
+      "name": "Paide Linnameeskond",
+      "short_name": "Paide",
+      "alt_names": ["Paide LM"],
+      "status": "active"
+    },
+    {
+      "team_id": "EST1_PARNUP",
+      "name": "JK Pärnu Vaprus",
+      "short_name": "Vaprus",
+      "alt_names": ["Parnu Vaprus"],
+      "status": "active"
+    },
+    {
+      "team_id": "EST1_NARVA",
+      "name": "JK Narva Trans",
+      "short_name": "Narva Trans",
+      "alt_names": ["Narva"],
+      "status": "active"
+    },
+    {
+      "team_id": "EST1_KJK",
+      "name": "Tallinna Kalev",
+      "short_name": "Kalev",
+      "alt_names": ["JK Tallinna Kalev"],
+      "status": "active"
+    },
+    {
+      "team_id": "EST1_TAMMEKA",
+      "name": "Tartu Tammeka",
+      "short_name": "Tammeka",
+      "alt_names": ["JK Tammeka"],
+      "status": "active"
+    },
+    {
+      "team_id": "EST1_HARJU",
+      "name": "Harju JK Laagri",
+      "short_name": "Harju",
+      "alt_names": ["Harju Laagri"],
+      "status": "active"
+    },
+    {
+      "team_id": "EST1_KURESSAARE",
+      "name": "FC Kuressaare",
+      "short_name": "Kuressaare",
+      "alt_names": [],
+      "status": "active"
+    }
+  ]
+}

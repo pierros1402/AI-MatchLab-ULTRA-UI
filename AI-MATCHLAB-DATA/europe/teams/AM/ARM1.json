@@ -1,0 +1,63 @@
+{
+  "league_id": "ARM1",
+  "league_name": "Armenian Premier League",
+  "country_code": "AM",
+  "teams": [
+    {
+      "team_id": "ARM1_ARARAT",
+      "name": "Ararat Yerevan",
+      "short_name": "Ararat",
+      "alt_names": ["FC Ararat", "Ararat Y"],
+      "status": "active"
+    },
+    {
+      "team_id": "ARM1_ARARATARMENIA",
+      "name": "Ararat-Armenia",
+      "short_name": "Ararat-Armenia",
+      "alt_names": ["FC Ararat-Armenia"],
+      "status": "active"
+    },
+    {
+      "team_id": "ARM1_PYUNIK",
+      "name": "FC Pyunik",
+      "short_name": "Pyunik",
+      "alt_names": ["Pyunik Yerevan"],
+      "status": "active"
+    },
+    {
+      "team_id": "ARM1_ALASHKERT",
+      "name": "Alashkert FC",
+      "short_name": "Alashkert",
+      "alt_names": ["FC Alashkert"],
+      "status": "active"
+    },
+    {
+      "team_id": "ARM1_NOAH",
+      "name": "FC Noah",
+      "short_name": "Noah",
+      "alt_names": [],
+      "status": "active"
+    },
+    {
+      "team_id": "ARM1_SHIRAK",
+      "name": "Shirak SC",
+      "short_name": "Shirak",
+      "alt_names": ["Shirak Gyumri"],
+      "status": "active"
+    },
+    {
+      "team_id": "ARM1_LORI",
+      "name": "Lori FC",
+      "short_name": "Lori",
+      "alt_names": ["Lori Vanadzor"],
+      "status": "active"
+    },
+    {
+      "team_id": "ARM1_SEVAN",
+      "name": "Sevan FC",
+      "short_name": "Sevan",
+      "alt_names": [],
+      "status": "active"
+    }
+  ]
+}

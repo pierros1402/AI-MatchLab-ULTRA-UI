@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI-MATCHLAB-DATA — TEST</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 20px; background: #f6f6f6; }
+  h2 { margin-bottom: 10px; }
+  button { padding: 10px 18px; font-size: 16px; cursor: pointer; }
+  pre { background: #fff; padding: 15px; border: 1px solid #ccc; margin-top: 15px; white-space: pre-wrap; }
+</style>
+</head>
+<body>
+
+<h2>AI-MATCHLAB-DATA — Local Test</h2>
+<p>Πατάς το κουμπί για να ελέγξουμε αν διαβάζονται σωστά τα JSON.</p>
+
+<button onclick="runTest()">➡ Run Test</button>
+
+<pre id="output">Waiting...</pre>
+
+<script>
+async function runTest() {
+  const out = document.getElementById("output");
+  out.textContent = "Testing...";
+
+  try {
+    // 1. Test countries index
+    const countries = await fetch("./indexes/countries_index.json").then(r => r.json());
+
+    // 2. Test leagues index
+    const leagues = await fetch("./indexes/leagues_index.json").then(r => r.json());
+
+    // 3. Test sample league file (Albania ALB1)
+    const sample = await fetch("./europe/teams/AL/ALB1.json").then(r => r.json());
+
+    out.textContent =
+      "✓ countries_index.json OK — χώρες: " + Object.keys(countries.countries).length + "\n" +
+      "✓ leagues_index.json OK — λίγκες: " + Object.keys(leagues.leagues).length + "\n" +
+      "✓ ALB1.json OK — ομάδες: " + sample.teams.length + "\n\n" +
+      "🎉 ΟΛΑ ΔΟΥΛΕΥΟΥΝ ΤΕΛΕΙΑ ΤΟΠΙΚΑ!";
+  }
+  catch (err) {
+    out.textContent = "❌ ERROR:\n" + err;
+  }
+}
+</script>
+
+</body>
+</html>
