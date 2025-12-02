@@ -167,9 +167,8 @@
 
   <!-- SCRIPTS -->
   <script src="/assets/js/ui/accordion.js"></script>
-
+  <script type="module" src="./assets/js/ui/app.js"></script>
   <script type="module">
-    import { initApp } from "/assets/js/ui/app.js";
     import { initTheme, toggleTheme } from "/assets/js/theme.js";
     import { initLiveEngine, manualRefreshLive } from "/assets/js/live/live-engine.js";
     import { initLanguage, toggleLanguage } from "/assets/js/language.js";
@@ -333,7 +332,6 @@
     function main() {
       initTheme();
       initLanguage && initLanguage();
-      initApp();
       initLiveEngine();
       setupTopbar();
       setupBottomNav();

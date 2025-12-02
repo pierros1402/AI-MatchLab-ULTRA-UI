@@ -1,0 +1,1204 @@
+{
+  "_meta": {
+    "created_at": "2025-12-02T18:15:40.028Z",
+    "description": "Static Sofascore mapping for all leagues"
+  },
+  "map": {
+    "ALG1": {
+      "tournamentId": "",
+      "tournamentName": "Ligue 1"
+    },
+    "ALGCUP": {
+      "tournamentId": "",
+      "tournamentName": "Algerian Cup"
+    },
+    "ANG1": {
+      "tournamentId": "",
+      "tournamentName": "Girabola"
+    },
+    "ANGCUP": {
+      "tournamentId": "",
+      "tournamentName": "Taça de Angola"
+    },
+    "BEN1": {
+      "tournamentId": "",
+      "tournamentName": "Benin Premier League"
+    },
+    "BOT1": {
+      "tournamentId": "",
+      "tournamentName": "Botswana Premier League"
+    },
+    "BFA1": {
+      "tournamentId": "",
+      "tournamentName": "Burkinabé Premier League"
+    },
+    "BDI1": {
+      "tournamentId": "",
+      "tournamentName": "Burundi Premier League"
+    },
+    "CMR1": {
+      "tournamentId": "",
+      "tournamentName": "Elite One"
+    },
+    "CMRCUP": {
+      "tournamentId": "",
+      "tournamentName": "Cameroon Cup"
+    },
+    "CPV1": {
+      "tournamentId": "",
+      "tournamentName": "Cape Verdean Championship"
+    },
+    "CAF1": {
+      "tournamentId": "",
+      "tournamentName": "Central African Republic League"
+    },
+    "CHA1": {
+      "tournamentId": "",
+      "tournamentName": "Chad Premier League"
+    },
+    "COM1": {
+      "tournamentId": "",
+      "tournamentName": "Comoros Premier League"
+    },
+    "COG1": {
+      "tournamentId": "",
+      "tournamentName": "Ligue 1 (Congo)"
+    },
+    "COD1": {
+      "tournamentId": "",
+      "tournamentName": "Linafoot"
+    },
+    "CIV1": {
+      "tournamentId": "",
+      "tournamentName": "Ligue 1"
+    },
+    "DJI1": {
+      "tournamentId": "",
+      "tournamentName": "Djibouti Premier League"
+    },
+    "EGY1": {
+      "tournamentId": "",
+      "tournamentName": "Egyptian Premier League"
+    },
+    "EGYCUP": {
+      "tournamentId": "",
+      "tournamentName": "Egypt Cup"
+    },
+    "EGYSCUP": {
+      "tournamentId": "",
+      "tournamentName": "Egyptian Super Cup"
+    },
+    "EQG1": {
+      "tournamentId": "",
+      "tournamentName": "Liga Nacional de Fútbol"
+    },
+    "ERI1": {
+      "tournamentId": "",
+      "tournamentName": "Eritrean Premier League"
+    },
+    "SWZ1": {
+      "tournamentId": "",
+      "tournamentName": "Premier League of Eswatini"
+    },
+    "ETH1": {
+      "tournamentId": "",
+      "tournamentName": "Ethiopian Premier League"
+    },
+    "GAB1": {
+      "tournamentId": "",
+      "tournamentName": "Gabon Championnat National D1"
+    },
+    "GAM1": {
+      "tournamentId": "",
+      "tournamentName": "GFA League First Division"
+    },
+    "GHA1": {
+      "tournamentId": "",
+      "tournamentName": "Ghana Premier League"
+    },
+    "GHACUP": {
+      "tournamentId": "",
+      "tournamentName": "GFA Cup"
+    },
+    "GUI1": {
+      "tournamentId": "",
+      "tournamentName": "Ligue 1 Pro"
+    },
+    "GNB1": {
+      "tournamentId": "",
+      "tournamentName": "Campeonato Nacional da Guiné-Bissau"
+    },
+    "KEN1": {
+      "tournamentId": "",
+      "tournamentName": "Kenyan Premier League"
+    },
+    "LES1": {
+      "tournamentId": "",
+      "tournamentName": "Lesotho Premier League"
+    },
+    "LBR1": {
+      "tournamentId": "",
+      "tournamentName": "Liberian First Division"
+    },
+    "LBY1": {
+      "tournamentId": "",
+      "tournamentName": "Libyan Premier League"
+    },
+    "MAD1": {
+      "tournamentId": "",
+      "tournamentName": "THB Champions League"
+    },
+    "MAW1": {
+      "tournamentId": "",
+      "tournamentName": "TNM Super League"
+    },
+    "MLI1": {
+      "tournamentId": "",
+      "tournamentName": "Ligue 1 (Mali)"
+    },
+    "MTN1": {
+      "tournamentId": "",
+      "tournamentName": "Super D1"
+    },
+    "MUS1": {
+      "tournamentId": "",
+      "tournamentName": "Mauritian Premier League"
+    },
+    "MAR1": {
+      "tournamentId": "",
+      "tournamentName": "Botola Pro"
+    },
+    "MAR2": {
+      "tournamentId": "",
+      "tournamentName": "Botola 2"
+    },
+    "MARCUP": {
+      "tournamentId": "",
+      "tournamentName": "Moroccan Throne Cup"
+    },
+    "MOZ1": {
+      "tournamentId": "",
+      "tournamentName": "Moçambola"
+    },
+    "NAM1": {
+      "tournamentId": "",
+      "tournamentName": "Namibia Premier League"
+    },
+    "NIG1": {
+      "tournamentId": "",
+      "tournamentName": "Super Ligue (Niger)"
+    },
+    "NGA1": {
+      "tournamentId": "",
+      "tournamentName": "Nigeria Premier Football League"
+    },
+    "RWA1": {
+      "tournamentId": "",
+      "tournamentName": "Rwanda Premier League"
+    },
+    "STP1": {
+      "tournamentId": "",
+      "tournamentName": "São Tomé and Príncipe Championship"
+    },
+    "SEN1": {
+      "tournamentId": "",
+      "tournamentName": "Ligue 1 (Senegal)"
+    },
+    "SEY1": {
+      "tournamentId": "",
+      "tournamentName": "Seychelles First Division"
+    },
+    "SLE1": {
+      "tournamentId": "",
+      "tournamentName": "Sierra Leone Premier League"
+    },
+    "SOM1": {
+      "tournamentId": "",
+      "tournamentName": "Somali Premier League"
+    },
+    "RSA1": {
+      "tournamentId": "",
+      "tournamentName": "Premier Soccer League"
+    },
+    "RSA2": {
+      "tournamentId": "",
+      "tournamentName": "National First Division"
+    },
+    "RSACUP": {
+      "tournamentId": "",
+      "tournamentName": "Nedbank Cup"
+    },
+    "RSASCUP": {
+      "tournamentId": "",
+      "tournamentName": "MTN 8"
+    },
+    "SSD1": {
+      "tournamentId": "",
+      "tournamentName": "South Sudan Premier League"
+    },
+    "SDN1": {
+      "tournamentId": "",
+      "tournamentName": "Sudan Premier League"
+    },
+    "TZA1": {
+      "tournamentId": "",
+      "tournamentName": "Tanzanian Premier League"
+    },
+    "TGO1": {
+      "tournamentId": "",
+      "tournamentName": "Togolese Championnat National"
+    },
+    "TUN1": {
+      "tournamentId": "",
+      "tournamentName": "Ligue Professionnelle 1"
+    },
+    "TUNCUP": {
+      "tournamentId": "",
+      "tournamentName": "Tunisian Cup"
+    },
+    "UGA1": {
+      "tournamentId": "",
+      "tournamentName": "Uganda Premier League"
+    },
+    "ZAM1": {
+      "tournamentId": "",
+      "tournamentName": "Zambia Super League"
+    },
+    "ZIM1": {
+      "tournamentId": "",
+      "tournamentName": "Castle Lager Premier Soccer League"
+    },
+    "AFG1": {
+      "tournamentId": "",
+      "tournamentName": "Afghan Premier League"
+    },
+    "BHR1": {
+      "tournamentId": "",
+      "tournamentName": "Bahraini Premier League"
+    },
+    "BAN1": {
+      "tournamentId": "",
+      "tournamentName": "Bangladesh Premier League"
+    },
+    "BHU1": {
+      "tournamentId": "",
+      "tournamentName": "Bhutan Premier League"
+    },
+    "BRU1": {
+      "tournamentId": "",
+      "tournamentName": "Brunei Super League"
+    },
+    "CAM1": {
+      "tournamentId": "",
+      "tournamentName": "Cambodian Premier League"
+    },
+    "CHN1": {
+      "tournamentId": "",
+      "tournamentName": "Chinese Super League"
+    },
+    "CHN2": {
+      "tournamentId": "",
+      "tournamentName": "China League One"
+    },
+    "TPE1": {
+      "tournamentId": "",
+      "tournamentName": "Taiwan Football Premier League"
+    },
+    "IND1": {
+      "tournamentId": "",
+      "tournamentName": "Indian Super League"
+    },
+    "IND2": {
+      "tournamentId": "",
+      "tournamentName": "I-League"
+    },
+    "IDN1": {
+      "tournamentId": "",
+      "tournamentName": "Liga 1"
+    },
+    "IRN1": {
+      "tournamentId": "",
+      "tournamentName": "Persian Gulf Pro League"
+    },
+    "IRQ1": {
+      "tournamentId": "",
+      "tournamentName": "Iraqi Premier League"
+    },
+    "ISR1": {
+      "tournamentId": "",
+      "tournamentName": "Israeli Premier League"
+    },
+    "JPN1": {
+      "tournamentId": "",
+      "tournamentName": "J1 League"
+    },
+    "JPN2": {
+      "tournamentId": "",
+      "tournamentName": "J2 League"
+    },
+    "JPN3": {
+      "tournamentId": "",
+      "tournamentName": "J3 League"
+    },
+    "JOR1": {
+      "tournamentId": "",
+      "tournamentName": "Jordanian Pro League"
+    },
+    "KAZ1": {
+      "tournamentId": "",
+      "tournamentName": "Kazakhstan Premier League"
+    },
+    "KUW1": {
+      "tournamentId": "",
+      "tournamentName": "Kuwait Premier League"
+    },
+    "KGZ1": {
+      "tournamentId": "",
+      "tournamentName": "Kyrgyz Premier League"
+    },
+    "LAO1": {
+      "tournamentId": "",
+      "tournamentName": "Lao League 1"
+    },
+    "LBN1": {
+      "tournamentId": "",
+      "tournamentName": "Lebanese Premier League"
+    },
+    "MAS1": {
+      "tournamentId": "",
+      "tournamentName": "Malaysia Super League"
+    },
+    "MDV1": {
+      "tournamentId": "",
+      "tournamentName": "Dhivehi Premier League"
+    },
+    "MON1": {
+      "tournamentId": "",
+      "tournamentName": "Mongolian Premier League"
+    },
+    "MYA1": {
+      "tournamentId": "",
+      "tournamentName": "Myanmar National League"
+    },
+    "NEP1": {
+      "tournamentId": "",
+      "tournamentName": "Martyr's Memorial A-Division League"
+    },
+    "PRK1": {
+      "tournamentId": "",
+      "tournamentName": "DPR Korea Premier Football League"
+    },
+    "OMA1": {
+      "tournamentId": "",
+      "tournamentName": "Oman Professional League"
+    },
+    "PAK1": {
+      "tournamentId": "",
+      "tournamentName": "Pakistan Premier League"
+    },
+    "PLE1": {
+      "tournamentId": "",
+      "tournamentName": "West Bank Premier League"
+    },
+    "PHI1": {
+      "tournamentId": "",
+      "tournamentName": "Philippines Football League"
+    },
+    "QAT1": {
+      "tournamentId": "",
+      "tournamentName": "Qatar Stars League"
+    },
+    "KSA1": {
+      "tournamentId": "",
+      "tournamentName": "Saudi Pro League"
+    },
+    "SIN1": {
+      "tournamentId": "",
+      "tournamentName": "Singapore Premier League"
+    },
+    "KOR1": {
+      "tournamentId": "",
+      "tournamentName": "K League 1"
+    },
+    "KOR2": {
+      "tournamentId": "",
+      "tournamentName": "K League 2"
+    },
+    "SRI1": {
+      "tournamentId": "",
+      "tournamentName": "Sri Lanka Champions League"
+    },
+    "SYR1": {
+      "tournamentId": "",
+      "tournamentName": "Syrian Premier League"
+    },
+    "TJK1": {
+      "tournamentId": "",
+      "tournamentName": "Tajikistan Higher League"
+    },
+    "THA1": {
+      "tournamentId": "",
+      "tournamentName": "Thai League 1"
+    },
+    "TLS1": {
+      "tournamentId": "",
+      "tournamentName": "Liga Futebol Amadora"
+    },
+    "TKM1": {
+      "tournamentId": "",
+      "tournamentName": "Ýokary Liga"
+    },
+    "UAE1": {
+      "tournamentId": "",
+      "tournamentName": "UAE Pro League"
+    },
+    "UZB1": {
+      "tournamentId": "",
+      "tournamentName": "Uzbekistan Super League"
+    },
+    "VIE1": {
+      "tournamentId": "",
+      "tournamentName": "V.League 1"
+    },
+    "YEM1": {
+      "tournamentId": "",
+      "tournamentName": "Yemeni League"
+    },
+    "ALB1": {
+      "tournamentId": "",
+      "tournamentName": "Kategoria Superiore"
+    },
+    "ALB2": {
+      "tournamentId": "",
+      "tournamentName": "Kategoria e Parë"
+    },
+    "ALBCUP": {
+      "tournamentId": "",
+      "tournamentName": "Albanian Cup"
+    },
+    "AND1": {
+      "tournamentId": "",
+      "tournamentName": "Primera Divisió"
+    },
+    "ANDCUP": {
+      "tournamentId": "",
+      "tournamentName": "Copa Constitució"
+    },
+    "ARM1": {
+      "tournamentId": "",
+      "tournamentName": "Armenian Premier League"
+    },
+    "AUT1": {
+      "tournamentId": "",
+      "tournamentName": "Bundesliga"
+    },
+    "AUT2": {
+      "tournamentId": "",
+      "tournamentName": "2. Liga"
+    },
+    "AUTCUP": {
+      "tournamentId": "",
+      "tournamentName": "Austrian Cup"
+    },
+    "AZE1": {
+      "tournamentId": "",
+      "tournamentName": "Azerbaijan Premier League"
+    },
+    "BLR1": {
+      "tournamentId": "",
+      "tournamentName": "Vysshaya Liga"
+    },
+    "BLR2": {
+      "tournamentId": "",
+      "tournamentName": "Pershaya Liga"
+    },
+    "BEL1": {
+      "tournamentId": "",
+      "tournamentName": "Pro League"
+    },
+    "BEL2": {
+      "tournamentId": "",
+      "tournamentName": "Challenger Pro League"
+    },
+    "BELCUP": {
+      "tournamentId": "",
+      "tournamentName": "Belgian Cup"
+    },
+    "BIH1": {
+      "tournamentId": "",
+      "tournamentName": "Premier League of Bosnia"
+    },
+    "BUL1": {
+      "tournamentId": "",
+      "tournamentName": "First Professional League"
+    },
+    "BUL2": {
+      "tournamentId": "",
+      "tournamentName": "Second League"
+    },
+    "CRO1": {
+      "tournamentId": "",
+      "tournamentName": "HNL"
+    },
+    "CROCUP": {
+      "tournamentId": "",
+      "tournamentName": "Croatian Cup"
+    },
+    "CYP1": {
+      "tournamentId": "",
+      "tournamentName": "First Division"
+    },
+    "CYPCUP": {
+      "tournamentId": "",
+      "tournamentName": "Cypriot Cup"
+    },
+    "CZE1": {
+      "tournamentId": "",
+      "tournamentName": "Fortuna Liga"
+    },
+    "CZE2": {
+      "tournamentId": "",
+      "tournamentName": "FNL"
+    },
+    "DEN1": {
+      "tournamentId": "",
+      "tournamentName": "Superliga"
+    },
+    "DEN2": {
+      "tournamentId": "",
+      "tournamentName": "1st Division"
+    },
+    "EST1": {
+      "tournamentId": "",
+      "tournamentName": "Meistriliiga"
+    },
+    "EST2": {
+      "tournamentId": "",
+      "tournamentName": "Esiliiga"
+    },
+    "FAI1": {
+      "tournamentId": "",
+      "tournamentName": "Faroe Islands Premier League"
+    },
+    "FIN1": {
+      "tournamentId": "",
+      "tournamentName": "Veikkausliiga"
+    },
+    "FIN2": {
+      "tournamentId": "",
+      "tournamentName": "Ykkönen"
+    },
+    "FRA1": {
+      "tournamentId": 34,
+      "tournamentName": "Ligue 1"
+    },
+    "FRA2": {
+      "tournamentId": 33,
+      "tournamentName": "Ligue 2"
+    },
+    "FRACUP": {
+      "tournamentId": 40,
+      "tournamentName": "Coupe de France"
+    },
+    "GEO1": {
+      "tournamentId": "",
+      "tournamentName": "Erovnuli Liga"
+    },
+    "GER1": {
+      "tournamentId": 35,
+      "tournamentName": "Bundesliga"
+    },
+    "GER2": {
+      "tournamentId": 36,
+      "tournamentName": "2. Bundesliga"
+    },
+    "GER3": {
+      "tournamentId": "",
+      "tournamentName": "3. Liga"
+    },
+    "GERCUP": {
+      "tournamentId": 37,
+      "tournamentName": "DFB Pokal"
+    },
+    "GIB1": {
+      "tournamentId": "",
+      "tournamentName": "Gibraltar National League"
+    },
+    "GRE1": {
+      "tournamentId": 498,
+      "tournamentName": "Super League"
+    },
+    "GRE2": {
+      "tournamentId": "",
+      "tournamentName": "Super League 2"
+    },
+    "GRECUP": {
+      "tournamentId": 500,
+      "tournamentName": "Greek Cup"
+    },
+    "HUN1": {
+      "tournamentId": "",
+      "tournamentName": "NB I"
+    },
+    "HUN2": {
+      "tournamentId": "",
+      "tournamentName": "NB II"
+    },
+    "ICE1": {
+      "tournamentId": "",
+      "tournamentName": "Besta deild karla"
+    },
+    "IRL1": {
+      "tournamentId": "",
+      "tournamentName": "Premier Division"
+    },
+    "IRL2": {
+      "tournamentId": "",
+      "tournamentName": "First Division"
+    },
+    "ITA1": {
+      "tournamentId": 23,
+      "tournamentName": "Serie A"
+    },
+    "ITA2": {
+      "tournamentId": 24,
+      "tournamentName": "Serie B"
+    },
+    "ITA3": {
+      "tournamentId": "",
+      "tournamentName": "Serie C"
+    },
+    "ITACUP": {
+      "tournamentId": 35,
+      "tournamentName": "Coppa Italia"
+    },
+    "LVA1": {
+      "tournamentId": "",
+      "tournamentName": "Virslīga"
+    },
+    "LICUP": {
+      "tournamentId": "",
+      "tournamentName": "Liechtenstein Cup"
+    },
+    "LTU1": {
+      "tournamentId": "",
+      "tournamentName": "A Lyga"
+    },
+    "LUX1": {
+      "tournamentId": "",
+      "tournamentName": "National Division"
+    },
+    "MLT1": {
+      "tournamentId": "",
+      "tournamentName": "Premier League"
+    },
+    "MDA1": {
+      "tournamentId": "",
+      "tournamentName": "Super Liga"
+    },
+    "MONO": {
+      "tournamentId": "",
+      "tournamentName": "AS Monaco participates in France"
+    },
+    "MNE1": {
+      "tournamentId": "",
+      "tournamentName": "Montenegrin First League"
+    },
+    "NED1": {
+      "tournamentId": 37,
+      "tournamentName": "Eredivisie"
+    },
+    "NED2": {
+      "tournamentId": 38,
+      "tournamentName": "Eerste Divisie"
+    },
+    "MKD1": {
+      "tournamentId": "",
+      "tournamentName": "Macedonian First League"
+    },
+    "NOR1": {
+      "tournamentId": "",
+      "tournamentName": "Eliteserien"
+    },
+    "NOR2": {
+      "tournamentId": "",
+      "tournamentName": "OBOS-ligaen"
+    },
+    "POL1": {
+      "tournamentId": "",
+      "tournamentName": "Ekstraklasa"
+    },
+    "POL2": {
+      "tournamentId": "",
+      "tournamentName": "I Liga"
+    },
+    "POR1": {
+      "tournamentId": "",
+      "tournamentName": "Primeira Liga"
+    },
+    "POR2": {
+      "tournamentId": "",
+      "tournamentName": "Liga Portugal 2"
+    },
+    "PORCUP": {
+      "tournamentId": "",
+      "tournamentName": "Taça de Portugal"
+    },
+    "ROU1": {
+      "tournamentId": "",
+      "tournamentName": "Liga I"
+    },
+    "ROU2": {
+      "tournamentId": "",
+      "tournamentName": "Liga II"
+    },
+    "RUS1": {
+      "tournamentId": "",
+      "tournamentName": "Russian Premier League"
+    },
+    "RUS2": {
+      "tournamentId": "",
+      "tournamentName": "Russian First League"
+    },
+    "SMR1": {
+      "tournamentId": "",
+      "tournamentName": "Campionato Sammarinese"
+    },
+    "SRB1": {
+      "tournamentId": "",
+      "tournamentName": "Serbian SuperLiga"
+    },
+    "SRB2": {
+      "tournamentId": "",
+      "tournamentName": "Prva Liga"
+    },
+    "SVK1": {
+      "tournamentId": "",
+      "tournamentName": "Fortuna Liga"
+    },
+    "SLO1": {
+      "tournamentId": "",
+      "tournamentName": "PrvaLiga"
+    },
+    "ESP1": {
+      "tournamentId": 8,
+      "tournamentName": "LaLiga"
+    },
+    "ESP2": {
+      "tournamentId": 7,
+      "tournamentName": "LaLiga 2"
+    },
+    "ESPCUP": {
+      "tournamentId": 13,
+      "tournamentName": "Copa del Rey"
+    },
+    "SWE1": {
+      "tournamentId": "",
+      "tournamentName": "Allsvenskan"
+    },
+    "SWE2": {
+      "tournamentId": "",
+      "tournamentName": "Superettan"
+    },
+    "SUI1": {
+      "tournamentId": "",
+      "tournamentName": "Swiss Super League"
+    },
+    "SUI2": {
+      "tournamentId": "",
+      "tournamentName": "Challenge League"
+    },
+    "UKR1": {
+      "tournamentId": "",
+      "tournamentName": "Ukrainian Premier League"
+    },
+    "UKR2": {
+      "tournamentId": "",
+      "tournamentName": "First League"
+    },
+    "ENG1": {
+      "tournamentId": 17,
+      "tournamentName": "Premier League"
+    },
+    "ENG2": {
+      "tournamentId": 18,
+      "tournamentName": "Championship"
+    },
+    "ENG3": {
+      "tournamentId": 19,
+      "tournamentName": "League One"
+    },
+    "ENG4": {
+      "tournamentId": 20,
+      "tournamentName": "League Two"
+    },
+    "ENGCUP": {
+      "tournamentId": "",
+      "tournamentName": "FA Cup"
+    },
+    "ENGSCUP": {
+      "tournamentId": 26,
+      "tournamentName": "FA Cup"
+    },
+    "ENGTRO": {
+      "tournamentId": "",
+      "tournamentName": "EFL Trophy"
+    },
+    "SCO1": {
+      "tournamentId": "",
+      "tournamentName": "Scottish Premiership"
+    },
+    "SCO2": {
+      "tournamentId": "",
+      "tournamentName": "Scottish Championship"
+    },
+    "SCOCUP": {
+      "tournamentId": "",
+      "tournamentName": "Scottish Cup"
+    },
+    "WAL1": {
+      "tournamentId": "",
+      "tournamentName": "Cymru Premier"
+    },
+    "NIR1": {
+      "tournamentId": "",
+      "tournamentName": "NIFL Premiership"
+    },
+    "AIA1": {
+      "tournamentId": "",
+      "tournamentName": "AFA Senior Male League"
+    },
+    "ATG1": {
+      "tournamentId": "",
+      "tournamentName": "Premier Division"
+    },
+    "BAH1": {
+      "tournamentId": "",
+      "tournamentName": "BFA Senior League"
+    },
+    "BRB1": {
+      "tournamentId": "",
+      "tournamentName": "Barbados Premier League"
+    },
+    "BLZ1": {
+      "tournamentId": "",
+      "tournamentName": "Premier League of Belize"
+    },
+    "BER1": {
+      "tournamentId": "",
+      "tournamentName": "Bermuda Premier Division"
+    },
+    "CAN1": {
+      "tournamentId": "",
+      "tournamentName": "Canadian Premier League"
+    },
+    "MLS": {
+      "tournamentId": "",
+      "tournamentName": "Major League Soccer (Canadian teams)"
+    },
+    "CAY1": {
+      "tournamentId": "",
+      "tournamentName": "Cayman Premier League"
+    },
+    "CRC1": {
+      "tournamentId": "",
+      "tournamentName": "Liga Promerica"
+    },
+    "CUB1": {
+      "tournamentId": "",
+      "tournamentName": "Campeonato Nacional"
+    },
+    "CUW1": {
+      "tournamentId": "",
+      "tournamentName": "Sekshon Pagá"
+    },
+    "DMA1": {
+      "tournamentId": "",
+      "tournamentName": "Dominica Premier League"
+    },
+    "DOM1": {
+      "tournamentId": "",
+      "tournamentName": "Liga Dominicana de Fútbol"
+    },
+    "SLV1": {
+      "tournamentId": "",
+      "tournamentName": "Primera División"
+    },
+    "SLVCUP": {
+      "tournamentId": "",
+      "tournamentName": "Copa El Salvador"
+    },
+    "GRL1": {
+      "tournamentId": "",
+      "tournamentName": "Greenlandic Championship"
+    },
+    "GRD1": {
+      "tournamentId": "",
+      "tournamentName": "Premier Division"
+    },
+    "GUA1": {
+      "tournamentId": "",
+      "tournamentName": "Liga Nacional"
+    },
+    "HAI1": {
+      "tournamentId": "",
+      "tournamentName": "Ligue Haïtienne"
+    },
+    "HON1": {
+      "tournamentId": "",
+      "tournamentName": "Liga Nacional"
+    },
+    "JAM1": {
+      "tournamentId": "",
+      "tournamentName": "National Premier League"
+    },
+    "MEX1": {
+      "tournamentId": "",
+      "tournamentName": "Liga MX"
+    },
+    "MEX2": {
+      "tournamentId": "",
+      "tournamentName": "Liga de Expansión"
+    },
+    "MEXCUP": {
+      "tournamentId": "",
+      "tournamentName": "Copa MX"
+    },
+    "MSR1": {
+      "tournamentId": "",
+      "tournamentName": "Montserrat Championship"
+    },
+    "NCA1": {
+      "tournamentId": "",
+      "tournamentName": "Liga Primera"
+    },
+    "PAN1": {
+      "tournamentId": "",
+      "tournamentName": "Liga Panameña"
+    },
+    "PUR1": {
+      "tournamentId": "",
+      "tournamentName": "Liga Puerto Rico"
+    },
+    "SKN1": {
+      "tournamentId": "",
+      "tournamentName": "Premier League"
+    },
+    "LCA1": {
+      "tournamentId": "",
+      "tournamentName": "Premier League"
+    },
+    "VCT1": {
+      "tournamentId": "",
+      "tournamentName": "NLA Premier League"
+    },
+    "TRI1": {
+      "tournamentId": "",
+      "tournamentName": "TT Premier Football League"
+    },
+    "TCA1": {
+      "tournamentId": "",
+      "tournamentName": "Provo Premier League"
+    },
+    "USA1": {
+      "tournamentId": 217,
+      "tournamentName": "MLS"
+    },
+    "USA2": {
+      "tournamentId": "",
+      "tournamentName": "USL Championship"
+    },
+    "USA3": {
+      "tournamentId": "",
+      "tournamentName": "USL League One"
+    },
+    "USACUP": {
+      "tournamentId": "",
+      "tournamentName": "US Open Cup"
+    },
+    "ARG1": {
+      "tournamentId": 333,
+      "tournamentName": "Liga Profesional"
+    },
+    "ARG2": {
+      "tournamentId": "",
+      "tournamentName": "Primera Nacional"
+    },
+    "ARGCUP": {
+      "tournamentId": "",
+      "tournamentName": "Copa Argentina"
+    },
+    "ARGSCUP": {
+      "tournamentId": "",
+      "tournamentName": "Supercopa Argentina"
+    },
+    "BOL1": {
+      "tournamentId": "",
+      "tournamentName": "División Profesional"
+    },
+    "BRA1": {
+      "tournamentId": 325,
+      "tournamentName": "Serie A"
+    },
+    "BRA2": {
+      "tournamentId": 326,
+      "tournamentName": "Serie B"
+    },
+    "BRA3": {
+      "tournamentId": "",
+      "tournamentName": "Serie C"
+    },
+    "BRA4": {
+      "tournamentId": "",
+      "tournamentName": "Serie D"
+    },
+    "BRACUP": {
+      "tournamentId": "",
+      "tournamentName": "Copa do Brasil"
+    },
+    "BRASCUP": {
+      "tournamentId": "",
+      "tournamentName": "Supercopa do Brasil"
+    },
+    "CHI1": {
+      "tournamentId": "",
+      "tournamentName": "Primera División"
+    },
+    "CHI2": {
+      "tournamentId": "",
+      "tournamentName": "Primera B"
+    },
+    "CHICUP": {
+      "tournamentId": "",
+      "tournamentName": "Copa Chile"
+    },
+    "COL1": {
+      "tournamentId": "",
+      "tournamentName": "Categoría Primera A"
+    },
+    "COL2": {
+      "tournamentId": "",
+      "tournamentName": "Categoría Primera B"
+    },
+    "COLCUP": {
+      "tournamentId": "",
+      "tournamentName": "Copa Colombia"
+    },
+    "ECU1": {
+      "tournamentId": "",
+      "tournamentName": "Serie A"
+    },
+    "ECU2": {
+      "tournamentId": "",
+      "tournamentName": "Serie B"
+    },
+    "ECUCUP": {
+      "tournamentId": "",
+      "tournamentName": "Copa Ecuador"
+    },
+    "GUF1": {
+      "tournamentId": "",
+      "tournamentName": "Championnat National"
+    },
+    "GUY1": {
+      "tournamentId": "",
+      "tournamentName": "GFF Elite League"
+    },
+    "PAR1": {
+      "tournamentId": "",
+      "tournamentName": "Primera División"
+    },
+    "PARCUP": {
+      "tournamentId": "",
+      "tournamentName": "Copa Paraguay"
+    },
+    "PARSCUP": {
+      "tournamentId": "",
+      "tournamentName": "Supercopa Paraguay"
+    },
+    "PER1": {
+      "tournamentId": "",
+      "tournamentName": "Liga 1"
+    },
+    "PER2": {
+      "tournamentId": "",
+      "tournamentName": "Liga 2"
+    },
+    "PERCUP": {
+      "tournamentId": "",
+      "tournamentName": "Copa Bicentenario"
+    },
+    "SUR1": {
+      "tournamentId": "",
+      "tournamentName": "SVB Eerste Divisie"
+    },
+    "URU1": {
+      "tournamentId": "",
+      "tournamentName": "Primera División"
+    },
+    "URUCUP": {
+      "tournamentId": "",
+      "tournamentName": "Copa Uruguay"
+    },
+    "VEN1": {
+      "tournamentId": "",
+      "tournamentName": "Primera División"
+    },
+    "AMS1": {
+      "tournamentId": "",
+      "tournamentName": "FFAS Senior League"
+    },
+    "AUS1": {
+      "tournamentId": "",
+      "tournamentName": "A-League"
+    },
+    "AUSCUP": {
+      "tournamentId": "",
+      "tournamentName": "Australia Cup"
+    },
+    "COK1": {
+      "tournamentId": "",
+      "tournamentName": "Cook Islands Round Cup"
+    },
+    "FIJ1": {
+      "tournamentId": "",
+      "tournamentName": "Fiji Premier League"
+    },
+    "TAH1": {
+      "tournamentId": "",
+      "tournamentName": "Tahiti Ligue 1"
+    },
+    "GUM1": {
+      "tournamentId": "",
+      "tournamentName": "Guam Soccer League"
+    },
+    "NCL1": {
+      "tournamentId": "",
+      "tournamentName": "New Caledonia Super Ligue"
+    },
+    "NZL1": {
+      "tournamentId": "",
+      "tournamentName": "New Zealand National League"
+    },
+    "PNG1": {
+      "tournamentId": "",
+      "tournamentName": "National Soccer League"
+    },
+    "SAM1": {
+      "tournamentId": "",
+      "tournamentName": "Samoa National League"
+    },
+    "SOL1": {
+      "tournamentId": "",
+      "tournamentName": "Solomon Islands S-League"
+    },
+    "TGA1": {
+      "tournamentId": "",
+      "tournamentName": "Tonga Major League"
+    },
+    "VUT1": {
+      "tournamentId": "",
+      "tournamentName": "Port Vila Premier League"
+    }
+  }
+}

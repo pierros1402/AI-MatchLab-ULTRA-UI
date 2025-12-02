@@ -21,6 +21,7 @@ async function loadJSON(path) {
 
 /* -------------------------
    LOAD CONTINENTS
+   (παραμένει για συμβατότητα, αν το χρειαστούμε κάπου)
 ---------------------------- */
 export async function loadContinents() {
   return await loadJSON(`${DATA_ROOT}/continents.json`);
@@ -28,6 +29,7 @@ export async function loadContinents() {
 
 /* -------------------------
    LOAD COUNTRIES INDEX
+   (παλιό σύστημα, το κρατάμε ως backup)
 ---------------------------- */
 export async function loadCountriesIndex() {
   return await loadJSON(`${DATA_ROOT}/indexes/countries_index.json`);
@@ -35,6 +37,7 @@ export async function loadCountriesIndex() {
 
 /* -------------------------
    LOAD LEAGUES INDEX
+   (παλιό σύστημα, το κρατάμε ως backup)
 ---------------------------- */
 export async function loadLeaguesIndex() {
   return await loadJSON(`${DATA_ROOT}/indexes/leagues_index.json`);
@@ -55,4 +58,16 @@ export async function loadTeamsFromLeague(leagueId, leaguesIndex) {
 ---------------------------- */
 export async function loadTeamsGlobalIndex() {
   return await loadJSON(`${DATA_ROOT}/indexes/teams_global_index.json`);
+}
+
+/* ------------------------------------------------
+   NEW: LOAD GLOBAL LEAGUES MASTER (MAIN DATA SOURCE)
+   /AI-MATCHLAB-DATA/indexes/global_leagues_master_GLOBAL.json
+   Χρησιμοποιείται για τα αριστερά panels:
+   Continents -> Countries -> Leagues
+--------------------------------------------------- */
+export async function loadGlobalLeaguesMaster() {
+  return await loadJSON(
+    `${DATA_ROOT}/indexes/global_leagues_master_GLOBAL.json`
+  );
 }
