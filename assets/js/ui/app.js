@@ -137,8 +137,32 @@ function buildLeagues(leagues) {
     const panel = document.getElementById("panel-leagues");
     panel.innerHTML = "";
 
-    leagues.sort((a, b) => a.display_name.localeCompare(b.display_name));
+    leagues.sort((a, b) => {
 
+        const isCupA = a.display_name.includes("Cup") || a.display_name.includes("Trophy");
+        const isCupB = b.display_name.includes("Cup") || b.display_name.includes("Trophy");
+
+        // 1) ΠΡΩΤΑ ΟΛΕΣ ΟΙ ΛΙΓΚΕΣ (δεν είναι cups)
+        if (!isCupA && isCupB) return -1;
+        if (isCupA && !isCupB) return 1;
+
+        // 2) Αν είναι και οι δύο cups → αλφαβητικά
+        if (isCupA && isCupB) {
+            return a.display_name.localeCompare(b.display_name);
+        }
+
+        // 3) Αν είναι και οι δύο leagues → με σειρά tier
+        if (a.tier !== b.tier) {
+            return a.tier - b.tier;
+        }
+
+        // 4) Αν έχουν ίδιο tier → αλφαβητικά
+        return a.display_name.localeCompare(b.display_name);
+    });
+
+    // --------------------------------------------------------
+    // RENDER LEAGUES
+    // --------------------------------------------------------
     leagues.forEach(l => {
         const div = document.createElement("div");
         div.className = "nav-item";
@@ -147,7 +171,6 @@ function buildLeagues(leagues) {
         panel.appendChild(div);
     });
 }
-
 /* ------------------------------------------------------------
    SELECT LEAGUE
 ------------------------------------------------------------ */

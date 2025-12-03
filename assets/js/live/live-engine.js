@@ -5,7 +5,7 @@
 // ======================================================================
 
 const WORKER_ENDPOINT =
-  "https://live-matches-worker.pierros1402.workers.dev/api/live-sofascore";
+  "https://live-matches-worker.pierros1402.workers.dev/api/unified-live";
 
 const REFRESH_INTERVAL = 20000; // 20s
 

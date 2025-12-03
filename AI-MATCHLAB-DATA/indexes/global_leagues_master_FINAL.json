@@ -589,6 +589,22 @@
     ]
   },
   {
+  "country_code": "ENG",
+  "country_name": "England",
+  "timezone": "Europe/London",
+  "region_cluster": "Europe_West",
+  "leagues": [
+      { "league_id": "ENG1", "display_name": "Premier League", "tier": 1 },
+      { "league_id": "ENG2", "display_name": "Championship", "tier": 2 },
+      { "league_id": "ENG3", "display_name": "League One", "tier": 3 },
+      { "league_id": "ENG4", "display_name": "League Two", "tier": 4 },
+      { "league_id": "ENGNL", "display_name": "National League", "tier": 5 },
+      { "league_id": "ENGFACUP", "display_name": "FA Cup", "tier": 1 },
+      { "league_id": "ENGEFLCUP", "display_name": "EFL Cup", "tier": 1 },
+      { "league_id": "ENGLTRO", "display_name": "EFL Trophy", "tier": 1 }
+    ]
+  },
+  {
     "country_code": "GQ",
     "country_name": "Equatorial Guinea",
     "timezone": "Africa/Malabo",
@@ -1386,6 +1402,17 @@
     ]
   },
   {
+    "country_code": "NIR",
+    "country_name": "Northern Ireland",
+    "timezone": "Europe/Belfast",
+    "region_cluster": "Europe_West",
+    "leagues": [
+      { "league_id": "NIR1", "display_name": "NIFL Premiership", "tier": 1 },
+      { "league_id": "NIR2", "display_name": "NIFL Championship", "tier": 2 },
+      { "league_id": "NIRCUP", "display_name": "Irish Cup", "tier": 1 }
+    ]
+  },
+  {
     "country_code": "KP",
     "country_name": "North Korea",
     "timezone": "Asia/Pyongyang",
@@ -1582,6 +1609,20 @@
       { "league_id": "KSA2", "display_name": "First Division League", "tier": 2 },
       { "league_id": "KSACUP", "display_name": "King Cup", "tier": 1 },
       { "league_id": "KSASUP", "display_name": "Saudi Super Cup", "tier": 1 }
+    ]
+  },
+  {
+    "country_code": "SCO",
+    "country_name": "Scotland",
+    "timezone": "Europe/London",
+    "region_cluster": "Europe_West",
+    "leagues": [
+      { "league_id": "SCO1", "display_name": "Scottish Premiership", "tier": 1 },
+      { "league_id": "SCO2", "display_name": "Scottish Championship", "tier": 2 },
+      { "league_id": "SCO3", "display_name": "Scottish League One", "tier": 3 },
+      { "league_id": "SCO4", "display_name": "Scottish League Two", "tier": 4 },
+      { "league_id": "SCOCUP", "display_name": "Scottish Cup", "tier": 1 },
+      { "league_id": "SCOLCUP", "display_name": "Scottish League Cup", "tier": 1 }
     ]
   },
   {
@@ -1922,13 +1963,6 @@
     ]
   },
   {
-    "country_code": "GB",
-    "country_name": "United Kingdom",
-    "timezone": "Europe/London",
-    "region_cluster": "Europe_West",
-    "leagues": []
-  },
-  {
     "country_code": "US",
     "country_name": "United States",
     "timezone": "America/New_York",
@@ -1986,6 +2020,16 @@
     "leagues": [
       { "league_id": "VIE1", "display_name": "V.League 1", "tier": 1 },
       { "league_id": "VIECUP", "display_name": "Vietnamese Cup", "tier": 1 }
+    ]
+  },
+  {
+    "country_code": "WAL",
+    "country_name": "Wales",
+    "timezone": "Europe/London",
+    "region_cluster": "Europe_West",
+    "leagues": [
+      { "league_id": "WAL1", "display_name": "Cymru Premier", "tier": 1 },
+      { "league_id": "WALCUP", "display_name": "Welsh Cup", "tier": 1 }
     ]
   },
   {
