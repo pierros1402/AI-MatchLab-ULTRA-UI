@@ -1,9 +1,0 @@
-{
-  "league_id": "BUL_SUPERCUP",
-  "league_name": "Bulgarian Supercup",
-  "country_code": "BG",
-  "teams": [
-    { "team_id": "BUL1_LUDOGORETS", "name": "PFC Ludogorets Razgrad" },
-    { "team_id": "BUL1_CSKA_SOFIA", "name": "CSKA Sofia" }
-  ]
-}

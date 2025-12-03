@@ -1,9 +1,0 @@
-{
-  "league_id": "CYP_SUPERCUP",
-  "league_name": "Cyprus Super Cup",
-  "country_code": "CY",
-  "teams": [
-    { "team_id": "CYP1_APOEL", "name": "APOEL Nicosia" },
-    { "team_id": "CYP1_OMONIA", "name": "Omonia Nicosia" }
-  ]
-}

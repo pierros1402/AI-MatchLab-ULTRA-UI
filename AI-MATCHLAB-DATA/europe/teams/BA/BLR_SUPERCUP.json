@@ -1,9 +1,0 @@
-{
-  "league_id": "BLR_SUPERCUP",
-  "league_name": "Belarusian Super Cup",
-  "country_code": "BY",
-  "teams": [
-    { "team_id": "BLR1_BATE", "name": "BATE Borisov" },
-    { "team_id": "BLR1_NEMAN", "name": "Neman Grodno" }
-  ]
-}

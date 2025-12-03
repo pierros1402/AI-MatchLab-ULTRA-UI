@@ -1,0 +1,4432 @@
+{
+  "AFG1": {
+    "league_id": "AFG1",
+    "league_name": "Afghan Premier League",
+    "tier": 1,
+    "country_code": "AF",
+    "country_name": "Afghanistan",
+    "continent": "Asia",
+    "region_cluster": "Asia_Central",
+    "path": "/teams/AF/AFG1.json"
+  },
+  "ALB1": {
+    "league_id": "ALB1",
+    "league_name": "Kategoria Superiore",
+    "tier": 1,
+    "country_code": "AL",
+    "country_name": "Albania",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/AL/ALB1.json"
+  },
+  "ALB2": {
+    "league_id": "ALB2",
+    "league_name": "Kategoria e Parë",
+    "tier": 2,
+    "country_code": "AL",
+    "country_name": "Albania",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/AL/ALB2.json"
+  },
+  "ALB3": {
+    "league_id": "ALB3",
+    "league_name": "Kategoria e Dytë",
+    "tier": 3,
+    "country_code": "AL",
+    "country_name": "Albania",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/AL/ALB3.json"
+  },
+  "ALBCUP": {
+    "league_id": "ALBCUP",
+    "league_name": "Albanian Cup",
+    "tier": 1,
+    "country_code": "AL",
+    "country_name": "Albania",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/AL/ALBCUP.json"
+  },
+  "ALBSUP": {
+    "league_id": "ALBSUP",
+    "league_name": "Albanian Supercup",
+    "tier": 1,
+    "country_code": "AL",
+    "country_name": "Albania",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/AL/ALBSUP.json"
+  },
+  "ALG1": {
+    "league_id": "ALG1",
+    "league_name": "Ligue 1",
+    "tier": 1,
+    "country_code": "DZ",
+    "country_name": "Algeria",
+    "continent": "Africa",
+    "region_cluster": "Africa_North",
+    "path": "/teams/DZ/ALG1.json"
+  },
+  "ALG2": {
+    "league_id": "ALG2",
+    "league_name": "Ligue 2",
+    "tier": 2,
+    "country_code": "DZ",
+    "country_name": "Algeria",
+    "continent": "Africa",
+    "region_cluster": "Africa_North",
+    "path": "/teams/DZ/ALG2.json"
+  },
+  "ALGCUP": {
+    "league_id": "ALGCUP",
+    "league_name": "Algerian Cup",
+    "tier": 1,
+    "country_code": "DZ",
+    "country_name": "Algeria",
+    "continent": "Africa",
+    "region_cluster": "Africa_North",
+    "path": "/teams/DZ/ALGCUP.json"
+  },
+  "ALGSUP": {
+    "league_id": "ALGSUP",
+    "league_name": "Algerian Super Cup",
+    "tier": 1,
+    "country_code": "DZ",
+    "country_name": "Algeria",
+    "continent": "Africa",
+    "region_cluster": "Africa_North",
+    "path": "/teams/DZ/ALGSUP.json"
+  },
+  "AND1": {
+    "league_id": "AND1",
+    "league_name": "Primera Divisió",
+    "tier": 1,
+    "country_code": "AD",
+    "country_name": "Andorra",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/AD/AND1.json"
+  },
+  "AND2": {
+    "league_id": "AND2",
+    "league_name": "Segona Divisió",
+    "tier": 2,
+    "country_code": "AD",
+    "country_name": "Andorra",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/AD/AND2.json"
+  },
+  "ANDCUP": {
+    "league_id": "ANDCUP",
+    "league_name": "Copa Constitució",
+    "tier": 1,
+    "country_code": "AD",
+    "country_name": "Andorra",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/AD/ANDCUP.json"
+  },
+  "ANDSCUP": {
+    "league_id": "ANDSCUP",
+    "league_name": "Supercopa Andorrana",
+    "tier": 1,
+    "country_code": "AD",
+    "country_name": "Andorra",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/AD/ANDSCUP.json"
+  },
+  "ANG1": {
+    "league_id": "ANG1",
+    "league_name": "Girabola",
+    "tier": 1,
+    "country_code": "AO",
+    "country_name": "Angola",
+    "continent": "Africa",
+    "region_cluster": "Africa_Central",
+    "path": "/teams/AO/ANG1.json"
+  },
+  "ANGCUP": {
+    "league_id": "ANGCUP",
+    "league_name": "Taça de Angola",
+    "tier": 1,
+    "country_code": "AO",
+    "country_name": "Angola",
+    "continent": "Africa",
+    "region_cluster": "Africa_Central",
+    "path": "/teams/AO/ANGCUP.json"
+  },
+  "ANGSUP": {
+    "league_id": "ANGSUP",
+    "league_name": "Supertaça de Angola",
+    "tier": 1,
+    "country_code": "AO",
+    "country_name": "Angola",
+    "continent": "Africa",
+    "region_cluster": "Africa_Central",
+    "path": "/teams/AO/ANGSUP.json"
+  },
+  "AIA1": {
+    "league_id": "AIA1",
+    "league_name": "AFA Senior Male League",
+    "tier": 1,
+    "country_code": "AI",
+    "country_name": "Anguilla",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Caribbean",
+    "path": "/teams/AI/AIA1.json"
+  },
+  "ATG1": {
+    "league_id": "ATG1",
+    "league_name": "Premier Division",
+    "tier": 1,
+    "country_code": "AG",
+    "country_name": "Antigua and Barbuda",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Caribbean",
+    "path": "/teams/AG/ATG1.json"
+  },
+  "ATG2": {
+    "league_id": "ATG2",
+    "league_name": "First Division",
+    "tier": 2,
+    "country_code": "AG",
+    "country_name": "Antigua and Barbuda",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Caribbean",
+    "path": "/teams/AG/ATG2.json"
+  },
+  "ARG1": {
+    "league_id": "ARG1",
+    "league_name": "Primera División",
+    "tier": 1,
+    "country_code": "AR",
+    "country_name": "Argentina",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_South",
+    "path": "/teams/AR/ARG1.json"
+  },
+  "ARG2": {
+    "league_id": "ARG2",
+    "league_name": "Primera Nacional",
+    "tier": 2,
+    "country_code": "AR",
+    "country_name": "Argentina",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_South",
+    "path": "/teams/AR/ARG2.json"
+  },
+  "ARG3A": {
+    "league_id": "ARG3A",
+    "league_name": "Primera B Metropolitana",
+    "tier": 3,
+    "country_code": "AR",
+    "country_name": "Argentina",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_South",
+    "path": "/teams/AR/ARG3A.json"
+  },
+  "ARG3B": {
+    "league_id": "ARG3B",
+    "league_name": "Torneo Federal A",
+    "tier": 3,
+    "country_code": "AR",
+    "country_name": "Argentina",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_South",
+    "path": "/teams/AR/ARG3B.json"
+  },
+  "ARGCUP": {
+    "league_id": "ARGCUP",
+    "league_name": "Copa Argentina",
+    "tier": 1,
+    "country_code": "AR",
+    "country_name": "Argentina",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_South",
+    "path": "/teams/AR/ARGCUP.json"
+  },
+  "ARGLEAGCUP": {
+    "league_id": "ARGLEAGCUP",
+    "league_name": "Copa de la Liga Profesional",
+    "tier": 1,
+    "country_code": "AR",
+    "country_name": "Argentina",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_South",
+    "path": "/teams/AR/ARGLEAGCUP.json"
+  },
+  "ARGRES": {
+    "league_id": "ARGRES",
+    "league_name": "Torneo de Reserva",
+    "tier": 1,
+    "country_code": "AR",
+    "country_name": "Argentina",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_South",
+    "path": "/teams/AR/ARGRES.json"
+  },
+  "ARM1": {
+    "league_id": "ARM1",
+    "league_name": "Premier League",
+    "tier": 1,
+    "country_code": "AM",
+    "country_name": "Armenia",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/AM/ARM1.json"
+  },
+  "ARM2": {
+    "league_id": "ARM2",
+    "league_name": "First League",
+    "tier": 2,
+    "country_code": "AM",
+    "country_name": "Armenia",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/AM/ARM2.json"
+  },
+  "ARMCUP": {
+    "league_id": "ARMCUP",
+    "league_name": "Armenian Cup",
+    "tier": 1,
+    "country_code": "AM",
+    "country_name": "Armenia",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/AM/ARMCUP.json"
+  },
+  "ARU1": {
+    "league_id": "ARU1",
+    "league_name": "Division di Honor",
+    "tier": 1,
+    "country_code": "AW",
+    "country_name": "Aruba",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Caribbean",
+    "path": "/teams/AW/ARU1.json"
+  },
+  "ARU2": {
+    "league_id": "ARU2",
+    "league_name": "First Division",
+    "tier": 2,
+    "country_code": "AW",
+    "country_name": "Aruba",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Caribbean",
+    "path": "/teams/AW/ARU2.json"
+  },
+  "AUS1": {
+    "league_id": "AUS1",
+    "league_name": "A-League Men",
+    "tier": 1,
+    "country_code": "AU",
+    "country_name": "Australia",
+    "continent": "Oceania",
+    "region_cluster": "Oceania_Australia",
+    "path": "/teams/AU/AUS1.json"
+  },
+  "AUSW1": {
+    "league_id": "AUSW1",
+    "league_name": "A-League Women",
+    "tier": 1,
+    "country_code": "AU",
+    "country_name": "Australia",
+    "continent": "Oceania",
+    "region_cluster": "Oceania_Australia",
+    "path": "/teams/AU/AUSW1.json"
+  },
+  "AUSCUP": {
+    "league_id": "AUSCUP",
+    "league_name": "Australia Cup",
+    "tier": 1,
+    "country_code": "AU",
+    "country_name": "Australia",
+    "continent": "Oceania",
+    "region_cluster": "Oceania_Australia",
+    "path": "/teams/AU/AUSCUP.json"
+  },
+  "AUSNPLNSW": {
+    "league_id": "AUSNPLNSW",
+    "league_name": "NPL New South Wales",
+    "tier": 2,
+    "country_code": "AU",
+    "country_name": "Australia",
+    "continent": "Oceania",
+    "region_cluster": "Oceania_Australia",
+    "path": "/teams/AU/AUSNPLNSW.json"
+  },
+  "AUSNPLVIC": {
+    "league_id": "AUSNPLVIC",
+    "league_name": "NPL Victoria",
+    "tier": 2,
+    "country_code": "AU",
+    "country_name": "Australia",
+    "continent": "Oceania",
+    "region_cluster": "Oceania_Australia",
+    "path": "/teams/AU/AUSNPLVIC.json"
+  },
+  "AUSNPLQLD": {
+    "league_id": "AUSNPLQLD",
+    "league_name": "NPL Queensland",
+    "tier": 2,
+    "country_code": "AU",
+    "country_name": "Australia",
+    "continent": "Oceania",
+    "region_cluster": "Oceania_Australia",
+    "path": "/teams/AU/AUSNPLQLD.json"
+  },
+  "AUT1": {
+    "league_id": "AUT1",
+    "league_name": "Bundesliga",
+    "tier": 1,
+    "country_code": "AT",
+    "country_name": "Austria",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/AT/AUT1.json"
+  },
+  "AUT2": {
+    "league_id": "AUT2",
+    "league_name": "2. Liga",
+    "tier": 2,
+    "country_code": "AT",
+    "country_name": "Austria",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/AT/AUT2.json"
+  },
+  "AUTCUP": {
+    "league_id": "AUTCUP",
+    "league_name": "ÖFB-Cup",
+    "tier": 1,
+    "country_code": "AT",
+    "country_name": "Austria",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/AT/AUTCUP.json"
+  },
+  "AUTREG": {
+    "league_id": "AUTREG",
+    "league_name": "Regionalliga",
+    "tier": 3,
+    "country_code": "AT",
+    "country_name": "Austria",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/AT/AUTREG.json"
+  },
+  "AZE1": {
+    "league_id": "AZE1",
+    "league_name": "Premier League",
+    "tier": 1,
+    "country_code": "AZ",
+    "country_name": "Azerbaijan",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/AZ/AZE1.json"
+  },
+  "AZECUP": {
+    "league_id": "AZECUP",
+    "league_name": "Azerbaijan Cup",
+    "tier": 1,
+    "country_code": "AZ",
+    "country_name": "Azerbaijan",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/AZ/AZECUP.json"
+  },
+  "BHS1": {
+    "league_id": "BHS1",
+    "league_name": "BFA Senior League",
+    "tier": 1,
+    "country_code": "BS",
+    "country_name": "Bahamas",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Caribbean",
+    "path": "/teams/BS/BHS1.json"
+  },
+  "BHR1": {
+    "league_id": "BHR1",
+    "league_name": "Bahraini Premier League",
+    "tier": 1,
+    "country_code": "BH",
+    "country_name": "Bahrain",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/BH/BHR1.json"
+  },
+  "BHRCUP": {
+    "league_id": "BHRCUP",
+    "league_name": "King's Cup",
+    "tier": 1,
+    "country_code": "BH",
+    "country_name": "Bahrain",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/BH/BHRCUP.json"
+  },
+  "BHRSUP": {
+    "league_id": "BHRSUP",
+    "league_name": "Bahraini Super Cup",
+    "tier": 1,
+    "country_code": "BH",
+    "country_name": "Bahrain",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/BH/BHRSUP.json"
+  },
+  "BGD1": {
+    "league_id": "BGD1",
+    "league_name": "Bangladesh Premier League",
+    "tier": 1,
+    "country_code": "BD",
+    "country_name": "Bangladesh",
+    "continent": "Asia",
+    "region_cluster": "Asia_South",
+    "path": "/teams/BD/BGD1.json"
+  },
+  "BGDCUP": {
+    "league_id": "BGDCUP",
+    "league_name": "Federation Cup",
+    "tier": 1,
+    "country_code": "BD",
+    "country_name": "Bangladesh",
+    "continent": "Asia",
+    "region_cluster": "Asia_South",
+    "path": "/teams/BD/BGDCUP.json"
+  },
+  "BRB1": {
+    "league_id": "BRB1",
+    "league_name": "Barbados Premier League",
+    "tier": 1,
+    "country_code": "BB",
+    "country_name": "Barbados",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Caribbean",
+    "path": "/teams/BB/BRB1.json"
+  },
+  "BLR1": {
+    "league_id": "BLR1",
+    "league_name": "Vysshaya Liga",
+    "tier": 1,
+    "country_code": "BY",
+    "country_name": "Belarus",
+    "continent": "Europe",
+    "region_cluster": "Europe_East",
+    "path": "/teams/BY/BLR1.json"
+  },
+  "BLR2": {
+    "league_id": "BLR2",
+    "league_name": "Pershaya Liga",
+    "tier": 2,
+    "country_code": "BY",
+    "country_name": "Belarus",
+    "continent": "Europe",
+    "region_cluster": "Europe_East",
+    "path": "/teams/BY/BLR2.json"
+  },
+  "BLRCUP": {
+    "league_id": "BLRCUP",
+    "league_name": "Belarusian Cup",
+    "tier": 1,
+    "country_code": "BY",
+    "country_name": "Belarus",
+    "continent": "Europe",
+    "region_cluster": "Europe_East",
+    "path": "/teams/BY/BLRCUP.json"
+  },
+  "BEL1": {
+    "league_id": "BEL1",
+    "league_name": "Pro League",
+    "tier": 1,
+    "country_code": "BE",
+    "country_name": "Belgium",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/BE/BEL1.json"
+  },
+  "BEL2": {
+    "league_id": "BEL2",
+    "league_name": "Challenger Pro League",
+    "tier": 2,
+    "country_code": "BE",
+    "country_name": "Belgium",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/BE/BEL2.json"
+  },
+  "BELCUP": {
+    "league_id": "BELCUP",
+    "league_name": "Belgian Cup",
+    "tier": 1,
+    "country_code": "BE",
+    "country_name": "Belgium",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/BE/BELCUP.json"
+  },
+  "BELSUP": {
+    "league_id": "BELSUP",
+    "league_name": "Belgian Super Cup",
+    "tier": 1,
+    "country_code": "BE",
+    "country_name": "Belgium",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/BE/BELSUP.json"
+  },
+  "BELW1": {
+    "league_id": "BELW1",
+    "league_name": "Super League Women",
+    "tier": 1,
+    "country_code": "BE",
+    "country_name": "Belgium",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/BE/BELW1.json"
+  },
+  "BLZ1": {
+    "league_id": "BLZ1",
+    "league_name": "Premier League of Belize",
+    "tier": 1,
+    "country_code": "BZ",
+    "country_name": "Belize",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Central",
+    "path": "/teams/BZ/BLZ1.json"
+  },
+  "BEN1": {
+    "league_id": "BEN1",
+    "league_name": "Benin Premier League",
+    "tier": 1,
+    "country_code": "BJ",
+    "country_name": "Benin",
+    "continent": "Africa",
+    "region_cluster": "Africa_West",
+    "path": "/teams/BJ/BEN1.json"
+  },
+  "BER1": {
+    "league_id": "BER1",
+    "league_name": "Premier Division",
+    "tier": 1,
+    "country_code": "BM",
+    "country_name": "Bermuda",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Atlantic",
+    "path": "/teams/BM/BER1.json"
+  },
+  "BHU1": {
+    "league_id": "BHU1",
+    "league_name": "Bhutan Premier League",
+    "tier": 1,
+    "country_code": "BT",
+    "country_name": "Bhutan",
+    "continent": "Asia",
+    "region_cluster": "Asia_South",
+    "path": "/teams/BT/BHU1.json"
+  },
+  "BOL1": {
+    "league_id": "BOL1",
+    "league_name": "Primera División",
+    "tier": 1,
+    "country_code": "BO",
+    "country_name": "Bolivia",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_Central",
+    "path": "/teams/BO/BOL1.json"
+  },
+  "BOLCUP": {
+    "league_id": "BOLCUP",
+    "league_name": "Copa de la División Profesional",
+    "tier": 1,
+    "country_code": "BO",
+    "country_name": "Bolivia",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_Central",
+    "path": "/teams/BO/BOLCUP.json"
+  },
+  "BIH1": {
+    "league_id": "BIH1",
+    "league_name": "Premijer Liga",
+    "tier": 1,
+    "country_code": "BA",
+    "country_name": "Bosnia and Herzegovina",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/BA/BIH1.json"
+  },
+  "BIH2": {
+    "league_id": "BIH2",
+    "league_name": "Prva Liga RS / FBIH",
+    "tier": 2,
+    "country_code": "BA",
+    "country_name": "Bosnia and Herzegovina",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/BA/BIH2.json"
+  },
+  "BIHCUP": {
+    "league_id": "BIHCUP",
+    "league_name": "Kup Bosne i Hercegovine",
+    "tier": 1,
+    "country_code": "BA",
+    "country_name": "Bosnia and Herzegovina",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/BA/BIHCUP.json"
+  },
+  "BOT1": {
+    "league_id": "BOT1",
+    "league_name": "Botswana Premier League",
+    "tier": 1,
+    "country_code": "BW",
+    "country_name": "Botswana",
+    "continent": "Africa",
+    "region_cluster": "Africa_South",
+    "path": "/teams/BW/BOT1.json"
+  },
+  "BRA1": {
+    "league_id": "BRA1",
+    "league_name": "Serie A",
+    "tier": 1,
+    "country_code": "BR",
+    "country_name": "Brazil",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_South",
+    "path": "/teams/BR/BRA1.json"
+  },
+  "BRA2": {
+    "league_id": "BRA2",
+    "league_name": "Serie B",
+    "tier": 2,
+    "country_code": "BR",
+    "country_name": "Brazil",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_South",
+    "path": "/teams/BR/BRA2.json"
+  },
+  "BRA3": {
+    "league_id": "BRA3",
+    "league_name": "Serie C",
+    "tier": 3,
+    "country_code": "BR",
+    "country_name": "Brazil",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_South",
+    "path": "/teams/BR/BRA3.json"
+  },
+  "BRA4": {
+    "league_id": "BRA4",
+    "league_name": "Serie D",
+    "tier": 4,
+    "country_code": "BR",
+    "country_name": "Brazil",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_South",
+    "path": "/teams/BR/BRA4.json"
+  },
+  "BRACUP": {
+    "league_id": "BRACUP",
+    "league_name": "Copa do Brasil",
+    "tier": 1,
+    "country_code": "BR",
+    "country_name": "Brazil",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_South",
+    "path": "/teams/BR/BRACUP.json"
+  },
+  "BRASUP": {
+    "league_id": "BRASUP",
+    "league_name": "Supercopa do Brasil",
+    "tier": 1,
+    "country_code": "BR",
+    "country_name": "Brazil",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_South",
+    "path": "/teams/BR/BRASUP.json"
+  },
+  "BRASP": {
+    "league_id": "BRASP",
+    "league_name": "Campeonato Paulista",
+    "tier": 1,
+    "country_code": "BR",
+    "country_name": "Brazil",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_South",
+    "path": "/teams/BR/BRASP.json"
+  },
+  "BRACAR": {
+    "league_id": "BRACAR",
+    "league_name": "Campeonato Carioca",
+    "tier": 1,
+    "country_code": "BR",
+    "country_name": "Brazil",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_South",
+    "path": "/teams/BR/BRACAR.json"
+  },
+  "BRN1": {
+    "league_id": "BRN1",
+    "league_name": "Brunei Super League",
+    "tier": 1,
+    "country_code": "BN",
+    "country_name": "Brunei",
+    "continent": "Asia",
+    "region_cluster": "Asia_SouthEast",
+    "path": "/teams/BN/BRN1.json"
+  },
+  "BUL1": {
+    "league_id": "BUL1",
+    "league_name": "First League",
+    "tier": 1,
+    "country_code": "BG",
+    "country_name": "Bulgaria",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/BG/BUL1.json"
+  },
+  "BUL2": {
+    "league_id": "BUL2",
+    "league_name": "Second League",
+    "tier": 2,
+    "country_code": "BG",
+    "country_name": "Bulgaria",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/BG/BUL2.json"
+  },
+  "BULCUP": {
+    "league_id": "BULCUP",
+    "league_name": "Bulgarian Cup",
+    "tier": 1,
+    "country_code": "BG",
+    "country_name": "Bulgaria",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/BG/BULCUP.json"
+  },
+  "BULSCUP": {
+    "league_id": "BULSCUP",
+    "league_name": "Bulgarian Supercup",
+    "tier": 1,
+    "country_code": "BG",
+    "country_name": "Bulgaria",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/BG/BULSCUP.json"
+  },
+  "BFA1": {
+    "league_id": "BFA1",
+    "league_name": "Burkinabé Premier League",
+    "tier": 1,
+    "country_code": "BF",
+    "country_name": "Burkina Faso",
+    "continent": "Africa",
+    "region_cluster": "Africa_West",
+    "path": "/teams/BF/BFA1.json"
+  },
+  "BDI1": {
+    "league_id": "BDI1",
+    "league_name": "Ligue A",
+    "tier": 1,
+    "country_code": "BI",
+    "country_name": "Burundi",
+    "continent": "Africa",
+    "region_cluster": "Africa_Central",
+    "path": "/teams/BI/BDI1.json"
+  },
+  "CPV1": {
+    "league_id": "CPV1",
+    "league_name": "Campeonato Nacional",
+    "tier": 1,
+    "country_code": "CV",
+    "country_name": "Cabo Verde",
+    "continent": "Africa",
+    "region_cluster": "Africa_West",
+    "path": "/teams/CV/CPV1.json"
+  },
+  "KHM1": {
+    "league_id": "KHM1",
+    "league_name": "Cambodian Premier League",
+    "tier": 1,
+    "country_code": "KH",
+    "country_name": "Cambodia",
+    "continent": "Asia",
+    "region_cluster": "Asia_SouthEast",
+    "path": "/teams/KH/KHM1.json"
+  },
+  "CMR1": {
+    "league_id": "CMR1",
+    "league_name": "Elite One",
+    "tier": 1,
+    "country_code": "CM",
+    "country_name": "Cameroon",
+    "continent": "Africa",
+    "region_cluster": "Africa_Central",
+    "path": "/teams/CM/CMR1.json"
+  },
+  "CMR2": {
+    "league_id": "CMR2",
+    "league_name": "Elite Two",
+    "tier": 2,
+    "country_code": "CM",
+    "country_name": "Cameroon",
+    "continent": "Africa",
+    "region_cluster": "Africa_Central",
+    "path": "/teams/CM/CMR2.json"
+  },
+  "CAN1": {
+    "league_id": "CAN1",
+    "league_name": "Canadian Premier League",
+    "tier": 1,
+    "country_code": "CA",
+    "country_name": "Canada",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_North",
+    "path": "/teams/CA/CAN1.json"
+  },
+  "CANMLS": {
+    "league_id": "CANMLS",
+    "league_name": "Major League Soccer (Canadian clubs)",
+    "tier": 1,
+    "country_code": "CA",
+    "country_name": "Canada",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_North",
+    "path": "/teams/CA/CANMLS.json"
+  },
+  "CANCUP": {
+    "league_id": "CANCUP",
+    "league_name": "Canadian Championship",
+    "tier": 1,
+    "country_code": "CA",
+    "country_name": "Canada",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_North",
+    "path": "/teams/CA/CANCUP.json"
+  },
+  "CAY1": {
+    "league_id": "CAY1",
+    "league_name": "Cayman Premier League",
+    "tier": 1,
+    "country_code": "KY",
+    "country_name": "Cayman Islands",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Caribbean",
+    "path": "/teams/KY/CAY1.json"
+  },
+  "CAF1": {
+    "league_id": "CAF1",
+    "league_name": "Ligue de Bangui",
+    "tier": 1,
+    "country_code": "CF",
+    "country_name": "Central African Republic",
+    "continent": "Africa",
+    "region_cluster": "Africa_Central",
+    "path": "/teams/CF/CAF1.json"
+  },
+  "TCD1": {
+    "league_id": "TCD1",
+    "league_name": "Ligue Nationale du Tchad",
+    "tier": 1,
+    "country_code": "TD",
+    "country_name": "Chad",
+    "continent": "Africa",
+    "region_cluster": "Africa_Central",
+    "path": "/teams/TD/TCD1.json"
+  },
+  "CHI1": {
+    "league_id": "CHI1",
+    "league_name": "Primera División",
+    "tier": 1,
+    "country_code": "CL",
+    "country_name": "Chile",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_South",
+    "path": "/teams/CL/CHI1.json"
+  },
+  "CHI2": {
+    "league_id": "CHI2",
+    "league_name": "Primera B",
+    "tier": 2,
+    "country_code": "CL",
+    "country_name": "Chile",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_South",
+    "path": "/teams/CL/CHI2.json"
+  },
+  "CHI3": {
+    "league_id": "CHI3",
+    "league_name": "Segunda División",
+    "tier": 3,
+    "country_code": "CL",
+    "country_name": "Chile",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_South",
+    "path": "/teams/CL/CHI3.json"
+  },
+  "CHICUP": {
+    "league_id": "CHICUP",
+    "league_name": "Copa Chile",
+    "tier": 1,
+    "country_code": "CL",
+    "country_name": "Chile",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_South",
+    "path": "/teams/CL/CHICUP.json"
+  },
+  "CHN1": {
+    "league_id": "CHN1",
+    "league_name": "Chinese Super League",
+    "tier": 1,
+    "country_code": "CN",
+    "country_name": "China",
+    "continent": "Asia",
+    "region_cluster": "Asia_East",
+    "path": "/teams/CN/CHN1.json"
+  },
+  "CHN2": {
+    "league_id": "CHN2",
+    "league_name": "China League One",
+    "tier": 2,
+    "country_code": "CN",
+    "country_name": "China",
+    "continent": "Asia",
+    "region_cluster": "Asia_East",
+    "path": "/teams/CN/CHN2.json"
+  },
+  "CHN3": {
+    "league_id": "CHN3",
+    "league_name": "China League Two",
+    "tier": 3,
+    "country_code": "CN",
+    "country_name": "China",
+    "continent": "Asia",
+    "region_cluster": "Asia_East",
+    "path": "/teams/CN/CHN3.json"
+  },
+  "CHNCUP": {
+    "league_id": "CHNCUP",
+    "league_name": "FA Cup",
+    "tier": 1,
+    "country_code": "CN",
+    "country_name": "China",
+    "continent": "Asia",
+    "region_cluster": "Asia_East",
+    "path": "/teams/CN/CHNCUP.json"
+  },
+  "CHNSUP": {
+    "league_id": "CHNSUP",
+    "league_name": "Chinese Super Cup",
+    "tier": 1,
+    "country_code": "CN",
+    "country_name": "China",
+    "continent": "Asia",
+    "region_cluster": "Asia_East",
+    "path": "/teams/CN/CHNSUP.json"
+  },
+  "COL1A": {
+    "league_id": "COL1A",
+    "league_name": "Primera A",
+    "tier": 1,
+    "country_code": "CO",
+    "country_name": "Colombia",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_North",
+    "path": "/teams/CO/COL1A.json"
+  },
+  "COL1B": {
+    "league_id": "COL1B",
+    "league_name": "Primera A Apertura",
+    "tier": 1,
+    "country_code": "CO",
+    "country_name": "Colombia",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_North",
+    "path": "/teams/CO/COL1B.json"
+  },
+  "COL1C": {
+    "league_id": "COL1C",
+    "league_name": "Primera A Clausura",
+    "tier": 1,
+    "country_code": "CO",
+    "country_name": "Colombia",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_North",
+    "path": "/teams/CO/COL1C.json"
+  },
+  "COL2": {
+    "league_id": "COL2",
+    "league_name": "Primera B",
+    "tier": 2,
+    "country_code": "CO",
+    "country_name": "Colombia",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_North",
+    "path": "/teams/CO/COL2.json"
+  },
+  "COLCUP": {
+    "league_id": "COLCUP",
+    "league_name": "Copa Colombia",
+    "tier": 1,
+    "country_code": "CO",
+    "country_name": "Colombia",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_North",
+    "path": "/teams/CO/COLCUP.json"
+  },
+  "COM1": {
+    "league_id": "COM1",
+    "league_name": "Championnat des Comores",
+    "tier": 1,
+    "country_code": "KM",
+    "country_name": "Comoros",
+    "continent": "Africa",
+    "region_cluster": "Africa_East",
+    "path": "/teams/KM/COM1.json"
+  },
+  "CGO1": {
+    "league_id": "CGO1",
+    "league_name": "Ligue 1",
+    "tier": 1,
+    "country_code": "CG",
+    "country_name": "Congo",
+    "continent": "Africa",
+    "region_cluster": "Africa_Central",
+    "path": "/teams/CG/CGO1.json"
+  },
+  "DRC1": {
+    "league_id": "DRC1",
+    "league_name": "Linafoot",
+    "tier": 1,
+    "country_code": "CD",
+    "country_name": "DR Congo",
+    "continent": "Africa",
+    "region_cluster": "Africa_Central",
+    "path": "/teams/CD/DRC1.json"
+  },
+  "CRC1": {
+    "league_id": "CRC1",
+    "league_name": "Primera División",
+    "tier": 1,
+    "country_code": "CR",
+    "country_name": "Costa Rica",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Central",
+    "path": "/teams/CR/CRC1.json"
+  },
+  "CRC2": {
+    "league_id": "CRC2",
+    "league_name": "Liga de Ascenso",
+    "tier": 2,
+    "country_code": "CR",
+    "country_name": "Costa Rica",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Central",
+    "path": "/teams/CR/CRC2.json"
+  },
+  "CRO1": {
+    "league_id": "CRO1",
+    "league_name": "HNL",
+    "tier": 1,
+    "country_code": "HR",
+    "country_name": "Croatia",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/HR/CRO1.json"
+  },
+  "CRO2": {
+    "league_id": "CRO2",
+    "league_name": "Prva NL",
+    "tier": 2,
+    "country_code": "HR",
+    "country_name": "Croatia",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/HR/CRO2.json"
+  },
+  "CROCUP": {
+    "league_id": "CROCUP",
+    "league_name": "Hrvatski kup",
+    "tier": 1,
+    "country_code": "HR",
+    "country_name": "Croatia",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/HR/CROCUP.json"
+  },
+  "CUB1": {
+    "league_id": "CUB1",
+    "league_name": "Campeonato Nacional",
+    "tier": 1,
+    "country_code": "CU",
+    "country_name": "Cuba",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Caribbean",
+    "path": "/teams/CU/CUB1.json"
+  },
+  "CYP1": {
+    "league_id": "CYP1",
+    "league_name": "First Division",
+    "tier": 1,
+    "country_code": "CY",
+    "country_name": "Cyprus",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/CY/CYP1.json"
+  },
+  "CYP2": {
+    "league_id": "CYP2",
+    "league_name": "Second Division",
+    "tier": 2,
+    "country_code": "CY",
+    "country_name": "Cyprus",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/CY/CYP2.json"
+  },
+  "CYPCUP": {
+    "league_id": "CYPCUP",
+    "league_name": "Cypriot Cup",
+    "tier": 1,
+    "country_code": "CY",
+    "country_name": "Cyprus",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/CY/CYPCUP.json"
+  },
+  "CYPSUP": {
+    "league_id": "CYPSUP",
+    "league_name": "Cypriot Super Cup",
+    "tier": 1,
+    "country_code": "CY",
+    "country_name": "Cyprus",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/CY/CYPSUP.json"
+  },
+  "CZE1": {
+    "league_id": "CZE1",
+    "league_name": "Fortuna Liga",
+    "tier": 1,
+    "country_code": "CZ",
+    "country_name": "Czech Republic",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/CZ/CZE1.json"
+  },
+  "CZE2": {
+    "league_id": "CZE2",
+    "league_name": "FNL",
+    "tier": 2,
+    "country_code": "CZ",
+    "country_name": "Czech Republic",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/CZ/CZE2.json"
+  },
+  "CZECUP": {
+    "league_id": "CZECUP",
+    "league_name": "MOL Cup",
+    "tier": 1,
+    "country_code": "CZ",
+    "country_name": "Czech Republic",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/CZ/CZECUP.json"
+  },
+  "DEN1": {
+    "league_id": "DEN1",
+    "league_name": "Superliga",
+    "tier": 1,
+    "country_code": "DK",
+    "country_name": "Denmark",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/DK/DEN1.json"
+  },
+  "DEN2": {
+    "league_id": "DEN2",
+    "league_name": "1st Division",
+    "tier": 2,
+    "country_code": "DK",
+    "country_name": "Denmark",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/DK/DEN2.json"
+  },
+  "DEN3": {
+    "league_id": "DEN3",
+    "league_name": "2nd Division",
+    "tier": 3,
+    "country_code": "DK",
+    "country_name": "Denmark",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/DK/DEN3.json"
+  },
+  "DENCUP": {
+    "league_id": "DENCUP",
+    "league_name": "Danish Cup",
+    "tier": 1,
+    "country_code": "DK",
+    "country_name": "Denmark",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/DK/DENCUP.json"
+  },
+  "DENSUP": {
+    "league_id": "DENSUP",
+    "league_name": "Danish Supercup",
+    "tier": 1,
+    "country_code": "DK",
+    "country_name": "Denmark",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/DK/DENSUP.json"
+  },
+  "DJI1": {
+    "league_id": "DJI1",
+    "league_name": "Première Division",
+    "tier": 1,
+    "country_code": "DJ",
+    "country_name": "Djibouti",
+    "continent": "Africa",
+    "region_cluster": "Africa_East",
+    "path": "/teams/DJ/DJI1.json"
+  },
+  "DMA1": {
+    "league_id": "DMA1",
+    "league_name": "Premier League",
+    "tier": 1,
+    "country_code": "DM",
+    "country_name": "Dominica",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Caribbean",
+    "path": "/teams/DM/DMA1.json"
+  },
+  "DOM1": {
+    "league_id": "DOM1",
+    "league_name": "Liga Dominicana de Fútbol",
+    "tier": 1,
+    "country_code": "DO",
+    "country_name": "Dominican Republic",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Caribbean",
+    "path": "/teams/DO/DOM1.json"
+  },
+  "ECU1": {
+    "league_id": "ECU1",
+    "league_name": "Serie A",
+    "tier": 1,
+    "country_code": "EC",
+    "country_name": "Ecuador",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_North",
+    "path": "/teams/EC/ECU1.json"
+  },
+  "ECU2": {
+    "league_id": "ECU2",
+    "league_name": "Serie B",
+    "tier": 2,
+    "country_code": "EC",
+    "country_name": "Ecuador",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_North",
+    "path": "/teams/EC/ECU2.json"
+  },
+  "ECUCUP": {
+    "league_id": "ECUCUP",
+    "league_name": "Copa Ecuador",
+    "tier": 1,
+    "country_code": "EC",
+    "country_name": "Ecuador",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_North",
+    "path": "/teams/EC/ECUCUP.json"
+  },
+  "EGY1": {
+    "league_id": "EGY1",
+    "league_name": "Premier League",
+    "tier": 1,
+    "country_code": "EG",
+    "country_name": "Egypt",
+    "continent": "Africa",
+    "region_cluster": "Africa_North",
+    "path": "/teams/EG/EGY1.json"
+  },
+  "EGY2": {
+    "league_id": "EGY2",
+    "league_name": "Second Division A",
+    "tier": 2,
+    "country_code": "EG",
+    "country_name": "Egypt",
+    "continent": "Africa",
+    "region_cluster": "Africa_North",
+    "path": "/teams/EG/EGY2.json"
+  },
+  "EGYCUP": {
+    "league_id": "EGYCUP",
+    "league_name": "Egypt Cup",
+    "tier": 1,
+    "country_code": "EG",
+    "country_name": "Egypt",
+    "continent": "Africa",
+    "region_cluster": "Africa_North",
+    "path": "/teams/EG/EGYCUP.json"
+  },
+  "EGYSUP": {
+    "league_id": "EGYSUP",
+    "league_name": "Egyptian Super Cup",
+    "tier": 1,
+    "country_code": "EG",
+    "country_name": "Egypt",
+    "continent": "Africa",
+    "region_cluster": "Africa_North",
+    "path": "/teams/EG/EGYSUP.json"
+  },
+  "SLV1": {
+    "league_id": "SLV1",
+    "league_name": "Primera División",
+    "tier": 1,
+    "country_code": "SV",
+    "country_name": "El Salvador",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Central",
+    "path": "/teams/SV/SLV1.json"
+  },
+  "SLVCUP": {
+    "league_id": "SLVCUP",
+    "league_name": "Copa El Salvador",
+    "tier": 1,
+    "country_code": "SV",
+    "country_name": "El Salvador",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Central",
+    "path": "/teams/SV/SLVCUP.json"
+  },
+  "ENG1": {
+    "league_id": "ENG1",
+    "league_name": "Premier League",
+    "tier": 1,
+    "country_code": "ENG",
+    "country_name": "England",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/ENG/ENG1.json"
+  },
+  "ENG2": {
+    "league_id": "ENG2",
+    "league_name": "Championship",
+    "tier": 2,
+    "country_code": "ENG",
+    "country_name": "England",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/ENG/ENG2.json"
+  },
+  "ENG3": {
+    "league_id": "ENG3",
+    "league_name": "League One",
+    "tier": 3,
+    "country_code": "ENG",
+    "country_name": "England",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/ENG/ENG3.json"
+  },
+  "ENG4": {
+    "league_id": "ENG4",
+    "league_name": "League Two",
+    "tier": 4,
+    "country_code": "ENG",
+    "country_name": "England",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/ENG/ENG4.json"
+  },
+  "ENGNL": {
+    "league_id": "ENGNL",
+    "league_name": "National League",
+    "tier": 5,
+    "country_code": "ENG",
+    "country_name": "England",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/ENG/ENGNL.json"
+  },
+  "ENGFACUP": {
+    "league_id": "ENGFACUP",
+    "league_name": "FA Cup",
+    "tier": 1,
+    "country_code": "ENG",
+    "country_name": "England",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/ENG/ENGFACUP.json"
+  },
+  "ENGEFLCUP": {
+    "league_id": "ENGEFLCUP",
+    "league_name": "EFL Cup",
+    "tier": 1,
+    "country_code": "ENG",
+    "country_name": "England",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/ENG/ENGEFLCUP.json"
+  },
+  "ENGLTRO": {
+    "league_id": "ENGLTRO",
+    "league_name": "EFL Trophy",
+    "tier": 1,
+    "country_code": "ENG",
+    "country_name": "England",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/ENG/ENGLTRO.json"
+  },
+  "GNQ1": {
+    "league_id": "GNQ1",
+    "league_name": "Liga Nacional",
+    "tier": 1,
+    "country_code": "GQ",
+    "country_name": "Equatorial Guinea",
+    "continent": "Africa",
+    "region_cluster": "Africa_Central",
+    "path": "/teams/GQ/GNQ1.json"
+  },
+  "ERI1": {
+    "league_id": "ERI1",
+    "league_name": "Eritrean Premier League",
+    "tier": 1,
+    "country_code": "ER",
+    "country_name": "Eritrea",
+    "continent": "Africa",
+    "region_cluster": "Africa_East",
+    "path": "/teams/ER/ERI1.json"
+  },
+  "EST1": {
+    "league_id": "EST1",
+    "league_name": "Meistriliiga",
+    "tier": 1,
+    "country_code": "EE",
+    "country_name": "Estonia",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/EE/EST1.json"
+  },
+  "EST2": {
+    "league_id": "EST2",
+    "league_name": "Esiliiga",
+    "tier": 2,
+    "country_code": "EE",
+    "country_name": "Estonia",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/EE/EST2.json"
+  },
+  "EST3": {
+    "league_id": "EST3",
+    "league_name": "Esiliiga B",
+    "tier": 3,
+    "country_code": "EE",
+    "country_name": "Estonia",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/EE/EST3.json"
+  },
+  "ESTCUP": {
+    "league_id": "ESTCUP",
+    "league_name": "Estonian Cup",
+    "tier": 1,
+    "country_code": "EE",
+    "country_name": "Estonia",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/EE/ESTCUP.json"
+  },
+  "SWZ1": {
+    "league_id": "SWZ1",
+    "league_name": "Premier League",
+    "tier": 1,
+    "country_code": "SZ",
+    "country_name": "Eswatini",
+    "continent": "Africa",
+    "region_cluster": "Africa_South",
+    "path": "/teams/SZ/SWZ1.json"
+  },
+  "ETH1": {
+    "league_id": "ETH1",
+    "league_name": "Premier League",
+    "tier": 1,
+    "country_code": "ET",
+    "country_name": "Ethiopia",
+    "continent": "Africa",
+    "region_cluster": "Africa_East",
+    "path": "/teams/ET/ETH1.json"
+  },
+  "FIJ1": {
+    "league_id": "FIJ1",
+    "league_name": "Premier League",
+    "tier": 1,
+    "country_code": "FJ",
+    "country_name": "Fiji",
+    "continent": "Oceania",
+    "region_cluster": "Oceania_Pacific",
+    "path": "/teams/FJ/FIJ1.json"
+  },
+  "FIN1": {
+    "league_id": "FIN1",
+    "league_name": "Veikkausliiga",
+    "tier": 1,
+    "country_code": "FI",
+    "country_name": "Finland",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/FI/FIN1.json"
+  },
+  "FIN2": {
+    "league_id": "FIN2",
+    "league_name": "Ykkönen",
+    "tier": 2,
+    "country_code": "FI",
+    "country_name": "Finland",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/FI/FIN2.json"
+  },
+  "FIN3": {
+    "league_id": "FIN3",
+    "league_name": "Kakkonen",
+    "tier": 3,
+    "country_code": "FI",
+    "country_name": "Finland",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/FI/FIN3.json"
+  },
+  "FINCUP": {
+    "league_id": "FINCUP",
+    "league_name": "Suomen Cup",
+    "tier": 1,
+    "country_code": "FI",
+    "country_name": "Finland",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/FI/FINCUP.json"
+  },
+  "FRA1": {
+    "league_id": "FRA1",
+    "league_name": "Ligue 1",
+    "tier": 1,
+    "country_code": "FR",
+    "country_name": "France",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/FR/FRA1.json"
+  },
+  "FRA2": {
+    "league_id": "FRA2",
+    "league_name": "Ligue 2",
+    "tier": 2,
+    "country_code": "FR",
+    "country_name": "France",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/FR/FRA2.json"
+  },
+  "FRA3": {
+    "league_id": "FRA3",
+    "league_name": "Championnat National",
+    "tier": 3,
+    "country_code": "FR",
+    "country_name": "France",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/FR/FRA3.json"
+  },
+  "FRACUP": {
+    "league_id": "FRACUP",
+    "league_name": "Coupe de France",
+    "tier": 1,
+    "country_code": "FR",
+    "country_name": "France",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/FR/FRACUP.json"
+  },
+  "FRASUP": {
+    "league_id": "FRASUP",
+    "league_name": "Trophée des Champions",
+    "tier": 1,
+    "country_code": "FR",
+    "country_name": "France",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/FR/FRASUP.json"
+  },
+  "GAB1": {
+    "league_id": "GAB1",
+    "league_name": "Championnat National D1",
+    "tier": 1,
+    "country_code": "GA",
+    "country_name": "Gabon",
+    "continent": "Africa",
+    "region_cluster": "Africa_Central",
+    "path": "/teams/GA/GAB1.json"
+  },
+  "GAM1": {
+    "league_id": "GAM1",
+    "league_name": "GFA League First Division",
+    "tier": 1,
+    "country_code": "GM",
+    "country_name": "Gambia",
+    "continent": "Africa",
+    "region_cluster": "Africa_West",
+    "path": "/teams/GM/GAM1.json"
+  },
+  "GEO1": {
+    "league_id": "GEO1",
+    "league_name": "Erovnuli Liga",
+    "tier": 1,
+    "country_code": "GE",
+    "country_name": "Georgia",
+    "continent": "Europe",
+    "region_cluster": "Europe_East",
+    "path": "/teams/GE/GEO1.json"
+  },
+  "GEO2": {
+    "league_id": "GEO2",
+    "league_name": "Erovnuli Liga 2",
+    "tier": 2,
+    "country_code": "GE",
+    "country_name": "Georgia",
+    "continent": "Europe",
+    "region_cluster": "Europe_East",
+    "path": "/teams/GE/GEO2.json"
+  },
+  "GEOCUP": {
+    "league_id": "GEOCUP",
+    "league_name": "David Kipiani Cup",
+    "tier": 1,
+    "country_code": "GE",
+    "country_name": "Georgia",
+    "continent": "Europe",
+    "region_cluster": "Europe_East",
+    "path": "/teams/GE/GEOCUP.json"
+  },
+  "GER1": {
+    "league_id": "GER1",
+    "league_name": "Bundesliga",
+    "tier": 1,
+    "country_code": "DE",
+    "country_name": "Germany",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/DE/GER1.json"
+  },
+  "GER2": {
+    "league_id": "GER2",
+    "league_name": "2. Bundesliga",
+    "tier": 2,
+    "country_code": "DE",
+    "country_name": "Germany",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/DE/GER2.json"
+  },
+  "GER3": {
+    "league_id": "GER3",
+    "league_name": "3. Liga",
+    "tier": 3,
+    "country_code": "DE",
+    "country_name": "Germany",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/DE/GER3.json"
+  },
+  "GERREG": {
+    "league_id": "GERREG",
+    "league_name": "Regionalliga",
+    "tier": 4,
+    "country_code": "DE",
+    "country_name": "Germany",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/DE/GERREG.json"
+  },
+  "GERCUP": {
+    "league_id": "GERCUP",
+    "league_name": "DFB-Pokal",
+    "tier": 1,
+    "country_code": "DE",
+    "country_name": "Germany",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/DE/GERCUP.json"
+  },
+  "GERSUP": {
+    "league_id": "GERSUP",
+    "league_name": "DFL-Supercup",
+    "tier": 1,
+    "country_code": "DE",
+    "country_name": "Germany",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/DE/GERSUP.json"
+  },
+  "GHA1": {
+    "league_id": "GHA1",
+    "league_name": "Premier League",
+    "tier": 1,
+    "country_code": "GH",
+    "country_name": "Ghana",
+    "continent": "Africa",
+    "region_cluster": "Africa_West",
+    "path": "/teams/GH/GHA1.json"
+  },
+  "GHACUP": {
+    "league_id": "GHACUP",
+    "league_name": "FA Cup",
+    "tier": 1,
+    "country_code": "GH",
+    "country_name": "Ghana",
+    "continent": "Africa",
+    "region_cluster": "Africa_West",
+    "path": "/teams/GH/GHACUP.json"
+  },
+  "GIB1": {
+    "league_id": "GIB1",
+    "league_name": "National League",
+    "tier": 1,
+    "country_code": "GI",
+    "country_name": "Gibraltar",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/GI/GIB1.json"
+  },
+  "GIBCUP": {
+    "league_id": "GIBCUP",
+    "league_name": "Rock Cup",
+    "tier": 1,
+    "country_code": "GI",
+    "country_name": "Gibraltar",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/GI/GIBCUP.json"
+  },
+  "GRE1": {
+    "league_id": "GRE1",
+    "league_name": "Super League 1",
+    "tier": 1,
+    "country_code": "GR",
+    "country_name": "Greece",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/GR/GRE1.json"
+  },
+  "GRE2": {
+    "league_id": "GRE2",
+    "league_name": "Super League 2",
+    "tier": 2,
+    "country_code": "GR",
+    "country_name": "Greece",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/GR/GRE2.json"
+  },
+  "GRE3": {
+    "league_id": "GRE3",
+    "league_name": "Gamma Ethniki",
+    "tier": 3,
+    "country_code": "GR",
+    "country_name": "Greece",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/GR/GRE3.json"
+  },
+  "GRECUP": {
+    "league_id": "GRECUP",
+    "league_name": "Greek Cup",
+    "tier": 1,
+    "country_code": "GR",
+    "country_name": "Greece",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/GR/GRECUP.json"
+  },
+  "GRESUP": {
+    "league_id": "GRESUP",
+    "league_name": "Greek Super Cup",
+    "tier": 1,
+    "country_code": "GR",
+    "country_name": "Greece",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/GR/GRESUP.json"
+  },
+  "GRL1": {
+    "league_id": "GRL1",
+    "league_name": "Greenlandic Football Championship",
+    "tier": 1,
+    "country_code": "GL",
+    "country_name": "Greenland",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Atlantic",
+    "path": "/teams/GL/GRL1.json"
+  },
+  "GRENA1": {
+    "league_id": "GRENA1",
+    "league_name": "Premier Division",
+    "tier": 1,
+    "country_code": "GD",
+    "country_name": "Grenada",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Caribbean",
+    "path": "/teams/GD/GRENA1.json"
+  },
+  "GUA1": {
+    "league_id": "GUA1",
+    "league_name": "Liga Nacional",
+    "tier": 1,
+    "country_code": "GT",
+    "country_name": "Guatemala",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Central",
+    "path": "/teams/GT/GUA1.json"
+  },
+  "GUA2": {
+    "league_id": "GUA2",
+    "league_name": "Primera División",
+    "tier": 2,
+    "country_code": "GT",
+    "country_name": "Guatemala",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Central",
+    "path": "/teams/GT/GUA2.json"
+  },
+  "GUI1": {
+    "league_id": "GUI1",
+    "league_name": "Ligue 1 Pro",
+    "tier": 1,
+    "country_code": "GN",
+    "country_name": "Guinea",
+    "continent": "Africa",
+    "region_cluster": "Africa_West",
+    "path": "/teams/GN/GUI1.json"
+  },
+  "GNB1": {
+    "league_id": "GNB1",
+    "league_name": "Campeonato Nacional",
+    "tier": 1,
+    "country_code": "GW",
+    "country_name": "Guinea-Bissau",
+    "continent": "Africa",
+    "region_cluster": "Africa_West",
+    "path": "/teams/GW/GNB1.json"
+  },
+  "GUY1": {
+    "league_id": "GUY1",
+    "league_name": "GFF Elite League",
+    "tier": 1,
+    "country_code": "GY",
+    "country_name": "Guyana",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_North",
+    "path": "/teams/GY/GUY1.json"
+  },
+  "HAI1": {
+    "league_id": "HAI1",
+    "league_name": "Ligue Haïtienne",
+    "tier": 1,
+    "country_code": "HT",
+    "country_name": "Haiti",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Caribbean",
+    "path": "/teams/HT/HAI1.json"
+  },
+  "HON1": {
+    "league_id": "HON1",
+    "league_name": "Liga Nacional",
+    "tier": 1,
+    "country_code": "HN",
+    "country_name": "Honduras",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Central",
+    "path": "/teams/HN/HON1.json"
+  },
+  "HONCUP": {
+    "league_id": "HONCUP",
+    "league_name": "Copa Presidente",
+    "tier": 1,
+    "country_code": "HN",
+    "country_name": "Honduras",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Central",
+    "path": "/teams/HN/HONCUP.json"
+  },
+  "HKG1": {
+    "league_id": "HKG1",
+    "league_name": "Premier League",
+    "tier": 1,
+    "country_code": "HK",
+    "country_name": "Hong Kong",
+    "continent": "Asia",
+    "region_cluster": "Asia_East",
+    "path": "/teams/HK/HKG1.json"
+  },
+  "HKGCUP": {
+    "league_id": "HKGCUP",
+    "league_name": "Senior Shield",
+    "tier": 1,
+    "country_code": "HK",
+    "country_name": "Hong Kong",
+    "continent": "Asia",
+    "region_cluster": "Asia_East",
+    "path": "/teams/HK/HKGCUP.json"
+  },
+  "HUN1": {
+    "league_id": "HUN1",
+    "league_name": "NB I",
+    "tier": 1,
+    "country_code": "HU",
+    "country_name": "Hungary",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/HU/HUN1.json"
+  },
+  "HUN2": {
+    "league_id": "HUN2",
+    "league_name": "NB II",
+    "tier": 2,
+    "country_code": "HU",
+    "country_name": "Hungary",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/HU/HUN2.json"
+  },
+  "HUNCUP": {
+    "league_id": "HUNCUP",
+    "league_name": "Magyar Kupa",
+    "tier": 1,
+    "country_code": "HU",
+    "country_name": "Hungary",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/HU/HUNCUP.json"
+  },
+  "HUNSCUP": {
+    "league_id": "HUNSCUP",
+    "league_name": "Szuperkupa",
+    "tier": 1,
+    "country_code": "HU",
+    "country_name": "Hungary",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/HU/HUNSCUP.json"
+  },
+  "ISL1": {
+    "league_id": "ISL1",
+    "league_name": "Úrvalsdeild",
+    "tier": 1,
+    "country_code": "IS",
+    "country_name": "Iceland",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/IS/ISL1.json"
+  },
+  "ISL2": {
+    "league_id": "ISL2",
+    "league_name": "1. Deild",
+    "tier": 2,
+    "country_code": "IS",
+    "country_name": "Iceland",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/IS/ISL2.json"
+  },
+  "ISL3": {
+    "league_id": "ISL3",
+    "league_name": "2. Deild",
+    "tier": 3,
+    "country_code": "IS",
+    "country_name": "Iceland",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/IS/ISL3.json"
+  },
+  "ISLCUP": {
+    "league_id": "ISLCUP",
+    "league_name": "Icelandic Cup",
+    "tier": 1,
+    "country_code": "IS",
+    "country_name": "Iceland",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/IS/ISLCUP.json"
+  },
+  "ISLLEAGCUP": {
+    "league_id": "ISLLEAGCUP",
+    "league_name": "League Cup",
+    "tier": 1,
+    "country_code": "IS",
+    "country_name": "Iceland",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/IS/ISLLEAGCUP.json"
+  },
+  "IND1": {
+    "league_id": "IND1",
+    "league_name": "Indian Super League",
+    "tier": 1,
+    "country_code": "IN",
+    "country_name": "India",
+    "continent": "Asia",
+    "region_cluster": "Asia_South",
+    "path": "/teams/IN/IND1.json"
+  },
+  "IND2": {
+    "league_id": "IND2",
+    "league_name": "I-League",
+    "tier": 2,
+    "country_code": "IN",
+    "country_name": "India",
+    "continent": "Asia",
+    "region_cluster": "Asia_South",
+    "path": "/teams/IN/IND2.json"
+  },
+  "INDCUP": {
+    "league_id": "INDCUP",
+    "league_name": "Super Cup",
+    "tier": 1,
+    "country_code": "IN",
+    "country_name": "India",
+    "continent": "Asia",
+    "region_cluster": "Asia_South",
+    "path": "/teams/IN/INDCUP.json"
+  },
+  "INA1": {
+    "league_id": "INA1",
+    "league_name": "Liga 1",
+    "tier": 1,
+    "country_code": "ID",
+    "country_name": "Indonesia",
+    "continent": "Asia",
+    "region_cluster": "Asia_SouthEast",
+    "path": "/teams/ID/INA1.json"
+  },
+  "INA2": {
+    "league_id": "INA2",
+    "league_name": "Liga 2",
+    "tier": 2,
+    "country_code": "ID",
+    "country_name": "Indonesia",
+    "continent": "Asia",
+    "region_cluster": "Asia_SouthEast",
+    "path": "/teams/ID/INA2.json"
+  },
+  "INACUP": {
+    "league_id": "INACUP",
+    "league_name": "Piala Indonesia",
+    "tier": 1,
+    "country_code": "ID",
+    "country_name": "Indonesia",
+    "continent": "Asia",
+    "region_cluster": "Asia_SouthEast",
+    "path": "/teams/ID/INACUP.json"
+  },
+  "IRN1": {
+    "league_id": "IRN1",
+    "league_name": "Persian Gulf Pro League",
+    "tier": 1,
+    "country_code": "IR",
+    "country_name": "Iran",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/IR/IRN1.json"
+  },
+  "IRN2": {
+    "league_id": "IRN2",
+    "league_name": "Azadegan League",
+    "tier": 2,
+    "country_code": "IR",
+    "country_name": "Iran",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/IR/IRN2.json"
+  },
+  "IRNCUP": {
+    "league_id": "IRNCUP",
+    "league_name": "Hazfi Cup",
+    "tier": 1,
+    "country_code": "IR",
+    "country_name": "Iran",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/IR/IRNCUP.json"
+  },
+  "IRNSUP": {
+    "league_id": "IRNSUP",
+    "league_name": "Super Cup",
+    "tier": 1,
+    "country_code": "IR",
+    "country_name": "Iran",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/IR/IRNSUP.json"
+  },
+  "IRQ1": {
+    "league_id": "IRQ1",
+    "league_name": "Iraqi Premier League",
+    "tier": 1,
+    "country_code": "IQ",
+    "country_name": "Iraq",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/IQ/IRQ1.json"
+  },
+  "IRQCUP": {
+    "league_id": "IRQCUP",
+    "league_name": "Iraq FA Cup",
+    "tier": 1,
+    "country_code": "IQ",
+    "country_name": "Iraq",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/IQ/IRQCUP.json"
+  },
+  "IRL1": {
+    "league_id": "IRL1",
+    "league_name": "Premier Division",
+    "tier": 1,
+    "country_code": "IE",
+    "country_name": "Ireland",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/IE/IRL1.json"
+  },
+  "IRL2": {
+    "league_id": "IRL2",
+    "league_name": "First Division",
+    "tier": 2,
+    "country_code": "IE",
+    "country_name": "Ireland",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/IE/IRL2.json"
+  },
+  "IRLCUP": {
+    "league_id": "IRLCUP",
+    "league_name": "FAI Cup",
+    "tier": 1,
+    "country_code": "IE",
+    "country_name": "Ireland",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/IE/IRLCUP.json"
+  },
+  "IRLLEAGCUP": {
+    "league_id": "IRLLEAGCUP",
+    "league_name": "League of Ireland Cup",
+    "tier": 1,
+    "country_code": "IE",
+    "country_name": "Ireland",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/IE/IRLLEAGCUP.json"
+  },
+  "IOM1": {
+    "league_id": "IOM1",
+    "league_name": "Premier League",
+    "tier": 1,
+    "country_code": "IM",
+    "country_name": "Isle of Man",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/IM/IOM1.json"
+  },
+  "ISR1": {
+    "league_id": "ISR1",
+    "league_name": "Ligat Ha'Al",
+    "tier": 1,
+    "country_code": "IL",
+    "country_name": "Israel",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/IL/ISR1.json"
+  },
+  "ISR2": {
+    "league_id": "ISR2",
+    "league_name": "Liga Leumit",
+    "tier": 2,
+    "country_code": "IL",
+    "country_name": "Israel",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/IL/ISR2.json"
+  },
+  "ISRCUP": {
+    "league_id": "ISRCUP",
+    "league_name": "State Cup",
+    "tier": 1,
+    "country_code": "IL",
+    "country_name": "Israel",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/IL/ISRCUP.json"
+  },
+  "ISRSUP": {
+    "league_id": "ISRSUP",
+    "league_name": "Super Cup",
+    "tier": 1,
+    "country_code": "IL",
+    "country_name": "Israel",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/IL/ISRSUP.json"
+  },
+  "ITA1": {
+    "league_id": "ITA1",
+    "league_name": "Serie A",
+    "tier": 1,
+    "country_code": "IT",
+    "country_name": "Italy",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/IT/ITA1.json"
+  },
+  "ITA2": {
+    "league_id": "ITA2",
+    "league_name": "Serie B",
+    "tier": 2,
+    "country_code": "IT",
+    "country_name": "Italy",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/IT/ITA2.json"
+  },
+  "ITA3": {
+    "league_id": "ITA3",
+    "league_name": "Serie C",
+    "tier": 3,
+    "country_code": "IT",
+    "country_name": "Italy",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/IT/ITA3.json"
+  },
+  "ITACUP": {
+    "league_id": "ITACUP",
+    "league_name": "Coppa Italia",
+    "tier": 1,
+    "country_code": "IT",
+    "country_name": "Italy",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/IT/ITACUP.json"
+  },
+  "ITASUP": {
+    "league_id": "ITASUP",
+    "league_name": "Supercoppa Italiana",
+    "tier": 1,
+    "country_code": "IT",
+    "country_name": "Italy",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/IT/ITASUP.json"
+  },
+  "CIV1": {
+    "league_id": "CIV1",
+    "league_name": "Ligue 1",
+    "tier": 1,
+    "country_code": "CI",
+    "country_name": "Ivory Coast",
+    "continent": "Africa",
+    "region_cluster": "Africa_West",
+    "path": "/teams/CI/CIV1.json"
+  },
+  "CIVCUP": {
+    "league_id": "CIVCUP",
+    "league_name": "Coupe de Côte d'Ivoire",
+    "tier": 1,
+    "country_code": "CI",
+    "country_name": "Ivory Coast",
+    "continent": "Africa",
+    "region_cluster": "Africa_West",
+    "path": "/teams/CI/CIVCUP.json"
+  },
+  "JAM1": {
+    "league_id": "JAM1",
+    "league_name": "Premier League",
+    "tier": 1,
+    "country_code": "JM",
+    "country_name": "Jamaica",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Caribbean",
+    "path": "/teams/JM/JAM1.json"
+  },
+  "JPN1": {
+    "league_id": "JPN1",
+    "league_name": "J1 League",
+    "tier": 1,
+    "country_code": "JP",
+    "country_name": "Japan",
+    "continent": "Asia",
+    "region_cluster": "Asia_East",
+    "path": "/teams/JP/JPN1.json"
+  },
+  "JPN2": {
+    "league_id": "JPN2",
+    "league_name": "J2 League",
+    "tier": 2,
+    "country_code": "JP",
+    "country_name": "Japan",
+    "continent": "Asia",
+    "region_cluster": "Asia_East",
+    "path": "/teams/JP/JPN2.json"
+  },
+  "JPN3": {
+    "league_id": "JPN3",
+    "league_name": "J3 League",
+    "tier": 3,
+    "country_code": "JP",
+    "country_name": "Japan",
+    "continent": "Asia",
+    "region_cluster": "Asia_East",
+    "path": "/teams/JP/JPN3.json"
+  },
+  "JPNCUP": {
+    "league_id": "JPNCUP",
+    "league_name": "Emperor's Cup",
+    "tier": 1,
+    "country_code": "JP",
+    "country_name": "Japan",
+    "continent": "Asia",
+    "region_cluster": "Asia_East",
+    "path": "/teams/JP/JPNCUP.json"
+  },
+  "JPNSUP": {
+    "league_id": "JPNSUP",
+    "league_name": "Japanese Super Cup",
+    "tier": 1,
+    "country_code": "JP",
+    "country_name": "Japan",
+    "continent": "Asia",
+    "region_cluster": "Asia_East",
+    "path": "/teams/JP/JPNSUP.json"
+  },
+  "JOR1": {
+    "league_id": "JOR1",
+    "league_name": "Pro League",
+    "tier": 1,
+    "country_code": "JO",
+    "country_name": "Jordan",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/JO/JOR1.json"
+  },
+  "JORCUP": {
+    "league_id": "JORCUP",
+    "league_name": "Jordan FA Cup",
+    "tier": 1,
+    "country_code": "JO",
+    "country_name": "Jordan",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/JO/JORCUP.json"
+  },
+  "KAZ1": {
+    "league_id": "KAZ1",
+    "league_name": "Premier League",
+    "tier": 1,
+    "country_code": "KZ",
+    "country_name": "Kazakhstan",
+    "continent": "Asia",
+    "region_cluster": "Asia_Central",
+    "path": "/teams/KZ/KAZ1.json"
+  },
+  "KAZ2": {
+    "league_id": "KAZ2",
+    "league_name": "First Division",
+    "tier": 2,
+    "country_code": "KZ",
+    "country_name": "Kazakhstan",
+    "continent": "Asia",
+    "region_cluster": "Asia_Central",
+    "path": "/teams/KZ/KAZ2.json"
+  },
+  "KAZCUP": {
+    "league_id": "KAZCUP",
+    "league_name": "Kazakhstan Cup",
+    "tier": 1,
+    "country_code": "KZ",
+    "country_name": "Kazakhstan",
+    "continent": "Asia",
+    "region_cluster": "Asia_Central",
+    "path": "/teams/KZ/KAZCUP.json"
+  },
+  "KEN1": {
+    "league_id": "KEN1",
+    "league_name": "Premier League",
+    "tier": 1,
+    "country_code": "KE",
+    "country_name": "Kenya",
+    "continent": "Africa",
+    "region_cluster": "Africa_East",
+    "path": "/teams/KE/KEN1.json"
+  },
+  "KIR1": {
+    "league_id": "KIR1",
+    "league_name": "Kiribati Premier League",
+    "tier": 1,
+    "country_code": "KI",
+    "country_name": "Kiribati",
+    "continent": "Oceania",
+    "region_cluster": "Oceania_Pacific",
+    "path": "/teams/KI/KIR1.json"
+  },
+  "KOS1": {
+    "league_id": "KOS1",
+    "league_name": "Superliga",
+    "tier": 1,
+    "country_code": "XK",
+    "country_name": "Kosovo",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/XK/KOS1.json"
+  },
+  "KOSCUP": {
+    "league_id": "KOSCUP",
+    "league_name": "Kosovo Cup",
+    "tier": 1,
+    "country_code": "XK",
+    "country_name": "Kosovo",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/XK/KOSCUP.json"
+  },
+  "KUW1": {
+    "league_id": "KUW1",
+    "league_name": "Premier League",
+    "tier": 1,
+    "country_code": "KW",
+    "country_name": "Kuwait",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/KW/KUW1.json"
+  },
+  "KUWCUP": {
+    "league_id": "KUWCUP",
+    "league_name": "Emir Cup",
+    "tier": 1,
+    "country_code": "KW",
+    "country_name": "Kuwait",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/KW/KUWCUP.json"
+  },
+  "KGZ1": {
+    "league_id": "KGZ1",
+    "league_name": "Kyrgyz Premier League",
+    "tier": 1,
+    "country_code": "KG",
+    "country_name": "Kyrgyzstan",
+    "continent": "Asia",
+    "region_cluster": "Asia_Central",
+    "path": "/teams/KG/KGZ1.json"
+  },
+  "LAO1": {
+    "league_id": "LAO1",
+    "league_name": "Lao Premier League",
+    "tier": 1,
+    "country_code": "LA",
+    "country_name": "Laos",
+    "continent": "Asia",
+    "region_cluster": "Asia_SouthEast",
+    "path": "/teams/LA/LAO1.json"
+  },
+  "LVA1": {
+    "league_id": "LVA1",
+    "league_name": "Virslīga",
+    "tier": 1,
+    "country_code": "LV",
+    "country_name": "Latvia",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/LV/LVA1.json"
+  },
+  "LVA2": {
+    "league_id": "LVA2",
+    "league_name": "1. līga",
+    "tier": 2,
+    "country_code": "LV",
+    "country_name": "Latvia",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/LV/LVA2.json"
+  },
+  "LVACUP": {
+    "league_id": "LVACUP",
+    "league_name": "Latvian Cup",
+    "tier": 1,
+    "country_code": "LV",
+    "country_name": "Latvia",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/LV/LVACUP.json"
+  },
+  "LBN1": {
+    "league_id": "LBN1",
+    "league_name": "Premier League",
+    "tier": 1,
+    "country_code": "LB",
+    "country_name": "Lebanon",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/LB/LBN1.json"
+  },
+  "LBNCUP": {
+    "league_id": "LBNCUP",
+    "league_name": "Lebanese FA Cup",
+    "tier": 1,
+    "country_code": "LB",
+    "country_name": "Lebanon",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/LB/LBNCUP.json"
+  },
+  "LES1": {
+    "league_id": "LES1",
+    "league_name": "Premier League",
+    "tier": 1,
+    "country_code": "LS",
+    "country_name": "Lesotho",
+    "continent": "Africa",
+    "region_cluster": "Africa_South",
+    "path": "/teams/LS/LES1.json"
+  },
+  "LBR1": {
+    "league_id": "LBR1",
+    "league_name": "First Division",
+    "tier": 1,
+    "country_code": "LR",
+    "country_name": "Liberia",
+    "continent": "Africa",
+    "region_cluster": "Africa_West",
+    "path": "/teams/LR/LBR1.json"
+  },
+  "LBY1": {
+    "league_id": "LBY1",
+    "league_name": "Premier League",
+    "tier": 1,
+    "country_code": "LY",
+    "country_name": "Libya",
+    "continent": "Africa",
+    "region_cluster": "Africa_North",
+    "path": "/teams/LY/LBY1.json"
+  },
+  "LIECUP": {
+    "league_id": "LIECUP",
+    "league_name": "Liechtenstein Cup",
+    "tier": 1,
+    "country_code": "LI",
+    "country_name": "Liechtenstein",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/LI/LIECUP.json"
+  },
+  "LTU1": {
+    "league_id": "LTU1",
+    "league_name": "A Lyga",
+    "tier": 1,
+    "country_code": "LT",
+    "country_name": "Lithuania",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/LT/LTU1.json"
+  },
+  "LTU2": {
+    "league_id": "LTU2",
+    "league_name": "I Lyga",
+    "tier": 2,
+    "country_code": "LT",
+    "country_name": "Lithuania",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/LT/LTU2.json"
+  },
+  "LTUCUP": {
+    "league_id": "LTUCUP",
+    "league_name": "Lithuanian Cup",
+    "tier": 1,
+    "country_code": "LT",
+    "country_name": "Lithuania",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/LT/LTUCUP.json"
+  },
+  "LUX1": {
+    "league_id": "LUX1",
+    "league_name": "National Division",
+    "tier": 1,
+    "country_code": "LU",
+    "country_name": "Luxembourg",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/LU/LUX1.json"
+  },
+  "LUXCUP": {
+    "league_id": "LUXCUP",
+    "league_name": "Luxembourg Cup",
+    "tier": 1,
+    "country_code": "LU",
+    "country_name": "Luxembourg",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/LU/LUXCUP.json"
+  },
+  "MAC1": {
+    "league_id": "MAC1",
+    "league_name": "Liga de Elite",
+    "tier": 1,
+    "country_code": "MO",
+    "country_name": "Macau",
+    "continent": "Asia",
+    "region_cluster": "Asia_East",
+    "path": "/teams/MO/MAC1.json"
+  },
+  "MDG1": {
+    "league_id": "MDG1",
+    "league_name": "THB Champions League",
+    "tier": 1,
+    "country_code": "MG",
+    "country_name": "Madagascar",
+    "continent": "Africa",
+    "region_cluster": "Africa_East",
+    "path": "/teams/MG/MDG1.json"
+  },
+  "MWI1": {
+    "league_id": "MWI1",
+    "league_name": "Super League",
+    "tier": 1,
+    "country_code": "MW",
+    "country_name": "Malawi",
+    "continent": "Africa",
+    "region_cluster": "Africa_South",
+    "path": "/teams/MW/MWI1.json"
+  },
+  "MYS1": {
+    "league_id": "MYS1",
+    "league_name": "Super League",
+    "tier": 1,
+    "country_code": "MY",
+    "country_name": "Malaysia",
+    "continent": "Asia",
+    "region_cluster": "Asia_SouthEast",
+    "path": "/teams/MY/MYS1.json"
+  },
+  "MYSCUP": {
+    "league_id": "MYSCUP",
+    "league_name": "Malaysia Cup",
+    "tier": 1,
+    "country_code": "MY",
+    "country_name": "Malaysia",
+    "continent": "Asia",
+    "region_cluster": "Asia_SouthEast",
+    "path": "/teams/MY/MYSCUP.json"
+  },
+  "MDV1": {
+    "league_id": "MDV1",
+    "league_name": "Dhivehi Premier League",
+    "tier": 1,
+    "country_code": "MV",
+    "country_name": "Maldives",
+    "continent": "Asia",
+    "region_cluster": "Asia_South",
+    "path": "/teams/MV/MDV1.json"
+  },
+  "MDVCUP": {
+    "league_id": "MDVCUP",
+    "league_name": "FA Cup",
+    "tier": 1,
+    "country_code": "MV",
+    "country_name": "Maldives",
+    "continent": "Asia",
+    "region_cluster": "Asia_South",
+    "path": "/teams/MV/MDVCUP.json"
+  },
+  "MLI1": {
+    "league_id": "MLI1",
+    "league_name": "Ligue 1",
+    "tier": 1,
+    "country_code": "ML",
+    "country_name": "Mali",
+    "continent": "Africa",
+    "region_cluster": "Africa_West",
+    "path": "/teams/ML/MLI1.json"
+  },
+  "MLT1": {
+    "league_id": "MLT1",
+    "league_name": "Premier League",
+    "tier": 1,
+    "country_code": "MT",
+    "country_name": "Malta",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/MT/MLT1.json"
+  },
+  "MLT2": {
+    "league_id": "MLT2",
+    "league_name": "Challenge League",
+    "tier": 2,
+    "country_code": "MT",
+    "country_name": "Malta",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/MT/MLT2.json"
+  },
+  "MLTCUP": {
+    "league_id": "MLTCUP",
+    "league_name": "FA Trophy",
+    "tier": 1,
+    "country_code": "MT",
+    "country_name": "Malta",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/MT/MLTCUP.json"
+  },
+  "MRT1": {
+    "league_id": "MRT1",
+    "league_name": "Super D1",
+    "tier": 1,
+    "country_code": "MR",
+    "country_name": "Mauritania",
+    "continent": "Africa",
+    "region_cluster": "Africa_West",
+    "path": "/teams/MR/MRT1.json"
+  },
+  "MUS1": {
+    "league_id": "MUS1",
+    "league_name": "Premier League",
+    "tier": 1,
+    "country_code": "MU",
+    "country_name": "Mauritius",
+    "continent": "Africa",
+    "region_cluster": "Africa_East",
+    "path": "/teams/MU/MUS1.json"
+  },
+  "MEX1A": {
+    "league_id": "MEX1A",
+    "league_name": "Liga MX Apertura",
+    "tier": 1,
+    "country_code": "MX",
+    "country_name": "Mexico",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Central",
+    "path": "/teams/MX/MEX1A.json"
+  },
+  "MEX1C": {
+    "league_id": "MEX1C",
+    "league_name": "Liga MX Clausura",
+    "tier": 1,
+    "country_code": "MX",
+    "country_name": "Mexico",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Central",
+    "path": "/teams/MX/MEX1C.json"
+  },
+  "MEX2": {
+    "league_id": "MEX2",
+    "league_name": "Liga de Expansión MX",
+    "tier": 2,
+    "country_code": "MX",
+    "country_name": "Mexico",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Central",
+    "path": "/teams/MX/MEX2.json"
+  },
+  "MEXCUP": {
+    "league_id": "MEXCUP",
+    "league_name": "Copa MX",
+    "tier": 1,
+    "country_code": "MX",
+    "country_name": "Mexico",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Central",
+    "path": "/teams/MX/MEXCUP.json"
+  },
+  "MDA1": {
+    "league_id": "MDA1",
+    "league_name": "Super Liga",
+    "tier": 1,
+    "country_code": "MD",
+    "country_name": "Moldova",
+    "continent": "Europe",
+    "region_cluster": "Europe_East",
+    "path": "/teams/MD/MDA1.json"
+  },
+  "MDA2": {
+    "league_id": "MDA2",
+    "league_name": "Liga 1",
+    "tier": 2,
+    "country_code": "MD",
+    "country_name": "Moldova",
+    "continent": "Europe",
+    "region_cluster": "Europe_East",
+    "path": "/teams/MD/MDA2.json"
+  },
+  "MDACUP": {
+    "league_id": "MDACUP",
+    "league_name": "Moldovan Cup",
+    "tier": 1,
+    "country_code": "MD",
+    "country_name": "Moldova",
+    "continent": "Europe",
+    "region_cluster": "Europe_East",
+    "path": "/teams/MD/MDACUP.json"
+  },
+  "MNG1": {
+    "league_id": "MNG1",
+    "league_name": "Premier League",
+    "tier": 1,
+    "country_code": "MN",
+    "country_name": "Mongolia",
+    "continent": "Asia",
+    "region_cluster": "Asia_East",
+    "path": "/teams/MN/MNG1.json"
+  },
+  "MNE1": {
+    "league_id": "MNE1",
+    "league_name": "First League",
+    "tier": 1,
+    "country_code": "ME",
+    "country_name": "Montenegro",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/ME/MNE1.json"
+  },
+  "MNE2": {
+    "league_id": "MNE2",
+    "league_name": "Second League",
+    "tier": 2,
+    "country_code": "ME",
+    "country_name": "Montenegro",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/ME/MNE2.json"
+  },
+  "MNECUP": {
+    "league_id": "MNECUP",
+    "league_name": "Montenegrin Cup",
+    "tier": 1,
+    "country_code": "ME",
+    "country_name": "Montenegro",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/ME/MNECUP.json"
+  },
+  "MAR1": {
+    "league_id": "MAR1",
+    "league_name": "Botola Pro",
+    "tier": 1,
+    "country_code": "MA",
+    "country_name": "Morocco",
+    "continent": "Africa",
+    "region_cluster": "Africa_North",
+    "path": "/teams/MA/MAR1.json"
+  },
+  "MAR2": {
+    "league_id": "MAR2",
+    "league_name": "Botola 2",
+    "tier": 2,
+    "country_code": "MA",
+    "country_name": "Morocco",
+    "continent": "Africa",
+    "region_cluster": "Africa_North",
+    "path": "/teams/MA/MAR2.json"
+  },
+  "MARCUP": {
+    "league_id": "MARCUP",
+    "league_name": "Moroccan Throne Cup",
+    "tier": 1,
+    "country_code": "MA",
+    "country_name": "Morocco",
+    "continent": "Africa",
+    "region_cluster": "Africa_North",
+    "path": "/teams/MA/MARCUP.json"
+  },
+  "MOZ1": {
+    "league_id": "MOZ1",
+    "league_name": "Moçambola",
+    "tier": 1,
+    "country_code": "MZ",
+    "country_name": "Mozambique",
+    "continent": "Africa",
+    "region_cluster": "Africa_SouthEast",
+    "path": "/teams/MZ/MOZ1.json"
+  },
+  "MYA1": {
+    "league_id": "MYA1",
+    "league_name": "National League",
+    "tier": 1,
+    "country_code": "MM",
+    "country_name": "Myanmar",
+    "continent": "Asia",
+    "region_cluster": "Asia_SouthEast",
+    "path": "/teams/MM/MYA1.json"
+  },
+  "NAM1": {
+    "league_id": "NAM1",
+    "league_name": "Premier League",
+    "tier": 1,
+    "country_code": "NA",
+    "country_name": "Namibia",
+    "continent": "Africa",
+    "region_cluster": "Africa_South",
+    "path": "/teams/NA/NAM1.json"
+  },
+  "NPL1": {
+    "league_id": "NPL1",
+    "league_name": "Martyr's Memorial A-Division League",
+    "tier": 1,
+    "country_code": "NP",
+    "country_name": "Nepal",
+    "continent": "Asia",
+    "region_cluster": "Asia_South",
+    "path": "/teams/NP/NPL1.json"
+  },
+  "NED1": {
+    "league_id": "NED1",
+    "league_name": "Eredivisie",
+    "tier": 1,
+    "country_code": "NL",
+    "country_name": "Netherlands",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/NL/NED1.json"
+  },
+  "NED2": {
+    "league_id": "NED2",
+    "league_name": "Eerste Divisie",
+    "tier": 2,
+    "country_code": "NL",
+    "country_name": "Netherlands",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/NL/NED2.json"
+  },
+  "NEDCUP": {
+    "league_id": "NEDCUP",
+    "league_name": "KNVB Cup",
+    "tier": 1,
+    "country_code": "NL",
+    "country_name": "Netherlands",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/NL/NEDCUP.json"
+  },
+  "NEDSCUP": {
+    "league_id": "NEDSCUP",
+    "league_name": "Johan Cruyff Shield",
+    "tier": 1,
+    "country_code": "NL",
+    "country_name": "Netherlands",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/NL/NEDSCUP.json"
+  },
+  "NZL1": {
+    "league_id": "NZL1",
+    "league_name": "National League",
+    "tier": 1,
+    "country_code": "NZ",
+    "country_name": "New Zealand",
+    "continent": "Oceania",
+    "region_cluster": "Oceania_Pacific",
+    "path": "/teams/NZ/NZL1.json"
+  },
+  "NCA1A": {
+    "league_id": "NCA1A",
+    "league_name": "Liga Primera Apertura",
+    "tier": 1,
+    "country_code": "NI",
+    "country_name": "Nicaragua",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Central",
+    "path": "/teams/NI/NCA1A.json"
+  },
+  "NCA1C": {
+    "league_id": "NCA1C",
+    "league_name": "Liga Primera Clausura",
+    "tier": 1,
+    "country_code": "NI",
+    "country_name": "Nicaragua",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Central",
+    "path": "/teams/NI/NCA1C.json"
+  },
+  "NER1": {
+    "league_id": "NER1",
+    "league_name": "Super Ligue",
+    "tier": 1,
+    "country_code": "NE",
+    "country_name": "Niger",
+    "continent": "Africa",
+    "region_cluster": "Africa_West",
+    "path": "/teams/NE/NER1.json"
+  },
+  "NGA1": {
+    "league_id": "NGA1",
+    "league_name": "NPFL",
+    "tier": 1,
+    "country_code": "NG",
+    "country_name": "Nigeria",
+    "continent": "Africa",
+    "region_cluster": "Africa_West",
+    "path": "/teams/NG/NGA1.json"
+  },
+  "NGACUP": {
+    "league_id": "NGACUP",
+    "league_name": "Federation Cup",
+    "tier": 1,
+    "country_code": "NG",
+    "country_name": "Nigeria",
+    "continent": "Africa",
+    "region_cluster": "Africa_West",
+    "path": "/teams/NG/NGACUP.json"
+  },
+  "NIR1": {
+    "league_id": "NIR1",
+    "league_name": "NIFL Premiership",
+    "tier": 1,
+    "country_code": "NIR",
+    "country_name": "Northern Ireland",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/NIR/NIR1.json"
+  },
+  "NIR2": {
+    "league_id": "NIR2",
+    "league_name": "NIFL Championship",
+    "tier": 2,
+    "country_code": "NIR",
+    "country_name": "Northern Ireland",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/NIR/NIR2.json"
+  },
+  "NIRCUP": {
+    "league_id": "NIRCUP",
+    "league_name": "Irish Cup",
+    "tier": 1,
+    "country_code": "NIR",
+    "country_name": "Northern Ireland",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/NIR/NIRCUP.json"
+  },
+  "MKD1": {
+    "league_id": "MKD1",
+    "league_name": "Prva Liga",
+    "tier": 1,
+    "country_code": "MK",
+    "country_name": "North Macedonia",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/MK/MKD1.json"
+  },
+  "MKD2": {
+    "league_id": "MKD2",
+    "league_name": "Vtora Liga",
+    "tier": 2,
+    "country_code": "MK",
+    "country_name": "North Macedonia",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/MK/MKD2.json"
+  },
+  "MKDCUP": {
+    "league_id": "MKDCUP",
+    "league_name": "Macedonian Cup",
+    "tier": 1,
+    "country_code": "MK",
+    "country_name": "North Macedonia",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/MK/MKDCUP.json"
+  },
+  "NOR1": {
+    "league_id": "NOR1",
+    "league_name": "Eliteserien",
+    "tier": 1,
+    "country_code": "NO",
+    "country_name": "Norway",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/NO/NOR1.json"
+  },
+  "NOR2": {
+    "league_id": "NOR2",
+    "league_name": "OBOS-Ligaen",
+    "tier": 2,
+    "country_code": "NO",
+    "country_name": "Norway",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/NO/NOR2.json"
+  },
+  "NORCUP": {
+    "league_id": "NORCUP",
+    "league_name": "Norwegian Cup",
+    "tier": 1,
+    "country_code": "NO",
+    "country_name": "Norway",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/NO/NORCUP.json"
+  },
+  "OMA1": {
+    "league_id": "OMA1",
+    "league_name": "Professional League",
+    "tier": 1,
+    "country_code": "OM",
+    "country_name": "Oman",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/OM/OMA1.json"
+  },
+  "PAK1": {
+    "league_id": "PAK1",
+    "league_name": "Pakistan Premier League",
+    "tier": 1,
+    "country_code": "PK",
+    "country_name": "Pakistan",
+    "continent": "Asia",
+    "region_cluster": "Asia_South",
+    "path": "/teams/PK/PAK1.json"
+  },
+  "PLE1": {
+    "league_id": "PLE1",
+    "league_name": "West Bank Premier League",
+    "tier": 1,
+    "country_code": "PS",
+    "country_name": "Palestine",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/PS/PLE1.json"
+  },
+  "PAN1A": {
+    "league_id": "PAN1A",
+    "league_name": "LPF Apertura",
+    "tier": 1,
+    "country_code": "PA",
+    "country_name": "Panama",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Central",
+    "path": "/teams/PA/PAN1A.json"
+  },
+  "PAN1C": {
+    "league_id": "PAN1C",
+    "league_name": "LPF Clausura",
+    "tier": 1,
+    "country_code": "PA",
+    "country_name": "Panama",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Central",
+    "path": "/teams/PA/PAN1C.json"
+  },
+  "PNG1": {
+    "league_id": "PNG1",
+    "league_name": "National Soccer League",
+    "tier": 1,
+    "country_code": "PG",
+    "country_name": "Papua New Guinea",
+    "continent": "Oceania",
+    "region_cluster": "Oceania_Pacific",
+    "path": "/teams/PG/PNG1.json"
+  },
+  "PAR1A": {
+    "league_id": "PAR1A",
+    "league_name": "Primera División Apertura",
+    "tier": 1,
+    "country_code": "PY",
+    "country_name": "Paraguay",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_Central",
+    "path": "/teams/PY/PAR1A.json"
+  },
+  "PAR1C": {
+    "league_id": "PAR1C",
+    "league_name": "Primera División Clausura",
+    "tier": 1,
+    "country_code": "PY",
+    "country_name": "Paraguay",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_Central",
+    "path": "/teams/PY/PAR1C.json"
+  },
+  "PER1": {
+    "league_id": "PER1",
+    "league_name": "Liga 1",
+    "tier": 1,
+    "country_code": "PE",
+    "country_name": "Peru",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_West",
+    "path": "/teams/PE/PER1.json"
+  },
+  "PER2": {
+    "league_id": "PER2",
+    "league_name": "Liga 2",
+    "tier": 2,
+    "country_code": "PE",
+    "country_name": "Peru",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_West",
+    "path": "/teams/PE/PER2.json"
+  },
+  "PERCUP": {
+    "league_id": "PERCUP",
+    "league_name": "Copa Bicentenario",
+    "tier": 1,
+    "country_code": "PE",
+    "country_name": "Peru",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_West",
+    "path": "/teams/PE/PERCUP.json"
+  },
+  "PHI1": {
+    "league_id": "PHI1",
+    "league_name": "Philippines Football League",
+    "tier": 1,
+    "country_code": "PH",
+    "country_name": "Philippines",
+    "continent": "Asia",
+    "region_cluster": "Asia_SouthEast",
+    "path": "/teams/PH/PHI1.json"
+  },
+  "POL1": {
+    "league_id": "POL1",
+    "league_name": "Ekstraklasa",
+    "tier": 1,
+    "country_code": "PL",
+    "country_name": "Poland",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/PL/POL1.json"
+  },
+  "POL2": {
+    "league_id": "POL2",
+    "league_name": "I Liga",
+    "tier": 2,
+    "country_code": "PL",
+    "country_name": "Poland",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/PL/POL2.json"
+  },
+  "POLCUP": {
+    "league_id": "POLCUP",
+    "league_name": "Polish Cup",
+    "tier": 1,
+    "country_code": "PL",
+    "country_name": "Poland",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/PL/POLCUP.json"
+  },
+  "POLSCUP": {
+    "league_id": "POLSCUP",
+    "league_name": "Polish SuperCup",
+    "tier": 1,
+    "country_code": "PL",
+    "country_name": "Poland",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/PL/POLSCUP.json"
+  },
+  "POR1": {
+    "league_id": "POR1",
+    "league_name": "Primeira Liga",
+    "tier": 1,
+    "country_code": "PT",
+    "country_name": "Portugal",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/PT/POR1.json"
+  },
+  "POR2": {
+    "league_id": "POR2",
+    "league_name": "Liga Portugal 2",
+    "tier": 2,
+    "country_code": "PT",
+    "country_name": "Portugal",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/PT/POR2.json"
+  },
+  "POR3": {
+    "league_id": "POR3",
+    "league_name": "Liga 3",
+    "tier": 3,
+    "country_code": "PT",
+    "country_name": "Portugal",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/PT/POR3.json"
+  },
+  "PORCUP": {
+    "league_id": "PORCUP",
+    "league_name": "Taça de Portugal",
+    "tier": 1,
+    "country_code": "PT",
+    "country_name": "Portugal",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/PT/PORCUP.json"
+  },
+  "PORSUP": {
+    "league_id": "PORSUP",
+    "league_name": "Supertaça Cândido de Oliveira",
+    "tier": 1,
+    "country_code": "PT",
+    "country_name": "Portugal",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/PT/PORSUP.json"
+  },
+  "QAT1": {
+    "league_id": "QAT1",
+    "league_name": "Stars League",
+    "tier": 1,
+    "country_code": "QA",
+    "country_name": "Qatar",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/QA/QAT1.json"
+  },
+  "QATCUP": {
+    "league_id": "QATCUP",
+    "league_name": "Emir Cup",
+    "tier": 1,
+    "country_code": "QA",
+    "country_name": "Qatar",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/QA/QATCUP.json"
+  },
+  "ROU1": {
+    "league_id": "ROU1",
+    "league_name": "Liga I",
+    "tier": 1,
+    "country_code": "RO",
+    "country_name": "Romania",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/RO/ROU1.json"
+  },
+  "ROU2": {
+    "league_id": "ROU2",
+    "league_name": "Liga II",
+    "tier": 2,
+    "country_code": "RO",
+    "country_name": "Romania",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/RO/ROU2.json"
+  },
+  "ROUCUP": {
+    "league_id": "ROUCUP",
+    "league_name": "Cupa României",
+    "tier": 1,
+    "country_code": "RO",
+    "country_name": "Romania",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/RO/ROUCUP.json"
+  },
+  "ROUSUP": {
+    "league_id": "ROUSUP",
+    "league_name": "Supercupa României",
+    "tier": 1,
+    "country_code": "RO",
+    "country_name": "Romania",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/RO/ROUSUP.json"
+  },
+  "SAM1": {
+    "league_id": "SAM1",
+    "league_name": "Samoa National League",
+    "tier": 1,
+    "country_code": "WS",
+    "country_name": "Samoa",
+    "continent": "Oceania",
+    "region_cluster": "Oceania_Pacific",
+    "path": "/teams/WS/SAM1.json"
+  },
+  "SMR1": {
+    "league_id": "SMR1",
+    "league_name": "Campionato Sammarinese",
+    "tier": 1,
+    "country_code": "SM",
+    "country_name": "San Marino",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/SM/SMR1.json"
+  },
+  "SMRCUP": {
+    "league_id": "SMRCUP",
+    "league_name": "Coppa Titano",
+    "tier": 1,
+    "country_code": "SM",
+    "country_name": "San Marino",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/SM/SMRCUP.json"
+  },
+  "STP1": {
+    "league_id": "STP1",
+    "league_name": "Campeonato Nacional",
+    "tier": 1,
+    "country_code": "ST",
+    "country_name": "Sao Tome and Principe",
+    "continent": "Africa",
+    "region_cluster": "Africa_Central",
+    "path": "/teams/ST/STP1.json"
+  },
+  "KSA1": {
+    "league_id": "KSA1",
+    "league_name": "Saudi Pro League",
+    "tier": 1,
+    "country_code": "SA",
+    "country_name": "Saudi Arabia",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/SA/KSA1.json"
+  },
+  "KSA2": {
+    "league_id": "KSA2",
+    "league_name": "First Division League",
+    "tier": 2,
+    "country_code": "SA",
+    "country_name": "Saudi Arabia",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/SA/KSA2.json"
+  },
+  "KSACUP": {
+    "league_id": "KSACUP",
+    "league_name": "King Cup",
+    "tier": 1,
+    "country_code": "SA",
+    "country_name": "Saudi Arabia",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/SA/KSACUP.json"
+  },
+  "KSASUP": {
+    "league_id": "KSASUP",
+    "league_name": "Saudi Super Cup",
+    "tier": 1,
+    "country_code": "SA",
+    "country_name": "Saudi Arabia",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/SA/KSASUP.json"
+  },
+  "SCO1": {
+    "league_id": "SCO1",
+    "league_name": "Scottish Premiership",
+    "tier": 1,
+    "country_code": "SCO",
+    "country_name": "Scotland",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/SCO/SCO1.json"
+  },
+  "SCO2": {
+    "league_id": "SCO2",
+    "league_name": "Scottish Championship",
+    "tier": 2,
+    "country_code": "SCO",
+    "country_name": "Scotland",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/SCO/SCO2.json"
+  },
+  "SCO3": {
+    "league_id": "SCO3",
+    "league_name": "Scottish League One",
+    "tier": 3,
+    "country_code": "SCO",
+    "country_name": "Scotland",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/SCO/SCO3.json"
+  },
+  "SCO4": {
+    "league_id": "SCO4",
+    "league_name": "Scottish League Two",
+    "tier": 4,
+    "country_code": "SCO",
+    "country_name": "Scotland",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/SCO/SCO4.json"
+  },
+  "SCOCUP": {
+    "league_id": "SCOCUP",
+    "league_name": "Scottish Cup",
+    "tier": 1,
+    "country_code": "SCO",
+    "country_name": "Scotland",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/SCO/SCOCUP.json"
+  },
+  "SCOLCUP": {
+    "league_id": "SCOLCUP",
+    "league_name": "Scottish League Cup",
+    "tier": 1,
+    "country_code": "SCO",
+    "country_name": "Scotland",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/SCO/SCOLCUP.json"
+  },
+  "SEN1": {
+    "league_id": "SEN1",
+    "league_name": "Ligue 1",
+    "tier": 1,
+    "country_code": "SN",
+    "country_name": "Senegal",
+    "continent": "Africa",
+    "region_cluster": "Africa_West",
+    "path": "/teams/SN/SEN1.json"
+  },
+  "SENCUP": {
+    "league_id": "SENCUP",
+    "league_name": "Coupe du Sénégal",
+    "tier": 1,
+    "country_code": "SN",
+    "country_name": "Senegal",
+    "continent": "Africa",
+    "region_cluster": "Africa_West",
+    "path": "/teams/SN/SENCUP.json"
+  },
+  "SRB1": {
+    "league_id": "SRB1",
+    "league_name": "SuperLiga",
+    "tier": 1,
+    "country_code": "RS",
+    "country_name": "Serbia",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/RS/SRB1.json"
+  },
+  "SRB2": {
+    "league_id": "SRB2",
+    "league_name": "Prva Liga",
+    "tier": 2,
+    "country_code": "RS",
+    "country_name": "Serbia",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/RS/SRB2.json"
+  },
+  "SRBCUP": {
+    "league_id": "SRBCUP",
+    "league_name": "Serbian Cup",
+    "tier": 1,
+    "country_code": "RS",
+    "country_name": "Serbia",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/RS/SRBCUP.json"
+  },
+  "SEY1": {
+    "league_id": "SEY1",
+    "league_name": "First Division",
+    "tier": 1,
+    "country_code": "SC",
+    "country_name": "Seychelles",
+    "continent": "Africa",
+    "region_cluster": "Africa_East",
+    "path": "/teams/SC/SEY1.json"
+  },
+  "SLE1": {
+    "league_id": "SLE1",
+    "league_name": "Premier League",
+    "tier": 1,
+    "country_code": "SL",
+    "country_name": "Sierra Leone",
+    "continent": "Africa",
+    "region_cluster": "Africa_West",
+    "path": "/teams/SL/SLE1.json"
+  },
+  "SIN1": {
+    "league_id": "SIN1",
+    "league_name": "Singapore Premier League",
+    "tier": 1,
+    "country_code": "SG",
+    "country_name": "Singapore",
+    "continent": "Asia",
+    "region_cluster": "Asia_SouthEast",
+    "path": "/teams/SG/SIN1.json"
+  },
+  "SVK1": {
+    "league_id": "SVK1",
+    "league_name": "Fortuna Liga",
+    "tier": 1,
+    "country_code": "SK",
+    "country_name": "Slovakia",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/SK/SVK1.json"
+  },
+  "SVK2": {
+    "league_id": "SVK2",
+    "league_name": "2. Liga",
+    "tier": 2,
+    "country_code": "SK",
+    "country_name": "Slovakia",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/SK/SVK2.json"
+  },
+  "SVKCUP": {
+    "league_id": "SVKCUP",
+    "league_name": "Slovak Cup",
+    "tier": 1,
+    "country_code": "SK",
+    "country_name": "Slovakia",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/SK/SVKCUP.json"
+  },
+  "SVN1": {
+    "league_id": "SVN1",
+    "league_name": "PrvaLiga",
+    "tier": 1,
+    "country_code": "SI",
+    "country_name": "Slovenia",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/SI/SVN1.json"
+  },
+  "SVN2": {
+    "league_id": "SVN2",
+    "league_name": "2. SNL",
+    "tier": 2,
+    "country_code": "SI",
+    "country_name": "Slovenia",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/SI/SVN2.json"
+  },
+  "SVNCUP": {
+    "league_id": "SVNCUP",
+    "league_name": "Slovenian Cup",
+    "tier": 1,
+    "country_code": "SI",
+    "country_name": "Slovenia",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/SI/SVNCUP.json"
+  },
+  "SOL1": {
+    "league_id": "SOL1",
+    "league_name": "Solomon Islands S-League",
+    "tier": 1,
+    "country_code": "SB",
+    "country_name": "Solomon Islands",
+    "continent": "Oceania",
+    "region_cluster": "Oceania_Pacific",
+    "path": "/teams/SB/SOL1.json"
+  },
+  "SOM1": {
+    "league_id": "SOM1",
+    "league_name": "Somali Premier League",
+    "tier": 1,
+    "country_code": "SO",
+    "country_name": "Somalia",
+    "continent": "Africa",
+    "region_cluster": "Africa_East",
+    "path": "/teams/SO/SOM1.json"
+  },
+  "RSA1": {
+    "league_id": "RSA1",
+    "league_name": "Premier Division",
+    "tier": 1,
+    "country_code": "ZA",
+    "country_name": "South Africa",
+    "continent": "Africa",
+    "region_cluster": "Africa_South",
+    "path": "/teams/ZA/RSA1.json"
+  },
+  "RSA2": {
+    "league_id": "RSA2",
+    "league_name": "Motsepe Foundation Championship",
+    "tier": 2,
+    "country_code": "ZA",
+    "country_name": "South Africa",
+    "continent": "Africa",
+    "region_cluster": "Africa_South",
+    "path": "/teams/ZA/RSA2.json"
+  },
+  "RSACUP": {
+    "league_id": "RSACUP",
+    "league_name": "Nedbank Cup",
+    "tier": 1,
+    "country_code": "ZA",
+    "country_name": "South Africa",
+    "continent": "Africa",
+    "region_cluster": "Africa_South",
+    "path": "/teams/ZA/RSACUP.json"
+  },
+  "KOR1": {
+    "league_id": "KOR1",
+    "league_name": "K League 1",
+    "tier": 1,
+    "country_code": "KR",
+    "country_name": "South Korea",
+    "continent": "Asia",
+    "region_cluster": "Asia_East",
+    "path": "/teams/KR/KOR1.json"
+  },
+  "KOR2": {
+    "league_id": "KOR2",
+    "league_name": "K League 2",
+    "tier": 2,
+    "country_code": "KR",
+    "country_name": "South Korea",
+    "continent": "Asia",
+    "region_cluster": "Asia_East",
+    "path": "/teams/KR/KOR2.json"
+  },
+  "KORCUP": {
+    "league_id": "KORCUP",
+    "league_name": "Korean FA Cup",
+    "tier": 1,
+    "country_code": "KR",
+    "country_name": "South Korea",
+    "continent": "Asia",
+    "region_cluster": "Asia_East",
+    "path": "/teams/KR/KORCUP.json"
+  },
+  "SSD1": {
+    "league_id": "SSD1",
+    "league_name": "South Sudan Premier League",
+    "tier": 1,
+    "country_code": "SS",
+    "country_name": "South Sudan",
+    "continent": "Africa",
+    "region_cluster": "Africa_East",
+    "path": "/teams/SS/SSD1.json"
+  },
+  "ESP1": {
+    "league_id": "ESP1",
+    "league_name": "LaLiga",
+    "tier": 1,
+    "country_code": "ES",
+    "country_name": "Spain",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/ES/ESP1.json"
+  },
+  "ESP2": {
+    "league_id": "ESP2",
+    "league_name": "LaLiga 2",
+    "tier": 2,
+    "country_code": "ES",
+    "country_name": "Spain",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/ES/ESP2.json"
+  },
+  "ESP3": {
+    "league_id": "ESP3",
+    "league_name": "Primera Federación",
+    "tier": 3,
+    "country_code": "ES",
+    "country_name": "Spain",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/ES/ESP3.json"
+  },
+  "ESP4": {
+    "league_id": "ESP4",
+    "league_name": "Segunda Federación",
+    "tier": 4,
+    "country_code": "ES",
+    "country_name": "Spain",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/ES/ESP4.json"
+  },
+  "ESPCUP": {
+    "league_id": "ESPCUP",
+    "league_name": "Copa del Rey",
+    "tier": 1,
+    "country_code": "ES",
+    "country_name": "Spain",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/ES/ESPCUP.json"
+  },
+  "ESPSUP": {
+    "league_id": "ESPSUP",
+    "league_name": "Supercopa",
+    "tier": 1,
+    "country_code": "ES",
+    "country_name": "Spain",
+    "continent": "Europe",
+    "region_cluster": "Europe_South",
+    "path": "/teams/ES/ESPSUP.json"
+  },
+  "SRI1": {
+    "league_id": "SRI1",
+    "league_name": "Champions League",
+    "tier": 1,
+    "country_code": "LK",
+    "country_name": "Sri Lanka",
+    "continent": "Asia",
+    "region_cluster": "Asia_South",
+    "path": "/teams/LK/SRI1.json"
+  },
+  "SDN1": {
+    "league_id": "SDN1",
+    "league_name": "Sudan Premier League",
+    "tier": 1,
+    "country_code": "SD",
+    "country_name": "Sudan",
+    "continent": "Africa",
+    "region_cluster": "Africa_North",
+    "path": "/teams/SD/SDN1.json"
+  },
+  "SUR1": {
+    "league_id": "SUR1",
+    "league_name": "Eerste Divisie",
+    "tier": 1,
+    "country_code": "SR",
+    "country_name": "Suriname",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_North",
+    "path": "/teams/SR/SUR1.json"
+  },
+  "SWE1": {
+    "league_id": "SWE1",
+    "league_name": "Allsvenskan",
+    "tier": 1,
+    "country_code": "SE",
+    "country_name": "Sweden",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/SE/SWE1.json"
+  },
+  "SWE2": {
+    "league_id": "SWE2",
+    "league_name": "Superettan",
+    "tier": 2,
+    "country_code": "SE",
+    "country_name": "Sweden",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/SE/SWE2.json"
+  },
+  "SWE3": {
+    "league_id": "SWE3",
+    "league_name": "Ettan",
+    "tier": 3,
+    "country_code": "SE",
+    "country_name": "Sweden",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/SE/SWE3.json"
+  },
+  "SWECUP": {
+    "league_id": "SWECUP",
+    "league_name": "Svenska Cupen",
+    "tier": 1,
+    "country_code": "SE",
+    "country_name": "Sweden",
+    "continent": "Europe",
+    "region_cluster": "Europe_North",
+    "path": "/teams/SE/SWECUP.json"
+  },
+  "SUI1": {
+    "league_id": "SUI1",
+    "league_name": "Super League",
+    "tier": 1,
+    "country_code": "CH",
+    "country_name": "Switzerland",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/CH/SUI1.json"
+  },
+  "SUI2": {
+    "league_id": "SUI2",
+    "league_name": "Challenge League",
+    "tier": 2,
+    "country_code": "CH",
+    "country_name": "Switzerland",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/CH/SUI2.json"
+  },
+  "SUICUP": {
+    "league_id": "SUICUP",
+    "league_name": "Swiss Cup",
+    "tier": 1,
+    "country_code": "CH",
+    "country_name": "Switzerland",
+    "continent": "Europe",
+    "region_cluster": "Europe_Central",
+    "path": "/teams/CH/SUICUP.json"
+  },
+  "SYR1": {
+    "league_id": "SYR1",
+    "league_name": "Premier League",
+    "tier": 1,
+    "country_code": "SY",
+    "country_name": "Syria",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/SY/SYR1.json"
+  },
+  "TWN1": {
+    "league_id": "TWN1",
+    "league_name": "Taiwan Football Premier League",
+    "tier": 1,
+    "country_code": "TW",
+    "country_name": "Taiwan",
+    "continent": "Asia",
+    "region_cluster": "Asia_East",
+    "path": "/teams/TW/TWN1.json"
+  },
+  "TJK1": {
+    "league_id": "TJK1",
+    "league_name": "Vysshaya Liga",
+    "tier": 1,
+    "country_code": "TJ",
+    "country_name": "Tajikistan",
+    "continent": "Asia",
+    "region_cluster": "Asia_Central",
+    "path": "/teams/TJ/TJK1.json"
+  },
+  "TZA1": {
+    "league_id": "TZA1",
+    "league_name": "Premier League",
+    "tier": 1,
+    "country_code": "TZ",
+    "country_name": "Tanzania",
+    "continent": "Africa",
+    "region_cluster": "Africa_East",
+    "path": "/teams/TZ/TZA1.json"
+  },
+  "TZACUP": {
+    "league_id": "TZACUP",
+    "league_name": "Azam Sports Federation Cup",
+    "tier": 1,
+    "country_code": "TZ",
+    "country_name": "Tanzania",
+    "continent": "Africa",
+    "region_cluster": "Africa_East",
+    "path": "/teams/TZ/TZACUP.json"
+  },
+  "THA1": {
+    "league_id": "THA1",
+    "league_name": "Thai League 1",
+    "tier": 1,
+    "country_code": "TH",
+    "country_name": "Thailand",
+    "continent": "Asia",
+    "region_cluster": "Asia_SouthEast",
+    "path": "/teams/TH/THA1.json"
+  },
+  "THA2": {
+    "league_id": "THA2",
+    "league_name": "Thai League 2",
+    "tier": 2,
+    "country_code": "TH",
+    "country_name": "Thailand",
+    "continent": "Asia",
+    "region_cluster": "Asia_SouthEast",
+    "path": "/teams/TH/THA2.json"
+  },
+  "THACUP": {
+    "league_id": "THACUP",
+    "league_name": "FA Cup",
+    "tier": 1,
+    "country_code": "TH",
+    "country_name": "Thailand",
+    "continent": "Asia",
+    "region_cluster": "Asia_SouthEast",
+    "path": "/teams/TH/THACUP.json"
+  },
+  "THALEAGCUP": {
+    "league_id": "THALEAGCUP",
+    "league_name": "League Cup",
+    "tier": 1,
+    "country_code": "TH",
+    "country_name": "Thailand",
+    "continent": "Asia",
+    "region_cluster": "Asia_SouthEast",
+    "path": "/teams/TH/THALEAGCUP.json"
+  },
+  "TLS1": {
+    "league_id": "TLS1",
+    "league_name": "Liga Futebol Amadora",
+    "tier": 1,
+    "country_code": "TL",
+    "country_name": "Timor-Leste",
+    "continent": "Asia",
+    "region_cluster": "Asia_SouthEast",
+    "path": "/teams/TL/TLS1.json"
+  },
+  "TGO1": {
+    "league_id": "TGO1",
+    "league_name": "Championnat National",
+    "tier": 1,
+    "country_code": "TG",
+    "country_name": "Togo",
+    "continent": "Africa",
+    "region_cluster": "Africa_West",
+    "path": "/teams/TG/TGO1.json"
+  },
+  "TON1": {
+    "league_id": "TON1",
+    "league_name": "Major League",
+    "tier": 1,
+    "country_code": "TO",
+    "country_name": "Tonga",
+    "continent": "Oceania",
+    "region_cluster": "Oceania_Pacific",
+    "path": "/teams/TO/TON1.json"
+  },
+  "TTO1": {
+    "league_id": "TTO1",
+    "league_name": "TT Premier Football League",
+    "tier": 1,
+    "country_code": "TT",
+    "country_name": "Trinidad and Tobago",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Caribbean",
+    "path": "/teams/TT/TTO1.json"
+  },
+  "TUN1": {
+    "league_id": "TUN1",
+    "league_name": "Ligue 1",
+    "tier": 1,
+    "country_code": "TN",
+    "country_name": "Tunisia",
+    "continent": "Africa",
+    "region_cluster": "Africa_North",
+    "path": "/teams/TN/TUN1.json"
+  },
+  "TUNCUP": {
+    "league_id": "TUNCUP",
+    "league_name": "Tunisian Cup",
+    "tier": 1,
+    "country_code": "TN",
+    "country_name": "Tunisia",
+    "continent": "Africa",
+    "region_cluster": "Africa_North",
+    "path": "/teams/TN/TUNCUP.json"
+  },
+  "TUR1": {
+    "league_id": "TUR1",
+    "league_name": "Süper Lig",
+    "tier": 1,
+    "country_code": "TR",
+    "country_name": "Turkey",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/TR/TUR1.json"
+  },
+  "TUR2": {
+    "league_id": "TUR2",
+    "league_name": "1. Lig",
+    "tier": 2,
+    "country_code": "TR",
+    "country_name": "Turkey",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/TR/TUR2.json"
+  },
+  "TUR3": {
+    "league_id": "TUR3",
+    "league_name": "2. Lig",
+    "tier": 3,
+    "country_code": "TR",
+    "country_name": "Turkey",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/TR/TUR3.json"
+  },
+  "TURCUP": {
+    "league_id": "TURCUP",
+    "league_name": "Turkish Cup",
+    "tier": 1,
+    "country_code": "TR",
+    "country_name": "Turkey",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/TR/TURCUP.json"
+  },
+  "TURSUP": {
+    "league_id": "TURSUP",
+    "league_name": "Turkish Super Cup",
+    "tier": 1,
+    "country_code": "TR",
+    "country_name": "Turkey",
+    "continent": "Europe",
+    "region_cluster": "Europe_SouthEast",
+    "path": "/teams/TR/TURSUP.json"
+  },
+  "TKM1": {
+    "league_id": "TKM1",
+    "league_name": "Ýokary Liga",
+    "tier": 1,
+    "country_code": "TM",
+    "country_name": "Turkmenistan",
+    "continent": "Asia",
+    "region_cluster": "Asia_Central",
+    "path": "/teams/TM/TKM1.json"
+  },
+  "UGA1": {
+    "league_id": "UGA1",
+    "league_name": "Uganda Premier League",
+    "tier": 1,
+    "country_code": "UG",
+    "country_name": "Uganda",
+    "continent": "Africa",
+    "region_cluster": "Africa_East",
+    "path": "/teams/UG/UGA1.json"
+  },
+  "UKR1": {
+    "league_id": "UKR1",
+    "league_name": "Premier League",
+    "tier": 1,
+    "country_code": "UA",
+    "country_name": "Ukraine",
+    "continent": "Europe",
+    "region_cluster": "Europe_East",
+    "path": "/teams/UA/UKR1.json"
+  },
+  "UKR2": {
+    "league_id": "UKR2",
+    "league_name": "First League",
+    "tier": 2,
+    "country_code": "UA",
+    "country_name": "Ukraine",
+    "continent": "Europe",
+    "region_cluster": "Europe_East",
+    "path": "/teams/UA/UKR2.json"
+  },
+  "UKRCUP": {
+    "league_id": "UKRCUP",
+    "league_name": "Ukrainian Cup",
+    "tier": 1,
+    "country_code": "UA",
+    "country_name": "Ukraine",
+    "continent": "Europe",
+    "region_cluster": "Europe_East",
+    "path": "/teams/UA/UKRCUP.json"
+  },
+  "UAE1": {
+    "league_id": "UAE1",
+    "league_name": "Pro League",
+    "tier": 1,
+    "country_code": "AE",
+    "country_name": "United Arab Emirates",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/AE/UAE1.json"
+  },
+  "UAECUP": {
+    "league_id": "UAECUP",
+    "league_name": "President's Cup",
+    "tier": 1,
+    "country_code": "AE",
+    "country_name": "United Arab Emirates",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/AE/UAECUP.json"
+  },
+  "USA1": {
+    "league_id": "USA1",
+    "league_name": "Major League Soccer",
+    "tier": 1,
+    "country_code": "US",
+    "country_name": "United States",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Central",
+    "path": "/teams/US/USA1.json"
+  },
+  "USA2": {
+    "league_id": "USA2",
+    "league_name": "USL Championship",
+    "tier": 2,
+    "country_code": "US",
+    "country_name": "United States",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Central",
+    "path": "/teams/US/USA2.json"
+  },
+  "USACUP": {
+    "league_id": "USACUP",
+    "league_name": "U.S. Open Cup",
+    "tier": 1,
+    "country_code": "US",
+    "country_name": "United States",
+    "continent": "NorthAmerica",
+    "region_cluster": "NorthAmerica_Central",
+    "path": "/teams/US/USACUP.json"
+  },
+  "URU1A": {
+    "league_id": "URU1A",
+    "league_name": "Primera División Apertura",
+    "tier": 1,
+    "country_code": "UY",
+    "country_name": "Uruguay",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_South",
+    "path": "/teams/UY/URU1A.json"
+  },
+  "URU1C": {
+    "league_id": "URU1C",
+    "league_name": "Primera División Clausura",
+    "tier": 1,
+    "country_code": "UY",
+    "country_name": "Uruguay",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_South",
+    "path": "/teams/UY/URU1C.json"
+  },
+  "URUCUP": {
+    "league_id": "URUCUP",
+    "league_name": "Copa Uruguay",
+    "tier": 1,
+    "country_code": "UY",
+    "country_name": "Uruguay",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_South",
+    "path": "/teams/UY/URUCUP.json"
+  },
+  "UZB1": {
+    "league_id": "UZB1",
+    "league_name": "Super League",
+    "tier": 1,
+    "country_code": "UZ",
+    "country_name": "Uzbekistan",
+    "continent": "Asia",
+    "region_cluster": "Asia_Central",
+    "path": "/teams/UZ/UZB1.json"
+  },
+  "UZBCUP": {
+    "league_id": "UZBCUP",
+    "league_name": "Uzbek Cup",
+    "tier": 1,
+    "country_code": "UZ",
+    "country_name": "Uzbekistan",
+    "continent": "Asia",
+    "region_cluster": "Asia_Central",
+    "path": "/teams/UZ/UZBCUP.json"
+  },
+  "VAN1": {
+    "league_id": "VAN1",
+    "league_name": "Premia Divisen",
+    "tier": 1,
+    "country_code": "VU",
+    "country_name": "Vanuatu",
+    "continent": "Oceania",
+    "region_cluster": "Oceania_Pacific",
+    "path": "/teams/VU/VAN1.json"
+  },
+  "VEN1": {
+    "league_id": "VEN1",
+    "league_name": "Primera División",
+    "tier": 1,
+    "country_code": "VE",
+    "country_name": "Venezuela",
+    "continent": "SouthAmerica",
+    "region_cluster": "SouthAmerica_North",
+    "path": "/teams/VE/VEN1.json"
+  },
+  "VIE1": {
+    "league_id": "VIE1",
+    "league_name": "V.League 1",
+    "tier": 1,
+    "country_code": "VN",
+    "country_name": "Vietnam",
+    "continent": "Asia",
+    "region_cluster": "Asia_SouthEast",
+    "path": "/teams/VN/VIE1.json"
+  },
+  "VIECUP": {
+    "league_id": "VIECUP",
+    "league_name": "Vietnamese Cup",
+    "tier": 1,
+    "country_code": "VN",
+    "country_name": "Vietnam",
+    "continent": "Asia",
+    "region_cluster": "Asia_SouthEast",
+    "path": "/teams/VN/VIECUP.json"
+  },
+  "WAL1": {
+    "league_id": "WAL1",
+    "league_name": "Cymru Premier",
+    "tier": 1,
+    "country_code": "WAL",
+    "country_name": "Wales",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/WAL/WAL1.json"
+  },
+  "WALCUP": {
+    "league_id": "WALCUP",
+    "league_name": "Welsh Cup",
+    "tier": 1,
+    "country_code": "WAL",
+    "country_name": "Wales",
+    "continent": "Europe",
+    "region_cluster": "Europe_West",
+    "path": "/teams/WAL/WALCUP.json"
+  },
+  "YEM1": {
+    "league_id": "YEM1",
+    "league_name": "Yemeni League",
+    "tier": 1,
+    "country_code": "YE",
+    "country_name": "Yemen",
+    "continent": "Asia",
+    "region_cluster": "Asia_West",
+    "path": "/teams/YE/YEM1.json"
+  },
+  "ZAM1": {
+    "league_id": "ZAM1",
+    "league_name": "Super League",
+    "tier": 1,
+    "country_code": "ZM",
+    "country_name": "Zambia",
+    "continent": "Africa",
+    "region_cluster": "Africa_South",
+    "path": "/teams/ZM/ZAM1.json"
+  },
+  "ZIM1": {
+    "league_id": "ZIM1",
+    "league_name": "Premier Soccer League",
+    "tier": 1,
+    "country_code": "ZW",
+    "country_name": "Zimbabwe",
+    "continent": "Africa",
+    "region_cluster": "Africa_South",
+    "path": "/teams/ZW/ZIM1.json"
+  }
+}
