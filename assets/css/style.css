@@ -230,7 +230,123 @@ body {
 ============================================================ */
 
 #right-panel {
-    max-height: 220px;       /* << ONLY ADDITION YOU ASKED FOR */
-    overflow-y: auto;        
-    padding-right: 6px;
+  max-height: 220px;       /* << ONLY ADDITION YOU ASKED FOR */
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+/* ============================================================
+   ODDS CENTER PANELS (MIDDLE COLUMN)
+============================================================ */
+
+#center-panel h2 {
+  margin: 8px 0 10px;
+}
+
+.odds-panel {
+  margin-bottom: 10px;
+  padding: 8px 10px;
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-soft);
+  font-size: 13px;
+}
+
+.odds-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.odds-panel h3 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.odds-meta {
+  font-size: 11px;
+  color: var(--text-soft);
+  text-align: right;
+}
+
+.odds-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.odds-empty {
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+.odds-row {
+  display: grid;
+  grid-template-columns: 2fr 2fr 2fr auto;
+  gap: 6px;
+  padding: 4px 6px;
+  border-radius: 10px;
+  background: var(--bg-soft);
+  align-items: center;
+}
+
+.odds-row.up {
+  background: rgba(37, 99, 235, 0.18);
+}
+
+.odds-row.down {
+  background: rgba(248, 113, 113, 0.18);
+}
+
+.odds-match {
+  font-weight: 600;
+}
+
+.odds-league {
+  font-size: 11px;
+  color: var(--text-soft);
+}
+
+.odds-market {
+  font-weight: 500;
+}
+
+.odds-bookmaker {
+  font-size: 11px;
+  color: var(--text-soft);
+}
+
+.odds-change {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.odds-old {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+.odds-arrow {
+  font-weight: 700;
+}
+
+.odds-new {
+  font-weight: 700;
+}
+
+.odds-pct {
+  font-size: 11px;
+  color: var(--text-soft);
+}
+
+.odds-severity {
+  text-align: right;
+  font-size: 11px;
+  color: var(--text-soft);
 }

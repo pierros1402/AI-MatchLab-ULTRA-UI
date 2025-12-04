@@ -125,10 +125,39 @@
 
     <!-- CENTER PANEL -->
     <main id="center-panel" class="panel-shell">
-      <h2>Match Center</h2>
-      <div id="match-details" class="glass-card">
-        <div class="placeholder">Select a match to view details.</div>
-      </div>
+      <h2>Odds Intelligence Center</h2>
+
+      <section id="panel-greek-odds" class="odds-panel">
+        <div class="odds-header-row">
+          <h3>Greek Panel · Bet365 · Stoiximan · OPAP</h3>
+          <div class="odds-meta" id="greek-odds-meta"></div>
+        </div>
+        <div class="odds-body" id="greek-odds-body"></div>
+      </section>
+
+      <section id="panel-betfair-odds" class="odds-panel">
+        <div class="odds-header-row">
+          <h3>Betfair Exchange · Sharp Money</h3>
+          <div class="odds-meta" id="betfair-odds-meta"></div>
+        </div>
+        <div class="odds-body" id="betfair-odds-body"></div>
+      </section>
+
+      <section id="panel-eu-odds" class="odds-panel">
+        <div class="odds-header-row">
+          <h3>European Panel · WH · Ladbrokes · Unibet · Pinnacle · Bwin</h3>
+          <div class="odds-meta" id="eu-odds-meta"></div>
+        </div>
+        <div class="odds-body" id="eu-odds-body"></div>
+      </section>
+
+      <section id="panel-asian-odds" class="odds-panel">
+        <div class="odds-header-row">
+          <h3>Asian Panel · Pinnacle · 188BET · SBO · 12BET · MaxBet · Dafabet</h3>
+          <div class="odds-meta" id="asian-odds-meta"></div>
+        </div>
+        <div class="odds-body" id="asian-odds-body"></div>
+      </section>
     </main>
 
     <!-- RIGHT PANEL -->
@@ -166,8 +195,9 @@
   </nav>
 
   <!-- SCRIPTS -->
-  <script src="/assets/js/ui/accordion.js"></script>
+  <script src="/assets/js/ui/accordion.js"> </script>
   <script type="module" src="./assets/js/ui/app.js"></script>
+  <script type="module" src="./assets/js/odds/odds-center.js"></script>
   <script type="module">
     import { initTheme, toggleTheme } from "/assets/js/theme.js";
     import { initLiveEngine, manualRefreshLive } from "/assets/js/live/live-engine.js";
