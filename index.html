@@ -160,12 +160,14 @@
       </section>
     </main>
 
-    <!-- RIGHT PANEL -->
-    <aside id="right-panel" class="panel-shell">
-      <h2>Live Matches</h2>
-      <div id="live-matches-list"></div>
-    </aside>
+<!-- RIGHT PANEL (dynamic: team panel, league details, matches, etc.) -->
+<aside id="right-panel" class="panel-shell">
+  <div id="right-panel-content" class="right-panel-content">
+    <!-- JS will inject Team Panel / Match Details / League Info -->
+    <div class="placeholder-msg">Select a team or league to view details.</div>
+    <div id="live-matches-list" style="display:none;"></div>
   </div>
+</aside>
 
   <!-- FOOTER LEGALS -->
   <footer class="app-footer" id="app-footer">
@@ -196,7 +198,7 @@
 
   <!-- SCRIPTS -->
   <script src="/assets/js/ui/accordion.js"> </script>
-  <script type="module" src="./assets/js/ui/app.js"></script>
+  <script type="module" src="/assets/js/ui/app.js"></script>
   <script type="module" src="./assets/js/odds/odds-center.js"></script>
   <script type="module">
     import { initTheme, toggleTheme } from "/assets/js/theme.js";
@@ -375,5 +377,8 @@
       main();
     }
   </script>
+
+  <!-- MAIN APPLICATION SCRIPT (Navigation, Panels, Teams, Leagues) -->
+  <script type="module" src="/assets/js/ui/app.js"></script>
 </body>
 </html>

@@ -1,0 +1,446 @@
+{
+  "5": {
+    "name": "AC Milan",
+    "slug": "ac-milan",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "11": {
+    "name": "Arsenal FC",
+    "slug": "arsenal-fc",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "12": {
+    "name": "AS Roma",
+    "slug": "as-roma",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "29": {
+    "name": "Everton FC",
+    "slug": "everton-fc",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "31": {
+    "name": "Liverpool FC",
+    "slug": "liverpool-fc",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "46": {
+    "name": "Inter Milan",
+    "slug": "inter-milan",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "130": {
+    "name": "Parma Calcio 1913",
+    "slug": "parma-calcio-1913",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "148": {
+    "name": "Tottenham Hotspur",
+    "slug": "tottenham-hotspur",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "180": {
+    "name": "Southampton FC",
+    "slug": "southampton-fc",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "252": {
+    "name": "Genoa CFC",
+    "slug": "genoa-cfc",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "265": {
+    "name": "Panathinaikos FC",
+    "slug": "panathinaikos-fc",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "276": {
+    "name": "Hellas Verona",
+    "slug": "hellas-verona",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "281": {
+    "name": "Manchester City",
+    "slug": "manchester-city",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "350": {
+    "name": "Sheffield United",
+    "slug": "sheffield-united",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "379": {
+    "name": "West Ham United",
+    "slug": "west-ham-united",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "380": {
+    "name": "US Salernitana 1919",
+    "slug": "us-salernitana-1919",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "398": {
+    "name": "SS Lazio",
+    "slug": "ss-lazio",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "399": {
+    "name": "Leeds United",
+    "slug": "leeds-united",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "405": {
+    "name": "Aston Villa",
+    "slug": "aston-villa",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "410": {
+    "name": "Udinese Calcio",
+    "slug": "udinese-calcio",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "416": {
+    "name": "Torino FC",
+    "slug": "torino-fc",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "430": {
+    "name": "ACF Fiorentina",
+    "slug": "acf-fiorentina",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "441": {
+    "name": "Apollon Smyrnis",
+    "slug": "apollon-smyrnis",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "506": {
+    "name": "Juventus FC",
+    "slug": "juventus-fc",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "543": {
+    "name": "Wolverhampton Wanderers",
+    "slug": "wolverhampton-wanderers",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "553": {
+    "name": "Ionikos Nikeas",
+    "slug": "ionikos-nikeas",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "605": {
+    "name": "Aris Thessaloniki",
+    "slug": "aris-thessaloniki",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "607": {
+    "name": "Venezia FC",
+    "slug": "venezia-fc",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "631": {
+    "name": "Chelsea FC",
+    "slug": "chelsea-fc",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "653": {
+    "name": "OFI Crete FC",
+    "slug": "ofi-crete-fc",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "677": {
+    "name": "Ipswich Town",
+    "slug": "ipswich-town",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "683": {
+    "name": "Olympiacos Piraeus",
+    "slug": "olympiacos-piraeus",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "703": {
+    "name": "Nottingham Forest",
+    "slug": "nottingham-forest",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "749": {
+    "name": "FC Empoli",
+    "slug": "fc-empoli",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "762": {
+    "name": "Newcastle United",
+    "slug": "newcastle-united",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "800": {
+    "name": "Atalanta BC",
+    "slug": "atalanta-bc",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "873": {
+    "name": "Crystal Palace",
+    "slug": "crystal-palace",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "931": {
+    "name": "Fulham FC",
+    "slug": "fulham-fc",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "984": {
+    "name": "West Bromwich Albion",
+    "slug": "west-bromwich-albion",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "985": {
+    "name": "Manchester United",
+    "slug": "manchester-united",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "989": {
+    "name": "AFC Bournemouth",
+    "slug": "afc-bournemouth",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "1003": {
+    "name": "Leicester City",
+    "slug": "leicester-city",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "1005": {
+    "name": "US Lecce",
+    "slug": "us-lecce",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "1010": {
+    "name": "Watford FC",
+    "slug": "watford-fc",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "1025": {
+    "name": "Bologna FC 1909",
+    "slug": "bologna-fc-1909",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "1031": {
+    "name": "Luton Town",
+    "slug": "luton-town",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "1038": {
+    "name": "UC Sampdoria",
+    "slug": "uc-sampdoria",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "1047": {
+    "name": "Como 1907",
+    "slug": "como-1907",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "1091": {
+    "name": "PAOK Thessaloniki",
+    "slug": "paok-thessaloniki",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "1123": {
+    "name": "Norwich City",
+    "slug": "norwich-city",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "1132": {
+    "name": "Burnley FC",
+    "slug": "burnley-fc",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "1148": {
+    "name": "Brentford FC",
+    "slug": "brentford-fc",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "1237": {
+    "name": "Brighton & Hove Albion",
+    "slug": "brighton-hove-albion",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "1390": {
+    "name": "Cagliari Calcio",
+    "slug": "cagliari-calcio",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "2239": {
+    "name": "US Cremonese",
+    "slug": "us-cremonese",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "2441": {
+    "name": "AEK Athens",
+    "slug": "aek-athens",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "2671": {
+    "name": "PAS Giannina",
+    "slug": "pas-giannina",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "2672": {
+    "name": "APO Levadiakos",
+    "slug": "apo-levadiakos",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "2919": {
+    "name": "AC Monza",
+    "slug": "ac-monza",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "3060": {
+    "name": "Atromitos Athens",
+    "slug": "atromitos-athens",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "3062": {
+    "name": "Athens Kallithea",
+    "slug": "athens-kallithea",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "3385": {
+    "name": "Panserraikos",
+    "slug": "panserraikos",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "3522": {
+    "name": "Spezia Calcio",
+    "slug": "spezia-calcio",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "3999": {
+    "name": "PAS Lamia 1964",
+    "slug": "pas-lamia-1964",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "4083": {
+    "name": "FC Crotone",
+    "slug": "fc-crotone",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "4171": {
+    "name": "Benevento Calcio",
+    "slug": "benevento-calcio",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "4603": {
+    "name": "AE Larisa",
+    "slug": "ae-larisa",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "6195": {
+    "name": "SSC Napoli",
+    "slug": "ssc-napoli",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "6418": {
+    "name": "Panetolikos GFS",
+    "slug": "panetolikos-gfs",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "6574": {
+    "name": "US Sassuolo",
+    "slug": "us-sassuolo",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "6676": {
+    "name": "Asteras Tripolis",
+    "slug": "asteras-tripolis",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "8970": {
+    "name": "Frosinone Calcio",
+    "slug": "frosinone-calcio",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "30120": {
+    "name": "AE Kifisias",
+    "slug": "ae-kifisias",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  },
+  "60949": {
+    "name": "Volos NPS",
+    "slug": "volos-nps",
+    "primary_country_code": "UNK",
+    "primary_continent": "Unknown"
+  }
+}

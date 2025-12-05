@@ -230,9 +230,10 @@ body {
 ============================================================ */
 
 #right-panel {
-  max-height: 220px;       /* << ONLY ADDITION YOU ASKED FOR */
+  height: 100%;
+  max-height: none;
   overflow-y: auto;
-  padding-right: 6px;
+  padding: 16px;
 }
 
 /* ============================================================

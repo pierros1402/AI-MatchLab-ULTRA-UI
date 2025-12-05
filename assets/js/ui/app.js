@@ -1,9 +1,10 @@
 /* ============================================================
-   AI MATCHLAB ULTRA — APP FINAL (SAFE VERSION)
-   Flat Global Mode + Accordion Navigation + Teams Support
+   AI MATCHLAB ULTRA — APP FINAL (Accordion + League Teams)
+   Fully integrated with global dataset + new Teams Panel
 ============================================================ */
 
-import { buildTeams } from "./teams.js";
+import { getTeamsForLeague } from "/assets/js/loaders/leagueTeamsLoader.js";
+import { openTeamPanel } from "/assets/js/ui/panels/teamPanel.js";
 
 let GLOBAL = [];
 let SELECTED = {
@@ -13,7 +14,7 @@ let SELECTED = {
 };
 
 /* ------------------------------------------------------------
-   Safe Accordion Handler
+   ACCORDION CONTROL (one open panel at a time)
 ------------------------------------------------------------ */
 function openAccordion(targetId) {
   const items = document.querySelectorAll(".accordion-item");
@@ -91,6 +92,7 @@ function selectContinent(continent) {
   buildCountries(countries);
   openAccordion("panel-countries");
 
+  // Clear downstream panels
   document.getElementById("panel-leagues").innerHTML = "";
   document.getElementById("panel-teams").innerHTML = "";
 }
@@ -129,7 +131,7 @@ function selectCountry(code) {
 }
 
 /* ------------------------------------------------------------
-   BUILD LEAGUES
+   BUILD LEAGUES (NO TEAMS INSIDE)
 ------------------------------------------------------------ */
 function buildLeagues(leagues) {
   const panel = document.getElementById("panel-leagues");
@@ -141,7 +143,6 @@ function buildLeagues(leagues) {
 
     if (!isCupA && isCupB) return -1;
     if (isCupA && !isCupB) return 1;
-
     if (isCupA && isCupB) return a.display_name.localeCompare(b.display_name);
 
     if (a.tier !== b.tier) return a.tier - b.tier;
@@ -159,18 +160,39 @@ function buildLeagues(leagues) {
 }
 
 /* ------------------------------------------------------------
-   SELECT LEAGUE → TEAMS
+   SELECT LEAGUE → OPEN TEAMS PANEL
 ------------------------------------------------------------ */
 function selectLeague(id) {
   SELECTED.league = id;
 
-  if (!SELECTED.country) {
-    console.error("[APP] No country selected");
+  buildTeamsForLeague(id);
+  openAccordion("panel-teams");
+}
+
+/* ------------------------------------------------------------
+   TEAMS PANEL – SHOW ONLY TEAMS OF SELECTED LEAGUE
+------------------------------------------------------------ */
+async function buildTeamsForLeague(leagueId) {
+  const panel = document.getElementById("panel-teams");
+  panel.innerHTML = `<div class="loading-small">Loading teams…</div>`;
+
+  const teams = await getTeamsForLeague(leagueId);
+
+  if (!teams || teams.length === 0) {
+    panel.innerHTML = `<div class="empty-msg">No teams found for this league.</div>`;
     return;
   }
 
-  buildTeams(SELECTED.country, id);
-  openAccordion("panel-teams");
+  panel.innerHTML = teams
+    .map(t => `<div class="nav-item team-row" data-team-id="${t.id}">${t.name}</div>`)
+    .join("");
+
+  panel.querySelectorAll(".team-row").forEach((row) => {
+    row.onclick = () => {
+      const teamId = row.getAttribute("data-team-id");
+      openTeamPanel(teamId); 
+    };
+  });
 }
 
 /* ------------------------------------------------------------
