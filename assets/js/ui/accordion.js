@@ -1,81 +1,62 @@
-/* ============================================================
-   AI MATCHLAB ULTRA — FINAL ACCORDION ENGINE (AUTO-STEP)
-   Always one panel open — supports automatic step navigation
-============================================================ */
-
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("[AIML Accordion] FINAL Engine Loaded");
+  /* -------------------------------------------
+     SELECTORS
+  --------------------------------------------*/
+  const headers = document.querySelectorAll(".accordion-header");
+  const bodies = document.querySelectorAll(".accordion-body");
 
-    const items = document.querySelectorAll(".accordion-item");
-
-    /* ------------------------------
-       CLOSE ALL PANELS
-    ------------------------------ */
-    function closeAll() {
-        items.forEach(i => {
-            const body = i.querySelector(".accordion-body");
-            body.style.display = "none";
-        });
-    }
-
-    /* ------------------------------
-       OPEN PANEL BY BODY ID
-    ------------------------------ */
-    function openPanelById(id) {
-        const target = [...items].find(i =>
-            i.querySelector(".accordion-body").id === id
-        );
-        if (!target) return;
-
-        closeAll();
-        const body = target.querySelector(".accordion-body");
-        body.style.display = "block";
-
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-
-    /* ------------------------------
-       MANUAL HEADER CLICK
-       (only one open at a time)
-    ------------------------------ */
-    items.forEach(item => {
-        const header = item.querySelector(".accordion-header");
-        const body = item.querySelector(".accordion-body");
-
-        header.style.cursor = "pointer";
-
-        header.addEventListener("click", () => {
-            const isOpen = body.style.display === "block";
-
-            closeAll();
-            body.style.display = isOpen ? "none" : "block";
-        });
+  function closeAll() {
+    headers.forEach(h => h.classList.remove("active"));
+    bodies.forEach(b => {
+      b.classList.remove("active");
+      b.style.display = "none";
     });
+  }
 
-    /* ------------------------------
-       AUTO-STEP EVENTS
-       Triggered by app.js selections
-    ------------------------------ */
-    document.addEventListener("AIML_CONTINENT_SELECTED", () => {
-        openPanelById("panel-countries");
+  function openByName(panelName) {
+    const header = document.querySelector(`.accordion-header[data-target="${panelName}"]`);
+    const body = document.getElementById(panelName);
+
+    if (!header || !body) return;
+
+    closeAll();
+    header.classList.add("active");
+    body.classList.add("active");
+    body.style.display = "block";
+  }
+
+  /* -------------------------------------------
+     MANUAL CLICK (Open one, close all)
+  --------------------------------------------*/
+  headers.forEach(header => {
+    header.addEventListener("click", () => {
+      const panelName = header.dataset.target;
+      openByName(panelName);
     });
+  });
 
-    document.addEventListener("AIML_COUNTRY_SELECTED", () => {
-        openPanelById("panel-leagues");
-    });
+  /* -------------------------------------------
+     AUTO OPEN BASED ON EVENTS
+     (app.js will dispatch these!)
+  --------------------------------------------*/
+  document.addEventListener("AIML_CONTINENT_SELECTED", () => {
+    openByName("panel-countries");
+  });
 
-    document.addEventListener("AIML_LEAGUE_SELECTED", () => {
-        openPanelById("panel-teams");
-    });
+  document.addEventListener("AIML_COUNTRY_SELECTED", () => {
+    openByName("panel-leagues");
+  });
 
-    document.addEventListener("AIML_TEAM_SELECTED", () => {
-        openPanelById("panel-matches");
-    });
+  document.addEventListener("AIML_LEAGUE_SELECTED", () => {
+    openByName("panel-teams");
+  });
 
-    document.addEventListener("AIML_MATCH_SELECTED", () => {
-        openPanelById("panel-details");
-    });
+  document.addEventListener("AIML_TEAM_SELECTED", () => {
+    openByName("panel-details");
+  });
 
-    /* Expose globally if needed */
-    window.AIMLAccordion = { openPanelById };
+  /* -------------------------------------------
+     DEFAULT: OPEN CONTINENTS FIRST
+  --------------------------------------------*/
+  openByName("panel-continents");
 });

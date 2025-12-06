@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="/assets/css/style.css" />
   <link rel="stylesheet" href="/assets/css/accordion.css" />
 </head>
+
 <body>
   <!-- UPDATE BANNER -->
   <div id="update-banner" class="update-banner hidden">
@@ -20,12 +21,8 @@
   <!-- TOP BAR -->
   <header class="app-topbar">
     <div class="topbar-left">
-      <button id="btn-back" class="icon-button tooltip" aria-label="Back" data-tooltip="Back">
-        ←
-      </button>
-      <button id="btn-home" class="icon-button tooltip" aria-label="Home" data-tooltip="Home">
-        ⌂
-      </button>
+      <button id="btn-back" class="icon-button tooltip" aria-label="Back" data-tooltip="Back">←</button>
+      <button id="btn-home" class="icon-button tooltip" aria-label="Home" data-tooltip="Home">⌂</button>
 
       <div class="app-brand">
         <div class="app-pill">AIML</div>
@@ -37,60 +34,23 @@
     </div>
 
     <div class="app-actions">
-      <button
-        id="btn-language"
-        class="icon-button tooltip"
-        aria-label="Language"
-        data-tooltip="Language"
-      >
-        🌐
-      </button>
-
-      <button
-        id="btn-refresh-live"
-        class="icon-button tooltip"
-        aria-label="Refresh live"
-        data-tooltip="Refresh live matches"
-      >
-        🔄
-      </button>
-
-      <button
-        id="btn-legal"
-        class="icon-button tooltip"
-        aria-label="Legal"
-        data-tooltip="Legal & policies"
-      >
-        ⚖
-      </button>
-
-      <!-- INSTALL ΠΙΟ ΔΕΞΙΑ -->
-      <button
-        id="btn-install"
-        class="icon-button tooltip"
-        aria-label="Install app"
-        data-tooltip="Install AI MatchLab ULTRA"
-      >
-        ⬇
-      </button>
-
-      <button
-        id="theme-toggle"
-        class="icon-button tooltip"
-        aria-label="Toggle theme"
-        data-tooltip="Toggle dark / light"
-      >
-        ☾
-      </button>
+      <button id="btn-language" class="icon-button tooltip" aria-label="Language" data-tooltip="Language">🌐</button>
+      <button id="btn-refresh-live" class="icon-button tooltip" aria-label="Refresh live" data-tooltip="Refresh">🔄</button>
+      <button id="btn-legal" class="icon-button tooltip" aria-label="Legal" data-tooltip="Legal & Policies">⚖</button>
+      <button id="btn-install" class="icon-button tooltip" aria-label="Install app" data-tooltip="Install App">⬇</button>
+      <button id="theme-toggle" class="icon-button tooltip" aria-label="Toggle theme" data-tooltip="Theme">☾</button>
     </div>
   </header>
 
-  <!-- 30 / 40 / 30 LAYOUT -->
+  <!-- MAIN LAYOUT (30 / 40 / 30) -->
   <div class="app-layout">
+
     <!-- LEFT PANEL -->
     <aside id="left-panel" class="panel-shell">
       <h2>Navigation</h2>
+
       <div class="nav-accordion">
+
         <div class="accordion-item">
           <div class="accordion-header" data-target="panel-continents">Continents</div>
           <div class="accordion-body" id="panel-continents"></div>
@@ -120,6 +80,7 @@
           <div class="accordion-header" data-target="panel-details">Details</div>
           <div class="accordion-body" id="panel-details"></div>
         </div>
+
       </div>
     </aside>
 
@@ -153,41 +114,36 @@
 
       <section id="panel-asian-odds" class="odds-panel">
         <div class="odds-header-row">
-          <h3>Asian Panel · Pinnacle · 188BET · SBO · 12BET · MaxBet · Dafabet</h3>
+          <h3>Asian Panel · Pinnacle · 188BET · SBO · 12BET · MaxBet</h3>
           <div class="odds-meta" id="asian-odds-meta"></div>
         </div>
         <div class="odds-body" id="asian-odds-body"></div>
       </section>
     </main>
 
-<!-- RIGHT PANEL (dynamic: team panel, league details, matches, etc.) -->
-<aside id="right-panel" class="panel-shell">
-  <div id="right-panel-content" class="right-panel-content">
-    <!-- JS will inject Team Panel / Match Details / League Info -->
-    <div class="placeholder-msg">Select a team or league to view details.</div>
-    <div id="live-matches-list" style="display:none;"></div>
-  </div>
-</aside>
+    <!-- RIGHT PANEL -->
+    <aside id="right-panel" class="panel-shell">
+      <div id="right-panel-content" class="right-panel-content">
+        <div class="placeholder-msg">Select a team or league to view details.</div>
+        <div id="live-matches-list" style="display:none;"></div>
+      </div>
+    </aside>
 
-  <!-- FOOTER LEGALS -->
+  </div>
+
+  <!-- FOOTER -->
   <footer class="app-footer" id="app-footer">
     <div class="footer-links">
-      <a href="/cookies.html" target="_blank">Cookies</a>
-      <span>·</span>
-      <a href="/privacy.html" target="_blank">Privacy</a>
-      <span>·</span>
-      <a href="/terms.html" target="_blank">Terms</a>
-      <span>·</span>
-      <a href="/disclaimer.html" target="_blank">Disclaimer</a>
-      <span>·</span>
+      <a href="/cookies.html" target="_blank">Cookies</a><span>·</span>
+      <a href="/privacy.html" target="_blank">Privacy</a><span>·</span>
+      <a href="/terms.html" target="_blank">Terms</a><span>·</span>
+      <a href="/disclaimer.html" target="_blank">Disclaimer</a><span>·</span>
       <a href="/impressum.html" target="_blank">Impressum</a>
     </div>
-    <div class="footer-copy">
-      © 2025 AI MATCHLAB ULTRA — All rights reserved.
-    </div>
+    <div class="footer-copy">© 2025 AI MATCHLAB ULTRA — All rights reserved.</div>
   </footer>
 
-  <!-- BOTTOM NAV FOR MOBILE -->
+  <!-- BOTTOM NAV (MOBILE) -->
   <nav class="bottom-nav">
     <button data-target="home" class="bottom-nav-btn">⌂</button>
     <button data-target="nav" class="bottom-nav-btn">📋</button>
@@ -197,9 +153,10 @@
   </nav>
 
   <!-- SCRIPTS -->
-  <script src="/assets/js/ui/accordion.js"> </script>
+  <script src="/assets/js/ui/accordion.js"></script>
   <script type="module" src="/assets/js/ui/app.js"></script>
-  <script type="module" src="./assets/js/odds/odds-center.js"></script>
+  <script type="module" src="/assets/js/odds/odds-center.js"></script>
+
   <script type="module">
     import { initTheme, toggleTheme } from "/assets/js/theme.js";
     import { initLiveEngine, manualRefreshLive } from "/assets/js/live/live-engine.js";
@@ -207,178 +164,17 @@
 
     const CURRENT_VERSION = "2.1.0";
 
-    let deferredPrompt = null;
-    let installStatus = localStorage.getItem("AIML_INSTALL_STATUS") || "idle";
-
-    window.addEventListener("beforeinstallprompt", (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-    });
-
-    function setInstallButtonState(btn, status) {
-      installStatus = status;
-      localStorage.setItem("AIML_INSTALL_STATUS", status);
-
-      if (!btn) return;
-
-      if (status === "installed") {
-        btn.textContent = "✓";
-        btn.dataset.tooltip = "App installed";
-      } else if (status === "installing") {
-        btn.textContent = "…";
-        btn.dataset.tooltip = "Installing…";
-      } else {
-        btn.textContent = "⬇";
-        btn.dataset.tooltip = "Install AI MatchLab ULTRA";
-      }
-    }
-
-    function setupTopbar() {
-      const btnBack = document.getElementById("btn-back");
-      const btnHome = document.getElementById("btn-home");
-      const btnLang = document.getElementById("btn-language");
-      const btnInstall = document.getElementById("btn-install");
-      const btnRefresh = document.getElementById("btn-refresh-live");
-      const btnLegal = document.getElementById("btn-legal");
-      const btnTheme = document.getElementById("theme-toggle");
-
-      // αρχικό state για install
-      setInstallButtonState(btnInstall, installStatus);
-
-      if (btnBack) {
-        btnBack.addEventListener("click", () => {
-          if (window.history.length > 1) {
-            window.history.back();
-          } else {
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }
-        });
-      }
-
-      if (btnHome) {
-        btnHome.addEventListener("click", () => {
-          window.scrollTo({ top: 0, behavior: "smooth" });
-          location.reload();
-        });
-      }
-
-      if (btnLang) {
-        btnLang.addEventListener("click", () => {
-          toggleLanguage && toggleLanguage();
-        });
-      }
-
-      if (btnInstall) {
-        btnInstall.addEventListener("click", async () => {
-          if (deferredPrompt) {
-            try {
-              setInstallButtonState(btnInstall, "installing");
-              deferredPrompt.prompt();
-              const choice = await deferredPrompt.userChoice;
-              if (choice.outcome === "accepted") {
-                setInstallButtonState(btnInstall, "installed");
-              } else {
-                setInstallButtonState(btnInstall, "idle");
-              }
-            } catch (e) {
-              setInstallButtonState(btnInstall, "idle");
-            }
-            deferredPrompt = null;
-          } else {
-            alert('To install the app, use your browser menu and choose "Add to Home Screen".');
-          }
-        });
-      }
-
-      if (btnRefresh) {
-        btnRefresh.addEventListener("click", () => {
-          manualRefreshLive && manualRefreshLive();
-        });
-      }
-
-      if (btnLegal) {
-        btnLegal.addEventListener("click", () => {
-          const footer = document.getElementById("app-footer");
-          if (footer) {
-            footer.scrollIntoView({ behavior: "smooth" });
-          }
-        });
-      }
-
-      if (btnTheme) {
-        const syncIcon = () => {
-          btnTheme.textContent =
-            document.documentElement.className === "dark" ? "☾" : "☀";
-        };
-        syncIcon();
-        btnTheme.addEventListener("click", () => {
-          toggleTheme();
-          syncIcon();
-        });
-      }
-    }
-
-    function setupBottomNav() {
-      const buttons = document.querySelectorAll(".bottom-nav-btn");
-      buttons.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const target = btn.getAttribute("data-target");
-          if (target === "home") {
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          } else if (target === "nav") {
-            const el = document.getElementById("left-panel");
-            if (el) el.scrollIntoView({ behavior: "smooth" });
-          } else if (target === "live") {
-            const el = document.getElementById("right-panel");
-            if (el) el.scrollIntoView({ behavior: "smooth" });
-          } else if (target === "legal") {
-            const el = document.getElementById("app-footer");
-            if (el) el.scrollIntoView({ behavior: "smooth" });
-          } else if (target === "theme") {
-            toggleTheme();
-          }
-        });
-      });
-    }
-
-    async function checkVersion() {
-      try {
-        const res = await fetch("/version.json", { cache: "no-store" });
-        if (!res.ok) return;
-        const data = await res.json();
-        if (data.version && data.version !== CURRENT_VERSION) {
-          const banner = document.getElementById("update-banner");
-          const btnUpdate = document.getElementById("btn-update-now");
-          if (banner) banner.classList.remove("hidden");
-          if (btnUpdate) {
-            btnUpdate.addEventListener("click", () => {
-              location.reload();
-            });
-          }
-        }
-      } catch (e) {
-        // ignore
-      }
-    }
-
     function main() {
       initTheme();
       initLanguage && initLanguage();
       initLiveEngine();
-      setupTopbar();
-      setupBottomNav();
-      checkVersion();
-      setInterval(checkVersion, 5 * 60 * 1000);
     }
 
-    if (document.readyState === "loading") {
+    if (document.readyState === "loading")
       document.addEventListener("DOMContentLoaded", main);
-    } else {
+    else
       main();
-    }
   </script>
 
-  <!-- MAIN APPLICATION SCRIPT (Navigation, Panels, Teams, Leagues) -->
-  <script type="module" src="/assets/js/ui/app.js"></script>
 </body>
 </html>

@@ -1,28 +1,33 @@
 /* ============================================================
-   AI MATCHLAB ULTRA — APP FINAL (Accordion + League Teams)
-   Fully integrated with global dataset + new Teams Panel
+   AI MATCHLAB ULTRA — APP.JS (FINAL – LOAD CONTINENTS → COUNTRIES → LEAGUES)
+   Using ONLY betting_ready_FINAL.json per continent folder
 ============================================================ */
 
-import { getTeamsForLeague } from "/assets/js/loaders/leagueTeamsLoader.js";
-import { openTeamPanel } from "/assets/js/ui/panels/teamPanel.js";
+const DATA_BASE = "/AI-MATCHLAB-DATA";
 
-let GLOBAL = [];
-let SELECTED = {
-  continent: null,
-  country: null,
-  league: null,
+/* ----------------------------------------------
+   CONTINENT → JSON PATHS
+---------------------------------------------- */
+const CONTINENT_FILES = {
+  africa:        `${DATA_BASE}/africa/africa_betting_ready_FINAL.json`,
+  asia:          `${DATA_BASE}/asia/asia_betting_ready_FINAL.json`,
+  europe:        `${DATA_BASE}/europe/europe_betting_ready_FINAL.json`,
+  north_america: `${DATA_BASE}/north_america/north_america_betting_ready_FINAL.json`,
+  south_america: `${DATA_BASE}/south_america/south_america_betting_ready_FINAL.json`,
+  oceania:       `${DATA_BASE}/oceania/oceania_betting_ready_FINAL.json`,
+  international: `${DATA_BASE}/international/international_betting_ready_FINAL.json`
 };
 
-/* ------------------------------------------------------------
-   ACCORDION CONTROL (one open panel at a time)
------------------------------------------------------------- */
-function openAccordion(targetId) {
-  const items = document.querySelectorAll(".accordion-item");
+let CURRENT_CONTINENT_DATA = null;
 
-  items.forEach((item) => {
+/* ----------------------------------------------
+   ACCORDION (ONE OPEN AT A TIME)
+---------------------------------------------- */
+function openAccordion(targetId) {
+  document.querySelectorAll(".accordion-item").forEach(item => {
     const header = item.querySelector(".accordion-header");
     const body = item.querySelector(".accordion-body");
-    const id = body.getAttribute("id");
+    const id = body.id;
 
     if (id === targetId) {
       body.style.display = "block";
@@ -34,168 +39,121 @@ function openAccordion(targetId) {
   });
 }
 
-/* ------------------------------------------------------------
-   LOAD GLOBAL JSON
------------------------------------------------------------- */
-async function loadGlobal() {
+/* ----------------------------------------------
+   LOAD CONTINENT JSON
+---------------------------------------------- */
+async function loadContinent(continentKey) {
   try {
-    const url = "/AI-MATCHLAB-DATA/indexes/global_leagues_master_FINAL.json";
-    const res = await fetch(url, { cache: "no-store" });
+    const file = CONTINENT_FILES[continentKey];
+    const res = await fetch(file, { cache: "no-store" });
 
     if (!res.ok) throw new Error("HTTP " + res.status);
 
-    GLOBAL = await res.json();
-
-    if (!Array.isArray(GLOBAL) || GLOBAL.length === 0) {
-      console.error("[APP] GLOBAL JSON is empty or invalid");
-      return;
-    }
-
-    buildContinents();
-    openAccordion("panel-continents");
+    CURRENT_CONTINENT_DATA = await res.json();
+    buildCountries();
+    openAccordion("panel-countries");
 
   } catch (err) {
-    console.error("[APP] Failed to load master JSON:", err);
+    console.error("Failed to load continent:", continentKey, err);
   }
 }
 
-/* ------------------------------------------------------------
-   BUILD CONTINENTS
------------------------------------------------------------- */
+/* ----------------------------------------------
+   BUILD CONTINENT LIST (STATIC)
+---------------------------------------------- */
 function buildContinents() {
   const panel = document.getElementById("panel-continents");
   panel.innerHTML = "";
 
-  const continents = [
-    ...new Set(GLOBAL.map(c => c.region_cluster.split("_")[0]))
-  ].sort();
-
-  continents.forEach(cont => {
+  Object.keys(CONTINENT_FILES).forEach(key => {
     const div = document.createElement("div");
     div.className = "nav-item";
-    div.textContent = cont;
-    div.onclick = () => selectContinent(cont);
+    div.textContent =
+      key.replace("_", " ").replace(/\b\w/g, l => l.toUpperCase());
+
+    div.onclick = () => loadContinent(key);
     panel.appendChild(div);
   });
 }
 
-/* ------------------------------------------------------------
-   SELECT CONTINENT → COUNTRIES
------------------------------------------------------------- */
-function selectContinent(continent) {
-  SELECTED = { continent, country: null, league: null };
-
-  const countries = GLOBAL.filter(c =>
-    c.region_cluster.startsWith(continent)
-  );
-
-  buildCountries(countries);
-  openAccordion("panel-countries");
-
-  // Clear downstream panels
-  document.getElementById("panel-leagues").innerHTML = "";
-  document.getElementById("panel-teams").innerHTML = "";
-}
-
-/* ------------------------------------------------------------
+/* ----------------------------------------------
    BUILD COUNTRIES
------------------------------------------------------------- */
-function buildCountries(list) {
+---------------------------------------------- */
+function buildCountries() {
   const panel = document.getElementById("panel-countries");
   panel.innerHTML = "";
 
-  list.sort((a, b) => a.country_name.localeCompare(b.country_name));
+  const countries = Object.keys(CURRENT_CONTINENT_DATA);
 
-  list.forEach(c => {
+  countries.forEach(code => {
     const div = document.createElement("div");
     div.className = "nav-item";
-    div.textContent = c.country_name;
-    div.onclick = () => selectCountry(c.country_code);
+    div.textContent = CURRENT_CONTINENT_DATA[code].country_name;
+
+    div.onclick = () => buildLeagues(code);
     panel.appendChild(div);
   });
 }
 
-/* ------------------------------------------------------------
-   SELECT COUNTRY → LEAGUES
------------------------------------------------------------- */
-function selectCountry(code) {
-  SELECTED.country = code;
-
-  const country = GLOBAL.find(c => c.country_code === code);
-  if (!country || !country.leagues) return;
-
-  buildLeagues(country.leagues);
-  openAccordion("panel-leagues");
-
-  document.getElementById("panel-teams").innerHTML = "";
-}
-
-/* ------------------------------------------------------------
-   BUILD LEAGUES (NO TEAMS INSIDE)
------------------------------------------------------------- */
-function buildLeagues(leagues) {
+/* ----------------------------------------------
+   BUILD LEAGUES
+---------------------------------------------- */
+function buildLeagues(countryCode) {
+  const leagues = CURRENT_CONTINENT_DATA[countryCode]?.leagues || [];
   const panel = document.getElementById("panel-leagues");
   panel.innerHTML = "";
 
-  leagues.sort((a, b) => {
-    const isCupA = a.display_name.includes("Cup") || a.display_name.includes("Trophy");
-    const isCupB = b.display_name.includes("Cup") || b.display_name.includes("Trophy");
-
-    if (!isCupA && isCupB) return -1;
-    if (isCupA && !isCupB) return 1;
-    if (isCupA && isCupB) return a.display_name.localeCompare(b.display_name);
-
-    if (a.tier !== b.tier) return a.tier - b.tier;
-
-    return a.display_name.localeCompare(b.display_name);
-  });
-
-  leagues.forEach(l => {
+  leagues.forEach(league => {
     const div = document.createElement("div");
     div.className = "nav-item";
-    div.textContent = l.display_name;
-    div.onclick = () => selectLeague(l.league_id);
+    div.textContent = league.display_name;
+
+    div.onclick = () => buildTeams(league);
     panel.appendChild(div);
   });
+
+  openAccordion("panel-leagues");
 }
 
-/* ------------------------------------------------------------
-   SELECT LEAGUE → OPEN TEAMS PANEL
------------------------------------------------------------- */
-function selectLeague(id) {
-  SELECTED.league = id;
+/* ----------------------------------------------
+   BUILD TEAMS
+---------------------------------------------- */
+function buildTeams(league) {
+  const teams = league.teams || [];
+  const panel = document.getElementById("panel-teams");
+  panel.innerHTML = "";
 
-  buildTeamsForLeague(id);
+  teams.forEach(team => {
+    const div = document.createElement("div");
+    div.className = "nav-item";
+    div.textContent = team;
+
+    div.onclick = () => showTeam(team, league);
+    panel.appendChild(div);
+  });
+
   openAccordion("panel-teams");
 }
 
-/* ------------------------------------------------------------
-   TEAMS PANEL – SHOW ONLY TEAMS OF SELECTED LEAGUE
------------------------------------------------------------- */
-async function buildTeamsForLeague(leagueId) {
-  const panel = document.getElementById("panel-teams");
-  panel.innerHTML = `<div class="loading-small">Loading teams…</div>`;
+/* ----------------------------------------------
+   SHOW TEAM DETAILS
+---------------------------------------------- */
+function showTeam(team, league) {
+  const panel = document.getElementById("panel-details");
+  panel.innerHTML = `
+    <div class="glass-card">
+      <h3>${team}</h3>
+      <div class="text-muted">${league.display_name}</div>
+    </div>
+  `;
 
-  const teams = await getTeamsForLeague(leagueId);
-
-  if (!teams || teams.length === 0) {
-    panel.innerHTML = `<div class="empty-msg">No teams found for this league.</div>`;
-    return;
-  }
-
-  panel.innerHTML = teams
-    .map(t => `<div class="nav-item team-row" data-team-id="${t.id}">${t.name}</div>`)
-    .join("");
-
-  panel.querySelectorAll(".team-row").forEach((row) => {
-    row.onclick = () => {
-      const teamId = row.getAttribute("data-team-id");
-      openTeamPanel(teamId); 
-    };
-  });
+  openAccordion("panel-details");
 }
 
-/* ------------------------------------------------------------
-   INIT
------------------------------------------------------------- */
-window.addEventListener("DOMContentLoaded", loadGlobal);
+/* ----------------------------------------------
+   MAIN INIT
+---------------------------------------------- */
+document.addEventListener("DOMContentLoaded", () => {
+  buildContinents();
+  openAccordion("panel-continents");
+});
