@@ -12,11 +12,6 @@
 </head>
 
 <body>
-  <!-- UPDATE BANNER -->
-  <div id="update-banner" class="update-banner hidden">
-    <span>New version available.</span>
-    <button id="btn-update-now">Update</button>
-  </div>
 
   <!-- TOP BAR -->
   <header class="app-topbar">
@@ -34,11 +29,19 @@
     </div>
 
     <div class="app-actions">
+
+      <!-- INLINE UPDATE BUTTON + TEXT -->
+      <div id="update-inline-box" class="update-inline hidden">
+        <button id="btn-update-inline" class="icon-button tooltip" aria-label="Update" data-tooltip="Update">⟳</button>
+        <span id="update-inline-text" class="update-inline-text"></span>
+      </div>
+
       <button id="btn-language" class="icon-button tooltip" aria-label="Language" data-tooltip="Language">🌐</button>
       <button id="btn-refresh-live" class="icon-button tooltip" aria-label="Refresh live" data-tooltip="Refresh">🔄</button>
       <button id="btn-legal" class="icon-button tooltip" aria-label="Legal" data-tooltip="Legal & Policies">⚖</button>
       <button id="btn-install" class="icon-button tooltip" aria-label="Install app" data-tooltip="Install App">⬇</button>
       <button id="theme-toggle" class="icon-button tooltip" aria-label="Toggle theme" data-tooltip="Theme">☾</button>
+
     </div>
   </header>
 
@@ -158,16 +161,16 @@
   <script type="module" src="/assets/js/odds/odds-center.js"></script>
 
   <script type="module">
-    import { initTheme, toggleTheme } from "/assets/js/theme.js";
-    import { initLiveEngine, manualRefreshLive } from "/assets/js/live/live-engine.js";
-    import { initLanguage, toggleLanguage } from "/assets/js/language.js";
-
-    const CURRENT_VERSION = "2.1.0";
+    import { initTheme } from "/assets/js/theme.js";
+    import { initLiveEngine } from "/assets/js/live/live-engine.js";
+    import { initLanguage } from "/assets/js/language.js";
+    import { startVersionAutoCheck } from "/assets/js/utils/version-check.js";
 
     function main() {
       initTheme();
       initLanguage && initLanguage();
       initLiveEngine();
+      startVersionAutoCheck();
     }
 
     if (document.readyState === "loading")

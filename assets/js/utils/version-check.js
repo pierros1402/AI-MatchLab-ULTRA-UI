@@ -1,13 +1,13 @@
 /* ===================================================================
-   AI MATCHLAB — VERSION CHECKER (FINAL)
-   Ελέγχει το version.json και ειδοποιεί όταν υπάρχει νέα έκδοση.
+   AI MATCHLAB — INLINE VERSION CHECKER (FINAL)
+   Ελέγχει το version.json και εμφανίζει inline ειδοποίηση ενημέρωσης.
 =================================================================== */
 
 const VERSION_URL = "/version.json";
 let currentVersion = null;
 
 /* ---------------------------------------------------------------
-   Κύρια συνάρτηση
+   Έλεγχος version.json
 --------------------------------------------------------------- */
 export async function checkVersion() {
   try {
@@ -17,44 +17,48 @@ export async function checkVersion() {
     const data = await res.json();
     const newVersion = data.version;
 
+    // First load → store current version
     if (!currentVersion) {
       currentVersion = newVersion;
-      console.log("Version loaded:", newVersion);
       return;
     }
 
+    // Version changed → show update notice
     if (newVersion !== currentVersion) {
-      showUpdateBanner(newVersion);
+      showInlineUpdateNotice(currentVersion, newVersion);
     }
+
   } catch (err) {
     console.error("VERSION CHECK ERROR:", err);
   }
 }
 
 /* ---------------------------------------------------------------
-   Εμφάνιση banner ενημέρωσης
+   Εμφάνιση inline κουμπιού + κειμένου
 --------------------------------------------------------------- */
-function showUpdateBanner(newVer) {
-  const banner = document.createElement("div");
-  banner.className = "update-banner";
+function showInlineUpdateNotice(oldVer, newVer) {
+  const box = document.getElementById("update-inline-box");
+  const btn = document.getElementById("btn-update-inline");
+  const text = document.getElementById("update-inline-text");
 
-  banner.innerHTML = `
-    <div class="update-content">
-      <b>Νέα έκδοση διαθέσιμη!</b><br>
-      (v${newVer})
-    </div>
-    <button class="update-btn" onclick="location.reload(true)">
-      Refresh
-    </button>
-  `;
+  if (!box || !btn || !text) return;
 
-  document.body.appendChild(banner);
+  // Μήνυμα: New version · vA → vB
+  text.textContent = `New version · v${oldVer} → v${newVer}`;
+
+  // Εμφάνιση στοιχείων
+  box.classList.remove("hidden");
+
+  // Κουμπί Update
+  btn.onclick = () => {
+    location.reload(true);
+  };
 }
 
 /* ---------------------------------------------------------------
-   Auto-check κάθε 60 δευτερόλεπτα
+   Auto-check every 60 seconds
 --------------------------------------------------------------- */
 export function startVersionAutoCheck() {
-  checkVersion(); // first check
+  checkVersion(); // First check
   setInterval(checkVersion, 60000);
 }

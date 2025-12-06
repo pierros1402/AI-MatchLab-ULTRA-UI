@@ -1,180 +1,193 @@
-/* ============================================================
-   AI MATCHLAB ULTRA — THEME (DARK BLUE ULTRA)
-   EXACT RENDER VERSION
-============================================================ */
+/* ================================================================
+   AI MATCHLAB ULTRA — THEME SYSTEM (DARK & LIGHT)
+   Clean version — Ready for inline-update system
+================================================================ */
 
-/* COLOR TOKENS */
+/* ---------------- ROOT VARIABLES (LIGHT MODE) ---------------- */
 :root {
-  --bg: #020617;
-  --bg-elevated: #0f172a;
-  --bg-elevated-soft: #091224;
-  --bg-card: rgba(15,23,42,0.96);
-  --bg-card-soft: rgba(15,23,42,0.85);
+  --bg: #f5f6f7;
+  --bg-alt: #ffffff;
+  --bg-panel: #ffffff;
+  --bg-accent: #0ea5e9;
 
-  --bg-accent: #38bdf8;
-  --bg-accent-soft: rgba(56,189,248,0.22);
+  --text: #1e293b;
+  --text-soft: #475569;
 
-  --border-soft: rgba(148,163,184,0.25);
-  --border-strong: rgba(56,189,248,0.65);
+  --border: #cbd5e1;
+  --border-soft: #e2e8f0;
+  --border-strong: #0ea5e9;
 
-  --text-main: #e5e7eb;
-  --text-soft: #94a3b8;
-  --text-muted: #64748b;
-
-  --radius-lg: 18px;
-  --radius-xl: 22px;
-
-  --shadow-soft: 0 22px 55px rgba(0,0,0,0.45);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.07);
+  --shadow-md: 0 2px 8px rgba(0,0,0,0.12);
 }
 
-/* GLOBAL BODY */
+/* ---------------- ROOT VARIABLES (DARK MODE) ---------------- */
+html.dark {
+  --bg: #0f172a;
+  --bg-alt: #1e293b;
+  --bg-panel: #1e293b;
+  --bg-accent: #38bdf8;
+
+  --text: #f1f5f9;
+  --text-soft: #94a3b8;
+
+  --border: #334155;
+  --border-soft: #475569;
+  --border-strong: #38bdf8;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-md: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+/* ---------------- GLOBAL STYLES ---------------- */
 body {
   margin: 0;
-  padding: 0;
+  font-family: system-ui, sans-serif;
   background: var(--bg);
-  color: var(--text-main);
-  font-family: "Inter", sans-serif;
+  color: var(--text);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* TOPBAR */
+/* ---------------- TOP BAR ---------------- */
 .app-topbar {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-
-  height: 38px;
-  padding: 4px 12px;
-
-  background: linear-gradient(
-      90deg,
-      rgba(15, 23, 42, 0.96),
-      rgba(2, 6, 23, 0.90)
-  );
-
-  border-bottom: 1px solid var(--border-soft);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.55);
-
+  align-items: center;
+  background: var(--bg-alt);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 14px;
   position: sticky;
   top: 0;
-  z-index: 50;
+  z-index: 1000;
 }
 
-/* ICON BUTTONS SMALLER */
-.icon-button {
-  width: 28px;
-  height: 28px;
-  font-size: 13px;
-  padding: 0;
-}
-
-/* LOGO PILL SMALLER */
-.app-pill {
-  width: 28px;
-  height: 28px;
-  font-size: 12px;
-}
-
-/* BRAND TEXT SMALLER */
-.app-title {
-  font-size: 14px;
-}
-.app-subtitle {
-  font-size: 10px;
-  margin-top: -2px;
-}
-
-/* CENTERING FIX */
-.topbar-left {
+/* Brand */
+.app-brand {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 10px;
 }
 
+.app-pill {
+  background: var(--bg-accent);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.app-title-block {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.app-title {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.app-subtitle {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+/* Actions */
 .app-actions {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 10px;
 }
 
-.app-pill {
-  width: 34px;
-  height: 34px;
-  background: radial-gradient(circle at 30% 0%, var(--bg-accent), #0f172a);
-  color: #fff;
-  font-weight: 700;
-  font-size: 14px;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 30px rgba(56,189,248,0.8);
-}
-
-.app-title {
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-}
-
-.app-subtitle {
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
+/* ---------------- ICON BUTTON ---------------- */
 .icon-button {
-  width: 32px;
-  height: 32px;
-  border-radius: 999px;
-  border: 1px solid var(--border-soft);
-  background: rgba(148,163,184,0.12);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-soft);
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  color: var(--text);
+  padding: 6px 10px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: 0.18s;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.15s ease;
+  font-size: 1rem;
 }
 
 .icon-button:hover {
-  border-color: var(--bg-accent);
-  color: var(--bg-accent);
-  box-shadow: 0 0 12px rgba(56,189,248,0.45);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-md);
 }
 
-/* MAIN GRID 30/40/30 */
+/* ================================================================
+   INLINE UPDATE SECTION
+================================================================ */
+
+/* Container for update button + text */
+.update-inline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-right: 6px;
+}
+
+.update-inline.hidden {
+  display: none !important;
+}
+
+/* Update button highlight */
+#btn-update-inline {
+  border-color: var(--border-strong);
+  color: var(--bg-accent);
+  box-shadow: 0 0 8px rgba(56,189,248,0.45);
+  font-weight: 700;
+}
+
+/* Update text next to the button */
+.update-inline-text {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--bg-accent);
+  opacity: 0.95;
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* ================================================================
+   THREE-COLUMN GRID LAYOUT  (THIS WAS MISSING)
+================================================================ */
 .app-layout {
   display: grid;
   grid-template-columns: 30% 40% 30%;
-  height: calc(100vh - 60px);
+  gap: 12px;
+  padding: 12px;
 }
 
-/* PANEL SHELL */
+@media (max-width: 768px) {
+  .app-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ================================================================
+   PANELS
+================================================================ */
 .panel-shell {
-  padding: 14px;
-  overflow-y: auto;
-  border-right: 1px solid var(--border-soft);
-  background: radial-gradient(
-    circle at 0 0,
-    rgba(148,163,184,0.07),
-    var(--bg-elevated)
-  );
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
 }
 
-.panel-shell:last-child {
-  border-right: none;
-}
-
-/* FOOTER */
+/* ================================================================
+   FOOTER
+================================================================ */
 .app-footer {
-  padding: 12px 16px;
-  background: rgba(15,23,42,0.98);
-  border-top: 1px solid var(--border-soft);
-  font-size: 11px;
+  margin-top: auto;
+  text-align: center;
+  padding: 12px;
+  font-size: 0.75rem;
   color: var(--text-soft);
-}
-
-/* MOBILE */
-@media (max-width:900px){
-  .app-layout { grid-template-columns: 1fr; }
-  .panel-shell { border-right:none; border-bottom:1px solid var(--border-soft); }
 }
