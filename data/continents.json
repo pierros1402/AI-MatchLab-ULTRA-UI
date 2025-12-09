@@ -1,9 +1,0 @@
-[
-  { "code": "EU", "name": "Europe" },
-  { "code": "AF", "name": "Africa" },
-  { "code": "AS", "name": "Asia" },
-  { "code": "NA", "name": "North America" },
-  { "code": "SA", "name": "South America" },
-  { "code": "OC", "name": "Oceania" },
-  { "code": "INT", "name": "International" }
-]

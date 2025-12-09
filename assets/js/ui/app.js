@@ -1,13 +1,13 @@
 /* ============================================================
-   AI MATCHLAB ULTRA — APP.JS (FINAL – LOAD CONTINENTS → COUNTRIES → LEAGUES)
-   Using ONLY betting_ready_FINAL.json per continent folder
+   AI MATCHLAB ULTRA — APP.JS
+   Continents → Countries → Leagues → Basic Details
+   Uses *_betting_ready_FINAL.json per continent
 ============================================================ */
+
+import { openAccordion } from "./accordion.js";
 
 const DATA_BASE = "/AI-MATCHLAB-DATA";
 
-/* ----------------------------------------------
-   CONTINENT → JSON PATHS
----------------------------------------------- */
 const CONTINENT_FILES = {
   africa:        `${DATA_BASE}/africa/africa_betting_ready_FINAL.json`,
   asia:          `${DATA_BASE}/asia/asia_betting_ready_FINAL.json`,
@@ -18,62 +18,54 @@ const CONTINENT_FILES = {
   international: `${DATA_BASE}/international/international_betting_ready_FINAL.json`
 };
 
-let CURRENT_CONTINENT_DATA = null;
+const CONTINENT_LABELS = {
+  africa: "Africa",
+  asia: "Asia",
+  europe: "Europe",
+  north_america: "North America",
+  south_america: "South America",
+  oceania: "Oceania",
+  international: "International"
+};
+
+let CURRENT_CONTINENT_DATA = [];
+let CURRENT_COUNTRY = null;
 
 /* ----------------------------------------------
-   ACCORDION (ONE OPEN AT A TIME)
+   BUILD CONTINENT LIST
 ---------------------------------------------- */
-function openAccordion(targetId) {
-  document.querySelectorAll(".accordion-item").forEach(item => {
-    const header = item.querySelector(".accordion-header");
-    const body = item.querySelector(".accordion-body");
-    const id = body.id;
+function buildContinents() {
+  const panel = document.getElementById("panel-continents");
+  if (!panel) return;
+  panel.innerHTML = "";
 
-    if (id === targetId) {
-      body.style.display = "block";
-      header.classList.add("active");
-    } else {
-      body.style.display = "none";
-      header.classList.remove("active");
-    }
+  Object.keys(CONTINENT_FILES).forEach((key) => {
+    const div = document.createElement("div");
+    div.className = "nav-item";
+    div.textContent = CONTINENT_LABELS[key] || key;
+    div.onclick = () => loadContinent(key);
+    panel.appendChild(div);
   });
 }
 
 /* ----------------------------------------------
    LOAD CONTINENT JSON
 ---------------------------------------------- */
-async function loadContinent(continentKey) {
+async function loadContinent(key) {
+  const file = CONTINENT_FILES[key];
+  if (!file) return;
+
   try {
-    const file = CONTINENT_FILES[continentKey];
     const res = await fetch(file, { cache: "no-store" });
-
-    if (!res.ok) throw new Error("HTTP " + res.status);
-
-    CURRENT_CONTINENT_DATA = await res.json();
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    // data = array of countries
+    CURRENT_CONTINENT_DATA = Array.isArray(data) ? data : [];
     buildCountries();
     openAccordion("panel-countries");
-
   } catch (err) {
-    console.error("Failed to load continent:", continentKey, err);
+    console.error("Failed to load continent", key, err);
   }
-}
-
-/* ----------------------------------------------
-   BUILD CONTINENT LIST (STATIC)
----------------------------------------------- */
-function buildContinents() {
-  const panel = document.getElementById("panel-continents");
-  panel.innerHTML = "";
-
-  Object.keys(CONTINENT_FILES).forEach(key => {
-    const div = document.createElement("div");
-    div.className = "nav-item";
-    div.textContent =
-      key.replace("_", " ").replace(/\b\w/g, l => l.toUpperCase());
-
-    div.onclick = () => loadContinent(key);
-    panel.appendChild(div);
-  });
 }
 
 /* ----------------------------------------------
@@ -81,34 +73,57 @@ function buildContinents() {
 ---------------------------------------------- */
 function buildCountries() {
   const panel = document.getElementById("panel-countries");
+  const leaguesPanel = document.getElementById("panel-leagues");
+  const teamsPanel = document.getElementById("panel-teams");
+  const matchesPanel = document.getElementById("panel-matches");
+  const detailsPanel = document.getElementById("panel-details");
+
+  if (!panel) return;
   panel.innerHTML = "";
+  leaguesPanel && (leaguesPanel.innerHTML = "");
+  teamsPanel && (teamsPanel.innerHTML = "");
+  matchesPanel && (matchesPanel.innerHTML = "");
+  detailsPanel && (detailsPanel.innerHTML = "");
 
-  const countries = Object.keys(CURRENT_CONTINENT_DATA);
+  const sorted = [...CURRENT_CONTINENT_DATA].sort((a, b) =>
+    a.country_name.localeCompare(b.country_name)
+  );
 
-  countries.forEach(code => {
+  sorted.forEach((country) => {
     const div = document.createElement("div");
     div.className = "nav-item";
-    div.textContent = CURRENT_CONTINENT_DATA[code].country_name;
-
-    div.onclick = () => buildLeagues(code);
+    div.textContent = country.country_name;
+    div.onclick = () => buildLeagues(country);
     panel.appendChild(div);
   });
 }
 
 /* ----------------------------------------------
-   BUILD LEAGUES
+   BUILD LEAGUES FOR COUNTRY
 ---------------------------------------------- */
-function buildLeagues(countryCode) {
-  const leagues = CURRENT_CONTINENT_DATA[countryCode]?.leagues || [];
+function buildLeagues(country) {
+  CURRENT_COUNTRY = country;
   const panel = document.getElementById("panel-leagues");
-  panel.innerHTML = "";
+  const teamsPanel = document.getElementById("panel-teams");
+  const matchesPanel = document.getElementById("panel-matches");
+  const detailsPanel = document.getElementById("panel-details");
 
-  leagues.forEach(league => {
+  if (!panel) return;
+  panel.innerHTML = "";
+  teamsPanel && (teamsPanel.innerHTML = "");
+  matchesPanel && (matchesPanel.innerHTML = "");
+  detailsPanel && (detailsPanel.innerHTML = "");
+
+  const leagues = Array.isArray(country.leagues) ? country.leagues : [];
+  const sorted = [...leagues].sort((a, b) =>
+    (a.tier || 99) - (b.tier || 99) || a.display_name.localeCompare(b.display_name)
+  );
+
+  sorted.forEach((league) => {
     const div = document.createElement("div");
     div.className = "nav-item";
     div.textContent = league.display_name;
-
-    div.onclick = () => buildTeams(league);
+    div.onclick = () => showLeagueDetails(country, league);
     panel.appendChild(div);
   });
 
@@ -116,34 +131,27 @@ function buildLeagues(countryCode) {
 }
 
 /* ----------------------------------------------
-   BUILD TEAMS
+   SHOW LEAGUE DETAILS (BASIC)
 ---------------------------------------------- */
-function buildTeams(league) {
-  const teams = league.teams || [];
-  const panel = document.getElementById("panel-teams");
-  panel.innerHTML = "";
+function showLeagueDetails(country, league) {
+  const teamsPanel = document.getElementById("panel-teams");
+  const matchesPanel = document.getElementById("panel-matches");
+  const detailsPanel = document.getElementById("panel-details");
 
-  teams.forEach(team => {
-    const div = document.createElement("div");
-    div.className = "nav-item";
-    div.textContent = team;
+  teamsPanel && (teamsPanel.innerHTML = `<div class="muted">Teams data not loaded yet.</div>`);
+  matchesPanel && (matchesPanel.innerHTML = `<div class="muted">Matches will be wired to history/live later.</div>`);
 
-    div.onclick = () => showTeam(team, league);
-    panel.appendChild(div);
-  });
+  if (!detailsPanel) return;
 
-  openAccordion("panel-teams");
-}
-
-/* ----------------------------------------------
-   SHOW TEAM DETAILS
----------------------------------------------- */
-function showTeam(team, league) {
-  const panel = document.getElementById("panel-details");
-  panel.innerHTML = `
-    <div class="glass-card">
-      <h3>${team}</h3>
-      <div class="text-muted">${league.display_name}</div>
+  detailsPanel.innerHTML = `
+    <div class="card">
+      <h3>${league.display_name}</h3>
+      <div class="muted" style="margin-top:4px;">${country.country_name} · ${country.country_code}</div>
+      <div style="margin-top:6px;font-size:12px;">
+        <div><strong>League ID:</strong> ${league.league_id || "-"}</div>
+        <div><strong>Tier:</strong> ${league.tier != null ? league.tier : "-"}</div>
+        <div><strong>Type:</strong> ${league.type || "league"}</div>
+      </div>
     </div>
   `;
 
@@ -151,9 +159,15 @@ function showTeam(team, league) {
 }
 
 /* ----------------------------------------------
-   MAIN INIT
+   INIT
 ---------------------------------------------- */
-document.addEventListener("DOMContentLoaded", () => {
+function initApp() {
   buildContinents();
   openAccordion("panel-continents");
-});
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initApp);
+} else {
+  initApp();
+}

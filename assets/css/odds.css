@@ -1,0 +1,120 @@
+/* ============================================================
+   AI MATCHLAB ULTRA — ODDS.CSS (FULL VERSION)
+   Odds Intelligence Center · Blue/Orange theme
+============================================================ */
+
+.odds-panel {
+  background: rgba(11, 17, 30, 0.8);
+  border: 1px solid rgba(61,234,255,0.25);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 16px;
+  overflow-y: auto;
+  max-height: 420px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.45);
+}
+
+/* Titles ---------------------------------------------------- */
+.odds-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.odds-header-row h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #3deaff;
+}
+
+.odds-meta {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+/* Match card ------------------------------------------------ */
+.odds-card {
+  background: rgba(10, 16, 26, 0.92);
+  border: 1px solid rgba(61,234,255,0.35);
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.odds-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.odds-row .teams {
+  font-weight: 600;
+  font-size: 13px;
+  color: #f1f5f9;
+}
+
+.odds-row .kickoff {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+/* Bookmaker blocks ------------------------------------------ */
+.odds-tables {
+  margin-top: 6px;
+}
+
+.odds-line {
+  display: grid;
+  grid-template-columns: 1.3fr 0.9fr 0.9fr 0.9fr;
+  padding: 4px 0;
+  gap: 6px;
+  align-items: center;
+}
+
+.odds-line .book {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--blue-neon);
+}
+
+.odds-line .price {
+  font-size: 12px;
+  background: rgba(255,255,255,0.04);
+  padding: 4px 6px;
+  border-radius: 6px;
+  text-align: right;
+  color: #f8fafc;
+  border: 1px solid rgba(61,234,255,0.16);
+}
+
+/* Hover highlights */
+.odds-line:hover .price {
+  background: rgba(61,234,255,0.12);
+  border-color: rgba(61,234,255,0.35);
+}
+/* Independent scroll for each odds panel */
+.odds-panel {
+  max-height: 420px;
+  overflow-y: auto;
+}
+/* ============================================================
+   LIGHT MODE — ODDS PANELS
+============================================================ */
+
+html.light .odds-panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+}
+
+html.light .odds-card {
+  background: var(--bg-panel-soft);
+  border: 1px solid var(--border-color);
+}
+
+html.light .odds-card:hover {
+  background: #eef7ff;
+}

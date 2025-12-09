@@ -5,55 +5,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AI MatchLab ULTRA</title>
 
-  <!-- STYLES -->
+  <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/theme.css" />
   <link rel="stylesheet" href="/assets/css/style.css" />
   <link rel="stylesheet" href="/assets/css/accordion.css" />
+  <link rel="stylesheet" href="/assets/css/odds.css" />
+  <link rel="stylesheet" href="/assets/css/right-panels.css" />
 </head>
 
 <body>
-
   <!-- TOP BAR -->
-  <header class="app-topbar">
-    <div class="topbar-left">
-      <button id="btn-back" class="icon-button tooltip" aria-label="Back" data-tooltip="Back">←</button>
-      <button id="btn-home" class="icon-button tooltip" aria-label="Home" data-tooltip="Home">⌂</button>
+ <header class="app-topbar">
+  <div class="topbar-left">
+    <button id="btn-back" class="icon-button tooltip" data-tooltip="Back">←</button>
+    <button id="btn-home" class="icon-button tooltip" data-tooltip="Home">⌂</button>
 
-      <div class="app-brand">
-        <div class="app-pill">AIML</div>
-        <div class="app-title-block">
-          <div class="app-title">AI MATCHLAB ULTRA</div>
-          <div class="app-subtitle">v2.1 · Global Live Lab</div>
-        </div>
+    <div class="app-brand">
+      <div class="app-pill">AIML</div>
+      <div class="app-title-block">
+        <div class="app-title">AI MATCHLAB ULTRA</div>
+        <div class="app-subtitle">v2.2 · Global Live Lab</div>
       </div>
     </div>
+  </div>
 
-    <div class="app-actions">
+  <div class="app-actions">
+    <button id="btn-language" class="icon-button tooltip" data-tooltip="Language">🌐</button>
+    <button id="btn-refresh-live" class="icon-button tooltip" data-tooltip="Refresh live">🔄</button>
+    <button id="btn-legal" class="icon-button tooltip" data-tooltip="Legal & Policies">⚖</button>
+    <button id="btn-install" class="icon-button tooltip" data-tooltip="Install App">⬇</button>
 
-      <!-- INLINE UPDATE BUTTON + TEXT -->
-      <div id="update-inline-box" class="update-inline hidden">
-        <button id="btn-update-inline" class="icon-button tooltip" aria-label="Update" data-tooltip="Update">⟳</button>
-        <span id="update-inline-text" class="update-inline-text"></span>
-      </div>
+    <!-- ΝΕΟ: Update Button (πάντα ορατό, λειτουργεί όταν υπάρχει νέα έκδοση) -->
+    <button id="btn-update" class="icon-button tooltip" data-tooltip="Update">⚡</button>
 
-      <button id="btn-language" class="icon-button tooltip" aria-label="Language" data-tooltip="Language">🌐</button>
-      <button id="btn-refresh-live" class="icon-button tooltip" aria-label="Refresh live" data-tooltip="Refresh">🔄</button>
-      <button id="btn-legal" class="icon-button tooltip" aria-label="Legal" data-tooltip="Legal & Policies">⚖</button>
-      <button id="btn-install" class="icon-button tooltip" aria-label="Install app" data-tooltip="Install App">⬇</button>
-      <button id="theme-toggle" class="icon-button tooltip" aria-label="Toggle theme" data-tooltip="Theme">☾</button>
+    <button id="theme-toggle" class="icon-button tooltip" data-tooltip="Theme">☾</button>
+  </div>
+</header>
 
-    </div>
-  </header>
-
-  <!-- MAIN LAYOUT (30 / 40 / 30) -->
+  <!-- MAIN LAYOUT: 30 / 40 / 30 -->
   <div class="app-layout">
-
-    <!-- LEFT PANEL -->
-    <aside id="left-panel" class="panel-shell">
-      <h2>Navigation</h2>
+    <!-- LEFT: NAVIGATION -->
+    <aside class="left-column scroll-y">
+      <h2 class="panel-title">Navigation</h2>
 
       <div class="nav-accordion">
-
         <div class="accordion-item">
           <div class="accordion-header" data-target="panel-continents">Continents</div>
           <div class="accordion-body" id="panel-continents"></div>
@@ -83,22 +78,41 @@
           <div class="accordion-header" data-target="panel-details">Details</div>
           <div class="accordion-body" id="panel-details"></div>
         </div>
-
       </div>
     </aside>
 
-    <!-- CENTER PANEL -->
-    <main id="center-panel" class="panel-shell">
-      <h2>Odds Intelligence Center</h2>
+    <!-- CENTER: ODDS INTELLIGENCE CENTER -->
+    <main class="center-column scroll-y">
+      <h2 class="panel-title">Odds Intelligence Center</h2>
 
+      <!-- GREEK PANEL -->
       <section id="panel-greek-odds" class="odds-panel">
         <div class="odds-header-row">
-          <h3>Greek Panel · Bet365 · Stoiximan · OPAP</h3>
+          <h3>Greek Odds · Bet365 · Stoiximan · OPAP</h3>
           <div class="odds-meta" id="greek-odds-meta"></div>
         </div>
         <div class="odds-body" id="greek-odds-body"></div>
       </section>
 
+      <!-- EUROPEAN PANEL -->
+      <section id="panel-eu-odds" class="odds-panel">
+        <div class="odds-header-row">
+          <h3>European Odds · WH · Ladbrokes · Unibet · Bwin</h3>
+          <div class="odds-meta" id="eu-odds-meta"></div>
+        </div>
+        <div class="odds-body" id="eu-odds-body"></div>
+      </section>
+
+      <!-- ASIAN PANEL -->
+      <section id="panel-asian-odds" class="odds-panel">
+        <div class="odds-header-row">
+          <h3>Asian Odds · Pinnacle · SBO · 188BET · 12BET</h3>
+          <div class="odds-meta" id="asian-odds-meta"></div>
+        </div>
+        <div class="odds-body" id="asian-odds-body"></div>
+      </section>
+
+      <!-- BETFAIR PANEL -->
       <section id="panel-betfair-odds" class="odds-panel">
         <div class="odds-header-row">
           <h3>Betfair Exchange · Sharp Money</h3>
@@ -106,78 +120,75 @@
         </div>
         <div class="odds-body" id="betfair-odds-body"></div>
       </section>
-
-      <section id="panel-eu-odds" class="odds-panel">
-        <div class="odds-header-row">
-          <h3>European Panel · WH · Ladbrokes · Unibet · Pinnacle · Bwin</h3>
-          <div class="odds-meta" id="eu-odds-meta"></div>
-        </div>
-        <div class="odds-body" id="eu-odds-body"></div>
-      </section>
-
-      <section id="panel-asian-odds" class="odds-panel">
-        <div class="odds-header-row">
-          <h3>Asian Panel · Pinnacle · 188BET · SBO · 12BET · MaxBet</h3>
-          <div class="odds-meta" id="asian-odds-meta"></div>
-        </div>
-        <div class="odds-body" id="asian-odds-body"></div>
-      </section>
     </main>
 
-    <!-- RIGHT PANEL -->
-    <aside id="right-panel" class="panel-shell">
-      <div id="right-panel-content" class="right-panel-content">
-        <div class="placeholder-msg">Select a team or league to view details.</div>
-        <div id="live-matches-list" style="display:none;"></div>
+    <!-- RIGHT: AI PANELS -->
+    <aside class="right-column scroll-y">
+      <div class="right-panel-wrapper">
+        <div id="panel-radar" class="right-card">
+          <h3>AI Radar · Line Moves</h3>
+        </div>
+
+        <div id="panel-smart" class="right-card">
+          <h3>AI Smart Money · Top Picks</h3>
+        </div>
+
+        <div id="panel-live" class="right-card">
+          <h3>Live Matches</h3>
+        </div>
       </div>
     </aside>
-
   </div>
 
-  <!-- FOOTER -->
-  <footer class="app-footer" id="app-footer">
-    <div class="footer-links">
-      <a href="/cookies.html" target="_blank">Cookies</a><span>·</span>
-      <a href="/privacy.html" target="_blank">Privacy</a><span>·</span>
-      <a href="/terms.html" target="_blank">Terms</a><span>·</span>
-      <a href="/disclaimer.html" target="_blank">Disclaimer</a><span>·</span>
-      <a href="/impressum.html" target="_blank">Impressum</a>
-    </div>
-    <div class="footer-copy">© 2025 AI MATCHLAB ULTRA — All rights reserved.</div>
-  </footer>
-
-  <!-- BOTTOM NAV (MOBILE) -->
-  <nav class="bottom-nav">
-    <button data-target="home" class="bottom-nav-btn">⌂</button>
-    <button data-target="nav" class="bottom-nav-btn">📋</button>
-    <button data-target="live" class="bottom-nav-btn">⚡</button>
-    <button data-target="legal" class="bottom-nav-btn">⚖</button>
-    <button data-target="theme" class="bottom-nav-btn">☾</button>
-  </nav>
-
   <!-- SCRIPTS -->
-  <script src="/assets/js/ui/accordion.js"></script>
-  <script type="module" src="/assets/js/ui/app.js"></script>
-  <script type="module" src="/assets/js/odds/odds-center.js"></script>
 
-  <script type="module">
-    import { initTheme } from "/assets/js/theme.js";
-    import { initLiveEngine } from "/assets/js/live/live-engine.js";
-    import { initLanguage } from "/assets/js/language.js";
-    import { startVersionAutoCheck } from "/assets/js/utils/version-check.js";
+<!-- ACCORDION -->
+<script type="module" src="/assets/js/ui/accordion.js"></script>
 
-    function main() {
-      initTheme();
-      initLanguage && initLanguage();
-      initLiveEngine();
-      startVersionAutoCheck();
-    }
+<!-- DATA NAVIGATION (continents → countries → leagues) -->
+<script type="module" src="/assets/js/ui/app.js"></script>
 
-    if (document.readyState === "loading")
-      document.addEventListener("DOMContentLoaded", main);
-    else
-      main();
-  </script>
+<!-- ODDS ENGINE -->
+<script type="module" src="/assets/js/odds/odds-engine.js"></script>
+
+<!-- ODDS PANEL RENDERER -->
+<script type="module" src="/assets/js/odds/odds-panel.js"></script>
+
+<!-- RIGHT PANELS ENGINE -->
+<script type="module" src="/assets/js/right-panels.js"></script>
+
+<!-- LIVE ENGINE -->
+<script type="module" src="/assets/js/live/live-engine.js"></script>
+
+<!-- MOBILE UI -->
+<script type="module" src="/assets/js/mobile-ui.js"></script>
+
+<!-- LEGAL MENU -->
+<script type="module" src="/assets/js/legal-menu.js"></script>
+
+<!-- THEME / LANGUAGE / VERSION -->
+<script type="module">
+  import { initTheme, toggleTheme } from "/assets/js/theme.js";
+  import { initLanguage } from "/assets/js/language.js";
+
+  function boot() {
+    initTheme();
+    if (typeof initLanguage === "function") initLanguage();
+
+    const btnBack = document.getElementById("btn-back");
+    const btnHome = document.getElementById("btn-home");
+    const btnTheme = document.getElementById("theme-toggle");
+
+    btnBack && (btnBack.onclick = () => history.back());
+    btnHome && (btnHome.onclick = () => location.href = "/");
+    btnTheme && (btnTheme.onclick = () => toggleTheme());
+  }
+
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", boot);
+  else
+    boot();
+</script>
 
 </body>
 </html>

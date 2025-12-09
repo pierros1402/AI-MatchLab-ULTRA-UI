@@ -1,193 +1,180 @@
-/* ================================================================
-   AI MATCHLAB ULTRA — THEME SYSTEM (DARK & LIGHT)
-   Clean version — Ready for inline-update system
-================================================================ */
+/* ============================================================
+   AI MATCHLAB ULTRA — THEME.CSS (FULL VERSION)
+   Neon Blue + Orange Accent · Dark & Light Themes
+============================================================ */
 
-/* ---------------- ROOT VARIABLES (LIGHT MODE) ---------------- */
 :root {
-  --bg: #f5f6f7;
-  --bg-alt: #ffffff;
-  --bg-panel: #ffffff;
-  --bg-accent: #0ea5e9;
+  /* COLORS */
+  --blue-neon: #3deaff;
+  --blue-neon-strong: #1fd8ff;
+  --orange-accent: #ff6b00;
 
-  --text: #1e293b;
-  --text-soft: #475569;
+  --bg-dark: #0b0f17;
+  --bg-dark-2: #0d1421;
+  --bg-dark-3: #111b2a;
 
-  --border: #cbd5e1;
-  --border-soft: #e2e8f0;
-  --border-strong: #0ea5e9;
+  --text-main: #e5e7eb;
+  --text-muted: #9ca3af;
 
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.07);
-  --shadow-md: 0 2px 8px rgba(0,0,0,0.12);
+  --border-soft: rgba(61, 234, 255, 0.25);
+  --border-strong: rgba(61, 234, 255, 0.45);
+
+  --shadow-strong: rgba(0, 0, 0, 0.6);
+
+  /* LIGHT MODE */
+  --bg-light: #f3f4f6;
+  --bg-light-panel: #ffffff;
+  --text-light-main: #111827;
+  --text-light-muted: #6b7280;
+  --border-light: rgba(0,0,0,0.12);
 }
 
-/* ---------------- ROOT VARIABLES (DARK MODE) ---------------- */
+/* ============================================================
+   DARK THEME
+============================================================ */
 html.dark {
-  --bg: #0f172a;
-  --bg-alt: #1e293b;
-  --bg-panel: #1e293b;
-  --bg-accent: #38bdf8;
-
-  --text: #f1f5f9;
-  --text-soft: #94a3b8;
-
-  --border: #334155;
-  --border-soft: #475569;
-  --border-strong: #38bdf8;
-
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
-  --shadow-md: 0 2px 8px rgba(0,0,0,0.5);
+  background: var(--bg-dark);
+  color: var(--text-main);
 }
 
-/* ---------------- GLOBAL STYLES ---------------- */
-body {
-  margin: 0;
-  font-family: system-ui, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
+html.dark body {
+  background: var(--bg-dark);
+  color: var(--text-main);
 }
 
-/* ---------------- TOP BAR ---------------- */
-.app-topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: var(--bg-alt);
-  border-bottom: 1px solid var(--border);
-  padding: 8px 14px;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+/* Dark elements */
+html.dark .panel, 
+html.dark .card {
+  background: rgba(11,17,30,0.8);
+  border: 1px solid var(--border-soft);
 }
 
-/* Brand */
-.app-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+html.dark .topbar, 
+html.dark .drawer-panel,
+html.dark .bottom-nav {
+  background: var(--bg-dark-2);
 }
 
-.app-pill {
-  background: var(--bg-accent);
-  color: #fff;
-  padding: 4px 10px;
-  border-radius: 12px;
+/* TEXT COLORS */
+html.dark .muted {
+  color: var(--text-muted);
+}
+
+/* BORDERS */
+html.dark .soft-border {
+  border: 1px solid var(--border-soft);
+}
+
+/* ACCENTS */
+html.dark .accent {
+  color: var(--blue-neon);
+}
+
+/* ============================================================
+   LIGHT THEME
+============================================================ */
+html.light {
+  background: var(--bg-light);
+  color: var(--text-light-main);
+}
+
+html.light body {
+  background: var(--bg-light);
+  color: var(--text-light-main);
+}
+
+html.light .panel, 
+html.light .card {
+  background: var(--bg-light-panel);
+  border: 1px solid var(--border-light);
+}
+
+html.light .topbar, 
+html.light .drawer-panel,
+html.light .bottom-nav {
+  background: #ffffff;
+  border-color: var(--border-light);
+}
+
+html.light .muted {
+  color: var(--text-light-muted);
+}
+
+/* ACCENTS */
+html.light .accent {
+  color: #0088cc;
+}
+
+/* ============================================================
+   TRANSITIONS
+============================================================ */
+* {
+  transition: background-color .25s ease,
+              color .25s ease,
+              border-color .25s ease;
+}
+/* ============================================================
+   LIGHT THEME — FIX ACCORDION VISIBILITY
+============================================================ */
+
+html.light .accordion-section {
+  background: var(--bg-light-panel);
+  color: var(--text-light-main);
+  border: 1px solid var(--border-light);
+}
+
+html.light .accordion-section .accordion-header {
+  background: #ffffff;
+  color: var(--text-light-main);
+  border-bottom: 1px solid var(--border-light);
+}
+
+html.light .accordion-section .accordion-header.active {
+  background: #e5e7eb;
+  color: var(--text-light-main);
+}
+
+html.light .accordion-section .accordion-content {
+  background: #ffffff;
+  color: var(--text-light-main);
+  border-top: 1px solid var(--border-light);
+}
+
+html.light .accordion-section .accordion-content div:hover {
+  background: #f3f4f6;
+}
+/* ============================================================
+   LIGHT MODE — LEFT NAVIGATION PANEL
+============================================================ */
+
+html.light .left-column {
+  background: #d9e8f5 !important;
+}
+
+html.light .accordion-item {
+  background: #ffffff !important;
+  border: 1px solid #bcd6eb;
+  color: #0a1a24 !important;
+}
+
+html.light .accordion-header {
+  background: #eef7ff !important;
+  color: #0a1a24 !important;
+}
+
+html.light .accordion-header.active {
+  background: #cfe9ff !important;
   font-weight: 600;
 }
 
-.app-title-block {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.1;
+html.light .accordion-body {
+  background: #ffffff !important;
 }
 
-.app-title {
-  font-size: 1rem;
-  font-weight: 700;
+html.light .accordion-body div {
+  color: #0a1a24 !important;
 }
 
-.app-subtitle {
-  font-size: 0.75rem;
-  opacity: 0.8;
-}
-
-/* Actions */
-.app-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* ---------------- ICON BUTTON ---------------- */
-.icon-button {
-  border: 1px solid var(--border);
-  background: var(--bg-panel);
-  color: var(--text);
-  padding: 6px 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow: var(--shadow-sm);
-  transition: all 0.15s ease;
-  font-size: 1rem;
-}
-
-.icon-button:hover {
-  border-color: var(--border-strong);
-  box-shadow: var(--shadow-md);
-}
-
-/* ================================================================
-   INLINE UPDATE SECTION
-================================================================ */
-
-/* Container for update button + text */
-.update-inline {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding-right: 6px;
-}
-
-.update-inline.hidden {
-  display: none !important;
-}
-
-/* Update button highlight */
-#btn-update-inline {
-  border-color: var(--border-strong);
-  color: var(--bg-accent);
-  box-shadow: 0 0 8px rgba(56,189,248,0.45);
-  font-weight: 700;
-}
-
-/* Update text next to the button */
-.update-inline-text {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--bg-accent);
-  opacity: 0.95;
-  white-space: nowrap;
-  user-select: none;
-}
-
-/* ================================================================
-   THREE-COLUMN GRID LAYOUT  (THIS WAS MISSING)
-================================================================ */
-.app-layout {
-  display: grid;
-  grid-template-columns: 30% 40% 30%;
-  gap: 12px;
-  padding: 12px;
-}
-
-@media (max-width: 768px) {
-  .app-layout {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ================================================================
-   PANELS
-================================================================ */
-.panel-shell {
-  background: var(--bg-panel);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 12px;
-  box-shadow: var(--shadow-sm);
-  overflow: hidden;
-}
-
-/* ================================================================
-   FOOTER
-================================================================ */
-.app-footer {
-  margin-top: auto;
-  text-align: center;
-  padding: 12px;
-  font-size: 0.75rem;
-  color: var(--text-soft);
+html.light .accordion-body div:hover {
+  background: #e6f3ff !important;
 }

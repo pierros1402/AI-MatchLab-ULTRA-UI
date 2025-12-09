@@ -1,0 +1,118 @@
+/* ============================================================
+   AI MATCHLAB ULTRA — RIGHT PANELS (RADAR / SMART / LIVE)
+============================================================ */
+
+.right-panel-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.right-card {
+  background: rgba(11,17,30,0.85);
+  border: 1px solid rgba(61,234,255,0.25);
+  border-radius: 12px;
+  padding: 12px;
+  overflow-y: auto;
+  max-height: 300px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+.right-card h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #3deaff;
+}
+
+/* LIST ITEMS -------------------------------------------------*/
+.radar-item,
+.smart-item,
+.live-item {
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(61,234,255,0.15);
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: #e2e8f0;
+}
+
+.radar-item:hover,
+.smart-item:hover,
+.live-item:hover {
+  background: rgba(61,234,255,0.12);
+  border-color: rgba(61,234,255,0.35);
+}
+
+/* LIVE MATCH ROWS ------------------------------------------- */
+.live-match-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 4px;
+  margin-bottom: 4px;
+  border-radius: 6px;
+  background: rgba(0,0,0,0.24);
+}
+
+.live-match-row .teams {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.live-match-row .minute {
+  font-size: 12px;
+  color: #ff6b00; /* orange accent */
+}
+
+.live-match-row .score {
+  font-size: 14px;
+  font-weight: 700;
+  color: #3deaff;
+}
+
+/* MOBILE ----------------------------------------------------- */
+@media (max-width: 900px) {
+  .right-card {
+    max-height: 380px;
+  }
+}
+/* ============================================================
+   LIGHT MODE — RIGHT SIDE PANELS
+============================================================ */
+
+html.light .panel {
+  background: var(--bg-panel);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+}
+
+html.light .panel-header {
+  background: var(--bg-panel-soft);
+  border-bottom: 1px solid var(--border-color);
+}
+
+html.light .panel-body {
+  background: var(--bg-panel);
+}
+/* ============================================================
+   LIGHT MODE — RIGHT PANELS
+============================================================ */
+
+html.light .panel {
+  background: #ffffff !important;
+  border: 1px solid #bcd6eb !important;
+  color: #0a1a24 !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+html.light .panel-header {
+  background: #eef7ff !important;
+  border-bottom: 1px solid #bcd6eb !important;
+  color: #0a1a24 !important;
+}
+
+html.light .panel-body {
+  background: #ffffff !important;
+}

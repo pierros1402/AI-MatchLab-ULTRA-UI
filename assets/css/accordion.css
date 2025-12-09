@@ -1,46 +1,105 @@
 /* ============================================================
-   AI MATCHLAB ULTRA — ACCORDION
+   AI MATCHLAB ULTRA — ACCORDION.CSS (FULL)
 ============================================================ */
 
+.nav-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .accordion-item {
-  margin-bottom: 10px;
-  border-radius: var(--radius-lg);
+  background: rgba(11, 17, 30, 0.75);
+  border: 1px solid rgba(61, 234, 255, 0.25);
+  border-radius: 8px;
   overflow: hidden;
-  background: var(--bg-card);
-  border: 1px solid var(--border-soft);
-  box-shadow: var(--shadow-soft);
 }
 
 .accordion-header {
-  padding: 10px 14px;
-  cursor: pointer;
+  padding: 10px 12px;
+  background: rgba(13,18,28,0.95);
+  font-size: 14px;
   font-weight: 600;
-  background: linear-gradient(
-    90deg,
-    rgba(15,23,42,0.9),
-    rgba(15,23,42,0.65)
-  );
-  transition: 0.18s;
+  cursor: pointer;
+  color: #e5e7eb;
+  border-bottom: 1px solid rgba(61, 234, 255, 0.1);
+  user-select: none;
+}
+
+.accordion-header:hover {
+  background: rgba(61, 234, 255, 0.12);
+  color: #3deaff;
 }
 
 .accordion-header.active {
-  background: linear-gradient(
-    90deg,
-    rgba(56,189,248,0.32),
-    rgba(15,23,42,0.85)
-  );
+  color: #3deaff;
+  background: rgba(61, 234, 255, 0.18);
 }
 
 .accordion-body {
+  padding: 10px 12px;
   display: none;
-  padding: 12px;
-  background: radial-gradient(
-    circle at 0 0,
-    rgba(148,163,184,0.05),
-    rgba(15,23,42,0.95)
-  );
+  background: rgba(11,17,30,0.85);
 }
 
-.accordion-body.active {
-  display: block;
+/* NAV ITEMS INSIDE ----------------------------------------- */
+.nav-item {
+  padding: 6px 6px;
+  font-size: 13px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
 }
+
+.nav-item:hover {
+  background: rgba(61, 234, 255, 0.18);
+  color: #3deaff;
+}
+/* Independent scroll for Countries and Leagues */
+#panel-countries,
+#panel-leagues {
+  max-height: 350px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+#panel-countries::-webkit-scrollbar,
+#panel-leagues::-webkit-scrollbar {
+  width: 6px;
+}
+
+#panel-countries::-webkit-scrollbar-thumb,
+#panel-leagues::-webkit-scrollbar-thumb {
+  background: var(--blue-neon);
+  border-radius: 3px;
+}
+/* ============================================================
+   LIGHT MODE — ACCORDION
+============================================================ */
+
+html.light .accordion-item {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+}
+
+html.light .accordion-header {
+  background: var(--bg-panel-soft);
+  color: var(--text-main);
+  border-bottom: 1px solid var(--border-color);
+}
+
+html.light .accordion-header.active {
+  background: #dbeeff;
+  color: var(--text-main);
+}
+
+html.light .accordion-body {
+  background: var(--bg-panel);
+  border-top: 1px solid var(--border-color);
+}
+
+html.light .accordion-body div:hover {
+  background: #eef7ff;
+}
+

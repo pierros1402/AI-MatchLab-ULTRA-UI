@@ -1,64 +1,29 @@
-/* ===================================================================
-   AI MATCHLAB — INLINE VERSION CHECKER (FINAL)
-   Ελέγχει το version.json και εμφανίζει inline ειδοποίηση ενημέρωσης.
-=================================================================== */
+/* ============================================
+   VERSION CHECK — STABLE VERSION
+   ============================================ */
 
-const VERSION_URL = "/version.json";
-let currentVersion = null;
+const CURRENT_VERSION = "2.2";
 
-/* ---------------------------------------------------------------
-   Έλεγχος version.json
---------------------------------------------------------------- */
-export async function checkVersion() {
-  try {
-    const res = await fetch(VERSION_URL + "?t=" + Date.now());
-    if (!res.ok) throw new Error("Version fetch failed");
+export function initVersionCheck() {
+  const btn = document.getElementById("btn-update");
+  if (!btn) return;
 
-    const data = await res.json();
-    const newVersion = data.version;
+  btn.classList.add("hidden");
 
-    // First load → store current version
-    if (!currentVersion) {
-      currentVersion = newVersion;
-      return;
+  async function check() {
+    try {
+      const res = await fetch("/version.json?ts=" + Date.now());
+      const data = await res.json();
+
+      if (data.version && data.version !== CURRENT_VERSION) {
+        btn.classList.remove("hidden");
+        btn.onclick = () => location.reload(true);
+      }
+    } catch (err) {
+      console.warn("Version check failed:", err);
     }
-
-    // Version changed → show update notice
-    if (newVersion !== currentVersion) {
-      showInlineUpdateNotice(currentVersion, newVersion);
-    }
-
-  } catch (err) {
-    console.error("VERSION CHECK ERROR:", err);
   }
-}
 
-/* ---------------------------------------------------------------
-   Εμφάνιση inline κουμπιού + κειμένου
---------------------------------------------------------------- */
-function showInlineUpdateNotice(oldVer, newVer) {
-  const box = document.getElementById("update-inline-box");
-  const btn = document.getElementById("btn-update-inline");
-  const text = document.getElementById("update-inline-text");
-
-  if (!box || !btn || !text) return;
-
-  // Μήνυμα: New version · vA → vB
-  text.textContent = `New version · v${oldVer} → v${newVer}`;
-
-  // Εμφάνιση στοιχείων
-  box.classList.remove("hidden");
-
-  // Κουμπί Update
-  btn.onclick = () => {
-    location.reload(true);
-  };
-}
-
-/* ---------------------------------------------------------------
-   Auto-check every 60 seconds
---------------------------------------------------------------- */
-export function startVersionAutoCheck() {
-  checkVersion(); // First check
-  setInterval(checkVersion, 60000);
+  check();
+  setInterval(check, 20000);
 }

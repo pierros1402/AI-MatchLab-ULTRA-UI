@@ -1,21 +1,38 @@
-// ======================================================================
-// AI MATCHLAB ULTRA — THEME MODULE (LIGHT + DARK)
-// ======================================================================
+// THEME ENGINE
 
+// Load theme from storage or default to dark
 export function initTheme() {
-  const saved = localStorage.getItem("AIML_THEME");
-  const initial =
-    saved === "light" || saved === "dark" ? saved : "dark"; // dark default
-  document.documentElement.className = initial;
-  console.log("[Theme] Init:", initial);
+  let savedTheme = localStorage.getItem("aiml-theme");
+
+  if (!savedTheme) {
+    savedTheme = "dark";
+    localStorage.setItem("aiml-theme", savedTheme);
+  }
+
+  applyTheme(savedTheme);
 }
 
+// Apply theme to document + icons
+function applyTheme(theme) {
+  const html = document.documentElement;
+  const themeToggle = document.getElementById("theme-toggle");
+
+  if (theme === "dark") {
+    html.classList.add("dark");
+    html.classList.remove("light");
+    if (themeToggle) themeToggle.textContent = "🌙";
+  } else {
+    html.classList.add("light");
+    html.classList.remove("dark");
+    if (themeToggle) themeToggle.textContent = "☀️";
+  }
+}
+
+// Toggle theme and store result
 export function toggleTheme() {
-  const current = document.documentElement.className.includes("light")
-    ? "light"
-    : "dark";
-  const next = current === "light" ? "dark" : "light";
-  document.documentElement.className = next;
-  localStorage.setItem("AIML_THEME", next);
-  console.log("[Theme] Switch ->", next);
+  let current = localStorage.getItem("aiml-theme") || "dark";
+  let next = current === "dark" ? "light" : "dark";
+
+  localStorage.setItem("aiml-theme", next);
+  applyTheme(next);
 }
