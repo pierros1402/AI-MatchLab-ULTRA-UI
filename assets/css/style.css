@@ -210,20 +210,23 @@ html, body {
 
   .app-layout {
     grid-template-columns: 100%;
-    height: auto !important;                 
-    min-height: calc(100vh - 58px);          
-    overflow: visible !important;            
+    height: auto !important;
+    min-height: calc(100vh - 58px);
+    overflow: visible !important;
   }
 
+  .left-column,
   .center-column,
-  .right-column,
-  .left-column {
-    overflow-y: auto !important;             
-    -webkit-overflow-scrolling: touch;       
+  .right-column {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
   }
 
+  /* FIX RIGHT PANEL VISIBILITY */
   .right-column {
-    display: none;
+    display: block !important;      
+    width: 100% !important;
+    margin-top: 14px;
   }
 
   .bottom-nav {
@@ -252,7 +255,6 @@ html, body {
     color: #3deaff;
   }
 }
-
 /* ============================================================
    GENERAL CARDS & BOXES
 ============================================================ */
