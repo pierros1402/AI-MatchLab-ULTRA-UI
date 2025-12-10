@@ -1,21 +1,23 @@
 /* ============================================
-   VERSION CHECK — STABLE VERSION
-   ============================================ */
-
-const CURRENT_VERSION = "2.2";
+   VERSION CHECK — FINAL CLEAN VERSION
+============================================ */
 
 export function initVersionCheck() {
   const btn = document.getElementById("btn-update");
   if (!btn) return;
 
-  btn.classList.add("hidden");
+  // Read current version from UI subtitle
+  const subtitle = document.querySelector(".app-subtitle");
+  const currentVersion = subtitle
+    ? subtitle.textContent.trim().split(" ")[0].replace("v", "")
+    : "0.0.0";
 
   async function check() {
     try {
       const res = await fetch("/version.json?ts=" + Date.now());
-      const data = await res.json();
+      const remote = await res.json();
 
-      if (data.version && data.version !== CURRENT_VERSION) {
+      if (remote.version && remote.version !== currentVersion) {
         btn.classList.remove("hidden");
         btn.onclick = () => location.reload(true);
       }

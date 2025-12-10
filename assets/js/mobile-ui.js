@@ -1,135 +1,46 @@
-/* ============================================================
-   MOBILE UI SYSTEM — USER SELECTABLE MODE
-   Drawer Mode / Vertical Mode
-   ============================================================ */
+/* ============================================
+   MOBILE UI CONTROLLER (STABLE VERSION)
+   ============================================ */
 
-const MOBILE_BREAKPOINT = 900; 
-const MODE_KEY = "aiml_mobile_mode"; 
+document.addEventListener("DOMContentLoaded", () => {
 
-export function initMobileSystem() {
-  if (window.innerWidth > MOBILE_BREAKPOINT) return; // Desktop = ignore mobile logic
+  // Left panel drawer toggle
+  const drawerToggle = document.querySelector("#btn-drawer");
+  const leftColumn = document.querySelector(".left-column");
+  const overlay = document.querySelector("#drawer-overlay");
 
-  const btnMode = document.getElementById("btn-mobile-mode");
-  if (!btnMode) return;
+  if (drawerToggle && leftColumn && overlay) {
+    drawerToggle.addEventListener("click", () => {
+      leftColumn.classList.toggle("drawer-open");
+      overlay.classList.toggle("visible");
+    });
 
-  // Load saved mode or default to drawer
-  let mode = localStorage.getItem(MODE_KEY) || "drawer";
-  applyMobileMode(mode);
+    overlay.addEventListener("click", () => {
+      leftColumn.classList.remove("drawer-open");
+      overlay.classList.remove("visible");
+    });
+  }
 
-  // Button opens mode selector
-  btnMode.addEventListener("click", () => openModeSelector(mode));
+  // Safe check panels exist before modifying
+  const livePanel    = document.querySelector("#panel-live");
+  const radarPanel   = document.querySelector("#panel-radar");
+  const smartPanel   = document.querySelector("#panel-smart");
 
-  // Auto-update on resize (if shifting between mobile/desktop)
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > MOBILE_BREAKPOINT) {
-      resetMobileLayout();
-    } else {
-      applyMobileMode(localStorage.getItem(MODE_KEY) || "drawer");
-    }
-  });
-}
+  // Show all right panels by default (desktop)
+  if (livePanel)  livePanel.style.display = "block";
+  if (radarPanel) radarPanel.style.display = "block";
+  if (smartPanel) smartPanel.style.display = "block";
 
-/* ============================================================
-   MODE SELECTOR POPUP
-   ============================================================ */
-function openModeSelector(current) {
-  const wrapper = document.createElement("div");
-  wrapper.className = "mobile-mode-wrapper";
+  // Optional: add mobile collapse logic ONLY IF elements exist
+  const mobileToggles = document.querySelectorAll("[data-mobile-toggle]");
+  mobileToggles.forEach(btn => {
+    const target = document.querySelector(btn.dataset.mobileToggle);
+    if (!target) return;
 
-  wrapper.innerHTML = `
-    <div class="mobile-mode-modal">
-      <h3>Select Mobile Layout</h3>
-
-      <button class="mobile-option" data-mode="drawer">Drawer Navigation</button>
-      <button class="mobile-option" data-mode="vertical">Vertical Navigation</button>
-
-      <button class="mobile-close">Close</button>
-    </div>
-  `;
-
-  document.body.appendChild(wrapper);
-
-  wrapper.querySelectorAll(".mobile-option").forEach(btn => {
     btn.addEventListener("click", () => {
-      const newMode = btn.dataset.mode;
-      localStorage.setItem(MODE_KEY, newMode);
-      applyMobileMode(newMode);
-      wrapper.remove();
+      const visible = target.style.display === "block";
+      target.style.display = visible ? "none" : "block";
     });
   });
 
-  wrapper.querySelector(".mobile-close").onclick = () => wrapper.remove();
-  wrapper.onclick = e => { if (e.target === wrapper) wrapper.remove(); };
-}
-
-/* ============================================================
-   APPLY MOBILE LAYOUT MODE
-   ============================================================ */
-function applyMobileMode(mode) {
-  resetMobileLayout(); // Clean slate
-  
-  if (mode === "drawer") enableDrawerMode();
-  if (mode === "vertical") enableVerticalMode();
-}
-
-/* ============================================================
-   MODE: DRAWER
-   ============================================================ */
-function enableDrawerMode() {
-  const leftPanel = document.querySelector(".left-column");
-  const overlay = document.getElementById("drawer-overlay");
-  const btnDrawer = document.getElementById("btn-drawer");
-
-  if (!leftPanel || !overlay || !btnDrawer) return;
-
-  btnDrawer.style.display = "inline-flex";
-
-  btnDrawer.addEventListener("click", () => {
-    leftPanel.classList.toggle("drawer-open");
-    overlay.classList.toggle("visible");
-  });
-
-  overlay.addEventListener("click", () => {
-    leftPanel.classList.remove("drawer-open");
-    overlay.classList.remove("visible");
-  });
-
-  // Hide right panels for drawer mode
-  hideRightPanels();
-}
-
-/* ============================================================
-   MODE: VERTICAL STACK
-   ============================================================ */
-function enableVerticalMode() {
-  showRightPanels();
-  
-  const layout = document.getElementById("app-layout");
-  if (layout) {
-    layout.classList.add("vertical-stack");
-  }
-}
-
-/* ============================================================
-   RESET MOBILE LAYOUT
-   ============================================================ */
-function resetMobileLayout() {
-  const layout = document.getElementById("app-layout");
-  if (layout) layout.classList.remove("vertical-stack");
-
-  const leftPanel = document.querySelector(".left-column");
-  const overlay = document.getElementById("drawer-overlay");
-  if (leftPanel) leftPanel.classList.remove("drawer-open");
-  if (overlay) overlay.classList.remove("visible");
-
-  showRightPanels();
-}
-
-/* Helpers */
-function hideRightPanels() {
-  document.querySelectorAll(".right-column").forEach(col => col.style.display = "none");
-}
-
-function showRightPanels() {
-  document.querySelectorAll(".right-column").forEach(col => col.style.display = "block");
-}
+});

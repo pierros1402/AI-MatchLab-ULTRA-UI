@@ -14,9 +14,20 @@
 </head>
 
 <body>
-  <!-- TOP BAR -->
- <header class="app-topbar">
+
+<!-- UPDATE BANNER -->
+<div id="update-banner" class="update-banner hidden">
+  <span>New version available.</span>
+  <button id="btn-update-banner">Update</button>
+</div>
+
+<!-- TOP BAR -->
+<header class="app-topbar">
+
   <div class="topbar-left">
+    <!-- MOBILE DRAWER BUTTON -->
+    <button id="btn-drawer" class="icon-button tooltip mobile-only" data-tooltip="Menu">≡</button>
+
     <button id="btn-back" class="icon-button tooltip" data-tooltip="Back">←</button>
     <button id="btn-home" class="icon-button tooltip" data-tooltip="Home">⌂</button>
 
@@ -24,7 +35,7 @@
       <div class="app-pill">AIML</div>
       <div class="app-title-block">
         <div class="app-title">AI MATCHLAB ULTRA</div>
-        <div class="app-subtitle">v2.2 · Global Live Lab</div>
+        <div class="app-subtitle">v2.3 · Global Live Lab</div>
       </div>
     </div>
   </div>
@@ -35,153 +46,143 @@
     <button id="btn-legal" class="icon-button tooltip" data-tooltip="Legal & Policies">⚖</button>
     <button id="btn-install" class="icon-button tooltip" data-tooltip="Install App">⬇</button>
 
-    <!-- ΝΕΟ: Update Button (πάντα ορατό, λειτουργεί όταν υπάρχει νέα έκδοση) -->
-    <button id="btn-update" class="icon-button tooltip" data-tooltip="Update">⚡</button>
+    <!-- UPDATE BUTTON -->
+    <button id="btn-update" class="icon-button tooltip hidden" data-tooltip="Update">⚡</button>
 
     <button id="theme-toggle" class="icon-button tooltip" data-tooltip="Theme">☾</button>
   </div>
+
 </header>
 
-  <!-- MAIN LAYOUT: 30 / 40 / 30 -->
-  <div class="app-layout">
-    <!-- LEFT: NAVIGATION -->
-    <aside class="left-column scroll-y">
-      <h2 class="panel-title">Navigation</h2>
+<!-- MAIN LAYOUT -->
+<div class="app-layout">
 
-      <div class="nav-accordion">
-        <div class="accordion-item">
-          <div class="accordion-header" data-target="panel-continents">Continents</div>
-          <div class="accordion-body" id="panel-continents"></div>
-        </div>
+  <!-- LEFT COLUMN -->
+  <aside class="left-column scroll-y">
+    <h2 class="panel-title">Navigation</h2>
 
-        <div class="accordion-item">
-          <div class="accordion-header" data-target="panel-countries">Countries</div>
-          <div class="accordion-body" id="panel-countries"></div>
-        </div>
-
-        <div class="accordion-item">
-          <div class="accordion-header" data-target="panel-leagues">Leagues</div>
-          <div class="accordion-body" id="panel-leagues"></div>
-        </div>
-
-        <div class="accordion-item">
-          <div class="accordion-header" data-target="panel-teams">Teams</div>
-          <div class="accordion-body" id="panel-teams"></div>
-        </div>
-
-        <div class="accordion-item">
-          <div class="accordion-header" data-target="panel-matches">Matches</div>
-          <div class="accordion-body" id="panel-matches"></div>
-        </div>
-
-        <div class="accordion-item">
-          <div class="accordion-header" data-target="panel-details">Details</div>
-          <div class="accordion-body" id="panel-details"></div>
-        </div>
+    <div class="nav-accordion">
+      <div class="accordion-item">
+        <div class="accordion-header" data-target="panel-continents">Continents</div>
+        <div class="accordion-body" id="panel-continents"></div>
       </div>
-    </aside>
 
-    <!-- CENTER: ODDS INTELLIGENCE CENTER -->
-    <main class="center-column scroll-y">
-      <h2 class="panel-title">Odds Intelligence Center</h2>
-
-      <!-- GREEK PANEL -->
-      <section id="panel-greek-odds" class="odds-panel">
-        <div class="odds-header-row">
-          <h3>Greek Odds · Bet365 · Stoiximan · OPAP</h3>
-          <div class="odds-meta" id="greek-odds-meta"></div>
-        </div>
-        <div class="odds-body" id="greek-odds-body"></div>
-      </section>
-
-      <!-- EUROPEAN PANEL -->
-      <section id="panel-eu-odds" class="odds-panel">
-        <div class="odds-header-row">
-          <h3>European Odds · WH · Ladbrokes · Unibet · Bwin</h3>
-          <div class="odds-meta" id="eu-odds-meta"></div>
-        </div>
-        <div class="odds-body" id="eu-odds-body"></div>
-      </section>
-
-      <!-- ASIAN PANEL -->
-      <section id="panel-asian-odds" class="odds-panel">
-        <div class="odds-header-row">
-          <h3>Asian Odds · Pinnacle · SBO · 188BET · 12BET</h3>
-          <div class="odds-meta" id="asian-odds-meta"></div>
-        </div>
-        <div class="odds-body" id="asian-odds-body"></div>
-      </section>
-
-      <!-- BETFAIR PANEL -->
-      <section id="panel-betfair-odds" class="odds-panel">
-        <div class="odds-header-row">
-          <h3>Betfair Exchange · Sharp Money</h3>
-          <div class="odds-meta" id="betfair-odds-meta"></div>
-        </div>
-        <div class="odds-body" id="betfair-odds-body"></div>
-      </section>
-    </main>
-
-    <!-- RIGHT: AI PANELS -->
-    <aside class="right-column scroll-y">
-      <div class="right-panel-wrapper">
-        <div id="panel-radar" class="right-card">
-          <h3>AI Radar · Line Moves</h3>
-        </div>
-
-        <div id="panel-smart" class="right-card">
-          <h3>AI Smart Money · Top Picks</h3>
-        </div>
-
-        <div id="panel-live" class="right-card">
-          <h3>Live Matches</h3>
-        </div>
+      <div class="accordion-item">
+        <div class="accordion-header" data-target="panel-countries">Countries</div>
+        <div class="accordion-body" id="panel-countries"></div>
       </div>
-    </aside>
-  </div>
 
-  <!-- SCRIPTS -->
+      <div class="accordion-item">
+        <div class="accordion-header" data-target="panel-leagues">Leagues</div>
+        <div class="accordion-body" id="panel-leagues"></div>
+      </div>
 
-<!-- ACCORDION -->
+      <div class="accordion-item">
+        <div class="accordion-header" data-target="panel-teams">Teams</div>
+        <div class="accordion-body" id="panel-teams"></div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header" data-target="panel-matches">Matches</div>
+        <div class="accordion-body" id="panel-matches"></div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header" data-target="panel-details">Details</div>
+        <div class="accordion-body" id="panel-details"></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CENTER -->
+  <main class="center-column scroll-y">
+    <h2 class="panel-title">Odds Intelligence Center</h2>
+
+    <section id="panel-greek-odds" class="odds-panel">
+      <div class="odds-header-row">
+        <h3>Greek Odds · Bet365 · Stoiximan · OPAP</h3>
+        <div class="odds-meta" id="greek-odds-meta"></div>
+      </div>
+      <div class="odds-body" id="greek-odds-body"></div>
+    </section>
+
+    <section id="panel-eu-odds" class="odds-panel">
+      <div class="odds-header-row">
+        <h3>European Odds · WH · Ladbrokes · Unibet · Bwin</h3>
+        <div class="odds-meta" id="eu-odds-meta"></div>
+      </div>
+      <div class="odds-body" id="eu-odds-body"></div>
+    </section>
+
+    <section id="panel-asian-odds" class="odds-panel">
+      <div class="odds-header-row">
+        <h3>Asian Odds · Pinnacle · SBO · 188BET · 12BET</h3>
+        <div class="odds-meta" id="asian-odds-meta"></div>
+      </div>
+      <div class="odds-body" id="asian-odds-body"></div>
+    </section>
+
+    <section id="panel-betfair-odds" class="odds-panel">
+      <div class="odds-header-row">
+        <h3>Betfair Exchange · Sharp Money</h3>
+        <div class="odds-meta" id="betfair-odds-meta"></div>
+      </div>
+      <div class="odds-body" id="betfair-odds-body"></div>
+    </section>
+  </main>
+
+  <!-- RIGHT COLUMN -->
+  <aside class="right-column scroll-y">
+    <div class="right-panel-wrapper">
+      <div id="panel-radar" class="right-card">
+        <h3>AI Radar · Line Moves</h3>
+      </div>
+
+      <div id="panel-smart" class="right-card">
+        <h3>AI Smart Money · Top Picks</h3>
+      </div>
+
+      <div id="panel-live" class="right-card">
+        <h3>Live Matches</h3>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<!-- SCRIPTS -->
+
 <script type="module" src="/assets/js/ui/accordion.js"></script>
-
-<!-- DATA NAVIGATION (continents → countries → leagues) -->
 <script type="module" src="/assets/js/ui/app.js"></script>
 
-<!-- ODDS ENGINE -->
 <script type="module" src="/assets/js/odds/odds-engine.js"></script>
-
-<!-- ODDS PANEL RENDERER -->
 <script type="module" src="/assets/js/odds/odds-panel.js"></script>
-
-<!-- RIGHT PANELS ENGINE -->
 <script type="module" src="/assets/js/right-panels.js"></script>
-
-<!-- LIVE ENGINE -->
 <script type="module" src="/assets/js/live/live-engine.js"></script>
-
-<!-- MOBILE UI -->
 <script type="module" src="/assets/js/mobile-ui.js"></script>
-
-<!-- LEGAL MENU -->
 <script type="module" src="/assets/js/legal-menu.js"></script>
 
-<!-- THEME / LANGUAGE / VERSION -->
+<!-- THEME / LANGUAGE / VERSION / INSTALL -->
 <script type="module">
   import { initTheme, toggleTheme } from "/assets/js/theme.js";
   import { initLanguage } from "/assets/js/language.js";
+  import { initInstall } from "/assets/js/install.js";
+  import { initLegalMenu } from "/assets/js/legal-menu.js";
+  import { initVersionCheck } from "/assets/js/utils/version-check.js";
 
   function boot() {
     initTheme();
-    if (typeof initLanguage === "function") initLanguage();
+    initLanguage();
+    initInstall();
+    initLegalMenu();
+    initVersionCheck();
 
     const btnBack = document.getElementById("btn-back");
     const btnHome = document.getElementById("btn-home");
     const btnTheme = document.getElementById("theme-toggle");
 
-    btnBack && (btnBack.onclick = () => history.back());
-    btnHome && (btnHome.onclick = () => location.href = "/");
-    btnTheme && (btnTheme.onclick = () => toggleTheme());
+    btnBack.onclick = () => location.href = "/index.html";
+    btnHome.onclick = () => location.href = "/index.html";
+    btnTheme.onclick = () => toggleTheme();
   }
 
   if (document.readyState === "loading")
