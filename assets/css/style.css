@@ -16,7 +16,7 @@ html, body {
   height: 100%;
   background: #0b0f17;
   font-family: Inter, Arial, sans-serif;
-  overflow: hidden;
+  overflow: visible;  /* FIX */
 }
 
 /* GLOBAL SCROLL --------------------------------------------- */
@@ -125,10 +125,11 @@ html, body {
   top: 58px;
   left: 0;
   width: 100%;
-  height: calc(100% - 58px);
+  min-height: calc(100% - 58px);
+  height: auto;             /* FIX */
   display: grid;
   grid-template-columns: 30% 40% 30%;
-  overflow: hidden;
+  overflow: visible;        /* FIX */
 }
 
 /* LEFT PANEL ------------------------------------------------ */
@@ -209,6 +210,16 @@ html, body {
 
   .app-layout {
     grid-template-columns: 100%;
+    height: auto !important;                 
+    min-height: calc(100vh - 58px);          
+    overflow: visible !important;            
+  }
+
+  .center-column,
+  .right-column,
+  .left-column {
+    overflow-y: auto !important;             
+    -webkit-overflow-scrolling: touch;       
   }
 
   .right-column {
