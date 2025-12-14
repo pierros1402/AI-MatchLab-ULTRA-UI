@@ -372,3 +372,18 @@ body {
   /* Ensure right side does not shrink away */
   .topbar-right{ justify-content: flex-end; flex: 0 0 auto; }
 }
+/* =========================
+   UPDATE BANNER (STICKY BELOW TOPBAR)
+========================= */
+#update-banner{
+  position: sticky;
+  top: var(--topbar-h);
+  z-index: 6000;
+}
+
+@media (max-width: 900px){
+  #update-banner{
+    margin: 0 10px;
+    border-radius: 14px;
+  }
+}
