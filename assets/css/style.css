@@ -387,3 +387,22 @@ body {
     border-radius: 14px;
   }
 }
+/* =========================
+   MOBILE TOPBAR HEIGHT (anti-clipping)
+========================= */
+@media (max-width: 900px){
+  :root{
+    --topbar-h: 62px; /* από 54px -> 62px */
+  }
+
+  .app-topbar{
+    padding: 0 8px;   /* λίγο πιο σφιχτό */
+    gap: 8px;
+  }
+
+  /* Σταθερό “κουμπί” μέγεθος ώστε να μην κόβεται */
+  .icon-button{
+    height: 40px;
+    min-height: 40px;
+  }
+}
