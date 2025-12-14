@@ -1,8 +1,10 @@
 /* =========================================================
    AI MatchLab ULTRA — Core Layout (No body scroll, internal scroll)
+   CLEAN + Mobile topbar 92px + Tooltips
 ========================================================= */
 
-:root {
+/* ---------- Root ---------- */
+:root{
   --topbar-h: 54px;
   --gap: 12px;
   --left-w: 300px;
@@ -11,16 +13,16 @@
 }
 
 /* Reset-ish */
-* { box-sizing: border-box; }
-html, body { height: 100%; }
-body {
+*{ box-sizing: border-box; }
+html, body{ height: 100%; }
+body{
   margin: 0;
   overflow: hidden; /* critical: NO body scroll */
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
 
 /* Update banner */
-.update-banner {
+.update-banner{
   height: 40px;
   display: flex;
   align-items: center;
@@ -28,8 +30,9 @@ body {
   padding: 0 12px;
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
-.update-banner.hidden { display: none; }
-.btn {
+.update-banner.hidden{ display: none; }
+
+.btn{
   padding: 8px 10px;
   border-radius: 10px;
   border: 1px solid rgba(255,255,255,0.12);
@@ -38,8 +41,8 @@ body {
   cursor: pointer;
 }
 
-/* Topbar */
-.app-topbar {
+/* ---------- Topbar ---------- */
+.app-topbar{
   min-height: var(--topbar-h);
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -47,19 +50,20 @@ body {
   gap: 10px;
   padding: 0 10px;
   border-bottom: 1px solid rgba(255,255,255,0.10);
-  position: relative;
-  overflow: visible; /* allow logo + text breathing room */
-  z-index: 10000; /* stays above drawers and banners */
+  position: relative;     /* stays in normal flow (matches app-shell calc) */
+  overflow: visible;
+  z-index: 10000;
 }
 
-.topbar-left, .topbar-right {
+.topbar-left,
+.topbar-right{
   display: flex;
   align-items: center;
   gap: 8px;
 }
-.topbar-right { justify-content: flex-end; }
+.topbar-right{ justify-content: flex-end; }
 
-.topbar-center {
+.topbar-center{
   display: flex;
   align-items: baseline;
   justify-content: center;
@@ -67,8 +71,15 @@ body {
   white-space: nowrap;
 }
 
+.topbar-sep{
+  width: 1px;
+  height: 26px;
+  background: rgba(255,255,255,0.14);
+  margin: 0 4px;
+}
+
 /* IMPORTANT: constrain the logo so it never covers the UI */
-.topbar-logo {
+.topbar-logo{
   height: 30px;
   width: auto;
   display: block;
@@ -76,26 +87,33 @@ body {
 }
 
 /* Brand block next to logo */
-.topbar-brand {
+.topbar-brand{
   display: flex;
   flex-direction: column;
   line-height: 1.05;
 }
-.brand-title {
+.brand-title{
   font-weight: 800;
   letter-spacing: 0.2px;
 }
-.brand-version {
+.brand-version{
   opacity: 0.75;
   font-size: 12px;
   margin-top: 2px;
 }
 
-.app-title { font-weight: 700; letter-spacing: 0.3px; }
-.app-version { opacity: 0.75; font-size: 12px; }
+/* Pills */
+.ver-pill{
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+}
 
 /* Buttons */
-.icon-button {
+.icon-button{
   height: 36px;
   min-width: 36px;
   padding: 0 10px;
@@ -106,8 +124,19 @@ body {
   cursor: pointer;
 }
 
+.icon-button .ui-ico{
+  width: 18px;
+  height: 18px;
+  display: block;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 /* Popover */
-.popover {
+.popover{
   position: absolute;
   top: calc(var(--topbar-h) + 6px);
   right: 10px;
@@ -117,23 +146,24 @@ body {
   background: rgba(0,0,0,0.65);
   backdrop-filter: blur(10px);
   overflow: hidden;
-  z-index: 50;
+  z-index: 20000;
 }
-.popover.hidden { display: none; }
-.popover-header {
+.popover.hidden{ display: none; }
+
+.popover-header{
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px 10px;
   border-bottom: 1px solid rgba(255,255,255,0.10);
 }
-.popover-title { font-weight: 700; }
-.popover-body {
+.popover-title{ font-weight: 700; }
+.popover-body{
   padding: 8px;
   display: grid;
   gap: 6px;
 }
-.popover-link {
+.popover-link{
   display: block;
   padding: 10px 10px;
   border-radius: 12px;
@@ -143,15 +173,15 @@ body {
   text-decoration: none;
 }
 
-/* App shell */
-.app-shell {
+/* ---------- App shell ---------- */
+.app-shell{
   height: calc(100vh - var(--topbar-h));
   display: flex;
   flex-direction: column;
 }
 
 /* Critical flex fixes */
-.app-main {
+.app-main{
   flex: 1 1 auto;
   min-height: 0; /* critical */
   display: flex;
@@ -160,7 +190,7 @@ body {
 }
 
 /* Panels */
-.app-panel {
+.app-panel{
   min-height: 0; /* critical */
   display: flex;
   flex-direction: column;
@@ -170,18 +200,18 @@ body {
   overflow: hidden;
 }
 
-#left-panel { width: var(--left-w); flex: 0 0 var(--left-w); }
-#center-panel { flex: 1 1 auto; min-width: 0; }
-#right-panel { width: var(--right-w); flex: 0 0 var(--right-w); }
+#left-panel{ width: var(--left-w); flex: 0 0 var(--left-w); }
+#center-panel{ flex: 1 1 auto; min-width: 0; }
+#right-panel{ width: var(--right-w); flex: 0 0 var(--right-w); }
 
-.panel-header {
+.panel-header{
   flex: 0 0 auto;
   padding: 10px 12px;
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
-.panel-title { font-weight: 700; }
+.panel-title{ font-weight: 700; }
 
-.app-panel > .panel-body {
+.app-panel > .panel-body{
   flex: 1 1 auto;
   min-height: 0; /* critical */
   overflow: auto; /* internal scroll */
@@ -189,8 +219,8 @@ body {
 }
 
 /* Lists */
-.list { display: grid; gap: 8px; }
-.list .row {
+.list{ display: grid; gap: 8px; }
+.list .row{
   padding: 10px 10px;
   border-radius: 12px;
   border: 1px solid rgba(255,255,255,0.10);
@@ -198,43 +228,47 @@ body {
   cursor: pointer;
   user-select: none;
 }
-.list .row:hover { background: rgba(255,255,255,0.08); }
-.list .row .sub { opacity: 0.75; font-size: 12px; margin-top: 4px; }
+.list .row:hover{ background: rgba(255,255,255,0.08); }
+.list .row .sub{ opacity: 0.75; font-size: 12px; margin-top: 4px; }
 
 /* Accordion */
-.accordion { display: grid; gap: 10px; }
-.accordion-item { border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.10); }
-.accordion-header {
+.accordion{ display: grid; gap: 10px; }
+.accordion-item{
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.10);
+}
+.accordion-header{
   padding: 10px 10px;
   background: rgba(255,255,255,0.06);
   cursor: pointer;
   font-weight: 700;
 }
-.accordion-panel {
+.accordion-panel{
   display: none;
   padding: 10px;
   background: rgba(255,255,255,0.03);
 }
-.accordion-panel.open { display: block; }
+.accordion-panel.open{ display: block; }
 
 /* Active Match Bar */
-.active-match-bar {
+.active-match-bar{
   border-radius: 14px;
   border: 1px solid rgba(255,255,255,0.10);
   background: rgba(255,255,255,0.05);
   padding: 10px 12px;
   margin-bottom: 12px;
 }
-.amb-title { font-weight: 800; }
-.amb-sub { opacity: 0.75; font-size: 12px; margin-top: 4px; }
+.amb-title{ font-weight: 800; }
+.amb-sub{ opacity: 0.75; font-size: 12px; margin-top: 4px; }
 
 /* Odds grid/cards */
-.odds-grid {
+.odds-grid{
   display: grid;
-  grid-template-columns: 1fr;  /* vertical */
+  grid-template-columns: 1fr;
   gap: 12px;
 }
-.odds-card {
+.odds-card{
   border-radius: 14px;
   border: 1px solid rgba(255,255,255,0.10);
   background: rgba(255,255,255,0.04);
@@ -243,19 +277,19 @@ body {
   flex-direction: column;
   min-height: 160px;
 }
-.odds-card-header {
+.odds-card-header{
   padding: 10px 12px;
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
-.odds-card-title { font-weight: 800; }
-.odds-card-body {
+.odds-card-title{ font-weight: 800; }
+.odds-card-body{
   padding: 10px 12px;
   min-height: 0;
   overflow: auto;
 }
 
 /* Right cards */
-.right-card {
+.right-card{
   border-radius: 14px;
   border: 1px solid rgba(255,255,255,0.10);
   background: rgba(255,255,255,0.04);
@@ -263,26 +297,20 @@ body {
   display: flex;
   flex-direction: column;
 }
-.right-card-header {
+.right-card-header{
   padding: 10px 12px;
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
-.right-card .panel-body {
-  padding: 10px 12px;
-  min-height: 0;
-  overflow: auto;
-}
 
 /* Responsive */
-@media (max-width: 1100px) {
-  :root { --right-w: 320px; --left-w: 280px; }
-  .odds-grid { grid-template-columns: 1fr; }
+@media (max-width: 1100px){
+  :root{ --right-w: 320px; --left-w: 280px; }
+  .odds-grid{ grid-template-columns: 1fr; }
 }
 
 /* =========================
-   FULL MOBILE DRAWERS
+   FULL MOBILE DRAWERS + MOBILE TOPBAR HEIGHT
 ========================= */
-
 .mobile-only{ display: none !important; }
 
 .drawer-overlay{
@@ -301,7 +329,48 @@ body {
 }
 
 @media (max-width: 900px){
+  :root{ --topbar-h: 92px; } /* IMPORTANT: taller topbar on mobile */
+
   .mobile-only{ display: inline-flex !important; }
+
+  /* Topbar: prevent overlap */
+  header.app-topbar{
+    min-height: var(--topbar-h) !important;
+    height: auto !important;
+    grid-template-columns: auto 1fr auto !important;
+    padding: 14px 10px !important;
+    gap: 10px !important;
+    overflow: visible !important;
+  }
+
+  .topbar-left,
+  .topbar-center,
+  .topbar-right{
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .topbar-left{ min-width: 0 !important; gap: 8px !important; }
+  .topbar-right{ justify-content: flex-end !important; gap: 8px !important; }
+
+  /* Save space on mobile */
+  .topbar-logo{ display: none !important; }
+  .topbar-sep{ display: none !important; }
+  .topbar-brand .brand-title{ display: none !important; }
+  .brand-version .ver-sub{ display: none !important; }
+
+  /* Icons only */
+  .icon-button .btn-text{ display: none !important; }
+
+  /* Bigger tap targets */
+  .icon-button{
+    height: 48px !important;
+    min-height: 48px !important;
+    min-width: 48px !important;
+    padding: 0 10px !important;
+    flex-shrink: 0 !important;
+  }
 
   /* Center becomes full width */
   #center-panel{
@@ -313,7 +382,7 @@ body {
   /* Left drawer */
   #left-panel{
     position: fixed;
-    top: var(--topbar-h, 54px);
+    top: var(--topbar-h);
     left: 0;
     bottom: 0;
     width: min(340px, calc(100vw - 60px));
@@ -323,10 +392,10 @@ body {
   }
   #left-panel.drawer-open{ transform: translateX(0); }
 
-  /* Right drawer (override any display:none mobile rules elsewhere) */
+  /* Right drawer */
   #right-panel{
     position: fixed;
-    top: var(--topbar-h, 54px);
+    top: var(--topbar-h);
     right: 0;
     bottom: 0;
     width: min(380px, calc(100vw - 60px));
@@ -344,170 +413,26 @@ body {
   }
 }
 
-/* =========================
-   MOBILE TOPBAR FIT (Theme/Legal visible)
-========================= */
-@media (max-width: 900px){
-  /* Make grid behave like "auto | 1fr | auto" so right buttons never get clipped */
-  .app-topbar{
-    grid-template-columns: auto 1fr auto !important;
-    overflow: visible !important;
-  }
+/* ====================================================
+   TOOLTIP (CSS-only, desktop hover)
+==================================================== */
+.tooltip{ position: relative; }
 
-  /* Allow left/brand to shrink instead of pushing right controls off-screen */
-  .topbar-left{ min-width: 0 !important; }
-  .topbar-brand{ min-width: 0 !important; }
-
-  .brand-title{
-    max-width: 46vw;
-    overflow: hidden;
-    text-overflow: ellipsis;
+@media (hover:hover){
+  .tooltip[data-tooltip]:hover::after{
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 50%;
+    top: calc(100% + 8px);
+    transform: translateX(-50%);
     white-space: nowrap;
-  }
-  .brand-version .ver-sub{ display: none; }
-
-  /* Save horizontal space: hide text labels on mobile */
-  #btn-install .btn-text{ display: none; }
-  #btn-lang .btn-text{ display: none; }
-
-  /* Ensure right side does not shrink away */
-  .topbar-right{ justify-content: flex-end; flex: 0 0 auto; }
-}
-/* =========================
-   UPDATE BANNER (STICKY BELOW TOPBAR)
-========================= */
-#update-banner{
-  position: sticky;
-  top: var(--topbar-h);
-  z-index: 6000;
-}
-
-@media (max-width: 900px){
-  #update-banner{
-    margin: 0 10px;
-    border-radius: 14px;
-  }
-}
-/* =========================
-   MOBILE TOPBAR HEIGHT (anti-clipping)
-========================= */
-@media (max-width: 900px){
-  :root{
-    --topbar-h: 62px; /* από 54px -> 66px */
-  }
-
-  .app-topbar{
-    padding: 0 8px;   /* λίγο πιο σφιχτό */
-    gap: 8px;
-  }
-
-  /* Σταθερό “κουμπί” μέγεθος ώστε να μην κόβεται */
-  .icon-button{
-    height: 40px;
-    min-height: 40px;
-  }
-}
-/* =========================
-   FINAL TOPBAR FIX (safe for all mobile)
-========================= */
-@media (max-width: 900px){
-  :root{
-    --topbar-h: 66px;
-  }
-
-  .app-topbar{
-    min-height: var(--topbar-h) !important;
-    padding: 6px 10px !important;
-    gap: 8px !important;
-    overflow: visible !important;
-  }
-
-  .icon-button{
-    height: 42px !important;
-    min-height: 42px !important;
-  }
-}
-/* ====================================================
-   FINAL TOPBAR FIX — Unified height + grid layout
-==================================================== */
-.app-topbar {
-  min-height: 68px !important;
-  height: auto !important;
-  display: grid !important;
-  grid-template-columns: auto 1fr auto !important;
-  align-items: center !important;
-  gap: 10px !important;
-  padding: 0 12px !important;
-  overflow: visible !important;
-  z-index: 10000 !important;
-}
-
-.topbar-left,
-.topbar-center,
-.topbar-right {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  flex-wrap: nowrap !important;
-}
-
-.topbar-left { justify-content: flex-start !important; }
-.topbar-right { justify-content: flex-end !important; }
-
-.brand-title {
-  max-width: 48vw !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  white-space: nowrap !important;
-}
-
-.icon-button,
-#theme-toggle,
-#language-toggle,
-#btn-legal,
-#btn-account {
-  flex-shrink: 0 !important;
-  height: 42px !important;
-  min-width: 42px !important;
-}
-/* ====================================================
-   HARD OVERRIDE: FIXED TOPBAR HEIGHT
-   (forces all mobile & theme overrides)
-==================================================== */
-@media (max-width: 900px) {
-  :root {
-    --topbar-h: 70px !important;
-  }
-
-  header.app-topbar {
-    min-height: var(--topbar-h) !important;
-    height: auto !important;
-    padding: 0 12px !important;
-    gap: 10px !important;
-    display: grid !important;
-    grid-template-columns: auto 1fr auto !important;
-    align-items: center !important;
-    overflow: visible !important;
-    position: relative !important;
-    z-index: 99999 !important;
-  }
-
-  header.app-topbar * {
-    line-height: normal !important;
-  }
-
-  .topbar-left,
-  .topbar-center,
-  .topbar-right {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    flex-wrap: nowrap !important;
-  }
-
-  .icon-button {
-    height: 42px !important;
-    min-height: 42px !important;
-    flex-shrink: 0 !important;
+    font-size: 12px;
+    padding: 6px 8px;
+    border-radius: 10px;
+    background: rgba(0,0,0,0.78);
+    border: 1px solid rgba(255,255,255,0.14);
+    color: rgba(255,255,255,0.94);
+    z-index: 30000;
+    pointer-events: none;
   }
 }

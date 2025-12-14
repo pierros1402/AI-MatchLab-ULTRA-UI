@@ -1,13 +1,28 @@
 /* =========================================================
    AI MatchLab ULTRA — PREMIUM SKIN (override)
-   Requires theme.css tokens (accent/glow/line/panel/text)
+   Requires theme.css tokens (accent/glow/glow2/ring/line/panel/text)
 ========================================================= */
 
 html, body{
   background:
-    radial-gradient(1200px 900px at 18% 0%, color-mix(in srgb, var(--glow) 12%, transparent), transparent 60%),
-    radial-gradient(900px 700px at 92% 18%, color-mix(in srgb, var(--accent-2) 10%, transparent), transparent 55%),
+    /* Primary glow (accent) */
+    radial-gradient(1200px 900px at 18% 0%,
+      color-mix(in srgb, var(--glow) 18%, transparent),
+      transparent 62%),
+
+    /* Secondary glow (accent-2) — stronger & cleaner via glow2 */
+    radial-gradient(980px 760px at 92% 16%,
+      color-mix(in srgb, var(--glow2) 22%, transparent),
+      transparent 58%),
+
+    /* Bottom ambient lift (subtle) */
+    radial-gradient(1200px 900px at 50% 115%,
+      color-mix(in srgb, var(--glow2) 10%, transparent),
+      transparent 55%),
+
+    /* Base gradient */
     linear-gradient(180deg, var(--bg2), var(--bg0));
+
   color: var(--text);
 }
 
@@ -20,10 +35,21 @@ body{
 .app-topbar{
   background: linear-gradient(180deg,
     color-mix(in srgb, var(--panel-2) 92%, transparent),
-    color-mix(in srgb, var(--panel) 70%, transparent));
+    color-mix(in srgb, var(--panel) 72%, transparent));
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line-2);
   box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+/* Dual highlight lines (accent + secondary) */
+.app-topbar::before{
+  content:"";
+  position:absolute;
+  left:0; right:0; top:0;
+  height:1px;
+  background: linear-gradient(90deg, transparent, var(--ring-2), transparent);
+  opacity: .55;
+  pointer-events:none;
 }
 
 .app-topbar::after{
@@ -32,7 +58,7 @@ body{
   left:0; right:0; bottom:0;
   height:1px;
   background: linear-gradient(90deg, transparent, var(--ring), transparent);
-  opacity: .9;
+  opacity: .90;
   pointer-events:none;
 }
 
@@ -43,7 +69,7 @@ body{
 /* Premium icon buttons */
 .icon-button, .btn, .market-btn{
   background: linear-gradient(180deg,
-    color-mix(in srgb, var(--panel) 80%, transparent),
+    color-mix(in srgb, var(--panel) 82%, transparent),
     color-mix(in srgb, var(--panel-2) 96%, transparent));
   border: 1px solid var(--line);
   color: var(--text);
@@ -52,7 +78,9 @@ body{
 }
 
 .icon-button:hover, .btn:hover, .market-btn:hover{
-  border-color: color-mix(in srgb, var(--glow) 44%, var(--line));
+  border-color: color-mix(in srgb,
+    color-mix(in srgb, var(--glow) 54%, var(--glow2)) 55%,
+    var(--line));
   box-shadow: 0 0 0 2px var(--ring-2), var(--shadow);
   background: linear-gradient(180deg,
     color-mix(in srgb, var(--panel) 92%, transparent),
@@ -73,7 +101,7 @@ body{
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
-  opacity: .95;
+  opacity: .96;
 }
 
 /* Panels / Cards: glass + highlight */
@@ -101,16 +129,29 @@ body{
   background: linear-gradient(180deg, color-mix(in srgb, var(--panel-2) 96%, transparent), transparent);
   border-bottom: 1px solid var(--line-2);
 }
+
 .panel-title, .odds-card-title{
   color: color-mix(in srgb, var(--glow) 72%, var(--text));
   font-weight: 900;
 }
 
+/* Accent underline (adds punch) */
+.panel-title::after, .odds-card-title::after{
+  content:"";
+  display:block;
+  height:2px;
+  width: 34px;
+  margin-top: 6px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--ring), var(--ring-2));
+  opacity: .85;
+}
+
 /* Accordion header capsule */
 .accordion-header{
   background: linear-gradient(180deg,
-    color-mix(in srgb, var(--glow) 10%, var(--panel-2)),
-    color-mix(in srgb, var(--panel) 82%, transparent));
+    color-mix(in srgb, var(--glow) 12%, var(--panel-2)),
+    color-mix(in srgb, var(--panel) 84%, transparent));
   border-bottom: 1px solid var(--line-2);
 }
 
@@ -121,10 +162,12 @@ body{
   box-shadow: 0 8px 18px rgba(0,0,0,0.20);
   transition: background .12s ease, border-color .12s ease, transform .12s ease;
 }
+
 .list .row:hover{
-  background: color-mix(in srgb, var(--glow) 10%, var(--panel-2));
-  border-color: color-mix(in srgb, var(--glow) 36%, var(--line));
+  background: color-mix(in srgb, var(--glow) 12%, var(--panel-2));
+  border-color: color-mix(in srgb, var(--glow) 38%, var(--line));
 }
+
 .list .row:active{ transform: translateY(1px); }
 
 /* Popovers: premium glass */
@@ -136,35 +179,96 @@ body{
   box-shadow: var(--shadow);
   backdrop-filter: blur(14px);
 }
+
 .popover-link{
   background: color-mix(in srgb, var(--panel-2) 92%, transparent);
   border-color: var(--line-2);
 }
+
 .popover-link:hover{
-  background: color-mix(in srgb, var(--glow) 10%, var(--panel-2));
-  border-color: color-mix(in srgb, var(--glow) 34%, var(--line));
+  background: color-mix(in srgb, var(--glow) 12%, var(--panel-2));
+  border-color: color-mix(in srgb, var(--glow2) 38%, var(--line));
 }
+
 .popover-link.active{
   outline: 2px solid var(--ring);
   box-shadow: 0 0 0 3px var(--ring-2);
 }
 
-/* Premium scrollbars (webkit) */
-*::-webkit-scrollbar{ width: 10px; height: 10px; }
-*::-webkit-scrollbar-track{ background: color-mix(in srgb, var(--panel-2) 70%, transparent); }
-*::-webkit-scrollbar-thumb{
-  background: color-mix(in srgb, var(--glow) 18%, rgba(255,255,255,0.20));
-  border: 2px solid color-mix(in srgb, var(--panel-2) 80%, transparent);
+/* Premium scrollbars — dual accent style */
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: color-mix(in srgb, var(--panel-2) 80%, transparent);
   border-radius: 999px;
 }
-*::-webkit-scrollbar-thumb:hover{
-  background: color-mix(in srgb, var(--glow) 28%, rgba(255,255,255,0.24));
+
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  border-radius: 999px;
+  border: 2px solid color-mix(in srgb, var(--panel-2) 85%, transparent);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--accent-2) 60%, transparent);
 }
-@media (max-width: 900px) {
-  .app-topbar {
-    min-height: 70px !important;
-    height: auto !important;
-    overflow: visible !important;
-    z-index: 99999 !important;
-  }
+
+*::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--accent-2), var(--accent));
+  box-shadow: 0 0 10px color-mix(in srgb, var(--accent-2) 80%, transparent);
+}
+
+/* =========================================================
+   DUAL-TONE BOOST (make --accent-2 visible everywhere)
+   Paste at END of skin-premium.css
+========================================================= */
+
+html{
+  --dual-grad: linear-gradient(90deg, var(--accent), var(--accent-2));
+}
+
+/* Version pill: dual-tone “badge” */
+.ver-pill{
+  background: var(--dual-grad) !important;
+  color: rgba(8,10,14,0.92) !important;
+  font-weight: 900 !important;
+  padding: 4px 10px !important;
+  border-radius: 999px !important;
+  border: 1px solid color-mix(in srgb, var(--accent-2) 35%, rgba(255,255,255,0.18)) !important;
+  box-shadow: 0 0 0 2px var(--ring-2) inset !important, var(--shadow-2) !important;
+}
+
+/* Topbar separator: show secondary color too */
+.topbar-sep{
+  width: 10px !important;
+  height: 36px !important;
+  border-radius: 999px !important;
+  background: linear-gradient(180deg, transparent, var(--ring-2), transparent) !important;
+  opacity: .85 !important;
+}
+
+/* Titles: slightly mix accent + accent-2 so not “mono” */
+.panel-title, .odds-card-title{
+  color: color-mix(in srgb, var(--accent) 68%, var(--accent-2)) !important;
+}
+
+/* Underline: thicker + full dual gradient */
+.panel-title::after, .odds-card-title::after{
+  height: 3px !important;
+  width: 52px !important;
+  background: var(--dual-grad) !important;
+  opacity: 1 !important;
+}
+
+/* Buttons hover: add secondary ring so it pops */
+.icon-button:hover, .btn:hover, .market-btn:hover{
+  box-shadow:
+    0 0 0 2px var(--ring-2),
+    0 0 0 4px color-mix(in srgb, var(--ring) 45%, transparent),
+    var(--shadow) !important;
+}
+
+/* List rows hover: border uses secondary too */
+.list .row:hover{
+  border-color: color-mix(in srgb, var(--accent-2) 45%, var(--line)) !important;
 }
