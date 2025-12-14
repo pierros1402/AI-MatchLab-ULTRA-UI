@@ -427,3 +427,46 @@ body {
     min-height: 42px !important;
   }
 }
+/* ====================================================
+   FINAL TOPBAR FIX — Unified height + grid layout
+==================================================== */
+.app-topbar {
+  min-height: 68px !important;
+  height: auto !important;
+  display: grid !important;
+  grid-template-columns: auto 1fr auto !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 0 12px !important;
+  overflow: visible !important;
+  z-index: 10000 !important;
+}
+
+.topbar-left,
+.topbar-center,
+.topbar-right {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-wrap: nowrap !important;
+}
+
+.topbar-left { justify-content: flex-start !important; }
+.topbar-right { justify-content: flex-end !important; }
+
+.brand-title {
+  max-width: 48vw !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.icon-button,
+#theme-toggle,
+#language-toggle,
+#btn-legal,
+#btn-account {
+  flex-shrink: 0 !important;
+  height: 42px !important;
+  min-width: 42px !important;
+}
