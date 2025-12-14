@@ -342,3 +342,33 @@ body {
     padding-right: 12px;
   }
 }
+
+/* =========================
+   MOBILE TOPBAR FIT (Theme/Legal visible)
+========================= */
+@media (max-width: 900px){
+  /* Make grid behave like "auto | 1fr | auto" so right buttons never get clipped */
+  .app-topbar{
+    grid-template-columns: auto 1fr auto !important;
+    overflow: visible !important;
+  }
+
+  /* Allow left/brand to shrink instead of pushing right controls off-screen */
+  .topbar-left{ min-width: 0 !important; }
+  .topbar-brand{ min-width: 0 !important; }
+
+  .brand-title{
+    max-width: 46vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .brand-version .ver-sub{ display: none; }
+
+  /* Save horizontal space: hide text labels on mobile */
+  #btn-install .btn-text{ display: none; }
+  #btn-lang .btn-text{ display: none; }
+
+  /* Ensure right side does not shrink away */
+  .topbar-right{ justify-content: flex-end; flex: 0 0 auto; }
+}
