@@ -1,118 +1,163 @@
-/* ============================================================
-   AI MATCHLAB ULTRA — RIGHT PANELS (RADAR / SMART / LIVE)
-============================================================ */
+/* =========================================================
+   AI MatchLab ULTRA — RIGHT PANELS (Radar / Top Picks / Live)
+   FINAL full replacement (no duplicate blocks, no nested conflicts)
+   - Outer right panel body uses grid stack
+   - Inner right-card-body handles padding/scroll
+   - Items use theme tokens (panel/line/glow/ring)
+========================================================= */
 
-.right-panel-wrapper {
+/* Outer stack (Right column) */
+#right-panel > .panel-body{
+  display: grid;
+  gap: 12px;
+  min-height: 0;
+}
+
+/* Optional class if used in index.html */
+.right-stack{
+  display: grid;
+  gap: 12px;
+  min-height: 0;
+}
+
+/* Card header layout: title left, meta right */
+.right-card-header{
   display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.right-card {
-  background: rgba(11,17,30,0.85);
-  border: 1px solid rgba(61,234,255,0.25);
-  border-radius: 12px;
-  padding: 12px;
-  overflow-y: auto;
-  max-height: 300px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-}
-
-.right-card h3 {
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 10px;
-  color: #3deaff;
-}
-
-/* LIST ITEMS -------------------------------------------------*/
-.radar-item,
-.smart-item,
-.live-item {
-  padding: 8px 10px;
-  border-radius: 8px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(61,234,255,0.15);
-  margin-bottom: 6px;
-  font-size: 13px;
-  color: #e2e8f0;
-}
-
-.radar-item:hover,
-.smart-item:hover,
-.live-item:hover {
-  background: rgba(61,234,255,0.12);
-  border-color: rgba(61,234,255,0.35);
-}
-
-/* LIVE MATCH ROWS ------------------------------------------- */
-.live-match-row {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 6px 4px;
-  margin-bottom: 4px;
-  border-radius: 6px;
-  background: rgba(0,0,0,0.24);
+  justify-content: space-between;
+  gap: 10px;
 }
 
-.live-match-row .teams {
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.live-match-row .minute {
+.right-meta{
   font-size: 12px;
-  color: #ff6b00; /* orange accent */
+  opacity: 0.72;
+  white-space: nowrap;
 }
 
-.live-match-row .score {
-  font-size: 14px;
-  font-weight: 700;
-  color: #3deaff;
+/* Inner card body (use this instead of .panel-body inside right cards) */
+.right-card-body{
+  padding: 10px 12px;
+  min-height: 0;
+  overflow: auto;
 }
 
-/* MOBILE ----------------------------------------------------- */
-@media (max-width: 900px) {
-  .right-card {
-    max-height: 380px;
-  }
-}
-/* ============================================================
-   LIGHT MODE — RIGHT SIDE PANELS
-============================================================ */
-
-html.light .panel {
-  background: var(--bg-panel);
-  color: var(--text-main);
-  border: 1px solid var(--border-color);
+/* Lists inside cards */
+.right-list{
+  display: grid;
+  gap: 10px;
 }
 
-html.light .panel-header {
-  background: var(--bg-panel-soft);
-  border-bottom: 1px solid var(--border-color);
+/* Generic item (used for radar/picks/live) */
+.right-item{
+  padding: 10px 10px;
+  border-radius: 12px;
+
+  border: 1px solid var(--line-2, rgba(255,255,255,0.10));
+  background: color-mix(in srgb, var(--panel-2, rgba(10,14,22,0.86)) 92%, transparent);
+
+  box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+  transition:
+    transform .12s ease,
+    border-color .12s ease,
+    background .12s ease,
+    box-shadow .12s ease;
 }
 
-html.light .panel-body {
-  background: var(--bg-panel);
-}
-/* ============================================================
-   LIGHT MODE — RIGHT PANELS
-============================================================ */
-
-html.light .panel {
-  background: #ffffff !important;
-  border: 1px solid #bcd6eb !important;
-  color: #0a1a24 !important;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+.right-item:hover{
+  background: color-mix(in srgb, var(--glow, var(--accent, #19d3ff)) 10%, var(--panel-2, rgba(10,14,22,0.86)));
+  border-color: color-mix(in srgb, var(--glow, var(--accent, #19d3ff)) 34%, var(--line, rgba(255,255,255,0.14)));
+  box-shadow:
+    0 0 0 2px var(--ring-2, rgba(25,211,255,0.16)),
+    0 10px 22px rgba(0,0,0,0.20);
 }
 
-html.light .panel-header {
-  background: #eef7ff !important;
-  border-bottom: 1px solid #bcd6eb !important;
-  color: #0a1a24 !important;
+.right-item:active{
+  transform: translateY(1px);
 }
 
-html.light .panel-body {
-  background: #ffffff !important;
+/* Title line */
+.right-title{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 900;
+}
+
+.right-title-text{
+  line-height: 1.15;
+}
+
+/* Subtext */
+.right-sub{
+  margin-top: 6px;
+  font-size: 12px;
+  opacity: 0.72;
+  line-height: 1.25;
+}
+
+/* Badge system */
+.right-badge{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 18px;
+  padding: 0 8px;
+  border-radius: 999px;
+
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .2px;
+  white-space: nowrap;
+
+  border: 1px solid var(--line, rgba(255,255,255,0.14));
+  background: rgba(255,255,255,0.06);
+}
+
+/* “tone” variants */
+.right-badge.tone-cyan{
+  border-color: color-mix(in srgb, var(--glow, var(--accent, #19d3ff)) 45%, var(--line, rgba(255,255,255,0.14)));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--glow, var(--accent, #19d3ff)) 18%, transparent);
+}
+
+.right-badge.tone-green{
+  /* fixed green for “value” semantics (independent of current accent) */
+  border-color: color-mix(in srgb, #17d49a 55%, var(--line, rgba(255,255,255,0.14)));
+  box-shadow: 0 0 0 2px color-mix(in srgb, #17d49a 16%, transparent);
+}
+
+.right-badge.tone-gray{
+  opacity: 0.78;
+}
+
+/* Empty state */
+.right-empty{
+  padding: 10px 10px;
+  border-radius: 12px;
+  border: 1px dashed var(--line-2, rgba(255,255,255,0.10));
+  background: color-mix(in srgb, var(--panel-2, rgba(10,14,22,0.86)) 86%, transparent);
+  opacity: 0.78;
+}
+
+/* Optional live row helpers */
+.live-row{
+  display: grid;
+  gap: 6px;
+}
+.live-row .live-top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-weight: 900;
+}
+.live-row .live-meta{
+  font-size: 12px;
+  opacity: 0.72;
+  white-space: nowrap;
+}
+
+/* Responsive */
+@media (max-width: 900px){
+  #right-panel{ display: none; }
 }

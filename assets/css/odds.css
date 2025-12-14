@@ -1,120 +1,128 @@
-/* ============================================================
-   AI MATCHLAB ULTRA — ODDS.CSS (FULL VERSION)
-   Odds Intelligence Center · Blue/Orange theme
-============================================================ */
+/* =========================================================
+   AI MatchLab ULTRA — Odds Intelligence Center Panels
+   Clean consolidated version (no duplicates)
+   Layout: vertical bookmakers, horizontal odds
+   Global Market Bar on right of title
+========================================================= */
 
-.odds-panel {
-  background: rgba(11, 17, 30, 0.8);
-  border: 1px solid rgba(61,234,255,0.25);
-  border-radius: 12px;
-  padding: 12px;
-  margin-bottom: 16px;
-  overflow-y: auto;
-  max-height: 420px;
-  box-shadow: 0 12px 32px rgba(0,0,0,0.45);
+/* ---- Title Row / Market Bar ---- */
+.oic-titlebar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
 }
 
-/* Titles ---------------------------------------------------- */
-.odds-header-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
+.oic-marketbar{
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+  flex-wrap:wrap;
+  margin-left:auto;
 }
 
-.odds-header-row h3 {
-  font-size: 15px;
-  font-weight: 600;
-  color: #3deaff;
+.oic-marketbar .oic-tab{
+  font-size:12px;
+  padding:6px 10px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(0,0,0,.15);
+  cursor:pointer;
+  white-space:nowrap;
+  transition:background .15s ease,border-color .15s ease,transform .15s ease;
+}
+.oic-marketbar .oic-tab:hover{
+  background:rgba(255,255,255,.08);
+  border-color:rgba(255,255,255,.28);
+  transform:translateY(-1px);
+}
+.oic-marketbar .oic-tab.is-active{
+  font-weight:900;
+  border-color:rgba(255,255,255,.35);
+  background:rgba(255,255,255,.08);
 }
 
-.odds-meta {
-  font-size: 12px;
-  color: #94a3b8;
+/* ---- Panel Surface ---- */
+.odds-surface{
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(0,0,0,.20);
+  margin-bottom:16px;
 }
 
-/* Match card ------------------------------------------------ */
-.odds-card {
-  background: rgba(10, 16, 26, 0.92);
-  border: 1px solid rgba(61,234,255,0.35);
-  padding: 10px 12px;
-  border-radius: 10px;
-  margin-bottom: 10px;
+/* ---- Odds Rows ---- */
+.odds-row2{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+  padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.odds-row2:last-child{border-bottom:none;}
+
+.odds-bm{
+  min-width:170px;
+  max-width:220px;
+  font-weight:900;
+  opacity:.95;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
-.odds-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 6px;
+.odds-cells2{
+  display:flex;
+  gap:16px;
+  flex-wrap:nowrap;
+  justify-content:flex-end;
+  overflow:hidden;
 }
 
-.odds-row .teams {
-  font-weight: 600;
-  font-size: 13px;
-  color: #f1f5f9;
+.odds-cell2{
+  display:flex;
+  gap:6px;
+  align-items:baseline;
+  min-width:160px;
 }
 
-.odds-row .kickoff {
-  font-size: 12px;
-  color: #9ca3af;
+.odds-cell2 .k{font-weight:900;opacity:.85;}
+.odds-cell2 .o{opacity:.70;}
+.odds-cell2 .arr{opacity:.60;}
+.odds-cell2 .c{font-weight:950;}
+.odds-cell2 .d{margin-left:4px;font-weight:900;opacity:.9;}
+.odds-cell2 .d.hot{text-decoration:underline;text-underline-offset:3px;}
+
+/* ---- Typography / Spacing ---- */
+.odds-surface,
+.odds-row2,
+.odds-cell2,
+.odds-bm{
+  font-size:13px;
+}
+.odds-cell2 .k,
+.odds-cell2 .d{
+  font-size:12px;
 }
 
-/* Bookmaker blocks ------------------------------------------ */
-.odds-tables {
-  margin-top: 6px;
+/* ---- Empty / Offline ---- */
+.odds-empty{
+  opacity:.85;
+  padding:6px 2px;
+}
+.odds-note{opacity:.75;}
+
+/* ---- Scroll reach for Betfair ---- */
+#betfair-odds-body{
+  scroll-margin-bottom:140px;
 }
 
-.odds-line {
-  display: grid;
-  grid-template-columns: 1.3fr 0.9fr 0.9fr 0.9fr;
-  padding: 4px 0;
-  gap: 6px;
-  align-items: center;
-}
-
-.odds-line .book {
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: var(--blue-neon);
-}
-
-.odds-line .price {
-  font-size: 12px;
-  background: rgba(255,255,255,0.04);
-  padding: 4px 6px;
-  border-radius: 6px;
-  text-align: right;
-  color: #f8fafc;
-  border: 1px solid rgba(61,234,255,0.16);
-}
-
-/* Hover highlights */
-.odds-line:hover .price {
-  background: rgba(61,234,255,0.12);
-  border-color: rgba(61,234,255,0.35);
-}
-/* Independent scroll for each odds panel */
-.odds-panel {
-  max-height: 420px;
-  overflow-y: auto;
-}
-/* ============================================================
-   LIGHT MODE — ODDS PANELS
-============================================================ */
-
-html.light .odds-panel {
-  background: var(--bg-panel);
-  border: 1px solid var(--border-color);
-  color: var(--text-main);
-}
-
-html.light .odds-card {
-  background: var(--bg-panel-soft);
-  border: 1px solid var(--border-color);
-}
-
-html.light .odds-card:hover {
-  background: #eef7ff;
+/* ---- Ensure center column scrolls properly ---- */
+.center-column{
+  overflow-y:auto;
+  overflow-x:hidden;
+  min-height:0;
+  min-width:0;
+  padding-bottom:140px;
 }

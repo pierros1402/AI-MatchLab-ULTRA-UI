@@ -1,105 +1,124 @@
-/* ============================================================
-   AI MATCHLAB ULTRA — ACCORDION.CSS (FULL)
-============================================================ */
+/* =============================================================
+   ACCORDION.CSS — Clean Accordion Logic
+============================================================= */
 
-.nav-accordion {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.accordion {
+  width: 100%;
 }
 
 .accordion-item {
-  background: rgba(11, 17, 30, 0.75);
-  border: 1px solid rgba(61, 234, 255, 0.25);
-  border-radius: 8px;
-  overflow: hidden;
+  border-bottom: 1px solid var(--border-light);
 }
 
 .accordion-header {
-  padding: 10px 12px;
-  background: rgba(13,18,28,0.95);
-  font-size: 14px;
-  font-weight: 600;
+  padding: 10px;
+  font-weight: 700;
   cursor: pointer;
-  color: #e5e7eb;
-  border-bottom: 1px solid rgba(61, 234, 255, 0.1);
-  user-select: none;
+  background: var(--bg-panel);
+  color: var(--text-main);
 }
 
 .accordion-header:hover {
-  background: rgba(61, 234, 255, 0.12);
-  color: #3deaff;
-}
-
-.accordion-header.active {
-  color: #3deaff;
-  background: rgba(61, 234, 255, 0.18);
+  background: var(--bg-panel-light);
 }
 
 .accordion-body {
-  padding: 10px 12px;
   display: none;
-  background: rgba(11,17,30,0.85);
+  padding: 10px;
+  background: var(--bg-panel-light);
+  color: var(--text-main);
 }
 
-/* NAV ITEMS INSIDE ----------------------------------------- */
-.nav-item {
-  padding: 6px 6px;
-  font-size: 13px;
-  border-radius: 6px;
+/* =============================================================
+   NAV LIST — force vertical items in left navigation
+============================================================= */
+#left-panel .nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#left-panel .nav-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 8px 10px;
+  border: 1px solid var(--border-light);
+  background: var(--bg-panel);
+  color: var(--text-main);
   cursor: pointer;
-  transition: 0.2s;
 }
 
-.nav-item:hover {
-  background: rgba(61, 234, 255, 0.18);
-  color: #3deaff;
+#left-panel .nav-item:hover {
+  background: var(--bg-panel-light);
 }
-/* Independent scroll for Countries and Leagues */
-#panel-countries,
-#panel-leagues {
-  max-height: 350px;
+
+#left-panel .match-item {
+  display: block;
+  padding: 8px 10px;
+  border: 1px solid var(--border-light);
+  background: var(--bg-panel);
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+#left-panel .match-item:hover {
+  background: var(--bg-panel-light);
+}
+
+/* =============================================================
+   CENTER + RIGHT PANELS — always open (per requirements)
+============================================================= */
+#center-panel .accordion-body,
+#right-panel .accordion-body {
+  display: block;
+}
+/* ==========================================================
+   LEFT PANEL: restore internal scroll for Countries/Leagues/Matches
+   (critical: min-height:0 for flex children)
+========================================================== */
+
+:root { --topbar-h: 56px; }
+
+#left-panel{
+  height: calc(100vh - var(--topbar-h));
+  overflow: hidden;          /* scroll only inside bodies */
+  display: flex;
+  flex-direction: column;
+}
+
+#left-accordion{
+  flex: 1;
+  min-height: 0;             /* IMPORTANT */
+  display: flex;
+  flex-direction: column;
+}
+
+/* If your accordion items are flex columns, bodies can scroll */
+#left-accordion .accordion-item{
+  display: flex;
+  flex-direction: column;
+  min-height: 0;             /* IMPORTANT */
+}
+
+/* The actual scroll containers */
+#left-accordion .accordion-body{
+  flex: 1;
+  min-height: 0;             /* IMPORTANT */
   overflow-y: auto;
-  padding-right: 6px;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
-
-#panel-countries::-webkit-scrollbar,
-#panel-leagues::-webkit-scrollbar {
-  width: 6px;
-}
-
-#panel-countries::-webkit-scrollbar-thumb,
-#panel-leagues::-webkit-scrollbar-thumb {
-  background: var(--blue-neon);
-  border-radius: 3px;
-}
-/* ============================================================
-   LIGHT MODE — ACCORDION
-============================================================ */
-
-html.light .accordion-item {
-  background: var(--bg-panel);
-  border: 1px solid var(--border-color);
-  color: var(--text-main);
-}
-
-html.light .accordion-header {
-  background: var(--bg-panel-soft);
-  color: var(--text-main);
-  border-bottom: 1px solid var(--border-color);
-}
-
-html.light .accordion-header.active {
-  background: #dbeeff;
-  color: var(--text-main);
-}
-
-html.light .accordion-body {
-  background: var(--bg-panel);
-  border-top: 1px solid var(--border-color);
-}
-
-html.light .accordion-body div:hover {
-  background: #eef7ff;
-}
-
+#panel-saved { overflow-y: auto; }
+.saved-toolbar { display:flex; gap:8px; padding:6px; }
+.muted { opacity: .75; font-size: 12px; margin-top: 2px; }
+.star { margin-right: 8px; cursor: pointer; }
+.saved-toolbar { display:flex; gap:8px; padding:6px; }
+.saved-tab { width:100%; }
+.saved-body { padding:6px; }
+.saved-item { padding:8px; border-radius:6px; cursor:pointer; }
+.saved-item:hover { opacity:0.95; }
+.match-row { display:flex; gap:10px; align-items:flex-start; }
+.match-star { cursor:pointer; user-select:none; width:18px; display:inline-block; }
+.match-main { flex:1; }

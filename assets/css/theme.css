@@ -1,180 +1,105 @@
-/* ============================================================
-   AI MATCHLAB ULTRA — THEME.CSS (FULL VERSION)
-   Neon Blue + Orange Accent · Dark & Light Themes
-============================================================ */
+/* =========================================================
+   AI MatchLab ULTRA — THEME TOKENS
+   Dark/Light + Accents (vibrant dual-tone)
+========================================================= */
 
-:root {
-  /* COLORS */
-  --blue-neon: #3deaff;
-  --blue-neon-strong: #1fd8ff;
-  --orange-accent: #ff6b00;
+/* ---------- DARK (default) ---------- */
+html{
+  color-scheme: dark;
 
-  --bg-dark: #0b0f17;
-  --bg-dark-2: #0d1421;
-  --bg-dark-3: #111b2a;
+  /* Background layers */
+  --bg0: #05070c;
+  --bg1: #070b12;
+  --bg2: #0b1220;
 
-  --text-main: #e5e7eb;
-  --text-muted: #9ca3af;
+  /* Glass panels */
+  --panel: rgba(12, 18, 30, 0.72);
+  --panel-2: rgba(10, 14, 22, 0.86);
+  --panel-solid: #0a0f18;
 
-  --border-soft: rgba(61, 234, 255, 0.25);
-  --border-strong: rgba(61, 234, 255, 0.45);
+  /* Text */
+  --text: rgba(245,247,255,0.92);
+  --muted: rgba(210,220,255,0.62);
+  --faint: rgba(210,220,255,0.40);
 
-  --shadow-strong: rgba(0, 0, 0, 0.6);
+  /* Lines + shadows */
+  --line: rgba(140,170,220,0.18);
+  --line-2: rgba(140,170,220,0.10);
+  --shadow: 0 18px 55px rgba(0,0,0,0.55);
+  --shadow-2: 0 10px 28px rgba(0,0,0,0.40);
 
-  /* LIGHT MODE */
-  --bg-light: #f3f4f6;
-  --bg-light-panel: #ffffff;
-  --text-light-main: #111827;
-  --text-light-muted: #6b7280;
-  --border-light: rgba(0,0,0,0.12);
+  /* Default accent (Blue / Orange) */
+  --accent: #38b6ff;
+  --accent-2: #ff8b2d;
 }
 
-/* ============================================================
-   DARK THEME
-============================================================ */
-html.dark {
-  background: var(--bg-dark);
-  color: var(--text-main);
+/* ---------- LIGHT ---------- */
+html.light{
+  color-scheme: light;
+
+  --bg0: #f7fbff;
+  --bg1: #eef6ff;
+  --bg2: #ffffff;
+
+  --panel: rgba(255,255,255,0.78);
+  --panel-2: rgba(255,255,255,0.92);
+  --panel-solid: #ffffff;
+
+  --text: rgba(12,16,24,0.92);
+  --muted: rgba(12,16,24,0.62);
+  --faint: rgba(12,16,24,0.44);
+
+  --line: rgba(20,40,80,0.18);
+  --line-2: rgba(20,40,80,0.10);
+
+  --shadow: 0 18px 55px rgba(10,30,60,0.18);
+  --shadow-2: 0 10px 28px rgba(10,30,60,0.12);
+
+  /* Light default keeps Blue/Orange character */
+  --accent: #2aa9ff;
+  --accent-2: #ff8b2d;
 }
 
-html.dark body {
-  background: var(--bg-dark);
-  color: var(--text-main);
+/* ---------- ACCENTS (data-accent) ---------- */
+/* Default = Blue/Orange */
+html[data-accent="default"]     { --accent:#38b6ff; --accent-2:#ff8b2d; }
+/* Strong, clearly different palettes */
+html[data-accent="green-gold"]  { --accent:#19e3a3; --accent-2:#ffcf4d; }
+html[data-accent="red-silver"]  { --accent:#ff3b5c; --accent-2:#d6deef; }
+html[data-accent="purple-aqua"] { --accent:#a775ff; --accent-2:#12e6ff; }
+/* “Neon / Spectrum” (kept key black-lime for compatibility) */
+html[data-accent="black-lime"]  { --accent:#b7ff2a; --accent-2:#19d3ff; }
+/* Minimal classic */
+html[data-accent="minimal"]     { --accent:#8aa2c6; --accent-2:#6f7f98; }
+
+/* ---------- Accent helpers (used by premium skin) ---------- */
+html{
+  /* Primary glow/rings from accent */
+  --glow: var(--accent);
+  --glow-soft:   color-mix(in srgb, var(--accent) 14%, transparent);
+  --glow-mid:    color-mix(in srgb, var(--accent) 28%, transparent);
+  --glow-strong: color-mix(in srgb, var(--accent) 48%, transparent);
+
+  --ring:   color-mix(in srgb, var(--accent) 55%, transparent);
+  --ring-2: color-mix(in srgb, var(--accent) 28%, transparent);
+
+  --hover: color-mix(in srgb, var(--accent) 10%, transparent);
+
+  /* Secondary helpers (accent-2) */
+  --glow2-soft:   color-mix(in srgb, var(--accent-2) 12%, transparent);
+  --glow2-mid:    color-mix(in srgb, var(--accent-2) 22%, transparent);
+  --glow2-strong: color-mix(in srgb, var(--accent-2) 38%, transparent);
 }
 
-/* Dark elements */
-html.dark .panel, 
-html.dark .card {
-  background: rgba(11,17,30,0.8);
-  border: 1px solid var(--border-soft);
+/* Bridge vars (legacy compatibility) */
+html{
+  --panel-bg: var(--panel);
+  --text-color: var(--text);
+  --border-color: var(--line);
+  --accent-hover: var(--hover);
 }
 
-html.dark .topbar, 
-html.dark .drawer-panel,
-html.dark .bottom-nav {
-  background: var(--bg-dark-2);
-}
-
-/* TEXT COLORS */
-html.dark .muted {
-  color: var(--text-muted);
-}
-
-/* BORDERS */
-html.dark .soft-border {
-  border: 1px solid var(--border-soft);
-}
-
-/* ACCENTS */
-html.dark .accent {
-  color: var(--blue-neon);
-}
-
-/* ============================================================
-   LIGHT THEME
-============================================================ */
-html.light {
-  background: var(--bg-light);
-  color: var(--text-light-main);
-}
-
-html.light body {
-  background: var(--bg-light);
-  color: var(--text-light-main);
-}
-
-html.light .panel, 
-html.light .card {
-  background: var(--bg-light-panel);
-  border: 1px solid var(--border-light);
-}
-
-html.light .topbar, 
-html.light .drawer-panel,
-html.light .bottom-nav {
-  background: #ffffff;
-  border-color: var(--border-light);
-}
-
-html.light .muted {
-  color: var(--text-light-muted);
-}
-
-/* ACCENTS */
-html.light .accent {
-  color: #0088cc;
-}
-
-/* ============================================================
-   TRANSITIONS
-============================================================ */
-* {
-  transition: background-color .25s ease,
-              color .25s ease,
-              border-color .25s ease;
-}
-/* ============================================================
-   LIGHT THEME — FIX ACCORDION VISIBILITY
-============================================================ */
-
-html.light .accordion-section {
-  background: var(--bg-light-panel);
-  color: var(--text-light-main);
-  border: 1px solid var(--border-light);
-}
-
-html.light .accordion-section .accordion-header {
-  background: #ffffff;
-  color: var(--text-light-main);
-  border-bottom: 1px solid var(--border-light);
-}
-
-html.light .accordion-section .accordion-header.active {
-  background: #e5e7eb;
-  color: var(--text-light-main);
-}
-
-html.light .accordion-section .accordion-content {
-  background: #ffffff;
-  color: var(--text-light-main);
-  border-top: 1px solid var(--border-light);
-}
-
-html.light .accordion-section .accordion-content div:hover {
-  background: #f3f4f6;
-}
-/* ============================================================
-   LIGHT MODE — LEFT NAVIGATION PANEL
-============================================================ */
-
-html.light .left-column {
-  background: #d9e8f5 !important;
-}
-
-html.light .accordion-item {
-  background: #ffffff !important;
-  border: 1px solid #bcd6eb;
-  color: #0a1a24 !important;
-}
-
-html.light .accordion-header {
-  background: #eef7ff !important;
-  color: #0a1a24 !important;
-}
-
-html.light .accordion-header.active {
-  background: #cfe9ff !important;
-  font-weight: 600;
-}
-
-html.light .accordion-body {
-  background: #ffffff !important;
-}
-
-html.light .accordion-body div {
-  color: #0a1a24 !important;
-}
-
-html.light .accordion-body div:hover {
-  background: #e6f3ff !important;
+:focus-visible{
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }

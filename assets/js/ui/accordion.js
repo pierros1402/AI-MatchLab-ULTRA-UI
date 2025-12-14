@@ -1,46 +1,54 @@
-/* ============================================================
-   AI MATCHLAB ULTRA — ACCORDION.JS
-   One-open system for left navigation
-============================================================ */
+/* =========================================================
+   AI MatchLab ULTRA — accordion.js (LEFT ONLY)
+   - openAccordion(panelId)
+   - initAccordion()
+   Single-open behavior, init-once, no double listeners
+========================================================= */
 
-// Exported function (app.js depends on this!)
-export function openAccordion(targetId) {
-  const items = document.querySelectorAll(".accordion-item");
+(function () {
+  'use strict';
 
-  items.forEach((item) => {
-    const header = item.querySelector(".accordion-header");
-    const body = item.querySelector(".accordion-body");
-    if (!header || !body) return;
+  if (window.__AIML_ACCORDION_INIT__) return;
+  window.__AIML_ACCORDION_INIT__ = true;
 
-    if (body.id === targetId) {
-      body.style.display = "block";
-      header.classList.add("active");
-    } else {
-      body.style.display = "none";
-      header.classList.remove("active");
-    }
-  });
-}
+  function closeAllExcept(targetId) {
+    const panels = document.querySelectorAll('#left-accordion .accordion-panel');
+    const headers = document.querySelectorAll('#left-accordion .accordion-header');
 
-function initAccordion() {
-  const headers = document.querySelectorAll(".accordion-header");
-
-  headers.forEach((header) => {
-    header.addEventListener("click", () => {
-      const target = header.getAttribute("data-target");
-      if (target) openAccordion(target);
+    panels.forEach(p => {
+      const isTarget = (p.id === targetId);
+      p.classList.toggle('open', isTarget);
+      p.style.display = isTarget ? 'block' : 'none';
     });
-  });
 
-  // Default open: continents
-  if (document.getElementById("panel-continents")) {
-    openAccordion("panel-continents");
+    headers.forEach(h => {
+      const t = h.getAttribute('data-target');
+      h.classList.toggle('active', t === targetId);
+    });
   }
-}
 
-// INIT
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initAccordion);
-} else {
-  initAccordion();
-}
+  window.openAccordion = function (panelId) {
+    if (!panelId) return;
+    const panel = document.getElementById(panelId);
+    if (!panel) return console.warn('[accordion] Missing panel:', panelId);
+    closeAllExcept(panelId);
+  };
+
+  window.initAccordion = function () {
+    const root = document.getElementById('left-accordion');
+    if (!root) return console.warn('[accordion] #left-accordion missing');
+
+    // Event delegation: ONE handler
+    root.addEventListener('click', (ev) => {
+      const header = ev.target.closest('.accordion-header');
+      if (!header) return;
+      const target = header.getAttribute('data-target');
+      if (!target) return;
+      window.openAccordion(target);
+    }, { passive: true });
+
+    // Default open
+    window.openAccordion('panel-continents');
+  };
+
+})();

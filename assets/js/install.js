@@ -1,28 +1,41 @@
-/* ============================================
-   INSTALL (PWA) HANDLER — STABLE VERSION
-   ============================================ */
+/* ============================================================
+   AI MatchLab ULTRA — install.js (GLOBAL, NO MODULES)
+   - PWA install prompt handling
+   - Shows button only when installable
+============================================================ */
 
-let deferredInstall = null;
+(function () {
+  "use strict";
+  if (window.__AIML_INSTALL__) return;
+  window.__AIML_INSTALL__ = true;
 
-export function initInstall() {
   const btn = document.getElementById("btn-install");
-  if (!btn) return;
+  let deferredPrompt = null;
 
-  // Hidden until browser triggers event
-  btn.style.opacity = "0.4";
-  btn.style.pointerEvents = "none";
+  function hide() { if (btn) btn.style.display = "none"; }
+  function show() { if (btn) btn.style.display = ""; }
+
+  // Default: hide until we know it’s installable
+  if (btn) hide();
 
   window.addEventListener("beforeinstallprompt", (e) => {
     e.preventDefault();
-    deferredInstall = e;
-
-    btn.style.opacity = "1";
-    btn.style.pointerEvents = "auto";
+    deferredPrompt = e;
+    show();
   });
 
-  btn.addEventListener("click", () => {
-    if (!deferredInstall) return;
-    deferredInstall.prompt();
-    deferredInstall = null;
+  window.addEventListener("appinstalled", () => {
+    deferredPrompt = null;
+    hide();
   });
-}
+
+  btn?.addEventListener("click", async (e) => {
+    e.preventDefault();
+    if (!deferredPrompt) return;
+
+    deferredPrompt.prompt();
+    try { await deferredPrompt.userChoice; } catch {}
+    deferredPrompt = null;
+    hide();
+  });
+})();
