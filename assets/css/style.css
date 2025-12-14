@@ -470,3 +470,44 @@ body {
   height: 42px !important;
   min-width: 42px !important;
 }
+/* ====================================================
+   HARD OVERRIDE: FIXED TOPBAR HEIGHT
+   (forces all mobile & theme overrides)
+==================================================== */
+@media (max-width: 900px) {
+  :root {
+    --topbar-h: 70px !important;
+  }
+
+  header.app-topbar {
+    min-height: var(--topbar-h) !important;
+    height: auto !important;
+    padding: 0 12px !important;
+    gap: 10px !important;
+    display: grid !important;
+    grid-template-columns: auto 1fr auto !important;
+    align-items: center !important;
+    overflow: visible !important;
+    position: relative !important;
+    z-index: 99999 !important;
+  }
+
+  header.app-topbar * {
+    line-height: normal !important;
+  }
+
+  .topbar-left,
+  .topbar-center,
+  .topbar-right {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .icon-button {
+    height: 42px !important;
+    min-height: 42px !important;
+    flex-shrink: 0 !important;
+  }
+}
