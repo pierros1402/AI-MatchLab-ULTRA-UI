@@ -91,19 +91,16 @@
 <!-- TOPBAR -->
 <header class="app-topbar">
   <div class="topbar-left">
-    <!-- Main controls (ONLY these on the left) -->
-    <button id="btn-back" class="icon-button tooltip" aria-label="Back" data-tooltip="Back" title="Back">
+    <button id="btn-back" class="icon-button tooltip" aria-label="Back" title="Back" data-tooltip="Back">
       <svg class="ui-ico" aria-hidden="true"><use href="#i-back"></use></svg>
     </button>
 
-    <button id="btn-home" class="icon-button tooltip" aria-label="Home" data-tooltip="Home" title="Home">
+    <button id="btn-home" class="icon-button tooltip" aria-label="Home" title="Home" data-tooltip="Home">
       <svg class="ui-ico" aria-hidden="true"><use href="#i-home"></use></svg>
     </button>
+  </div>
 
-    <div class="topbar-sep" aria-hidden="true"></div>
-
-    <img src="/assets/icons/logo-header.png" alt="AIML" class="topbar-logo" />
-
+  <div class="topbar-center">
     <div class="topbar-brand">
       <div class="brand-title">AI MatchLab ULTRA</div>
       <div class="brand-version">
@@ -113,35 +110,32 @@
     </div>
   </div>
 
-  <div class="topbar-center"></div>
-
   <div class="topbar-right">
-    <!-- Mobile-only drawer controls (RIGHT side) -->
-    <button id="btn-drawer" class="icon-button mobile-only tooltip" aria-label="Menu" data-tooltip="Menu" title="Menu">
+    <!-- Mobile-only drawer controls (RIGHT) -->
+    <button id="btn-drawer" class="icon-button mobile-only tooltip" aria-label="Menu" title="Menu" data-tooltip="Menu">
       <svg class="ui-ico" aria-hidden="true"><use href="#i-menu"></use></svg>
     </button>
 
-    <button id="btn-panels" class="icon-button mobile-only tooltip" aria-label="Panels" data-tooltip="Panels" title="Panels">
+    <button id="btn-panels" class="icon-button mobile-only tooltip" aria-label="Panels" title="Panels" data-tooltip="Panels">
       <svg class="ui-ico" aria-hidden="true"><use href="#i-panels"></use></svg>
     </button>
 
-    <!-- Install (RIGHT side) -->
-    <button id="btn-install" class="icon-button tooltip" aria-label="Install" data-tooltip="Install" title="Install" style="display:none">
+    <!-- Install: hidden by default; install.js will show it only when installable -->
+    <button id="btn-install" class="icon-button tooltip" aria-label="Install" title="Install" data-tooltip="Install" style="display:none">
       <svg class="ui-ico" aria-hidden="true"><use href="#i-download"></use></svg>
       <span class="btn-text">Install</span>
     </button>
 
-    <!-- Language / Theme / Legal (RIGHT side) -->
-    <button id="btn-lang" class="icon-button tooltip" aria-label="Language" data-tooltip="Language" title="Language">
+    <button id="btn-lang" class="icon-button tooltip" aria-label="Language" title="Language" data-tooltip="Language">
       <svg class="ui-ico" aria-hidden="true"><use href="#i-globe"></use></svg>
       <span class="btn-text">EN</span>
     </button>
 
-    <button id="btn-theme" class="icon-button tooltip" aria-label="Theme" data-tooltip="Theme" title="Theme">
+    <button id="btn-theme" class="icon-button tooltip" aria-label="Theme" title="Theme" data-tooltip="Theme">
       <svg class="ui-ico" aria-hidden="true"><use href="#i-palette"></use></svg>
     </button>
 
-    <button id="btn-legal" class="icon-button tooltip" aria-label="Legal" data-tooltip="Legal" title="Legal">
+    <button id="btn-legal" class="icon-button tooltip" aria-label="Legal" title="Legal" data-tooltip="Legal">
       <svg class="ui-ico" aria-hidden="true"><use href="#i-scale"></use></svg>
     </button>
   </div>
