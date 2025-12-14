@@ -40,7 +40,7 @@ body {
 
 /* Topbar */
 .app-topbar {
-  height: var(--topbar-h);
+  min-height: var(--topbar-h);
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
@@ -48,7 +48,8 @@ body {
   padding: 0 10px;
   border-bottom: 1px solid rgba(255,255,255,0.10);
   position: relative;
-  overflow: hidden; /* IMPORTANT: prevents oversized logo overflow */
+  overflow: visible; /* allow logo + text breathing room */
+  z-index: 10000; /* stays above drawers and banners */
 }
 
 .topbar-left, .topbar-right {
@@ -404,5 +405,25 @@ body {
   .icon-button{
     height: 40px;
     min-height: 40px;
+  }
+}
+/* =========================
+   FINAL TOPBAR FIX (safe for all mobile)
+========================= */
+@media (max-width: 900px){
+  :root{
+    --topbar-h: 66px;
+  }
+
+  .app-topbar{
+    min-height: var(--topbar-h) !important;
+    padding: 6px 10px !important;
+    gap: 8px !important;
+    overflow: visible !important;
+  }
+
+  .icon-button{
+    height: 42px !important;
+    min-height: 42px !important;
   }
 }
