@@ -1,6 +1,9 @@
 /* =========================================================
-   AI MatchLab ULTRA — Core Layout (No body scroll, internal scroll)
-   CLEAN + Mobile topbar 92px + Tooltips
+   AI MatchLab ULTRA — Core Layout (CLEAN)
+   - No body scroll (internal panel scroll)
+   - Mobile drawers
+   - Mobile Topbar: 2 rows (logo+title left, drawers right)
+   - Tooltips (desktop hover)
 ========================================================= */
 
 /* ---------- Root ---------- */
@@ -15,6 +18,7 @@
 /* Reset-ish */
 *{ box-sizing: border-box; }
 html, body{ height: 100%; }
+
 body{
   margin: 0;
   overflow: hidden; /* critical: NO body scroll */
@@ -41,7 +45,7 @@ body{
   cursor: pointer;
 }
 
-/* ---------- Topbar ---------- */
+/* ---------- Topbar (base desktop/tablet) ---------- */
 .app-topbar{
   min-height: var(--topbar-h);
   display: grid;
@@ -50,7 +54,7 @@ body{
   gap: 10px;
   padding: 0 10px;
   border-bottom: 1px solid rgba(255,255,255,0.10);
-  position: relative;     /* stays in normal flow (matches app-shell calc) */
+  position: relative;
   overflow: visible;
   z-index: 10000;
 }
@@ -65,20 +69,16 @@ body{
 
 .topbar-center{
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: center;
   gap: 10px;
   white-space: nowrap;
 }
 
-.topbar-sep{
-  width: 1px;
-  height: 26px;
-  background: rgba(255,255,255,0.14);
-  margin: 0 4px;
+.topbar-row2-right{
+  display: none; /* only mobile shows it */
 }
 
-/* IMPORTANT: constrain the logo so it never covers the UI */
 .topbar-logo{
   height: 30px;
   width: auto;
@@ -86,20 +86,22 @@ body{
   flex: 0 0 auto;
 }
 
-/* Brand block next to logo */
 .topbar-brand{
   display: flex;
   flex-direction: column;
   line-height: 1.05;
 }
 .brand-title{
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing: 0.2px;
 }
 .brand-version{
-  opacity: 0.75;
+  opacity: 0.80;
   font-size: 12px;
-  margin-top: 2px;
+  margin-top: 3px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 /* Pills */
@@ -135,7 +137,7 @@ body{
   stroke-linejoin: round;
 }
 
-/* Popover */
+/* Popover (desktop) */
 .popover{
   position: absolute;
   top: calc(var(--topbar-h) + 6px);
@@ -180,10 +182,9 @@ body{
   flex-direction: column;
 }
 
-/* Critical flex fixes */
 .app-main{
   flex: 1 1 auto;
-  min-height: 0; /* critical */
+  min-height: 0;
   display: flex;
   gap: var(--gap);
   padding: var(--gap);
@@ -191,7 +192,7 @@ body{
 
 /* Panels */
 .app-panel{
-  min-height: 0; /* critical */
+  min-height: 0;
   display: flex;
   flex-direction: column;
   border-radius: var(--radius);
@@ -213,8 +214,8 @@ body{
 
 .app-panel > .panel-body{
   flex: 1 1 auto;
-  min-height: 0; /* critical */
-  overflow: auto; /* internal scroll */
+  min-height: 0;
+  overflow: auto;
   padding: 10px;
 }
 
@@ -308,9 +309,7 @@ body{
   .odds-grid{ grid-template-columns: 1fr; }
 }
 
-/* =========================
-   FULL MOBILE DRAWERS + MOBILE TOPBAR HEIGHT
-========================= */
+/* ---------- Mobile drawers overlay ---------- */
 .mobile-only{ display: none !important; }
 
 .drawer-overlay{
@@ -328,51 +327,92 @@ body{
   pointer-events: auto;
 }
 
+/* ====================================================
+   MOBILE (≤900px)
+   - 2-row topbar: Row1 icons/actions, Row2 brand left + drawers right
+   - Drawers slide
+==================================================== */
 @media (max-width: 900px){
-  :root{ --topbar-h: 92px; } /* IMPORTANT: taller topbar on mobile */
+
+  :root{ --topbar-h: 112px; }
 
   .mobile-only{ display: inline-flex !important; }
 
-  /* Topbar: prevent overlap */
   header.app-topbar{
     min-height: var(--topbar-h) !important;
     height: auto !important;
-    grid-template-columns: auto 1fr auto !important;
-    padding: 14px 10px !important;
-    gap: 10px !important;
+    display: grid !important;
+    grid-template-columns: 1fr auto 1fr !important;
+    grid-template-rows: 56px auto !important;
+    grid-template-areas:
+      "left  .    right"
+      "brand brand drawers" !important;
+    align-items: center !important;
+    padding: 10px 10px 12px !important;
+    gap: 8px !important;
     overflow: visible !important;
   }
 
-  .topbar-left,
-  .topbar-center,
-  .topbar-right{
-    display: flex !important;
+  .topbar-left{ grid-area: left !important; }
+  .topbar-right{ grid-area: right !important; justify-content: flex-end !important; }
+
+  .topbar-center{
+    grid-area: brand !important;
+    justify-content: flex-start !important; /* αριστερά */
     align-items: center !important;
-    flex-wrap: nowrap !important;
+    gap: 10px !important;
+    min-width: 0 !important;
   }
 
-  .topbar-left{ min-width: 0 !important; gap: 8px !important; }
-  .topbar-right{ justify-content: flex-end !important; gap: 8px !important; }
+  .topbar-row2-right{
+    grid-area: drawers !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
 
-  /* Save space on mobile */
-  .topbar-logo{ display: none !important; }
-  .topbar-sep{ display: none !important; }
-  .topbar-brand .brand-title{ display: none !important; }
-  .brand-version .ver-sub{ display: none !important; }
-
-  /* Icons only */
+  /* Space saving: icons only */
   .icon-button .btn-text{ display: none !important; }
 
   /* Bigger tap targets */
   .icon-button{
-    height: 48px !important;
-    min-height: 48px !important;
-    min-width: 48px !important;
+    height: 46px !important;
+    min-height: 46px !important;
+    min-width: 46px !important;
     padding: 0 10px !important;
     flex-shrink: 0 !important;
   }
 
-  /* Center becomes full width */
+  .topbar-logo{
+    height: 26px !important;
+  }
+
+  .brand-title{
+    font-size: 15px !important;
+    font-weight: 900 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 62vw !important; /* αφήνει χώρο δεξιά για τα 2 drawers */
+  }
+
+  .brand-version{ margin-top: 4px !important; }
+  .brand-version .ver-sub{ display: none !important; }
+
+  /* Popovers as sheet below topbar */
+  .popover{
+    position: fixed !important;
+    left: 10px !important;
+    right: 10px !important;
+    top: calc(var(--topbar-h) + 8px) !important;
+    width: auto !important;
+    max-height: calc(100vh - var(--topbar-h) - 18px) !important;
+    overflow: auto !important;
+    z-index: 20000 !important;
+  }
+
+  /* Center expands */
   #center-panel{
     flex: 1 1 auto;
     width: 100%;
@@ -434,75 +474,5 @@ body{
     color: rgba(255,255,255,0.94);
     z-index: 30000;
     pointer-events: none;
-  }
-}
-/* ====================================================
-   MOBILE TOPBAR — 2 ROWS (Title visible, icons not cramped)
-   Paste at END of style.css
-==================================================== */
-@media (max-width: 900px){
-
-  :root{ --topbar-h: 112px !important; } /* 2 σειρές => πιο ψηλό topbar */
-
-  header.app-topbar{
-    display: grid !important;
-    grid-template-columns: auto 1fr auto !important;
-    grid-template-rows: 56px auto !important; /* row1: icons, row2: title */
-    align-items: center !important;
-    min-height: var(--topbar-h) !important;
-    height: auto !important;
-    padding: 10px 10px 12px !important;
-    gap: 8px !important;
-    overflow: visible !important;
-  }
-
-  /* Row placement */
-  .topbar-left{ grid-column: 1; grid-row: 1; }
-  .topbar-right{ grid-column: 3; grid-row: 1; }
-  .topbar-center{
-    grid-column: 1 / -1;
-    grid-row: 2;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    white-space: nowrap !important;
-  }
-
-  /* ΕΜΦΑΝΙΖΟΥΜΕ τον τίτλο στο mobile (override των προηγούμενων hide rules) */
-  .topbar-brand{ display: flex !important; flex-direction: column !important; line-height: 1.05 !important; }
-  .topbar-brand .brand-title{
-    display: block !important;
-    font-size: 15px !important;
-    font-weight: 900 !important;
-    letter-spacing: 0.2px !important;
-    max-width: 92vw !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-  }
-
-  /* Κρατάμε v-pill, κρύβουμε το sub για χώρο */
-  .brand-version{ display: flex !important; gap: 8px !important; margin-top: 4px !important; opacity: 0.85 !important; }
-  .brand-version .ver-sub{ display: none !important; }
-
-  /* Icons: σταθερά μεγάλα tap targets */
-  .icon-button{
-    height: 46px !important;
-    min-height: 46px !important;
-    min-width: 46px !important;
-    padding: 0 10px !important;
-    flex-shrink: 0 !important;
-  }
-  .icon-button .btn-text{ display: none !important; }
-
-  /* Theme/Legal: σαν “tab sheet” κάτω από το topbar */
-  .popover{
-    position: fixed !important;
-    left: 10px !important;
-    right: 10px !important;
-    top: calc(var(--topbar-h) + 8px) !important;
-    width: auto !important;
-    max-height: calc(100vh - var(--topbar-h) - 18px) !important;
-    overflow: auto !important;
-    z-index: 20000 !important;
   }
 }

@@ -68,7 +68,6 @@
       <path d="M4 21h16"/>
     </symbol>
 
-    <!-- Mobile drawer icons -->
     <symbol id="i-menu" viewBox="0 0 24 24">
       <path d="M4 7h16"/>
       <path d="M4 12h16"/>
@@ -88,100 +87,105 @@
     <button id="btn-update-now" class="btn">Update</button>
   </div>
 
-<!-- TOPBAR -->
-<header class="app-topbar">
-  <div class="topbar-left">
-    <button id="btn-back" class="icon-button tooltip" aria-label="Back" title="Back" data-tooltip="Back">
-      <svg class="ui-ico" aria-hidden="true"><use href="#i-back"></use></svg>
-    </button>
+  <!-- TOPBAR -->
+  <header class="app-topbar">
 
-    <button id="btn-home" class="icon-button tooltip" aria-label="Home" title="Home" data-tooltip="Home">
-      <svg class="ui-ico" aria-hidden="true"><use href="#i-home"></use></svg>
-    </button>
-  </div>
+    <!-- Row 1: Left -->
+    <div class="topbar-left">
+      <button id="btn-back" class="icon-button tooltip" aria-label="Back" title="Back" data-tooltip="Back">
+        <svg class="ui-ico" aria-hidden="true"><use href="#i-back"></use></svg>
+      </button>
 
-  <div class="topbar-center">
-    <div class="topbar-brand">
-      <div class="brand-title">AI MatchLab ULTRA</div>
-      <div class="brand-version">
-        <span class="ver-pill">v2.3.1</span>
-        <span class="ver-sub">Global Live Lab</span>
+      <button id="btn-home" class="icon-button tooltip" aria-label="Home" title="Home" data-tooltip="Home">
+        <svg class="ui-ico" aria-hidden="true"><use href="#i-home"></use></svg>
+      </button>
+    </div>
+
+    <!-- Row 2: Brand (Logo + Title) -->
+    <div class="topbar-center">
+      <img src="/assets/icons/logo-header.png" alt="AIML" class="topbar-logo" />
+      <div class="topbar-brand">
+        <div class="brand-title">AI MatchLab ULTRA</div>
+        <div class="brand-version">
+          <span class="ver-pill">v2.3.1</span>
+          <span class="ver-sub">Global Live Lab</span>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="topbar-right">
-    <!-- Mobile-only drawer controls (RIGHT) -->
-    <button id="btn-drawer" class="icon-button mobile-only tooltip" aria-label="Menu" title="Menu" data-tooltip="Menu">
-      <svg class="ui-ico" aria-hidden="true"><use href="#i-menu"></use></svg>
-    </button>
+    <!-- Row 2: Drawer buttons (mobile only) -->
+    <div class="topbar-row2-right mobile-only">
+      <button id="btn-drawer" class="icon-button tooltip" aria-label="Menu" title="Menu" data-tooltip="Menu">
+        <svg class="ui-ico" aria-hidden="true"><use href="#i-menu"></use></svg>
+      </button>
 
-    <button id="btn-panels" class="icon-button mobile-only tooltip" aria-label="Panels" title="Panels" data-tooltip="Panels">
-      <svg class="ui-ico" aria-hidden="true"><use href="#i-panels"></use></svg>
-    </button>
-
-    <!-- Install: hidden by default; install.js will show it only when installable -->
-    <button id="btn-install" class="icon-button tooltip" aria-label="Install" title="Install" data-tooltip="Install" style="display:none">
-      <svg class="ui-ico" aria-hidden="true"><use href="#i-download"></use></svg>
-      <span class="btn-text">Install</span>
-    </button>
-
-    <button id="btn-lang" class="icon-button tooltip" aria-label="Language" title="Language" data-tooltip="Language">
-      <svg class="ui-ico" aria-hidden="true"><use href="#i-globe"></use></svg>
-      <span class="btn-text">EN</span>
-    </button>
-
-    <button id="btn-theme" class="icon-button tooltip" aria-label="Theme" title="Theme" data-tooltip="Theme">
-      <svg class="ui-ico" aria-hidden="true"><use href="#i-palette"></use></svg>
-    </button>
-
-    <button id="btn-legal" class="icon-button tooltip" aria-label="Legal" title="Legal" data-tooltip="Legal">
-      <svg class="ui-ico" aria-hidden="true"><use href="#i-scale"></use></svg>
-    </button>
-  </div>
-
-  <!-- THEME MENU (unchanged) -->
-  <div id="theme-menu" class="popover hidden" role="dialog" aria-label="Theme menu" aria-hidden="true">
-    <div class="popover-header">
-      <div class="popover-title">Theme</div>
-      <button id="btn-theme-close" class="icon-button" aria-label="Close" title="Close">
-        <span class="btn-text">✕</span>
+      <button id="btn-panels" class="icon-button tooltip" aria-label="Panels" title="Panels" data-tooltip="Panels">
+        <svg class="ui-ico" aria-hidden="true"><use href="#i-panels"></use></svg>
       </button>
     </div>
 
-    <div class="popover-body">
-      <div class="popover-section-title">Mode</div>
-      <button class="popover-link" data-theme-mode="dark">Dark</button>
-      <button class="popover-link" data-theme-mode="light">Light</button>
+    <!-- Row 1: Right (actions) -->
+    <div class="topbar-right">
+      <button id="btn-install" class="icon-button tooltip" aria-label="Install" title="Install" data-tooltip="Install" style="display:none">
+        <svg class="ui-ico" aria-hidden="true"><use href="#i-download"></use></svg>
+        <span class="btn-text">Install</span>
+      </button>
 
-      <div class="popover-section-title" style="margin-top:10px;">Accents</div>
-      <button class="popover-link" data-accent="default">Blue / Orange (Default)</button>
-      <button class="popover-link" data-accent="green-gold">Green / Gold</button>
-      <button class="popover-link" data-accent="red-silver">Crimson / Silver</button>
-      <button class="popover-link" data-accent="purple-aqua">Purple / Aqua</button>
-      <button class="popover-link" data-accent="black-lime">Neon / Spectrum</button>
-      <button class="popover-link" data-accent="minimal">Minimal (Classic)</button>
-    </div>
-  </div>
+      <button id="btn-lang" class="icon-button tooltip" aria-label="Language" title="Language" data-tooltip="Language">
+        <svg class="ui-ico" aria-hidden="true"><use href="#i-globe"></use></svg>
+        <span class="btn-text">EN</span>
+      </button>
 
-  <!-- LEGAL MENU (unchanged) -->
-  <div id="legal-menu" class="popover hidden" role="dialog" aria-label="Legal menu" aria-hidden="true">
-    <div class="popover-header">
-      <div class="popover-title">Legal</div>
-      <button id="btn-legal-close" class="icon-button" aria-label="Close" title="Close">
-        <span class="btn-text">✕</span>
+      <button id="btn-theme" class="icon-button tooltip" aria-label="Theme" title="Theme" data-tooltip="Theme">
+        <svg class="ui-ico" aria-hidden="true"><use href="#i-palette"></use></svg>
+      </button>
+
+      <button id="btn-legal" class="icon-button tooltip" aria-label="Legal" title="Legal" data-tooltip="Legal">
+        <svg class="ui-ico" aria-hidden="true"><use href="#i-scale"></use></svg>
       </button>
     </div>
-    <div class="popover-body">
-      <a class="popover-link" href="/legal/terms.html" target="_blank" rel="noopener">Terms</a>
-      <a class="popover-link" href="/legal/privacy.html" target="_blank" rel="noopener">Privacy</a>
-      <a class="popover-link" href="/legal/impressum.html" target="_blank" rel="noopener">Impressum</a>
-      <a class="popover-link" href="/legal/disclaimer.html" target="_blank" rel="noopener">Disclaimer</a>
-      <a class="popover-link" href="/legal/cookies.html" target="_blank" rel="noopener">Cookies</a>
-    </div>
-  </div>
-</header>
 
+    <!-- THEME MENU -->
+    <div id="theme-menu" class="popover hidden" role="dialog" aria-label="Theme menu" aria-hidden="true">
+      <div class="popover-header">
+        <div class="popover-title">Theme</div>
+        <button id="btn-theme-close" class="icon-button" aria-label="Close" title="Close">
+          <span class="btn-text">✕</span>
+        </button>
+      </div>
+
+      <div class="popover-body">
+        <div class="popover-section-title">Mode</div>
+        <button class="popover-link" data-theme-mode="dark">Dark</button>
+        <button class="popover-link" data-theme-mode="light">Light</button>
+
+        <div class="popover-section-title" style="margin-top:10px;">Accents</div>
+        <button class="popover-link" data-accent="default">Blue / Orange (Default)</button>
+        <button class="popover-link" data-accent="green-gold">Green / Gold</button>
+        <button class="popover-link" data-accent="red-silver">Crimson / Silver</button>
+        <button class="popover-link" data-accent="purple-aqua">Purple / Aqua</button>
+        <button class="popover-link" data-accent="black-lime">Neon / Spectrum</button>
+        <button class="popover-link" data-accent="minimal">Minimal (Classic)</button>
+      </div>
+    </div>
+
+    <!-- LEGAL MENU -->
+    <div id="legal-menu" class="popover hidden" role="dialog" aria-label="Legal menu" aria-hidden="true">
+      <div class="popover-header">
+        <div class="popover-title">Legal</div>
+        <button id="btn-legal-close" class="icon-button" aria-label="Close" title="Close">
+          <span class="btn-text">✕</span>
+        </button>
+      </div>
+      <div class="popover-body">
+        <a class="popover-link" href="/legal/terms.html" target="_blank" rel="noopener">Terms</a>
+        <a class="popover-link" href="/legal/privacy.html" target="_blank" rel="noopener">Privacy</a>
+        <a class="popover-link" href="/legal/impressum.html" target="_blank" rel="noopener">Impressum</a>
+        <a class="popover-link" href="/legal/disclaimer.html" target="_blank" rel="noopener">Disclaimer</a>
+        <a class="popover-link" href="/legal/cookies.html" target="_blank" rel="noopener">Cookies</a>
+      </div>
+    </div>
+  </header>
 
   <!-- MOBILE DRAWER OVERLAY -->
   <div id="drawer-overlay" class="drawer-overlay" aria-hidden="true"></div>
@@ -365,15 +369,12 @@
 
   <script defer src="/assets/js/language.js"></script>
   <script defer src="/assets/js/utils/version-check.js"></script>
-  <script>
-  (function () {
-    if (!("serviceWorker" in navigator)) return;
 
-    // SAFE registration: no update loops, no reloads
-    navigator.serviceWorker
-      .register("/sw.js")
-      .catch(function () {});
-  })();
-</script>
+  <script>
+    (function () {
+      if (!("serviceWorker" in navigator)) return;
+      navigator.serviceWorker.register("/sw.js").catch(function () {});
+    })();
+  </script>
 </body>
 </html>

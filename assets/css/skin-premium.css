@@ -272,3 +272,12 @@ html{
 .list .row:hover{
   border-color: color-mix(in srgb, var(--accent-2) 45%, var(--line)) !important;
 }
+/* Row2 drawer buttons container (new) — premium spacing */
+.topbar-row2-right{
+  gap: 8px;
+}
+
+/* (optional) slightly tighter on very small phones */
+@media (max-width: 360px){
+  .topbar-row2-right{ gap: 6px; }
+}
