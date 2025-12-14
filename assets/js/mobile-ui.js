@@ -1,46 +1,77 @@
 /* ============================================
-   MOBILE UI CONTROLLER (STABLE VERSION)
+   MOBILE UI CONTROLLER (CURRENT UI)
+   - Left panel as drawer on mobile
+   - Optional Right panel as drawer (if btn-panels exists)
    ============================================ */
 
-document.addEventListener("DOMContentLoaded", () => {
+(function () {
+  "use strict";
 
-  // Left panel drawer toggle
-  const drawerToggle = document.querySelector("#btn-drawer");
-  const leftColumn = document.querySelector(".left-column");
-  const overlay = document.querySelector("#drawer-overlay");
+  function $(sel) { return document.querySelector(sel); }
+  function on(el, ev, fn) { if (el) el.addEventListener(ev, fn, { passive: true }); }
 
-  if (drawerToggle && leftColumn && overlay) {
-    drawerToggle.addEventListener("click", () => {
-      leftColumn.classList.toggle("drawer-open");
-      overlay.classList.toggle("visible");
-    });
-
-    overlay.addEventListener("click", () => {
-      leftColumn.classList.remove("drawer-open");
-      overlay.classList.remove("visible");
-    });
+  function isMobile() {
+    return window.matchMedia && window.matchMedia("(max-width: 900px)").matches;
   }
 
-  // Safe check panels exist before modifying
-  const livePanel    = document.querySelector("#panel-live");
-  const radarPanel   = document.querySelector("#panel-radar");
-  const smartPanel   = document.querySelector("#panel-smart");
+  function setOverlayVisible(overlay, visible) {
+    if (!overlay) return;
+    overlay.classList.toggle("visible", !!visible);
+  }
 
-  // Show all right panels by default (desktop)
-  if (livePanel)  livePanel.style.display = "block";
-  if (radarPanel) radarPanel.style.display = "block";
-  if (smartPanel) smartPanel.style.display = "block";
+  function closeAll(leftPanel, rightPanel, overlay) {
+    if (leftPanel) leftPanel.classList.remove("drawer-open");
+    if (rightPanel) rightPanel.classList.remove("drawer-open");
+    setOverlayVisible(overlay, false);
+  }
 
-  // Optional: add mobile collapse logic ONLY IF elements exist
-  const mobileToggles = document.querySelectorAll("[data-mobile-toggle]");
-  mobileToggles.forEach(btn => {
-    const target = document.querySelector(btn.dataset.mobileToggle);
-    if (!target) return;
+  document.addEventListener("DOMContentLoaded", () => {
+    const leftPanel  = $("#left-panel");
+    const rightPanel = $("#right-panel");
+    const overlay    = $("#drawer-overlay");
 
-    btn.addEventListener("click", () => {
-      const visible = target.style.display === "block";
-      target.style.display = visible ? "none" : "block";
+    // Buttons (you will add #btn-drawer; #btn-panels is optional)
+    const btnDrawer  = $("#btn-drawer");
+    const btnPanels  = $("#btn-panels");
+
+    // If overlay missing, do nothing (safe)
+    if (!overlay) return;
+
+    // LEFT drawer
+    on(btnDrawer, "click", () => {
+      if (!leftPanel) return;
+      const open = !leftPanel.classList.contains("drawer-open");
+      closeAll(leftPanel, rightPanel, overlay);
+      if (open) {
+        leftPanel.classList.add("drawer-open");
+        setOverlayVisible(overlay, true);
+      }
     });
-  });
 
-});
+    // RIGHT drawer (optional)
+    on(btnPanels, "click", () => {
+      if (!rightPanel) return;
+      const open = !rightPanel.classList.contains("drawer-open");
+      closeAll(leftPanel, rightPanel, overlay);
+      if (open) {
+        rightPanel.classList.add("drawer-open");
+        setOverlayVisible(overlay, true);
+      }
+    });
+
+    // Overlay click closes
+    on(overlay, "click", () => closeAll(leftPanel, rightPanel, overlay));
+
+    // ESC closes
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeAll(leftPanel, rightPanel, overlay);
+    });
+
+    // If resize to desktop, ensure drawers closed
+    window.addEventListener("resize", () => {
+      if (!isMobile()) closeAll(leftPanel, rightPanel, overlay);
+    });
+
+    console.log("[mobile-ui] ready");
+  });
+})();

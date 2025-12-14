@@ -8,6 +8,7 @@
   <link rel="icon" href="/favicon.ico" />
   <link rel="manifest" href="/manifest.json" />
   <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/theme.css" />
@@ -20,7 +21,7 @@
 </head>
 
 <body>
-  <!-- INLINE UI ICON SPRITE (NO EXTRA FILE NEEDED) -->
+  <!-- INLINE UI ICON SPRITE -->
   <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
     <symbol id="i-globe" viewBox="0 0 24 24">
       <path d="M12 22a10 10 0 1 0-10-10 10 10 0 0 0 10 10Z"/>
@@ -60,6 +61,19 @@
       <path d="M8 11l4 4 4-4"/>
       <path d="M4 21h16"/>
     </symbol>
+
+    <!-- Mobile drawer icons -->
+    <symbol id="i-menu" viewBox="0 0 24 24">
+      <path d="M4 7h16"/>
+      <path d="M4 12h16"/>
+      <path d="M4 17h16"/>
+    </symbol>
+
+    <symbol id="i-panels" viewBox="0 0 24 24">
+      <path d="M4 5h7v14H4z"/>
+      <path d="M13 5h7v6h-7z"/>
+      <path d="M13 13h7v6h-7z"/>
+    </symbol>
   </svg>
 
   <!-- UPDATE BANNER -->
@@ -70,8 +84,17 @@
 
   <!-- TOPBAR -->
   <header class="app-topbar">
-    <!-- LEFT: controls first, then logo/brand -->
     <div class="topbar-left">
+      <!-- Mobile-only drawer controls -->
+      <button id="btn-drawer" class="icon-button mobile-only" aria-label="Menu" title="Menu">
+        <svg class="ui-ico" aria-hidden="true"><use href="#i-menu"></use></svg>
+      </button>
+
+      <button id="btn-panels" class="icon-button mobile-only" aria-label="Panels" title="Panels">
+        <svg class="ui-ico" aria-hidden="true"><use href="#i-panels"></use></svg>
+      </button>
+
+      <!-- Main controls -->
       <button id="btn-back" class="icon-button" aria-label="Back" title="Back">
         <svg class="ui-ico" aria-hidden="true"><use href="#i-back"></use></svg>
       </button>
@@ -98,7 +121,6 @@
       </div>
     </div>
 
-    <!-- keep center column (layout stability) -->
     <div class="topbar-center"></div>
 
     <div class="topbar-right">
@@ -157,6 +179,9 @@
       </div>
     </div>
   </header>
+
+  <!-- MOBILE DRAWER OVERLAY -->
+  <div id="drawer-overlay" class="drawer-overlay" aria-hidden="true"></div>
 
   <!-- MAIN LAYOUT -->
   <div class="app-shell">
@@ -260,7 +285,6 @@
         </div>
 
         <div class="panel-body right-stack">
-          <!-- AI Radar -->
           <section class="right-card" id="card-radar">
             <header class="right-card-header">
               <div class="panel-title">AI Radar · Line Moves</div>
@@ -271,7 +295,6 @@
             </div>
           </section>
 
-          <!-- Top Picks -->
           <section class="right-card" id="card-top-picks">
             <header class="right-card-header">
               <div class="panel-title">AI Smart Money · Top Picks</div>
@@ -282,7 +305,6 @@
             </div>
           </section>
 
-          <!-- Live Matches -->
           <section class="right-card" id="card-live">
             <header class="right-card-header">
               <div class="panel-title">Live Matches</div>
@@ -313,7 +335,7 @@
     </div>
   </div>
 
-  <!-- SCRIPTS (ALL CLASSIC + DEFER, KEEP app.js FIRST) -->
+  <!-- SCRIPTS -->
   <script defer src="/assets/js/ui/app.js"></script>
 
   <!-- Bind Theme/Legal early -->
