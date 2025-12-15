@@ -1,8 +1,8 @@
 /* assets/js/mobile-ui.js
-   STABLE:
-   - Mobile drawers (left/right) using existing IDs: btn-drawer / btn-panels
-   - Global Back/Home works anywhere
-   - Back closes details modal (match-details-modal)
+   STABLE MOBILE NAV + DRAWER STATE
+   - Adds body classes: drawer-left-open / drawer-right-open
+   - Ensures overlay works with both .show and .visible
+   - Home opens LEFT drawer (mobile home)
 */
 (function () {
   "use strict";
@@ -15,97 +15,74 @@
   var leftPanel = $("#left-panel");
   var rightPanel = $("#right-panel");
 
-  // Support both ID sets (your index uses btn-drawer / btn-panels)
   var btnLeft  = $("#btn-drawer") || $("#btn-left-drawer");
   var btnRight = $("#btn-panels") || $("#btn-right-drawer");
-
-  var btnHome = $("#btn-home");
-  var btnBack = $("#btn-back");
+  var btnHome  = $("#btn-home");
+  var btnBack  = $("#btn-back");
 
   function isMobile() {
-    return window.matchMedia && window.matchMedia("(max-width: 899px)").matches;
+    return window.matchMedia && window.matchMedia("(max-width: 900px)").matches;
   }
 
   function isOpen(panelEl) {
-    if (!panelEl) return false;
-    return panelEl.classList.contains("drawer-open");
+    return !!(panelEl && panelEl.classList.contains("drawer-open"));
+  }
+
+  function setBodyState(state) {
+    document.body.classList.remove("drawer-left-open", "drawer-right-open");
+    if (state) document.body.classList.add(state);
   }
 
   function showOverlay() {
     if (!overlay) return;
-    overlay.classList.add("show");
+    overlay.classList.add("visible");
+    overlay.classList.add("show");   // support older CSS
     overlay.setAttribute("aria-hidden", "false");
   }
 
-  function hideOverlayIfNoneOpen() {
+  function hideOverlay() {
     if (!overlay) return;
-    if (isOpen(leftPanel) || isOpen(rightPanel)) return;
+    overlay.classList.remove("visible");
     overlay.classList.remove("show");
     overlay.setAttribute("aria-hidden", "true");
   }
 
   function openLeft() {
-    if (!leftPanel) return;
-    if (!isMobile()) return;
+    if (!leftPanel || !isMobile()) return;
     leftPanel.classList.add("drawer-open");
     if (rightPanel) rightPanel.classList.remove("drawer-open");
+    setBodyState("drawer-left-open");
     showOverlay();
   }
 
   function openRight() {
-    if (!rightPanel) return;
-    if (!isMobile()) return;
+    if (!rightPanel || !isMobile()) return;
     rightPanel.classList.add("drawer-open");
     if (leftPanel) leftPanel.classList.remove("drawer-open");
+    setBodyState("drawer-right-open");
     showOverlay();
-  }
-
-  function closeLeft() {
-    if (leftPanel) leftPanel.classList.remove("drawer-open");
-    hideOverlayIfNoneOpen();
-  }
-
-  function closeRight() {
-    if (rightPanel) rightPanel.classList.remove("drawer-open");
-    hideOverlayIfNoneOpen();
   }
 
   function closeDrawers() {
     if (leftPanel) leftPanel.classList.remove("drawer-open");
     if (rightPanel) rightPanel.classList.remove("drawer-open");
-    hideOverlayIfNoneOpen();
+    setBodyState(null);
+    hideOverlay();
   }
 
   function toggleLeft() {
     if (!isMobile()) return;
-    if (isOpen(leftPanel)) closeLeft(); else openLeft();
+    if (isOpen(leftPanel)) closeDrawers();
+    else openLeft();
   }
 
   function toggleRight() {
     if (!isMobile()) return;
-    if (isOpen(rightPanel)) closeRight(); else openRight();
+    if (isOpen(rightPanel)) closeDrawers();
+    else openRight();
   }
 
-  // Accordion helpers (no touching accordion.js)
-  function getOpenAccordionTarget() {
-    var acc = $("#left-accordion");
-    if (!acc) return null;
-
-    var hdr = acc.querySelector('.accordion-header[aria-expanded="true"]');
-    if (hdr) return hdr.getAttribute("data-target");
-
-    // fallback: try open item classes
-    var openItem =
-      acc.querySelector(".accordion-item.is-open") ||
-      acc.querySelector(".accordion-item.open") ||
-      acc.querySelector(".accordion-item.active");
-
-    if (!openItem) return null;
-
-    var header = openItem.querySelector(".accordion-header");
-    return header ? header.getAttribute("data-target") : null;
-  }
-
+  // Accordion helpers (no modifications to accordion.js)
   function openAccordionSafe(targetId) {
     if (!targetId) return;
     if (typeof window.openAccordion === "function") {
@@ -116,17 +93,7 @@
     if (hdr) hdr.click();
   }
 
-  // Your level chain (Saved → Today → Matches → Leagues → Countries → Continents)
-  var LEVEL_UP = {
-    "panel-saved": "panel-today",
-    "panel-today": "panel-matches",
-    "panel-matches": "panel-leagues",
-    "panel-leagues": "panel-countries",
-    "panel-countries": "panel-continents",
-    "panel-continents": null
-  };
-
-  // Details modal (your index uses match-details-modal)
+  // Details modal support (either id)
   function getDetailsModal() {
     return $("#match-details-modal") || $("#details-modal");
   }
@@ -137,7 +104,7 @@
     return !modal.classList.contains("hidden") || modal.getAttribute("aria-hidden") === "false";
   }
 
-  function closeDetailsModal() {
+  function closeDetailsModalIfAny() {
     if (window.DetailsModal && typeof window.DetailsModal.close === "function") {
       try { window.DetailsModal.close(); return true; } catch (e) {}
     }
@@ -148,11 +115,10 @@
     return true;
   }
 
+  // Back/Home behavior
   function goHome() {
-    // Always reset navigation to Continents; on mobile also open left drawer
     closeDrawers();
     openAccordionSafe("panel-continents");
-
     if (isMobile()) openLeft();
 
     if (typeof window.emit === "function") {
@@ -162,67 +128,39 @@
   }
 
   function goBack() {
-    // 1) close modal first
-    if (isDetailsModalOpen()) {
-      closeDetailsModal();
-      return;
-    }
-
-    // 2) close drawers if open (mobile)
-    if (isMobile()) {
-      if (isOpen(rightPanel)) { closeRight(); return; }
-      if (isOpen(leftPanel)) {
-        // when left drawer open: go one level up
-        var cur = getOpenAccordionTarget();
-        var up = cur ? LEVEL_UP[cur] : "panel-continents";
-        if (up) openAccordionSafe(up);
-        else closeLeft();
-        return;
-      }
-    }
-
-    // 3) default: open left and go one level up
-    var cur2 = getOpenAccordionTarget() || "panel-matches";
-    var up2 = LEVEL_UP[cur2] || "panel-continents";
-    openAccordionSafe(up2);
-
-    if (isMobile()) openLeft();
+    if (isDetailsModalOpen()) { closeDetailsModalIfAny(); return; }
+    if (isMobile() && (isOpen(leftPanel) || isOpen(rightPanel))) { closeDrawers(); return; }
+    if (isMobile()) { openLeft(); }
   }
 
   // Wire buttons
-  if (btnLeft) btnLeft.addEventListener("click", function (e) { e.preventDefault(); toggleLeft(); });
+  if (btnLeft)  btnLeft.addEventListener("click", function (e) { e.preventDefault(); toggleLeft(); });
   if (btnRight) btnRight.addEventListener("click", function (e) { e.preventDefault(); toggleRight(); });
-  if (btnHome) btnHome.addEventListener("click", function (e) { e.preventDefault(); goHome(); });
-  if (btnBack) btnBack.addEventListener("click", function (e) { e.preventDefault(); goBack(); });
+  if (btnHome)  btnHome.addEventListener("click", function (e) { e.preventDefault(); goHome(); });
+  if (btnBack)  btnBack.addEventListener("click", function (e) { e.preventDefault(); goBack(); });
 
-  // Overlay click closes drawers
   if (overlay) overlay.addEventListener("click", function () { closeDrawers(); });
 
-  // Auto-close left drawer on match-selected (Mobile Flow v1)
+  // Mobile Flow: after match-selected focus center (close drawer)
   if (typeof window.on === "function") {
     window.on("match-selected", function () {
-      if (isMobile()) closeLeft();
+      if (!isMobile()) return;
+      closeDrawers();
     });
   }
 
-  // Expose API
-  window.MobileUI = {
-    openLeft: openLeft,
-    openRight: openRight,
-    closeDrawers: closeDrawers,
-    back: goBack,
-    home: goHome
-  };
-})();
-// Ensure mobile starts at left drawer (continents)
-document.addEventListener("DOMContentLoaded", function(){
-  if (window.innerWidth <= 900) {
-    setTimeout(function(){
-      if (typeof window.openAccordion === "function") window.openAccordion("panel-continents");
-      var left = document.getElementById("left-panel");
-      if (left) left.classList.add("drawer-open");
-      var overlay = document.getElementById("drawer-overlay");
-      if (overlay) overlay.classList.add("show");
-    }, 250);
+  // Initial mobile home: open left drawer
+  function initMobileHome() {
+    if (!isMobile()) return;
+    openAccordionSafe("panel-continents");
+    openLeft();
   }
-});
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initMobileHome);
+  } else {
+    initMobileHome();
+  }
+
+  window.MobileUI = { openLeft: openLeft, openRight: openRight, closeDrawers: closeDrawers, home: goHome };
+})();
