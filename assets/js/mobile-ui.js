@@ -1,8 +1,8 @@
 /* assets/js/mobile-ui.js
-   STABLE MOBILE NAV + DRAWER STATE
+   STABLE MOBILE DRAWERS (state-locked)
    - Adds body classes: drawer-left-open / drawer-right-open
-   - Ensures overlay works with both .show and .visible
-   - Home opens LEFT drawer (mobile home)
+   - Overlay supports both .visible and .show
+   - Home opens LEFT drawer on mobile
 */
 (function () {
   "use strict";
@@ -24,8 +24,8 @@
     return window.matchMedia && window.matchMedia("(max-width: 900px)").matches;
   }
 
-  function isOpen(panelEl) {
-    return !!(panelEl && panelEl.classList.contains("drawer-open"));
+  function isOpen(el) {
+    return !!(el && el.classList.contains("drawer-open"));
   }
 
   function setBodyState(state) {
@@ -36,7 +36,7 @@
   function showOverlay() {
     if (!overlay) return;
     overlay.classList.add("visible");
-    overlay.classList.add("show");   // support older CSS
+    overlay.classList.add("show");
     overlay.setAttribute("aria-hidden", "false");
   }
 
@@ -48,7 +48,7 @@
   }
 
   function openLeft() {
-    if (!leftPanel || !isMobile()) return;
+    if (!isMobile() || !leftPanel) return;
     leftPanel.classList.add("drawer-open");
     if (rightPanel) rightPanel.classList.remove("drawer-open");
     setBodyState("drawer-left-open");
@@ -56,7 +56,7 @@
   }
 
   function openRight() {
-    if (!rightPanel || !isMobile()) return;
+    if (!isMobile() || !rightPanel) return;
     rightPanel.classList.add("drawer-open");
     if (leftPanel) leftPanel.classList.remove("drawer-open");
     setBodyState("drawer-right-open");
@@ -82,7 +82,7 @@
     else openRight();
   }
 
-  // Accordion helpers (no modifications to accordion.js)
+  // Accordion open (no changes to accordion.js)
   function openAccordionSafe(targetId) {
     if (!targetId) return;
     if (typeof window.openAccordion === "function") {
@@ -93,17 +93,15 @@
     if (hdr) hdr.click();
   }
 
-  // Details modal support (either id)
+  // Details modal close (for Back)
   function getDetailsModal() {
     return $("#match-details-modal") || $("#details-modal");
   }
-
   function isDetailsModalOpen() {
     var modal = getDetailsModal();
     if (!modal) return false;
     return !modal.classList.contains("hidden") || modal.getAttribute("aria-hidden") === "false";
   }
-
   function closeDetailsModalIfAny() {
     if (window.DetailsModal && typeof window.DetailsModal.close === "function") {
       try { window.DetailsModal.close(); return true; } catch (e) {}
@@ -115,12 +113,10 @@
     return true;
   }
 
-  // Back/Home behavior
   function goHome() {
     closeDrawers();
     openAccordionSafe("panel-continents");
     if (isMobile()) openLeft();
-
     if (typeof window.emit === "function") {
       window.emit("home");
       window.emit("match-clear");
@@ -130,10 +126,9 @@
   function goBack() {
     if (isDetailsModalOpen()) { closeDetailsModalIfAny(); return; }
     if (isMobile() && (isOpen(leftPanel) || isOpen(rightPanel))) { closeDrawers(); return; }
-    if (isMobile()) { openLeft(); }
+    if (isMobile()) openLeft();
   }
 
-  // Wire buttons
   if (btnLeft)  btnLeft.addEventListener("click", function (e) { e.preventDefault(); toggleLeft(); });
   if (btnRight) btnRight.addEventListener("click", function (e) { e.preventDefault(); toggleRight(); });
   if (btnHome)  btnHome.addEventListener("click", function (e) { e.preventDefault(); goHome(); });
@@ -141,15 +136,13 @@
 
   if (overlay) overlay.addEventListener("click", function () { closeDrawers(); });
 
-  // Mobile Flow: after match-selected focus center (close drawer)
+  // After match select: focus center -> close drawer
   if (typeof window.on === "function") {
     window.on("match-selected", function () {
-      if (!isMobile()) return;
-      closeDrawers();
+      if (isMobile()) closeDrawers();
     });
   }
 
-  // Initial mobile home: open left drawer
   function initMobileHome() {
     if (!isMobile()) return;
     openAccordionSafe("panel-continents");
