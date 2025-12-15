@@ -281,3 +281,32 @@ html{
 @media (max-width: 360px){
   .topbar-row2-right{ gap: 6px; }
 }
+/* ============================
+   MOBILE RIGHT DRAWER: OPAQUE
+   (put at END of skin-premium.css)
+============================ */
+@media (max-width: 900px){
+
+  /* Make drawers fully opaque */
+  #right-panel,
+  #left-panel{
+    background: #070912 !important;     /* fully opaque */
+    backdrop-filter: none !important;   /* remove glass blur */
+  }
+
+  /* Also force right content cards to be opaque */
+  #right-panel .right-card,
+  #right-panel .right-card-header,
+  #right-panel .right-card-body{
+    background: #0a0d18 !important;     /* opaque card */
+    backdrop-filter: none !important;
+  }
+
+  /* If you have any “glass” wrappers inside right panel */
+  #right-panel .glass,
+  #right-panel .glass-card,
+  #right-panel .panel-glass{
+    background: #0a0d18 !important;
+    backdrop-filter: none !important;
+  }
+}
