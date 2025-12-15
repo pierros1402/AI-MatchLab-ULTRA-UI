@@ -1,44 +1,40 @@
 /* ============================================================
-   AI MatchLab ULTRA — RIGHT PANELS (Top Picks + Live)
-   - Classic script (no modules)
-   - Uses global event bus: window.on / window.emit (from ui/app.js)
-   - Demo-friendly: consumes events from demo/odds-demo-feed.js:
-       • "matches-loaded"
-       • "odds-demo:update"
-       • "odds-snapshot"
-   - Future-ready: consumes optional:
-       • "live-updated" { matches: [...] }
-       • "market-selected" { key }
-   Targets (must exist in index.html):
-       • picks-list, picks-meta
-       • live-list, live-meta
+   AI MatchLab ULTRA — assets/js/right-panels.js
+   Right column cards (single stack):
+     1) AI Radar (handled by odds-radar.js)
+     2) AI Smart Money · Top Picks (AI/Stats — rendered here)
+     3) AI Value Picks (AI vs Market — rendered by value-picks.js)
+     4) Live Matches (demo ticker)
+
+   This file ensures the "AI Value Picks" CARD exists between Top Picks and Live
+   using the SAME markup/classes as the other right cards in index.html:
+     section.right-card > header.right-card-header > .panel-title + .right-meta
+     + div.right-card-body > div.right-list
+
+   Requires global event bus: on()/emit() from app.js
 ============================================================ */
 
 (function () {
   "use strict";
+  if (window.__AIML_RIGHT_PANELS_V5__) return;
+  window.__AIML_RIGHT_PANELS_V5__ = true;
 
-  if (window.__AIML_RIGHT_PANELS_V2__) return;
-  window.__AIML_RIGHT_PANELS_V2__ = true;
-
-  var $ = function (id) { return document.getElementById(id); };
-
-  var elPicks = $("picks-list");
-  var elPicksMeta = $("picks-meta");
-  var elLive = $("live-list");
-  var elLiveMeta = $("live-meta");
+  // Existing anchors from index.html
+  var elPicksList = document.getElementById("picks-list");
+  var elPicksMeta = document.getElementById("picks-meta");
+  var elLiveList  = document.getElementById("live-list");
+  var elLiveMeta  = document.getElementById("live-meta");
 
   var state = {
-    activeMarket: "1X2",
     currentMatch: null,
-    lastOddsPayload: null,
+    currentMatchId: null,
+    lastPicksPayload: null,
     demoMatches: [],
-    liveMatches: [],
-    liveTimer: null,
-    demoMode: false
+    liveTimer: null
   };
 
   // -----------------------------
-  // Utils
+  // Utilities
   // -----------------------------
   function esc(s) {
     return String(s == null ? "" : s)
@@ -46,322 +42,424 @@
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
+      .replace(/'/g, "&#39;");
   }
 
-  function num(x) {
-    var n = Number(x);
-    return isFinite(n) ? n : null;
-  }
-
-  function fmtOdd(x) {
-    var n = num(x);
-    if (n == null) return "—";
-    return n.toFixed(2);
+  function setText(el, txt) {
+    if (!el) return;
+    el.textContent = txt == null ? "" : String(txt);
   }
 
   function badge(text, tone) {
-    var bg =
-      tone === "hi" ? "rgba(61,234,255,.20)" :
-      tone === "mid" ? "rgba(255,184,61,.18)" :
-      tone === "low" ? "rgba(180,180,180,.14)" :
-      "rgba(255,255,255,.10)";
-    var bd =
-      tone === "hi" ? "rgba(61,234,255,.40)" :
-      tone === "mid" ? "rgba(255,184,61,.35)" :
-      tone === "low" ? "rgba(255,255,255,.20)" :
-      "rgba(255,255,255,.18)";
-    return '<span style="display:inline-flex;align-items:center;gap:6px;padding:2px 8px;border-radius:999px;border:1px solid ' + bd + ';background:' + bg + ';font-size:11px;font-weight:900;">' + esc(text) + '</span>';
+    // Leverage existing badge style if present; fall back to simple
+    var cls = "right-badge " + (tone || "tone-gray");
+    return '<span class="' + cls + '">' + esc(text) + "</span>";
   }
 
-  function setMeta(el, text) {
-    if (!el) return;
-    el.textContent = text;
+  function ensureScriptOnce(id, src) {
+    if (document.getElementById(id)) return;
+    var s = document.createElement("script");
+    s.id = id;
+    s.src = src;
+    s.defer = true;
+    document.head.appendChild(s);
+  }
+
+  function bindBus(name, fn) {
+    if (typeof window.on === "function") window.on(name, fn);
+    else document.addEventListener(name, function (e) { fn(e && e.detail); });
+  }
+
+  function getMatchId(m) {
+    return m ? (m.id || m.matchId || m.fixtureId || m.gameId) : null;
   }
 
   // -----------------------------
-  // Top Picks (Value-ish via line moves)
+  // Ensure AI Value Picks card exists and matches other cards' markup
   // -----------------------------
-  function buildTopPicks(payload) {
-    if (!payload || !payload.providers) return [];
+  function ensureValueCard() {
+    if (document.getElementById("card-value-picks")) return true;
 
-    var mk = state.activeMarket || "1X2";
-    var providers = payload.providers;
-    var provKeys = ["greek", "eu", "asian", "betfair"];
+    var topCard = document.getElementById("card-top-picks");
+    var liveCard = document.getElementById("card-live");
+    var parent = null;
 
-    // Aggregate biggest |Δ| per selection across providers
-    var sels = ["1", "X", "2"];
-    var best = { "1": null, "X": null, "2": null };
+    if (liveCard && liveCard.parentNode) parent = liveCard.parentNode;
+    else if (topCard && topCard.parentNode) parent = topCard.parentNode;
+    if (!parent) return false;
 
-    for (var i = 0; i < provKeys.length; i++) {
-      var k = provKeys[i];
-      var prov = providers[k];
-      if (!prov || !prov.markets) continue;
+    var sec = document.createElement("section");
+    sec.className = "right-card";
+    sec.id = "card-value-picks";
+    sec.innerHTML = `
+      <header class="right-card-header">
+        <div class="panel-title">AI Value Picks</div>
+        <div class="right-meta" id="value-picks-meta">AI vs Market</div>
+      </header>
+      <div class="right-card-body" id="panel-value-picks">
+        <div class="right-list" id="value-picks-list">
+          <div class="muted">Select a match to see AI Value Picks.</div>
+        </div>
+      </div>
+    `;
 
-      var mkData = prov.markets[mk] || prov.markets[String(mk).toUpperCase()] || null;
-      if (!mkData || typeof mkData !== "object") continue;
-
-      for (var s = 0; s < sels.length; s++) {
-        var sel = sels[s];
-        var cell = mkData[sel] || mkData[(sel === "1" ? "H" : sel === "2" ? "A" : "D")] || null;
-        if (!cell || typeof cell !== "object") continue;
-
-        var opening = num(cell.opening != null ? cell.opening : cell.open);
-        var current = num(cell.current != null ? cell.current : cell.cur);
-        if (opening == null || current == null) continue;
-
-        var delta = current - opening;
-        var abs = Math.abs(delta);
-
-        if (!best[sel] || abs > best[sel].abs) {
-          best[sel] = {
-            sel: sel,
-            source: k.toUpperCase(),
-            opening: opening,
-            current: current,
-            delta: delta,
-            abs: abs
-          };
-        }
-      }
+    // Insert between Top Picks and Live if possible
+    if (liveCard && liveCard.parentNode) {
+      liveCard.parentNode.insertBefore(sec, liveCard);
+      return true;
+    }
+    // else append after Top Picks
+    if (topCard && topCard.parentNode) {
+      if (topCard.nextSibling) topCard.parentNode.insertBefore(sec, topCard.nextSibling);
+      else topCard.parentNode.appendChild(sec);
+      return true;
     }
 
-    var out = [];
-    for (var j = 0; j < sels.length; j++) {
-      var b = best[sels[j]];
-      if (!b) continue;
-      if (b.abs < 0.20) continue; // match RADAR threshold
-      out.push(b);
-    }
-
-    out.sort(function (a, b) { return (b.abs || 0) - (a.abs || 0); });
-    return out.slice(0, 6);
+    parent.appendChild(sec);
+    return true;
   }
 
+  // -----------------------------
+  // Top Picks rendering (AI/Stats)
+  // Expects payload: { matchId, picks:[{title,score,rationale,tags}] }
+  // -----------------------------
   function renderTopPicks(payload) {
-    if (!elPicks) return;
+    if (!elPicksList) elPicksList = document.getElementById("picks-list");
+    if (!elPicksList) return;
 
     var match = state.currentMatch;
-    var picks = buildTopPicks(payload);
+    var matchId = state.currentMatchId;
 
-    if (!picks.length) {
-      elPicks.innerHTML =
-        '<div style="opacity:.75; font-size:12px; padding:8px 6px;">' +
-        (match ? 'No picks above threshold for <b>' + esc(match.home || "Home") + ' vs ' + esc(match.away || "Away") + '</b>.' : "Select a match to generate picks.") +
-        "</div>";
-      setMeta(elPicksMeta, state.demoMode ? "Demo signals" : "No signals");
+    if (payload && matchId && payload.matchId && String(payload.matchId) !== String(matchId)) return;
+
+    var picks = payload && Array.isArray(payload.picks) ? payload.picks : [];
+
+    if (!match) {
+      elPicksList.innerHTML = '<div class="muted">Select a match to see Top Picks.</div>';
+      setText(elPicksMeta, "AI/Stats");
       return;
     }
 
-    var title =
-      match ? (esc(match.home || "Home") + " vs " + esc(match.away || "Away")) : "Top Picks";
+    if (!payload) {
+      elPicksList.innerHTML = '<div class="muted">Waiting for <b>top-picks:update</b> (AI/Stats engine).</div>';
+      setText(elPicksMeta, "AI/Stats · Offline");
+      return;
+    }
 
+    if (!picks.length) {
+      elPicksList.innerHTML = '<div class="muted">No picks available for this match.</div>';
+      setText(elPicksMeta, "AI/Stats");
+      return;
+    }
+
+    var title = esc(match.home || "Home") + " vs " + esc(match.away || "Away");
     var html = '';
-    html += '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 6px 10px 6px;border-bottom:1px solid rgba(255,255,255,.10);margin-bottom:10px;">';
-    html +=   '<div style="font-weight:900;">' + title + '</div>';
-    html +=   '<div style="opacity:.75;font-size:12px;">Market: <b>' + esc(state.activeMarket) + '</b></div>';
+    html += '<div class="right-item" style="border-bottom:1px solid rgba(255,255,255,.10);padding-bottom:10px;margin-bottom:10px;">';
+    html += '  <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">';
+    html += '    <div style="font-weight:950;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + title + '</div>';
+    html += '    <div class="right-meta" style="opacity:.72;">AI/Stats</div>';
+    html += '  </div>';
     html += '</div>';
 
     for (var i = 0; i < picks.length; i++) {
-      var p = picks[i];
+      var p = picks[i] || {};
+      var t = p.title || p.pick || p.name || ("Pick " + (i + 1));
+      var score = (p.score != null && isFinite(Number(p.score))) ? Number(p.score) : null;
+      var rationale = p.rationale || p.reason || p.notes || "";
+      var tags = Array.isArray(p.tags) ? p.tags : [];
 
-      var tone = p.abs >= 0.35 ? "hi" : (p.abs >= 0.25 ? "mid" : "low");
-      var dir = p.delta >= 0 ? ("DRIFT +" + p.delta.toFixed(2)) : ("STEAM " + p.delta.toFixed(2));
-      var selLabel = (p.sel === "1") ? "1 (Home)" : (p.sel === "2") ? "2 (Away)" : "X (Draw)";
+      html += '<div class="right-item">';
+      html += '  <div style="display:flex;align-items:center;gap:10px;">';
+      html += '    <div style="font-weight:950;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + esc(t) + '</div>';
+      if (score != null) html += '    <div style="margin-left:auto;">' + badge("Score " + score, "tone-green") + '</div>';
+      html += "  </div>";
 
-      html += '<div style="display:flex;flex-direction:column;gap:6px;padding:10px 10px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(255,255,255,.04);margin:10px 6px;">';
-      html +=   '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">';
-      html +=     '<div style="font-weight:900;">' + esc(selLabel) + '</div>';
-      html +=     badge(dir, tone);
-      html +=   '</div>';
-      html +=   '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px;opacity:.85;">';
-      html +=     '<div>' + esc(p.source) + '</div>';
-      html +=     '<div>' + esc(fmtOdd(p.opening)) + ' → <b>' + esc(fmtOdd(p.current)) + '</b></div>';
-      html +=   '</div>';
-      html += '</div>';
+      if (rationale) html += '  <div class="right-sub">' + esc(rationale) + "</div>";
+      if (tags.length) {
+        html += '  <div class="right-sub" style="opacity:.9;margin-top:6px;">' +
+          tags.map(function (x) { return '<span class="right-badge tone-gray" style="margin-right:6px;">' + esc(x) + '</span>'; }).join("") +
+          "</div>";
+      }
+      html += "</div>";
     }
 
-    elPicks.innerHTML = html;
-    setMeta(elPicksMeta, state.demoMode ? "Demo value signals" : "Value signals");
+    elPicksList.innerHTML = html;
+    setText(elPicksMeta, "AI/Stats · " + picks.length + " picks");
+  }
+
+  function clearTopPicks() {
+    state.lastPicksPayload = null;
+    renderTopPicks(null);
   }
 
   // -----------------------------
-  // Live (demo or future live-updated)
+  // Live (demo ticker)
   // -----------------------------
-  function normalizeLiveMatches(arr) {
-    if (!Array.isArray(arr)) return [];
-    return arr.map(function (m, i) {
+  function normalizeLiveMatches(matches) {
+    if (!Array.isArray(matches)) return [];
+    return matches.slice(0, 16).map(function (m) {
       return {
-        id: m.id || m.matchId || ("LIVE_" + (i + 1)),
-        home: m.home || m.homeTeam || "Home",
-        away: m.away || m.awayTeam || "Away",
-        league: m.league || m.competition || "",
-        minute: typeof m.minute === "number" ? m.minute : 0,
-        status: m.status || "LIVE",
+        id: m.id || m.matchId,
+        home: m.home || m.homeName || "Home",
+        away: m.away || m.awayName || "Away",
+        minute: m.minute || 0,
         score: m.score || "0 - 0"
       };
     });
   }
 
   function renderLive(list) {
-    if (!elLive) return;
+    if (!elLiveList) elLiveList = document.getElementById("live-list");
+    if (!elLiveList) return;
 
     if (!list || !list.length) {
-      elLive.innerHTML = '<div style="opacity:.75; font-size:12px; padding:8px 6px;">No live matches.</div>';
-      setMeta(elLiveMeta, state.demoMode ? "Demo off" : "Service offline");
+      elLiveList.innerHTML = '<div class="muted">No live feed (demo).</div>';
+      setText(elLiveMeta, "Service offline");
       return;
     }
 
-    var html = '';
+    var html = "";
     for (var i = 0; i < list.length; i++) {
       var m = list[i];
-      var min = (m.status === "FT") ? "FT" : ((m.minute || 0) + "'");
-      html += '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 10px;border:1px solid rgba(255,255,255,.10);border-radius:14px;background:rgba(0,0,0,.16);margin:8px 6px;">';
-      html +=   '<div style="min-width:0;">';
-      html +=     '<div style="font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + esc(m.home) + ' vs ' + esc(m.away) + '</div>';
-      html +=     '<div style="opacity:.75;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + esc(m.league) + '</div>';
-      html +=   '</div>';
-      html +=   '<div style="text-align:right;">';
-      html +=     '<div style="font-weight:900;">' + esc(min) + '</div>';
-      html +=     '<div style="opacity:.85;font-size:12px;">' + esc(m.score) + '</div>';
-      html +=   '</div>';
-      html += '</div>';
+      html += '<div class="right-item">';
+      html += '  <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">';
+      html += '    <div style="min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + esc(m.home) + " vs " + esc(m.away) + "</div>";
+      html += '    <span class="right-badge tone-cyan">LIVE</span>';
+      html += "  </div>";
+      html += '  <div class="right-sub">' + esc(m.score) + " • " + esc(m.minute) + "'</div>";
+      html += "</div>";
     }
 
-    elLive.innerHTML = html;
-    setMeta(elLiveMeta, state.demoMode ? "Demo live" : "Live feed");
+    elLiveList.innerHTML = html;
+    setText(elLiveMeta, "Demo ticker");
   }
 
   function startDemoLiveTicker() {
     if (state.liveTimer) return;
-
-    state.demoMode = true;
-
-    // Seed demo live matches (first 6)
-    var seed = (state.demoMatches && state.demoMatches.length) ? state.demoMatches.slice(0, 6) : [];
-    state.liveMatches = normalizeLiveMatches(seed);
-
-    // give them random starting minutes
-    for (var i = 0; i < state.liveMatches.length; i++) {
-      state.liveMatches[i].minute = 5 + Math.floor(Math.random() * 70);
-      state.liveMatches[i].score = "0 - 0";
-      state.liveMatches[i].status = "LIVE";
-    }
-
-    renderLive(state.liveMatches);
-
     state.liveTimer = setInterval(function () {
-      for (var j = 0; j < state.liveMatches.length; j++) {
-        var m = state.liveMatches[j];
-        if (m.status === "FT") continue;
-
-        m.minute = (m.minute || 0) + 1;
-
-        // minimal score simulation (rare)
-        if (m.minute % 17 === 0 && Math.random() < 0.22) {
-          var parts = String(m.score || "0 - 0").split("-");
-          var h = parseInt(parts[0], 10) || 0;
-          var a = parseInt(parts[1], 10) || 0;
-          if (Math.random() < 0.55) h += 1; else a += 1;
-          m.score = h + " - " + a;
-        }
-
-        if (m.minute >= 90) {
-          m.status = "FT";
-          m.minute = 90;
-        }
-      }
-      renderLive(state.liveMatches);
-    }, 9000);
+      if (!state.demoMatches || !state.demoMatches.length) return;
+      var list = normalizeLiveMatches(state.demoMatches).map(function (m, idx) {
+        var minute = ((Date.now() / 1000) | 0) % 90;
+        var scoreA = (minute > 60 ? 1 : 0) + (idx % 3 === 0 && minute > 70 ? 1 : 0);
+        var scoreB = (minute > 75 ? 1 : 0) + (idx % 5 === 0 && minute > 80 ? 1 : 0);
+        m.minute = minute;
+        m.score = scoreA + " - " + scoreB;
+        return m;
+      });
+      renderLive(list);
+    }, 2000);
   }
 
   // -----------------------------
-  // Event wiring
+  // Boot
   // -----------------------------
-  function bindBus(evt, fn) {
-    if (typeof window.on === "function") {
-      window.on(evt, fn);
-      return true;
-    }
-    // Fallback: DOM CustomEvent
-    document.addEventListener(evt, function (e) { fn(e && e.detail); });
-    return false;
-  }
-
   function boot() {
-    // initial placeholders
-    if (elPicks) elPicks.innerHTML = '<div style="opacity:.75; font-size:12px; padding:8px 6px;">Select a match to generate picks.</div>';
-    if (elLive) elLive.innerHTML = '<div style="opacity:.75; font-size:12px; padding:8px 6px;">Waiting for live feed.</div>';
+    // Ensure AI Value Picks card exists (uniform header/frame)
+    ensureValueCard();
 
-    setMeta(elPicksMeta, "Offline");
-    setMeta(elLiveMeta, "Service offline");
+    // Ensure engines are available (classic scripts)
+    ensureScriptOnce("aiml-top-picks-engine", "/assets/js/ui/top-picks.js");
+    ensureScriptOnce("aiml-value-picks-engine", "/assets/js/ui/value-picks.js");
 
-    bindBus("match-selected", function (match) {
+    // Initial render
+    renderTopPicks(null);
+    renderLive(null);
+
+    // Selection
+    function onSelect(match) {
       state.currentMatch = match || null;
+      state.currentMatchId = getMatchId(match);
 
-      // Re-render picks with last odds payload if it belongs to this match
-      if (state.lastOddsPayload) {
-        var pid = state.lastOddsPayload.matchId || (state.lastOddsPayload && state.lastOddsPayload.id);
-        if (!match || !pid || (match.id === pid || match.matchId === pid)) {
-          renderTopPicks(state.lastOddsPayload);
-        } else {
-          renderTopPicks(null);
-        }
-      } else {
-        renderTopPicks(null);
+      clearTopPicks();
+
+      if (typeof window.emit === "function") {
+        window.emit("top-picks:request", { match: state.currentMatch });
       }
+    }
+
+    bindBus("match-selected", onSelect);
+    bindBus("match-selected-normalized", onSelect);
+
+    bindBus("top-picks:update", function (payload) {
+      state.lastPicksPayload = payload || null;
+      renderTopPicks(state.lastPicksPayload);
     });
 
-    bindBus("market-selected", function (p) {
-      if (p && p.key) state.activeMarket = p.key;
-      if (state.lastOddsPayload) renderTopPicks(state.lastOddsPayload);
-    });
-
-    bindBus("odds-demo:update", function (payload) {
-      state.lastOddsPayload = payload || null;
-      state.demoMode = true;
-
-      // Only render if matches selection aligns OR if no selection yet
-      if (!state.currentMatch || !payload || !payload.matchId || (state.currentMatch.id === payload.matchId || state.currentMatch.matchId === payload.matchId)) {
-        renderTopPicks(payload);
-      }
-    });
-
-    bindBus("odds-snapshot", function (payload) {
-      // same as odds-demo:update for compatibility
-      state.lastOddsPayload = payload || null;
-      if (!state.currentMatch || !payload || !payload.matchId || (state.currentMatch.id === payload.matchId || state.currentMatch.matchId === payload.matchId)) {
-        renderTopPicks(payload);
-      }
+    bindBus("top-picks:clear", function () {
+      clearTopPicks();
     });
 
     bindBus("matches-loaded", function (matches) {
       state.demoMatches = Array.isArray(matches) ? matches : [];
       if (!state.liveTimer) startDemoLiveTicker();
     });
+  }
 
-    bindBus("live-updated", function (p) {
-      // Production hook
-      state.demoMode = false;
-      var arr = p && p.matches ? p.matches : (Array.isArray(p) ? p : []);
-      state.liveMatches = normalizeLiveMatches(arr);
-      renderLive(state.liveMatches);
-    });
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+  else boot();
+})();
+/* =========================================================
+   DEMO INJECT v2 (safe): populate + animate right panels
+   - Fills: radar-list, picks-list, deviations-list, value-picks-list, live-list
+   - Runs only if lists are empty / show "offline/select/no" placeholders
+   - Updates every 8s to simulate live movement
+========================================================= */
+(function () {
+  "use strict";
 
-    // If something already set globals (rare)
-    if (Array.isArray(window.AIML_LIVE_MATCHES) && window.AIML_LIVE_MATCHES.length) {
-      state.demoMode = false;
-      state.liveMatches = normalizeLiveMatches(window.AIML_LIVE_MATCHES);
-      renderLive(state.liveMatches);
+  if (window.__AIML_RIGHT_DEMO_INJECT_V2__) return;
+  window.__AIML_RIGHT_DEMO_INJECT_V2__ = true;
+
+  function $(id) { return document.getElementById(id); }
+
+  function esc(s) {
+    return String(s || "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function looksPlaceholder(el) {
+    if (!el) return true;
+    const txt = (el.textContent || "").trim().toLowerCase();
+    const hasChildren = el.children && el.children.length > 0;
+    if (hasChildren) return false;
+    if (!txt) return true;
+    return (
+      txt.includes("select a match") ||
+      txt.includes("no ") ||
+      txt.includes("offline") ||
+      txt.includes("service offline") ||
+      txt.includes("no live feed")
+    );
+  }
+
+  function item(title, sub) {
+    return `
+      <div class="right-item">
+        <div><strong>${esc(title)}</strong></div>
+        <div style="opacity:.82;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+          ${esc(sub)}
+        </div>
+      </div>
+    `;
+  }
+
+  // --- Demo state (mutates over time) ------------------------------------
+  const state = {
+    radar: [
+      { m: "Olympiacos vs AEK", d: 0.25, mk: "1X2", b: "Stoiximan" },
+      { m: "PAOK vs Aris", d: -0.22, mk: "O/U 2.5", b: "Bet365" },
+      { m: "Panathinaikos vs Volos", d: 0.31, mk: "Asian +0.25", b: "OPAP" },
+      { m: "Atromitos vs OFI", d: 0.18, mk: "1X2", b: "Novibet" },
+      { m: "Lamia vs Asteras", d: 0.27, mk: "BTTS", b: "Betshop" }
+    ],
+    picks: [
+      { m: "Arsenal vs Chelsea", d: 0.42, note: "AI edge +4.2%", src: "EU" },
+      { m: "Inter vs Napoli", d: 0.35, note: "Steam move", src: "Betfair" },
+      { m: "Barcelona vs Sevilla", d: 0.31, note: "Sharp drift", src: "Greek" },
+      { m: "PSG vs Lyon", d: 0.29, note: "Reversal", src: "EU" },
+      { m: "Real Madrid vs Girona", d: 0.33, note: "Totals dev", src: "EU" }
+    ],
+    deviations: [
+      { m: "Liverpool vs City", d: 0.40, mk: "1X2" },
+      { m: "Real Madrid vs Girona", d: 0.33, mk: "O/U 2.5" },
+      { m: "PSG vs Lyon", d: 0.29, mk: "Asian +0.5" },
+      { m: "Ajax vs AZ", d: 0.25, mk: "BTTS" },
+      { m: "Porto vs Braga", d: 0.23, mk: "1X2" }
+    ],
+    value: [
+      { m: "Bayern vs Dortmund", edge: 6.2, mk: "1X2", note: "Mispriced drift" },
+      { m: "Inter vs Napoli", edge: 5.6, mk: "O/U 2.5", note: "Overreaction" },
+      { m: "AEK vs Olympiacos", edge: 7.1, mk: "Asian +0.25", note: "Line move lag" },
+      { m: "Barcelona vs Sevilla", edge: 5.3, mk: "BTTS", note: "Market split" }
+    ],
+    live: [
+      { m: "Aris vs PAOK", min: 57, sc: "1–1", st: "Live" },
+      { m: "AEK vs Olympiacos", min: 45, sc: "2–0", st: "HT" },
+      { m: "Atromitos vs Panserraikos", min: 74, sc: "0–0", st: "Live" },
+      { m: "Panetolikos vs Lamia", min: 28, sc: "1–0", st: "1H" },
+      { m: "OFI vs Volos", min: 89, sc: "2–2", st: "Live" }
+    ]
+  };
+
+  function fmtDelta(x) {
+    const sign = x >= 0 ? "+" : "";
+    return sign + x.toFixed(2);
+  }
+
+  function renderAll(force) {
+    const radarEl = $("radar-list");
+    const picksEl = $("picks-list");
+    const devEl = $("deviations-list");
+    const valueEl = $("value-picks-list");   // IMPORTANT: your id
+    const liveEl = $("live-list");
+
+    if (force || looksPlaceholder(radarEl)) {
+      radarEl && (radarEl.innerHTML = state.radar
+        .map(r => item(r.m, `${r.mk} · ${r.b} · Δ ${fmtDelta(r.d)}`)).join(""));
     }
 
-    console.log("[right-panels] ready");
+    if (force || looksPlaceholder(picksEl)) {
+      picksEl && (picksEl.innerHTML = state.picks
+        .map(p => item(p.m, `${p.note} · ${p.src} · Δ ${fmtDelta(p.d)}`)).join(""));
+    }
+
+    if (force || looksPlaceholder(devEl)) {
+      devEl && (devEl.innerHTML = state.deviations
+        .map(d => item(d.m, `${d.mk} · Δ ${fmtDelta(d.d)}`)).join(""));
+    }
+
+    // Value Picks demo (so the card is not empty)
+    if (force || looksPlaceholder(valueEl)) {
+      valueEl && (valueEl.innerHTML = state.value
+        .map(v => item(v.m, `${v.mk} · Edge ${v.edge.toFixed(1)}% · ${v.note}`)).join(""));
+    }
+
+    if (force || looksPlaceholder(liveEl)) {
+      liveEl && (liveEl.innerHTML = state.live
+        .map(l => item(l.m, `${l.st} · ${l.min}' · ${l.sc}`)).join(""));
+    }
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", boot);
-  } else {
-    boot();
+  function tick() {
+    // mutate a couple deltas to simulate live movement
+    function jitter() { return (Math.random() * 0.10 - 0.05); } // ±0.05
+    const r = state.radar[Math.floor(Math.random() * state.radar.length)];
+    r.d = Math.max(-0.60, Math.min(0.60, r.d + jitter()));
+
+    const p = state.picks[Math.floor(Math.random() * state.picks.length)];
+    p.d = Math.max(0.10, Math.min(0.80, p.d + jitter()));
+
+    const d = state.deviations[Math.floor(Math.random() * state.deviations.length)];
+    d.d = Math.max(0.15, Math.min(0.70, d.d + jitter()));
+
+    // live minutes advance
+    state.live.forEach(l => { if (l.st !== "FT") l.min = Math.min(90, l.min + (Math.random() < 0.35 ? 1 : 0)); });
+
+    // occasionally rotate one item for freshness
+    if (Math.random() < 0.30) state.radar.push(state.radar.shift());
+    if (Math.random() < 0.25) state.picks.push(state.picks.shift());
+    if (Math.random() < 0.20) state.deviations.push(state.deviations.shift());
+
+    renderAll(true);
   }
+
+  function init() {
+    renderAll(false);
+
+    // refresh after match selection too (in case other code overwrites placeholders)
+    if (typeof window.on === "function") {
+      window.on("match-selected", function () { setTimeout(() => renderAll(false), 60); });
+    }
+
+    // start demo ticker
+    setInterval(tick, 8000);
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
 
 })();

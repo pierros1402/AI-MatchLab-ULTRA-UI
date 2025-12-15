@@ -1,125 +1,215 @@
-// ======================================================================
-// TOP PICKS PANEL 2.0 — AI VALUE DETECTION ENGINE
-// ======================================================================
-//
-// Input:
-//    - Market implied probabilities (from odds-engine.js)
-//    - Model probabilities (from Match Hub)
-//
-// Output:
-//    - Ranked list of value picks
-//    - Color-coded strength
-// ======================================================================
+/* ============================================================
+   AI MatchLab ULTRA — ui/top-picks.js  (AI/Stats-only)
+   - Produces "top-picks:update" payloads for Right Panels
+   - DOES NOT use odds. It only uses Hub/Stats payloads if available.
+   - Listens:
+       • "top-picks:request" { match }
+       • "hub-updated" / "hub:updated" / "match-hub:update" (best-effort)
+       • "match-selected" (fallback trigger)
+   - Emits:
+       • "top-picks:update" { matchId, picks:[{title,score,rationale,tags}] }
+============================================================ */
 
-const topPicksPanel = document.getElementById("panel-top-picks");
+(function () {
+  "use strict";
+  if (window.__AIML_AI_TOP_PICKS_V1__) return;
+  window.__AIML_AI_TOP_PICKS_V1__ = true;
 
-let hubCache = null;
-let lastTopPicks = [];
+  var lastHub = null; // latest hub payload (any match)
+  var lastHubByMatch = Object.create(null); // matchId -> hub
+  var activeMatch = null;
 
-
-// Listen for hub (model probabilities)
-on("hub-updated", data => {
-  hubCache = data;
-});
-
-
-// Listen for odds engine signals
-on("top-picks-update", unified => {
-  if (!hubCache) return;
-
-  const picks = computeTopPicks(unified, hubCache);
-  lastTopPicks = picks;
-  renderTopPicks(picks);
-});
-
-
-// ----------------------------------------------------------------------
-// VALUE CALCULATION
-// ----------------------------------------------------------------------
-function computeTopPicks(odds, hub) {
-  const model = hub.probabilities;
-
-  const selections = ["home", "draw", "away"];
-  const names = {
-    home: hub.match.teams.home.name,
-    draw: "Draw",
-    away: hub.match.teams.away.name
-  };
-
-  const output = [];
-
-  Object.entries(odds).forEach(([book, line]) => {
-    if (!line || !line.implied) return;
-
-    selections.forEach(sel => {
-      const modelP = Number(model[sel]);
-      const marketP = Number(line.implied[sel]);
-
-      if (!modelP || !marketP) return;
-
-      const value = modelP - marketP; // positive = good
-      const valuePct = Math.round(value * 100);
-
-      output.push({
-        bookmaker: book,
-        selection: sel,
-        team: names[sel],
-        modelP,
-        marketP,
-        value,
-        valuePct,
-        odd: line[sel]
-      });
-    });
-  });
-
-  // Keep only positive opportunities
-  const filtered = output.filter(x => x.valuePct >= 5);
-
-  // Sort by value percentage
-  return filtered.sort((a, b) => b.valuePct - a.valuePct);
-}
-
-
-// ----------------------------------------------------------------------
-// RENDER PANEL
-// ----------------------------------------------------------------------
-function renderTopPicks(list) {
-  if (!topPicksPanel) return;
-
-  if (!list || list.length === 0) {
-    topPicksPanel.innerHTML = `<div class="empty-panel">No value picks at the moment</div>`;
-    return;
+  function getMatchId(m) {
+    return m ? (m.id || m.matchId || m.fixtureId || m.gameId) : null;
   }
 
-  let html = `<div class="tp-title">Value Opportunities</div>`;
+  function num(x) {
+    var n = Number(x);
+    return isFinite(n) ? n : null;
+  }
 
-  list.forEach(item => {
-    const color = item.valuePct > 15
-      ? "tp-strong"
-      : item.valuePct > 8
-      ? "tp-medium"
-      : "tp-weak";
+  function clamp(x, a, b) {
+    return Math.max(a, Math.min(b, x));
+  }
 
-    html += `
-      <div class="tp-item ${color}">
-        <div class="tp-header">
-          <span class="tp-team">${item.team}</span>
-          <span class="tp-book">${item.bookmaker}</span>
-        </div>
+  function pickTitle(outcome) {
+    if (outcome === "H") return "Home Win";
+    if (outcome === "D") return "Draw";
+    if (outcome === "A") return "Away Win";
+    return outcome;
+  }
 
-        <div class="tp-vals">
-          <span>Odd: <b>${item.odd.toFixed(2)}</b></span>
-          <span>Value: <b>${item.valuePct}%</b></span>
-        </div>
+  function bestEffortExtractProbs(hub) {
+    // Try common shapes
+    var p = null;
 
-        <div class="tp-sub">
-          Model: ${(item.modelP * 100).toFixed(1)}% | 
-          Market: ${(item.marketP * 100).toFixed(1)}%
-        </div>
-      </div>
-    `;
-  });
+    if (hub && hub.prediction && hub.prediction.probabilities) p = hub.prediction.probabilities;
+    if (!p && hub && hub.prediction && hub.prediction.probs) p = hub.prediction.probs;
+    if (!p && hub && hub.model && hub.model.probabilities) p = hub.model.probabilities;
+    if (!p && hub && hub.ai && hub.ai.probabilities) p = hub.ai.probabilities;
 
-  topPicksPanel.innerHTML = html;
-}
+    // Normalize to {home,draw,away} if possible
+    if (p) {
+      var home = num(p.home ?? p.h ?? p.H ?? p["1"]);
+      var draw = num(p.draw ?? p.d ?? p.D ?? p["X"]);
+      var away = num(p.away ?? p.a ?? p.A ?? p["2"]);
+      if (home != null || draw != null || away != null) {
+        // if in 0..1 keep, else assume 0..100
+        if (home != null && home > 1) home /= 100;
+        if (draw != null && draw > 1) draw /= 100;
+        if (away != null && away > 1) away /= 100;
+        return { home: home, draw: draw, away: away };
+      }
+    }
+    return null;
+  }
+
+  function bestEffortExpectedGoals(hub) {
+    // common keys: xg_total, expected_goals, goalsExp, etc
+    var g = null;
+    if (hub && hub.goals && hub.goals.expected_total != null) g = num(hub.goals.expected_total);
+    if (g == null && hub && hub.prediction && hub.prediction.expected_goals_total != null) g = num(hub.prediction.expected_goals_total);
+    if (g == null && hub && hub.model && hub.model.expected_goals_total != null) g = num(hub.model.expected_goals_total);
+    if (g == null && hub && hub.xg && hub.xg.total != null) g = num(hub.xg.total);
+    return g;
+  }
+
+  function bestEffortBTTS(hub) {
+    // common keys: btts_yes, bttsYes, etc
+    var p = null;
+    if (hub && hub.goals && hub.goals.btts_yes != null) p = num(hub.goals.btts_yes);
+    if (p == null && hub && hub.prediction && hub.prediction.btts_yes != null) p = num(hub.prediction.btts_yes);
+    if (p == null && hub && hub.model && hub.model.btts_yes != null) p = num(hub.model.btts_yes);
+    if (p != null && p > 1) p /= 100;
+    return p;
+  }
+
+  function buildPicks(match, hub) {
+    var picks = [];
+    var probs = bestEffortExtractProbs(hub);
+    var eg = bestEffortExpectedGoals(hub);
+    var btts = bestEffortBTTS(hub);
+
+    // 1) 1X2 strongest lean
+    if (probs) {
+      var h = probs.home, d = probs.draw, a = probs.away;
+      var best = { k: "H", v: h ?? -1 };
+      if (d != null && d > best.v) best = { k: "D", v: d };
+      if (a != null && a > best.v) best = { k: "A", v: a };
+
+      if (best.v != null && best.v > 0.42) {
+        picks.push({
+          title: pickTitle(best.k),
+          score: Math.round(clamp(best.v, 0, 1) * 100),
+          rationale: "Model probability lead on 1X2.",
+          tags: ["AI", "1X2"]
+        });
+      }
+    }
+
+    // 2) Goals inclination (O/U 2.5)
+    if (eg != null) {
+      var over = eg >= 2.65;
+      var under = eg <= 2.35;
+      if (over || under) {
+        picks.push({
+          title: over ? "Over 2.5 Goals" : "Under 2.5 Goals",
+          score: Math.round(clamp(Math.abs(eg - 2.5) / 1.2, 0, 1) * 100),
+          rationale: "Expected total goals suggests a clear lean.",
+          tags: ["AI", "Goals"]
+        });
+      }
+    }
+
+    // 3) BTTS lean
+    if (btts != null) {
+      if (btts >= 0.58 || btts <= 0.42) {
+        var yes = btts >= 0.58;
+        picks.push({
+          title: yes ? "BTTS — Yes" : "BTTS — No",
+          score: Math.round(clamp(yes ? btts : (1 - btts), 0, 1) * 100),
+          rationale: "Both-teams-to-score probability is decisive.",
+          tags: ["AI", "BTTS"]
+        });
+      }
+    }
+
+    // fallback (no hub info)
+    if (!picks.length) {
+      picks.push({
+        title: "AI Top Picks",
+        score: 0,
+        rationale: "Waiting for match hub / stats payload.",
+        tags: ["AI", "Offline"]
+      });
+    }
+
+    // Keep up to 5
+    return picks.slice(0, 5);
+  }
+
+  function emitUpdate(matchId, picks) {
+    if (typeof window.emit === "function") {
+      window.emit("top-picks:update", { matchId: matchId, picks: picks });
+    } else {
+      try {
+        document.dispatchEvent(new CustomEvent("top-picks:update", { detail: { matchId: matchId, picks: picks } }));
+      } catch (e) {}
+    }
+  }
+
+  function tryUpdateFor(match) {
+    var matchId = getMatchId(match);
+    if (!matchId) return;
+
+    var hub = lastHubByMatch[String(matchId)] || lastHub || null;
+    var picks = buildPicks(match, hub);
+    emitUpdate(matchId, picks);
+  }
+
+  function bindBus(name, fn) {
+    if (typeof window.on === "function") window.on(name, fn);
+    else document.addEventListener(name, function (e) { fn(e && e.detail); });
+  }
+
+  function boot() {
+    // request triggers
+    bindBus("top-picks:request", function (p) {
+      activeMatch = p && p.match ? p.match : activeMatch;
+      tryUpdateFor(activeMatch);
+    });
+
+    bindBus("match-selected", function (m) {
+      activeMatch = m || activeMatch;
+      tryUpdateFor(activeMatch);
+    });
+
+    bindBus("match-selected-normalized", function (m) {
+      activeMatch = m || activeMatch;
+      tryUpdateFor(activeMatch);
+    });
+
+    // hub updates (best-effort names)
+    function onHub(hub) {
+      lastHub = hub || lastHub;
+      // if hub includes match id, cache it
+      var mid = getMatchId(hub && (hub.match || hub.fixture || hub)) || getMatchId(hub && hub.match);
+      if (mid) lastHubByMatch[String(mid)] = hub;
+
+      // update current match if relevant
+      if (activeMatch) {
+        var activeId = getMatchId(activeMatch);
+        if (!mid || !activeId || String(mid) === String(activeId)) {
+          tryUpdateFor(activeMatch);
+        }
+      }
+    }
+
+    bindBus("hub-updated", onHub);
+    bindBus("hub:updated", onHub);
+    bindBus("match-hub:update", onHub);
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+  else boot();
+})();

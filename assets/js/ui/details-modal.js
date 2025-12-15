@@ -1,7 +1,7 @@
 /* =========================================================
-   details-modal.js
-   - Opens modal on match selection
-   - Uses normalized event when available (consistent time)
+   details-modal.js (STABLE)
+   - Opens modal ONLY on details-open
+   - Keeps last selected match for rendering
    - Close: X / backdrop / ESC
 ========================================================= */
 
@@ -16,13 +16,15 @@
 
   if (!modal || !detailsBody) return;
 
+  let lastMatch = null;
+
   const esc = (s) =>
-    String(s ?? "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#39;");
+    String(s || "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
 
   function openModal() {
     modal.classList.remove("hidden");
@@ -34,11 +36,6 @@
     modal.setAttribute("aria-hidden", "true");
   }
 
-  function isLive(match) {
-    const st = String(match?.status || match?.state || "").toLowerCase();
-    return st.includes("live") || st.includes("inplay") || st.includes("in-play");
-  }
-
   function render(match) {
     if (!match || !match.id) {
       detailsBody.innerHTML = `Select a match to view details.`;
@@ -48,60 +45,51 @@
     const home = esc(match.home || match.homeName || "Home");
     const away = esc(match.away || match.awayName || "Away");
     const league = esc(match.leagueName || match.league || "");
-    const t = esc(match.displayTime || match.kickoff || match.time || "");
-    const id = esc(match.id);
-
-    const live = isLive(match);
-    const badge = live
-      ? `<span class="badge badge-live">LIVE</span>`
-      : `<span class="badge badge-pre">PRE</span>`;
+    const ko = esc(match.kickoff || match.displayTime || "");
 
     detailsBody.innerHTML = `
-      <div style="display:grid; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px;">
-          <div style="font-weight:900; font-size:16px;">${home} vs ${away}</div>
-          ${badge}
-        </div>
-
-        <div style="opacity:.85; font-size:13px;">
-          ${league}${league && t ? " • " : ""}${t}
-        </div>
-
-        <div style="opacity:.75; font-size:12px;">
-          Match ID: <span style="opacity:.95;">${id}</span>
-        </div>
-
-        <div style="margin-top:6px; opacity:.85; font-size:12px;">
-          ${live
-            ? "Live details can be shown here (score, minute, incidents) when live feed is enabled."
-            : "Pre-match details can be shown here (lineups, injuries, form) when datasets are enabled."
-          }
-        </div>
+      <div style="display:grid;gap:10px;">
+        <div style="font-weight:900;font-size:16px;">${home} vs ${away}</div>
+        <div style="opacity:.8;">${league}${league && ko ? " • " : ""}${ko}</div>
+        <div style="opacity:.7;">(Demo details panel)</div>
       </div>
     `;
   }
 
-  // Close actions
-  closeBtn?.addEventListener("click", closeModal);
+  function onDetailsOpen(match) {
+    lastMatch = match || lastMatch;
+    render(lastMatch);
+    openModal();
+  }
+
+  function onMatchSelected(match) {
+    // update last selected but DO NOT open modal
+    lastMatch = match || lastMatch;
+    if (!modal.classList.contains("hidden")) render(lastMatch);
+  }
+
+  // Close handlers
+  if (closeBtn) closeBtn.addEventListener("click", (e) => { e.preventDefault(); closeModal(); });
   modal.addEventListener("click", (e) => {
     const t = e.target;
-    if (t?.dataset?.close === "1") closeModal();
+    if (t && t.getAttribute && t.getAttribute("data-close") === "1") closeModal();
+    if (t && t.classList && t.classList.contains("modal-backdrop")) closeModal();
   });
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeModal();
   });
 
-  function onSelected(match) {
-    render(match);
-    openModal();
+  // Bus listeners
+  function busOn(name, fn) {
+    if (typeof window.on === "function") window.on(name, fn);
+    else document.addEventListener(name, (e) => fn(e?.detail));
   }
 
-  // Prefer normalized event
-  if (typeof window.on === "function") {
-    window.on("match-selected-normalized", onSelected);
-    window.on("match-selected", onSelected); // fallback
-  } else {
-    document.addEventListener("match-selected-normalized", (e) => onSelected(e?.detail));
-    document.addEventListener("match-selected", (e) => onSelected(e?.detail));
-  }
+  busOn("details-open", onDetailsOpen);
+  busOn("details:open", onDetailsOpen);
+  busOn("match-details", onDetailsOpen);
+
+  busOn("match-selected-normalized", onMatchSelected);
+  busOn("match-selected", onMatchSelected);
+
 })();

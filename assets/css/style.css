@@ -476,3 +476,164 @@ body{
     pointer-events: none;
   }
 }
+
+/* ====================================================
+   RIGHT SUBPANELS (AI Value Picks, etc.)
+   - Used inside the Right "Intelligence Panels" stack
+   - Keeps subpanels visually consistent with existing right cards
+==================================================== */
+
+/* The Top Picks container can host subpanels below it */
+#panel-top-picks{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Generic subpanel wrapper (higher specificity to override any injected styles) */
+#right-panel .right-subpanel{
+  margin-top: 10px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.10);
+}
+
+/* Subpanel header row */
+#right-panel .right-subpanel-head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0 2px 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Title + meta mirror the existing right-card header style */
+#right-panel .right-subpanel-title{
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 0.2px;
+}
+
+#right-panel .right-subpanel-meta{
+  font-size: 12px;
+  font-weight: 800;
+  opacity: 0.72;
+  white-space: nowrap;
+}
+
+/* Body scroll area */
+#right-panel .right-subpanel-body{
+  max-height: 260px;
+  overflow: auto;
+  padding-right: 2px;
+}
+
+/* Empty-state text */
+#right-panel .right-empty{
+  opacity: 0.78;
+  font-size: 12px;
+  padding: 8px 2px;
+}
+
+/* Keep mobile drawers comfortable */
+@media (max-width: 900px){
+  #right-panel .right-subpanel-body{ max-height: 38vh; }
+}
+
+/* Value picks list: same item style as the rest of the right column */
+#value-picks-list .right-item{
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Optional: slightly tighter list for value picks */
+#value-picks-list .right-sub{
+  opacity: 0.80;
+  font-size: 12px;
+  margin-top: 4px;
+}
+/* ============================================================
+   RIGHT PANELS — Uniform subpanel header + internal scroll
+   (Paste at END of style.css)
+============================================================ */
+
+/* Make all right subpanels visually consistent */
+.right-subpanel {
+  margin-top: 12px !important;
+  padding-top: 12px !important;
+  border-top: 1px solid rgba(255,255,255,.10) !important;
+}
+
+.right-subpanel-head {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+  margin: 0 0 10px 0 !important;
+  padding-bottom: 10px !important;
+}
+
+/* Title look + “accent underline” like other panels */
+.right-subpanel-title {
+  font-weight: 950 !important;
+  font-size: 14px !important;
+  letter-spacing: .2px !important;
+  line-height: 1.15 !important;
+}
+
+.right-subpanel-head::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  width: 88px !important;
+  height: 3px !important;
+  border-radius: 999px !important;
+  background: linear-gradient(90deg, rgba(61,184,255,.95), rgba(255,140,0,.92)) !important;
+}
+
+.right-subpanel-meta {
+  opacity: .72 !important;
+  font-weight: 900 !important;
+  font-size: 12px !important;
+}
+
+/* Internal scroll for long content (keeps right column stable) */
+.right-subpanel-body {
+  max-height: clamp(150px, 22vh, 260px) !important;
+  overflow: auto !important;
+  padding-right: 4px !important;
+}
+
+/* Ensure AI Value Picks uses the same rules even if inline styles exist */
+#value-picks-subpanel .right-subpanel-head::after {
+  width: 88px !important;
+}
+#value-picks-list {
+  max-height: clamp(150px, 22vh, 260px) !important;
+  overflow: auto !important;
+  padding-right: 4px !important;
+}
+/* ============================================================
+   AI Value Picks — make the card body internally scrollable
+   (Paste at END of assets/css/style.css)
+============================================================ */
+
+#card-value-picks .right-card-body {
+  max-height: clamp(150px, 22vh, 260px);
+  overflow: auto;
+}
+
+#card-value-picks .right-list {
+  padding-right: 4px;
+}
+/* =========================================================
+   MOBILE: hide drawer icon ONLY while left drawer is "home"
+========================================================= */
+@media (max-width: 900px) {
+  body.mobile-home-left-open #btn-drawer {
+    display: none !important;
+  }
+}

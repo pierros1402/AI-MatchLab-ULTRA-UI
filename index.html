@@ -89,8 +89,6 @@
 
   <!-- TOPBAR -->
   <header class="app-topbar">
-
-    <!-- Row 1: Left -->
     <div class="topbar-left">
       <button id="btn-back" class="icon-button tooltip" aria-label="Back" title="Back" data-tooltip="Back">
         <svg class="ui-ico" aria-hidden="true"><use href="#i-back"></use></svg>
@@ -101,7 +99,6 @@
       </button>
     </div>
 
-    <!-- Row 2: Brand (Logo + Title) -->
     <div class="topbar-center">
       <img src="/assets/icons/logo-header.png" alt="AIML" class="topbar-logo" />
       <div class="topbar-brand">
@@ -113,7 +110,6 @@
       </div>
     </div>
 
-    <!-- Row 2: Drawer buttons (mobile only) -->
     <div class="topbar-row2-right mobile-only">
       <button id="btn-drawer" class="icon-button tooltip" aria-label="Menu" title="Menu" data-tooltip="Menu">
         <svg class="ui-ico" aria-hidden="true"><use href="#i-menu"></use></svg>
@@ -124,7 +120,6 @@
       </button>
     </div>
 
-    <!-- Row 1: Right (actions) -->
     <div class="topbar-right">
       <button id="btn-install" class="icon-button tooltip" aria-label="Install" title="Install" data-tooltip="Install" style="display:none">
         <svg class="ui-ico" aria-hidden="true"><use href="#i-download"></use></svg>
@@ -230,6 +225,14 @@
               </div>
             </div>
 
+            <!-- NEW: TODAY (Independent panel) -->
+            <div class="accordion-item">
+              <div class="accordion-header" data-target="panel-today">Today</div>
+              <div class="accordion-panel" id="panel-today">
+                <div class="list" id="today-list"></div>
+              </div>
+            </div>
+
             <div class="accordion-item">
               <div class="accordion-header" data-target="panel-saved">Saved</div>
               <div class="accordion-panel" id="panel-saved">
@@ -309,6 +312,16 @@
             </header>
             <div class="right-card-body" id="panel-top-picks">
               <div class="right-list" id="picks-list"></div>
+
+              <div class="right-subpanel" id="panel-deviations">
+                <div class="right-subheader">
+                  <div class="sub-title">Deviations · Δ≥0.20</div>
+                  <div class="right-meta" id="deviations-meta">Offline (demo)</div>
+                </div>
+                <div class="right-subbody">
+                  <div class="right-list" id="deviations-list"></div>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -342,39 +355,50 @@
     </div>
   </div>
 
-  <!-- SCRIPTS -->
-  <script defer src="/assets/js/ui/app.js"></script>
+<!-- SCRIPTS (ORDER FIXED) -->
+<script defer src="/assets/js/ui/app.js"></script>
 
-  <!-- Bind Theme/Legal early -->
-  <script defer src="/assets/js/theme.js"></script>
-  <script defer src="/assets/js/legal-menu.js"></script>
+<!-- Theme / Legal -->
+<script defer src="/assets/js/theme.js"></script>
+<script defer src="/assets/js/legal-menu.js"></script>
 
-  <script defer src="/assets/js/right-panels.js"></script>
-  <script defer src="/assets/js/install.js"></script>
-  <script defer src="/assets/js/state.js"></script>
+<!-- Core -->
+<script defer src="/assets/js/install.js"></script>
+<script defer src="/assets/js/state.js"></script>
 
-  <script defer src="/assets/js/ui/accordion.js"></script>
-  <script defer src="/assets/js/ui/navigation.js"></script>
-  <script defer src="/assets/js/ui/matches-panel.js"></script>
-  <script defer src="/assets/js/ui/topbar-controls.js"></script>
-  <script defer src="/assets/js/ui/saved-store.js"></script>
-  <script defer src="/assets/js/ui/saved-panel.js"></script>
+<!-- Left navigation / accordion -->
+<script defer src="/assets/js/ui/accordion.js"></script>
+<script defer src="/assets/js/ui/navigation.js"></script>
 
-  <script defer src="/assets/js/ui/odds-panels.js"></script>
-  <script defer src="/assets/js/ui/odds-radar.js"></script>
-  <script defer src="/assets/js/ui/match-selected-fix.js"></script>
-  <script defer src="/assets/js/ui/details-modal.js"></script>
+<!-- Saved -->
+<script defer src="/assets/js/ui/saved-store.js"></script>
+<script defer src="/assets/js/ui/saved-panel.js"></script>
 
-  <script defer src="/assets/js/mobile-ui.js"></script>
+<!-- Matches + Today -->
+<script defer src="/assets/js/ui/matches-panel.js"></script>
+<script defer src="/assets/js/ui/today-panel.js"></script>
 
-  <script defer src="/assets/js/language.js"></script>
-  <script defer src="/assets/js/utils/version-check.js"></script>
+<!-- Details modal (REQUIRED for i) -->
+<script defer src="/assets/js/ui/details-modal.js"></script>
 
-  <script>
-    (function () {
-      if (!("serviceWorker" in navigator)) return;
-      navigator.serviceWorker.register("/sw.js").catch(function () {});
-    })();
-  </script>
+<!-- Center odds -->
+<script defer src="/assets/js/ui/odds-panels.js"></script>
+<script defer src="/assets/js/ui/odds-radar.js"></script>
+
+<!-- Right panels -->
+<script defer src="/assets/js/right-panels.js"></script>
+
+<!-- UI helpers -->
+<script defer src="/assets/js/mobile-ui.js"></script>
+<script defer src="/assets/js/language.js"></script>
+<script defer src="/assets/js/utils/version-check.js"></script>
+
+<script>
+  (function () {
+    if (!("serviceWorker" in navigator)) return;
+    navigator.serviceWorker.register("/sw.js").catch(function () {});
+  })();
+</script>
+
 </body>
 </html>

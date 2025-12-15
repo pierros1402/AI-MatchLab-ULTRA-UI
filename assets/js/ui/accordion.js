@@ -1,54 +1,53 @@
-/* =========================================================
-   AI MatchLab ULTRA — accordion.js (LEFT ONLY)
-   - openAccordion(panelId)
-   - initAccordion()
-   Single-open behavior, init-once, no double listeners
-========================================================= */
+// ======================================================================
+// ACCORDION — AI MATCHLAB ULTRA (SINGLE OPEN + DEFAULT CONTINENTS)
+// ======================================================================
 
 (function () {
-  'use strict';
+  "use strict";
 
-  if (window.__AIML_ACCORDION_INIT__) return;
-  window.__AIML_ACCORDION_INIT__ = true;
+  const accordion = document.getElementById("left-accordion");
+  if (!accordion) return;
 
-  function closeAllExcept(targetId) {
-    const panels = document.querySelectorAll('#left-accordion .accordion-panel');
-    const headers = document.querySelectorAll('#left-accordion .accordion-header');
+  const headers = accordion.querySelectorAll(".accordion-header");
+  const panels = accordion.querySelectorAll(".accordion-panel");
 
-    panels.forEach(p => {
-      const isTarget = (p.id === targetId);
-      p.classList.toggle('open', isTarget);
-      p.style.display = isTarget ? 'block' : 'none';
-    });
-
-    headers.forEach(h => {
-      const t = h.getAttribute('data-target');
-      h.classList.toggle('active', t === targetId);
-    });
+  // close all panels
+  function closeAll() {
+    panels.forEach((p) => (p.style.display = "none"));
+    headers.forEach((h) => h.classList.remove("active"));
   }
 
-  window.openAccordion = function (panelId) {
-    if (!panelId) return;
-    const panel = document.getElementById(panelId);
-    if (!panel) return console.warn('[accordion] Missing panel:', panelId);
-    closeAllExcept(panelId);
-  };
+  // open panel by id
+  function openAccordion(id) {
+    closeAll();
+    const panel = document.getElementById(id);
+    const header = accordion.querySelector(`.accordion-header[data-target="${id}"]`);
+    if (panel) panel.style.display = "block";
+    if (header) header.classList.add("active");
+  }
 
-  window.initAccordion = function () {
-    const root = document.getElementById('left-accordion');
-    if (!root) return console.warn('[accordion] #left-accordion missing');
+  // global
+  window.openAccordion = openAccordion;
 
-    // Event delegation: ONE handler
-    root.addEventListener('click', (ev) => {
-      const header = ev.target.closest('.accordion-header');
-      if (!header) return;
-      const target = header.getAttribute('data-target');
-      if (!target) return;
-      window.openAccordion(target);
-    }, { passive: true });
+  // click binding
+  headers.forEach((header) => {
+    const targetId = header.getAttribute("data-target");
+    header.addEventListener("click", () => openAccordion(targetId));
+  });
 
-    // Default open
-    window.openAccordion('panel-continents');
-  };
+  // default open continents
+  openAccordion("panel-continents");
+
+  // ======================================================================
+  // PATCH: Ensure Saved panel is always clickable (in case loaded later)
+  // ======================================================================
+  document.addEventListener("DOMContentLoaded", () => {
+    const savedHeader = document.querySelector('.accordion-header[data-target="panel-saved"]');
+    if (savedHeader) {
+      savedHeader.addEventListener("click", () => {
+        window.openAccordion("panel-saved");
+      });
+    }
+  });
 
 })();

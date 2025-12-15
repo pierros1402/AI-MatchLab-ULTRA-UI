@@ -1,90 +1,35 @@
 // ======================================================================
-// SAVED PANEL — AI MATCHLAB ULTRA (GLOBAL SCRIPT)
-// Left panel: Saved matches + (optional) Live Saved-only view
-// Depends on SavedStore + optional window.AIML_LIVE_MATCHES updates
+// SAVED PANEL — AI MATCHLAB ULTRA (STABLE)
+// - Renders ONLY SavedStore.getAll() into #saved-list
+// - Provides Unsave (★) per item
+// - Does NOT auto-open / auto-navigate
+// - Filters invalid/legacy items
 // ======================================================================
 
 (function () {
   "use strict";
 
   const panel = document.getElementById("panel-saved");
+  const list = document.getElementById("saved-list");
+
   if (!panel) return;
-
-  let mode = "saved"; // "saved" | "live"
-
-  function render() {
-    const saved = window.SavedStore ? window.SavedStore.getAll() : [];
-    const savedIds = new Set(saved.map(s => s.matchId || s.id));
-
-    const live = Array.isArray(window.AIML_LIVE_MATCHES) ? window.AIML_LIVE_MATCHES : [];
-    const liveSaved = live.filter(m => savedIds.has(m.matchId || m.id));
-
-    panel.innerHTML = `
-      <div class="saved-toolbar">
-        <button class="saved-tab" data-mode="saved">Saved (${saved.length})</button>
-        <button class="saved-tab" data-mode="live">Live Saved (${liveSaved.length})</button>
-      </div>
-      <div class="saved-body" id="saved-body"></div>
-    `;
-
-    panel.querySelectorAll(".saved-tab").forEach(btn => {
-      btn.onclick = () => { mode = btn.getAttribute("data-mode"); paint(saved, liveSaved); };
-    });
-
-    paint(saved, liveSaved);
+  if (!list) {
+    console.warn("[saved-panel] #saved-list missing (check index.html)");
+    return;
   }
 
-  function paint(saved, liveSaved) {
-    const body = panel.querySelector("#saved-body");
-    if (!body) return;
-
-    if (!saved.length) {
-      body.innerHTML = `<div class="nav-empty">No saved matches yet.</div>`;
-      return;
+  function emitBus(name, payload) {
+    if (typeof window.emit === "function") window.emit(name, payload);
+    else {
+      try { document.dispatchEvent(new CustomEvent(name, { detail: payload })); } catch (_) {}
     }
-
-    if (mode === "live") {
-      if (!liveSaved.length) {
-        body.innerHTML = `<div class="nav-empty">No live data for saved matches (yet).</div>`;
-        return;
-      }
-      body.innerHTML = liveSaved.map(rowLive).join("");
-      bindClicks(body, liveSaved);
-      return;
-    }
-
-    body.innerHTML = saved.map(rowSaved).join("");
-    bindClicks(body, saved);
   }
 
-  function bindClicks(container, list) {
-    container.querySelectorAll("[data-matchid]").forEach(el => {
-      el.onclick = () => {
-        const id = el.getAttribute("data-matchid");
-        const m = list.find(x => (x.matchId || x.id) === id);
-        if (m && typeof emit === "function") emit("match-selected", m);
-      };
-    });
-  }
-
-  function rowSaved(m) {
-    const id = escapeHtml(m.matchId || m.id);
-    return `
-      <div class="saved-item" data-matchid="${id}">
-        <div class="m-teams">${escapeHtml(m.home)} vs ${escapeHtml(m.away)}</div>
-        <div class="m-info">${escapeHtml(m.score || "")} • ${escapeHtml(String(m.minute ?? ""))}'</div>
-      </div>
-    `;
-  }
-
-  function rowLive(m) {
-    const id = escapeHtml(m.matchId || m.id);
-    return `
-      <div class="saved-item" data-matchid="${id}">
-        <div class="m-teams">${escapeHtml(m.home)} vs ${escapeHtml(m.away)}</div>
-        <div class="m-info">${escapeHtml(m.score || "")} • ${escapeHtml(String(m.minute ?? ""))}'</div>
-      </div>
-    `;
+  function hasSavedStore() {
+    return !!(window.SavedStore &&
+      typeof window.SavedStore.getAll === "function" &&
+      typeof window.SavedStore.toggle === "function" &&
+      typeof window.SavedStore.isSaved === "function");
   }
 
   function escapeHtml(s) {
@@ -96,10 +41,109 @@
       .replaceAll("'", "&#039;");
   }
 
-  if (typeof on === "function") {
-    on("saved-updated", render);
-    on("live-updated", render);
+  function normalize(m) {
+    if (!m) return null;
+    const id = m.matchId || m.id || "";
+    const home = (m.home || "").trim();
+    const away = (m.away || "").trim();
+    // reject legacy/garbage entries that don't have teams
+    if (!id || !home || !away) return null;
+
+    return {
+      id,
+      matchId: id,
+      home,
+      away,
+      kickoff: (m.kickoff || "").trim(),
+      leagueName: (m.leagueName || m.league || m.league_name || "").trim()
+    };
   }
 
+  function getSavedClean() {
+    if (!hasSavedStore()) return [];
+    const raw = window.SavedStore.getAll() || [];
+    const seen = new Set();
+    const out = [];
+    for (const r of raw) {
+      const m = normalize(r);
+      if (!m) continue;
+      if (seen.has(m.matchId)) continue;
+      seen.add(m.matchId);
+      out.push(m);
+    }
+    return out;
+  }
+
+  function rowHtml(m) {
+    const sub = `${m.kickoff || ""}${m.leagueName ? (m.kickoff ? " • " : "") + m.leagueName : ""}`.trim();
+    return `
+      <div class="saved-item" data-mid="${escapeHtml(m.matchId)}" style="position:relative;padding:10px 44px 10px 12px;border:1px solid rgba(255,255,255,.10);border-radius:12px;margin:8px 0;">
+        <div style="font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+          ${escapeHtml(m.home)} vs ${escapeHtml(m.away)}
+        </div>
+        <div style="opacity:.75;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+          ${escapeHtml(sub)}
+        </div>
+
+        <button class="saved-unsave" type="button"
+          title="Unsave" aria-label="Unsave"
+          style="position:absolute;right:10px;top:50%;transform:translateY(-50%);
+                 width:30px;height:28px;border-radius:10px;
+                 border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);
+                 cursor:pointer;font-weight:900;">
+          ★
+        </button>
+      </div>
+    `;
+  }
+
+  function render() {
+    const saved = getSavedClean();
+
+    if (!saved.length) {
+      list.innerHTML = `<div class="nav-empty" style="opacity:.7;padding:10px 6px;">No saved matches yet.</div>`;
+      return;
+    }
+
+    list.innerHTML = saved.map(rowHtml).join("");
+
+    // Click behavior:
+    // - click on row => match-selected
+    // - click ★ => unsave (toggle) and re-render (no auto-open)
+    list.querySelectorAll(".saved-item").forEach(el => {
+      const mid = el.getAttribute("data-mid");
+
+      el.addEventListener("click", (ev) => {
+        const btn = ev.target.closest(".saved-unsave");
+        const saved = getSavedClean();
+        const match = saved.find(x => x.matchId === mid);
+
+        if (!match) return;
+
+        if (btn) {
+          ev.preventDefault();
+          ev.stopPropagation();
+          window.SavedStore.toggle(match); // removes it (since it's saved)
+          emitBus("saved-updated", { id: match.matchId, match });
+          render();
+          return;
+        }
+
+        emitBus("match-selected", match);
+      });
+    });
+  }
+
+  // Bind events
+  function onBus(name, fn) {
+    if (typeof window.on === "function") window.on(name, fn);
+    else document.addEventListener(name, (e) => fn(e && e.detail));
+  }
+
+  onBus("saved-updated", render);
+
+  // initial render
+  render();
   document.addEventListener("DOMContentLoaded", render);
+
 })();

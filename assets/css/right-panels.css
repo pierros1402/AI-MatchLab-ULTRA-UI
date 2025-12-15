@@ -161,3 +161,66 @@
 @media (max-width: 900px){
   #right-panel{ display: none; }
 }
+/* =========================================================
+   RIGHT PANELS — uniform 300px cards + internal & outer scroll
+========================================================= */
+
+/* Η δεξιά στήλη να έχει εξωτερικό scroll */
+#right-panel .panel-body {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding-right: 8px !important;
+}
+
+/* Οι κάρτες στοιχίζονται κάθετα με διάκενο */
+#right-panel .right-stack {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 14px !important;
+}
+
+/* Κάθε κάρτα ίδιο ύψος + δικό της scroll */
+#right-panel .right-card {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 200px !important;
+  min-height: 200px !important;
+  border-radius: 14px !important;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  overflow: hidden !important;
+}
+
+/* Header */
+#right-panel .right-card-header {
+  flex: 0 0 auto !important;
+  padding: 10px 14px !important;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Εσωτερικό σώμα με scroll */
+#right-panel .right-card-body {
+  flex: 1 1 auto !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding: 12px 14px !important;
+}
+
+/* Λίστες και γραμμές μέσα στις κάρτες */
+#right-panel .right-list {
+  line-height: 1.4 !important;
+}
+#right-panel .right-item {
+  padding: 6px 0 !important;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+#right-panel .right-item:last-child {
+  border-bottom: none;
+}
+
+/* Ενιαίο typography */
+#right-panel .panel-title {
+  font-size: 14.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.2px !important;
+}
