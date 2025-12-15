@@ -630,10 +630,12 @@ body{
   padding-right: 4px;
 }
 /* =========================================================
-   MOBILE: hide drawer icon ONLY while left drawer is "home"
+   MOBILE ADJUSTMENT — remove redundant left drawer icon
+   (drawer toggling handled automatically via Home / Back)
 ========================================================= */
 @media (max-width: 900px) {
-  body.mobile-home-left-open #btn-drawer {
+  #btn-drawer {
     display: none !important;
   }
 }
+

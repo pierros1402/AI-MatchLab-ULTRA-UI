@@ -1,45 +1,79 @@
-// ======================================================================
-// MATCH DETAILS PANEL — AI MATCHLAB ULTRA
-// Displays live match info (score, events, timeline)
-// ======================================================================
+/* assets/js/ui/details-panel.js (STABLE)
+   - Renders inline match details into #match-details-body
+   - Button #btn-open-details-inline emits details-open (does not auto-open)
+*/
+(function () {
+  "use strict";
+  if (window.__AIML_DETAILS_INLINE__) return;
+  window.__AIML_DETAILS_INLINE__ = true;
 
-let CURRENT_MATCH = null;
+  var host = document.getElementById("match-details-body");
+  var openBtn = document.getElementById("btn-open-details-inline");
 
-// When a match is selected
-on("match-selected", match => {
-  CURRENT_MATCH = match;
-  renderMatchDetails(match);
-});
+  if (!host) return;
 
+  var lastMatch = null;
 
-// When simulator sends an update
-on("match-update", update => {
-  if (!CURRENT_MATCH) return;
-  if (CURRENT_MATCH.id !== update.id) return;
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
 
-  CURRENT_MATCH = Object.assign(CURRENT_MATCH, update);
-  renderMatchDetails(CURRENT_MATCH);
-});
+  function renderEmpty() {
+    host.innerHTML = "Select a match to view details.";
+  }
 
+  function renderMatch(m) {
+    if (!m || !m.id) { renderEmpty(); return; }
 
-// Render panel
-function renderMatchDetails(m) {
-  const panel = document.getElementById("panel-match-details");
-  if (!panel) return;
+    var home = esc(m.home || m.homeName || "Home");
+    var away = esc(m.away || m.awayName || "Away");
+    var league = esc(m.leagueName || m.league || "");
+    var ko = esc(m.kickoff || m.displayTime || "");
 
-  panel.innerHTML = `
-    <div class="md-teams">${m.home} vs ${m.away}</div>
-    <div class="md-score">${m.score}</div>
-    <div class="md-minute">${m.minute}'</div>
+    host.innerHTML =
+      '<div style="display:grid;gap:8px;">' +
+        '<div style="font-weight:900;">' + home + " vs " + away + "</div>" +
+        '<div style="opacity:.85;">' + league + (league && ko ? " • " : "") + ko + "</div>" +
+        '<div style="opacity:.7;">Tap Open for full modal details.</div>' +
+      "</div>";
+  }
 
-    <div class="md-events">
-      ${(m.events || []).map(ev => `
-        <div class="md-event">
-          <span class="ev-min">${ev.minute}'</span>
-          <span class="ev-type">${ev.type}</span>
-          <span class="ev-team">${ev.team}</span>
-        </div>
-      `).join("")}
-    </div>
-  `;
-}
+  // Wire Open button
+  if (openBtn) {
+    openBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      if (!lastMatch || !lastMatch.id) return;
+      if (typeof window.emit === "function") window.emit("details-open", lastMatch);
+      else document.dispatchEvent(new CustomEvent("details-open", { detail: lastMatch }));
+    });
+  }
+
+  // Default state
+  renderEmpty();
+
+  // Listen to match-selected
+  function busOn(name, fn) {
+    if (typeof window.on === "function") window.on(name, fn);
+    else document.addEventListener(name, function (e) { fn(e && e.detail); });
+  }
+
+  busOn("match-selected", function (m) {
+    lastMatch = m || lastMatch;
+    renderMatch(lastMatch);
+  });
+
+  busOn("match-selected-normalized", function (m) {
+    lastMatch = m || lastMatch;
+    renderMatch(lastMatch);
+  });
+
+  busOn("match-clear", function () {
+    lastMatch = null;
+    renderEmpty();
+  });
+})();
