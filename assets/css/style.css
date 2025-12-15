@@ -321,6 +321,7 @@ body{
   pointer-events: none;
   transition: opacity .15s ease;
   z-index: 9998;
+}
 .drawer-overlay.visible,
 .drawer-overlay.show{
   opacity: 1;
@@ -643,3 +644,9 @@ body{
   padding-bottom: 80px !important;
 }
 
+
+
+/* Ensure Panels button is visible on mobile */
+@media (max-width: 900px){
+  #btn-panels{ display: inline-flex !important; }
+}
