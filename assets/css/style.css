@@ -638,4 +638,8 @@ body{
     display: none !important;
   }
 }
+/* Prevent cut-off at bottom of match details */
+#center-panel .panel-body {
+  padding-bottom: 80px !important;
+}
 

@@ -214,3 +214,15 @@
     home: goHome
   };
 })();
+// Ensure mobile starts at left drawer (continents)
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.innerWidth <= 900) {
+    setTimeout(function(){
+      if (typeof window.openAccordion === "function") window.openAccordion("panel-continents");
+      var left = document.getElementById("left-panel");
+      if (left) left.classList.add("drawer-open");
+      var overlay = document.getElementById("drawer-overlay");
+      if (overlay) overlay.classList.add("show");
+    }, 250);
+  }
+});
