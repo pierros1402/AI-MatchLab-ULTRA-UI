@@ -6,14 +6,10 @@
   <title>AI MatchLab ULTRA</title>
 
   <link rel="icon" href="/favicon.ico" />
-  <link rel="manifest" href="/manifest.json" />
+  <!-- Optional: keep for iOS home-screen icon if user manually adds it -->
   <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
 
-  <!-- PWA / Web App Capable -->
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="MatchLab" />
+  <!-- Keeps browser UI color; safe for iOS/Android without PWA -->
   <meta name="theme-color" content="#050711" />
 
   <!-- CSS -->
@@ -104,7 +100,7 @@
       <div class="topbar-brand">
         <div class="brand-title">AI MatchLab ULTRA</div>
         <div class="brand-version">
-          <span class="ver-pill">v2.4.3</span>
+          <span class="ver-pill">v2.4.4</span>
           <span class="ver-sub">Global Live Lab</span>
         </div>
       </div>
@@ -122,10 +118,6 @@
     </div>
 
     <div class="topbar-right">
-      <button id="btn-install" class="icon-button tooltip" aria-label="Install" title="Install" data-tooltip="Install" style="display:none">
-        <svg class="ui-ico" aria-hidden="true"><use href="#i-download"></use></svg>
-        <span class="btn-text">Install</span>
-      </button>
 
       <button id="btn-lang" class="icon-button tooltip" aria-label="Language" title="Language" data-tooltip="Language">
         <svg class="ui-ico" aria-hidden="true"><use href="#i-globe"></use></svg>
@@ -374,7 +366,6 @@
 <script defer src="/assets/js/legal-menu.js"></script>
 
 <!-- Core -->
-<script defer src="/assets/js/install.js"></script>
 <script defer src="/assets/js/state.js"></script>
 
 <!-- Left navigation / accordion -->
@@ -406,14 +397,6 @@
 
 <!-- Update banner -->
 <script defer src="/assets/js/utils/version-check.js"></script>
-
-<script>
-  (function () {
-    if (!("serviceWorker" in navigator)) return;
-    navigator.serviceWorker.register("/sw.js").catch(function () {});
-  })();
-</script>
-
 
 </body>
 </html>
