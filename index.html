@@ -366,51 +366,54 @@
     </div>
   </div>
 
-  <!-- SCRIPTS (ORDER FIXED) -->
-  <script defer src="/assets/js/ui/app.js"></script>
+<!-- SCRIPTS (ORDER FIXED) -->
+<script defer src="/assets/js/ui/app.js"></script>
 
-  <!-- Theme / Legal (user confirmed these are in /assets/js) -->
-  <script defer src="/assets/js/theme.js"></script>
-  <script defer src="/assets/js/legal-menu.js"></script>
+<!-- Theme / Legal (user confirmed these are in /assets/js) -->
+<script defer src="/assets/js/theme.js"></script>
+<script defer src="/assets/js/legal-menu.js"></script>
 
-  <!-- Core -->
-  <script defer src="/assets/js/install.js"></script>
-  <script defer src="/assets/js/state.js"></script>
+<!-- Core -->
+<script defer src="/assets/js/install.js"></script>
+<script defer src="/assets/js/state.js"></script>
 
-  <!-- Left navigation / accordion -->
-  <script defer src="/assets/js/ui/accordion.js"></script>
-  <script defer src="/assets/js/ui/navigation.js"></script>
+<!-- Left navigation / accordion -->
+<script defer src="/assets/js/ui/accordion.js"></script>
+<script defer src="/assets/js/ui/navigation.js"></script>
 
-  <!-- Saved -->
-  <script defer src="/assets/js/ui/saved-store.js"></script>
-  <script defer src="/assets/js/ui/saved-panel.js"></script>
+<!-- Saved -->
+<script defer src="/assets/js/ui/saved-store.js"></script>
+<script defer src="/assets/js/ui/saved-panel.js"></script>
 
-  <!-- Matches + Today -->
-  <script defer src="/assets/js/ui/matches-panel.js"></script>
-  <script defer src="/assets/js/ui/today-panel.js"></script>
+<!-- Matches + Today -->
+<script defer src="/assets/js/ui/matches-panel.js"></script>
+<script defer src="/assets/js/ui/today-panel.js"></script>
 
-  <!-- Details (INLINE + MODAL) -->
-  <script defer src="/assets/js/ui/details-panel.js"></script>
-  <script defer src="/assets/js/ui/details-modal.js"></script>
+<!-- Details (INLINE + MODAL) -->
+<script defer src="/assets/js/ui/details-panel.js"></script>
+<script defer src="/assets/js/ui/details-modal.js"></script>
 
-  <!-- Center odds -->
-  <script defer src="/assets/js/ui/odds-panels.js"></script>
-  <script defer src="/assets/js/ui/odds-radar.js"></script>
+<!-- Center odds -->
+<script defer src="/assets/js/ui/odds-panels.js"></script>
+<script defer src="/assets/js/ui/odds-radar.js"></script>
 
-  <!-- Right panels -->
-  <script defer src="/assets/js/right-panels.js"></script>
+<!-- Right panels -->
+<script defer src="/assets/js/right-panels.js"></script>
 
-  <!-- UI helpers -->
-  <script defer src="/assets/js/mobile-ui.js"></script>
-  <script defer src="/assets/js/language.js"></script>
-  <script defer src="/assets/js/utils/version-check.js"></script>
+<!-- UI helpers -->
+<script defer src="/assets/js/mobile-ui.js"></script>
+<script defer src="/assets/js/language.js"></script>
 
-  <script>
-    (function () {
-      if (!("serviceWorker" in navigator)) return;
-      navigator.serviceWorker.register("/sw.js").catch(function () {});
-    })();
-  </script>
+<!-- Update banner -->
+<script defer src="/assets/js/utils/version-check.js"></script>
+
+<script>
+  (function () {
+    if (!("serviceWorker" in navigator)) return;
+    navigator.serviceWorker.register("/sw.js").catch(function () {});
+  })();
+</script>
+
 
 </body>
 </html>

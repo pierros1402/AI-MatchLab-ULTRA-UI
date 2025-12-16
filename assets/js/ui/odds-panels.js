@@ -7,13 +7,14 @@
        • "odds-snapshot"   { matchId, home, away, league, providers.{greek,eu,asian,betfair}.markets }
        • "odds-demo:update" (compat alias)
        • "market-selected" { key }
+   - NO TABLE HEADER ROW (no thead) — keeps alignment, removes "Book / 1 (0.0) (O/C)" line
    - No imports/exports (classic global script)
 ============================================================ */
 
 (function () {
   "use strict";
-  if (window.__AIML_ODDS_PANELS_V4__) return;
-  window.__AIML_ODDS_PANELS_V4__ = true;
+  if (window.__AIML_ODDS_PANELS_V4_NOHEAD__) return;
+  window.__AIML_ODDS_PANELS_V4_NOHEAD__ = true;
 
   // -------------------------
   // Constants / Wiring
@@ -35,12 +36,12 @@
 
   // Canonical market keys (must match emitted payload + Right Panels)
   const MARKETS = [
-    { key: "1X2",  label: "1X2",            cols: ["1", "X", "2"] },
-    { key: "DC",   label: "Double Chance",  cols: ["1X", "12", "X2"] },
-    { key: "OU25", label: "O/U 2.5",        cols: ["Over 2.5", "Under 2.5"] },
-    { key: "BTTS", label: "BTTS",           cols: ["Yes", "No"] },
-    { key: "DNB",  label: "Draw No Bet",    cols: ["1 (DNB)", "2 (DNB)"] },
-    { key: "AH0",  label: "Asian Handicap 0.0", cols: ["1 (0.0)", "2 (0.0)"] },
+    { key: "1X2",  label: "1X2",                 cols: ["1", "X", "2"] },
+    { key: "DC",   label: "Double Chance",       cols: ["1X", "12", "X2"] },
+    { key: "OU25", label: "O/U 2.5",             cols: ["Over 2.5", "Under 2.5"] },
+    { key: "BTTS", label: "BTTS",                cols: ["Yes", "No"] },
+    { key: "DNB",  label: "Draw No Bet",         cols: ["1 (DNB)", "2 (DNB)"] },
+    { key: "AH0",  label: "Asian Handicap 0.0",  cols: ["1 (0.0)", "2 (0.0)"] },
   ];
 
   // Backward compatibility (old stored keys)
@@ -53,7 +54,7 @@
     ah0: "AH0",
   };
 
-  const LS_MARKET = "aiml_market_key_v3"; // keep existing storage key; migrate values internally
+  const LS_MARKET = "aiml_market_key_v3";
   const TICK_MS = 2500;
 
   // provider-group bias (used for emitted snapshot only)
@@ -62,8 +63,8 @@
   // -------------------------
   // State
   // -------------------------
-  let ACTIVE_MATCH = null;         // { id, home, away, leagueName/league, ... }
-  let ACTIVE_MARKET = "1X2";       // canonical market key
+  let ACTIVE_MATCH = null;
+  let ACTIVE_MARKET = "1X2";
   let TICK = 0;
   let TIMER = null;
 
@@ -166,14 +167,14 @@
       .aiml-market-item:hover{ background: rgba(255,255,255,0.10); }
       .aiml-market-item.active{ outline: 2px solid rgba(255,255,255,0.22); }
 
-      /* Table rendering */
+      /* Table rendering (NO THEAD) */
       .aiml-odds-wrap{ display:block; }
       .aiml-odds-table{
         width:100%;
         border-collapse: collapse;
         font-size: 12px;
       }
-      .aiml-odds-table th, .aiml-odds-table td{
+      .aiml-odds-table td{
         padding: 10px 10px;
         border-top: 1px solid rgba(255,255,255,0.08);
         vertical-align: top;
@@ -185,7 +186,6 @@
         overflow:hidden;
         text-overflow: ellipsis;
       }
-      .aiml-odds-table thead th.aiml-th-book{ width: 140px; }
       .aiml-cell{ display:flex; align-items:center; gap:8px; }
       .aiml-open{ opacity: .80; font-weight: 800; }
       .aiml-cur{ font-weight: 950; }
@@ -212,7 +212,6 @@
     const bttsYes = clamp(1.88 + (seed - 0.5) * 0.20, 1.55, 2.40);
     const bttsNo = clamp(1.92 - (seed - 0.5) * 0.18, 1.55, 2.55);
 
-    // tick influences the oscillation slightly (for "current")
     const k = 0.06 * (drift - 0.5);
 
     return {
@@ -248,13 +247,6 @@
     `;
   }
 
-  function headerCols(market) {
-    // First column is bookmaker names; keep column but do not show the "Book" label.
-    let th = `<th class="aiml-th-book" style="text-align:left;"></th>`;
-    for (const c of market.cols) th += `<th style="text-align:left;">${esc(c)} (O/C)</th>`;
-    return th;
-  }
-
   // -------------------------
   // Unified Market UI in Active Match Bar
   // -------------------------
@@ -264,7 +256,6 @@
     const bar = document.getElementById("active-match-bar");
     if (!bar) return;
 
-    // wrap existing left text into a row
     let row = bar.querySelector(".aiml-amb-row");
     if (!row) {
       const left = document.createElement("div");
@@ -298,7 +289,6 @@
     host.appendChild(btn);
     host.appendChild(menu);
 
-    // outside click closes
     document.addEventListener("click", () => menu.classList.remove("open"), { passive: true });
 
     btn.addEventListener("click", (ev) => {
@@ -330,7 +320,6 @@
   }
 
   function updateActiveMatchBarText(match) {
-    // match-selected-fix.js owns amb-title/amb-sub, but we keep this as fallback.
     const t = document.getElementById("amb-title");
     const s = document.getElementById("amb-sub");
     if (!t || !s) return;
@@ -398,7 +387,7 @@
 
     if (typeof window.emit === "function") {
       window.emit("odds-snapshot", payload);
-      window.emit("odds-demo:update", payload); // alias for existing listeners
+      window.emit("odds-demo:update", payload);
     } else {
       try {
         document.dispatchEvent(new CustomEvent("odds-snapshot", { detail: payload }));
@@ -408,7 +397,7 @@
   }
 
   // -------------------------
-  // Rendering
+  // Rendering (NO THEAD/HEADER LINE)
   // -------------------------
   function renderPanel(groupKey) {
     const body = el(BODY_IDS[groupKey]);
@@ -429,7 +418,6 @@
       const name = providers[i];
       const bias = (i + 1) * 0.17 + (groupKey.length * 0.05);
 
-      // Opening is tick=0; Current is tick=TICK
       const open = demoPrices(seed, bias, 0);
       const cur  = demoPrices(seed, bias, TICK);
 
@@ -448,9 +436,6 @@
     body.innerHTML = `
       <div class="aiml-odds-wrap">
         <table class="aiml-odds-table">
-          <thead>
-            <tr>${headerCols(market)}</tr>
-          </thead>
           <tbody>${rows}</tbody>
         </table>
       </div>
@@ -460,9 +445,8 @@
   function renderAll() {
     ensureMarketPicker();
 
-    // sync picker UI
     const bar = document.getElementById("active-match-bar");
-    const host = bar?.querySelector(".aiml-amb-right");
+    const host = bar && bar.querySelector(".aiml-amb-right");
     if (host && typeof host.__setActive === "function") host.__setActive(ACTIVE_MARKET);
 
     updateActiveMatchBarText(ACTIVE_MATCH);
@@ -479,7 +463,6 @@
 
     renderAll();
 
-    // notify others
     if (typeof window.emit === "function") {
       window.emit("market-selected", { key: ACTIVE_MARKET });
     } else {
@@ -488,11 +471,13 @@
   }
 
   function setActiveMatch(match) {
-    ACTIVE_MATCH = match && (match.id || match.matchId) ? (match.id ? match : Object.assign({}, match, { id: match.matchId })) : null;
-    TICK = 0;
+    ACTIVE_MATCH = match && (match.id || match.matchId)
+      ? (match.id ? match : Object.assign({}, match, { id: match.matchId }))
+      : null;
 
+    TICK = 0;
     renderAll();
-    emitSnapshot(); // wake right panels instantly
+    emitSnapshot();
   }
 
   function startTicker() {
@@ -509,33 +494,27 @@
   // Boot / Wire
   // -------------------------
   function wire() {
-    // initial stored market (migrate legacy)
     let stored = null;
     try { stored = localStorage.getItem(LS_MARKET); } catch {}
     ACTIVE_MARKET = normalizeStoredMarket(stored || "1X2");
     try { localStorage.setItem(LS_MARKET, ACTIVE_MARKET); } catch {}
 
-    // Prefer normalized for consistent time
     if (typeof window.on === "function") {
       window.on("match-selected-normalized", setActiveMatch);
       window.on("match-selected", setActiveMatch);
     } else {
-      document.addEventListener("match-selected-normalized", (e) => setActiveMatch(e?.detail));
-      document.addEventListener("match-selected", (e) => setActiveMatch(e?.detail));
+      document.addEventListener("match-selected-normalized", (e) => setActiveMatch(e && e.detail));
+      document.addEventListener("match-selected", (e) => setActiveMatch(e && e.detail));
     }
 
     ensureMarketPicker();
     renderAll();
     startTicker();
 
-    // announce initial market for right modules
     if (typeof window.emit === "function") window.emit("market-selected", { key: ACTIVE_MARKET });
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", wire);
-  } else {
-    wire();
-  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", wire);
+  else wire();
 
 })();
