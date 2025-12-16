@@ -185,6 +185,7 @@
         overflow:hidden;
         text-overflow: ellipsis;
       }
+      .aiml-odds-table thead th.aiml-th-book{ width: 140px; }
       .aiml-cell{ display:flex; align-items:center; gap:8px; }
       .aiml-open{ opacity: .80; font-weight: 800; }
       .aiml-cur{ font-weight: 950; }
@@ -248,7 +249,8 @@
   }
 
   function headerCols(market) {
-    let th = `<th style="text-align:left;">Book</th>`;
+    // First column is bookmaker names; keep column but do not show the "Book" label.
+    let th = `<th class="aiml-th-book" style="text-align:left;"></th>`;
     for (const c of market.cols) th += `<th style="text-align:left;">${esc(c)} (O/C)</th>`;
     return th;
   }
