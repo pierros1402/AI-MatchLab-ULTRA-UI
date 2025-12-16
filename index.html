@@ -6,10 +6,7 @@
   <title>AI MatchLab ULTRA</title>
 
   <link rel="icon" href="/favicon.ico" />
-  <!-- Optional: keep for iOS home-screen icon if user manually adds it -->
   <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
-
-  <!-- Keeps browser UI color; safe for iOS/Android without PWA -->
   <meta name="theme-color" content="#050711" />
 
   <!-- CSS -->
@@ -18,8 +15,12 @@
   <link rel="stylesheet" href="/assets/css/accordion.css" />
   <link rel="stylesheet" href="/assets/css/matches.css" />
   <link rel="stylesheet" href="/assets/css/odds.css" />
-  <link rel="stylesheet" href="/assets/css/right-panels.css" />
+
+  <!-- premium skin ΠΡΙΝ -->
   <link rel="stylesheet" href="/assets/css/skin-premium.css" />
+
+  <!-- right-panels ΠΑΝΤΑ ΤΕΛΕΥΤΑΙΟ για να κερδίζει στο cascade -->
+  <link rel="stylesheet" href="/assets/css/right-panels.css" />
 </head>
 
 <body>
@@ -100,14 +101,13 @@
       <div class="topbar-brand">
         <div class="brand-title">AI MatchLab ULTRA</div>
         <div class="brand-version">
-          <span class="ver-pill">v2.4.4</span>
+          <span class="ver-pill">v2.4.6</span>
           <span class="ver-sub">Global Live Lab</span>
         </div>
       </div>
     </div>
 
     <div class="topbar-row2-right mobile-only">
-      <!-- NOTE: keep these IDs as-is; mobile-ui.js supports them -->
       <button id="btn-drawer" class="icon-button tooltip" aria-label="Menu" title="Menu" data-tooltip="Menu">
         <svg class="ui-ico" aria-hidden="true"><use href="#i-menu"></use></svg>
       </button>
@@ -118,7 +118,6 @@
     </div>
 
     <div class="topbar-right">
-
       <button id="btn-lang" class="icon-button tooltip" aria-label="Language" title="Language" data-tooltip="Language">
         <svg class="ui-ico" aria-hidden="true"><use href="#i-globe"></use></svg>
         <span class="btn-text">EN</span>
@@ -287,58 +286,72 @@
             </header>
             <div class="odds-card-body" id="match-details-body">Select a match to view details.</div>
           </section>
-
         </div>
       </section>
 
       <!-- RIGHT -->
       <aside id="right-panel" class="app-panel">
-        <div class="panel-header">
-          <div class="panel-title">Intelligence Panels</div>
+  <div class="panel-header">
+    <div class="panel-title">Intelligence Panels</div>
+  </div>
+
+  <!-- IMPORTANT: NO right-stack class here -->
+  <div class="panel-body">
+
+    <section class="right-card" id="card-radar">
+      <header class="right-card-header">
+        <div class="panel-title">AI Radar · Line Moves</div>
+        <div class="right-meta" id="radar-meta">Offline (demo)</div>
+      </header>
+      <div class="right-card-body" id="panel-radar">
+        <div class="right-list" id="radar-list"></div>
+      </div>
+    </section>
+
+    <section class="right-card" id="card-top-picks">
+      <header class="right-card-header">
+        <div class="panel-title">AI Smart Money · Top Picks</div>
+        <div class="right-meta" id="picks-meta">Offline (demo)</div>
+      </header>
+
+      <div class="right-card-body" id="panel-top-picks">
+        <div class="right-list" id="picks-list"></div>
+
+        <div class="right-subpanel" id="panel-deviations">
+          <div class="right-subheader">
+            <div class="sub-title">Deviations · Δ≥0.20</div>
+            <div class="right-meta" id="deviations-meta">Offline (demo)</div>
+          </div>
+          <div class="right-subbody">
+            <div class="right-list" id="deviations-list"></div>
+          </div>
         </div>
+      </div>
+    </section>
 
-        <div class="panel-body right-stack">
-          <section class="right-card" id="card-radar">
-            <header class="right-card-header">
-              <div class="panel-title">AI Radar · Line Moves</div>
-              <div class="right-meta" id="radar-meta">Offline (demo)</div>
-            </header>
-            <div class="right-card-body" id="panel-radar">
-              <div class="right-list" id="radar-list"></div>
-            </div>
-          </section>
+    <!-- ADDED: VALUE PICKS (4th card) -->
+    <section class="right-card" id="card-value-picks">
+      <header class="right-card-header">
+        <div class="panel-title">AI Value Picks</div>
+        <div class="right-meta" id="value-picks-meta">AI vs Market · 0</div>
+      </header>
+      <div class="right-card-body" id="panel-value-picks">
+        <div class="right-list" id="value-picks-list"></div>
+      </div>
+    </section>
 
-          <section class="right-card" id="card-top-picks">
-            <header class="right-card-header">
-              <div class="panel-title">AI Smart Money · Top Picks</div>
-              <div class="right-meta" id="picks-meta">Offline (demo)</div>
-            </header>
-            <div class="right-card-body" id="panel-top-picks">
-              <div class="right-list" id="picks-list"></div>
+    <section class="right-card" id="card-live">
+      <header class="right-card-header">
+        <div class="panel-title">Live Matches</div>
+        <div class="right-meta" id="live-meta">Service offline</div>
+      </header>
+      <div class="right-card-body" id="panel-live">
+        <div class="right-list" id="live-list"></div>
+      </div>
+    </section>
 
-              <div class="right-subpanel" id="panel-deviations">
-                <div class="right-subheader">
-                  <div class="sub-title">Deviations · Δ≥0.20</div>
-                  <div class="right-meta" id="deviations-meta">Offline (demo)</div>
-                </div>
-                <div class="right-subbody">
-                  <div class="right-list" id="deviations-list"></div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="right-card" id="card-live">
-            <header class="right-card-header">
-              <div class="panel-title">Live Matches</div>
-              <div class="right-meta" id="live-meta">Service offline</div>
-            </header>
-            <div class="right-card-body" id="panel-live">
-              <div class="right-list" id="live-list"></div>
-            </div>
-          </section>
-        </div>
-      </aside>
+  </div>
+</aside>
 
     </main>
   </div>
@@ -358,45 +371,34 @@
     </div>
   </div>
 
-<!-- SCRIPTS (ORDER FIXED) -->
-<script defer src="/assets/js/ui/app.js"></script>
+  <!-- SCRIPTS (ORDER FIXED) -->
+  <script defer src="/assets/js/ui/app.js"></script>
 
-<!-- Theme / Legal (user confirmed these are in /assets/js) -->
-<script defer src="/assets/js/theme.js"></script>
-<script defer src="/assets/js/legal-menu.js"></script>
+  <script defer src="/assets/js/theme.js"></script>
+  <script defer src="/assets/js/legal-menu.js"></script>
 
-<!-- Core -->
-<script defer src="/assets/js/state.js"></script>
+  <script defer src="/assets/js/state.js"></script>
 
-<!-- Left navigation / accordion -->
-<script defer src="/assets/js/ui/accordion.js"></script>
-<script defer src="/assets/js/ui/navigation.js"></script>
+  <script defer src="/assets/js/ui/accordion.js"></script>
+  <script defer src="/assets/js/ui/navigation.js"></script>
 
-<!-- Saved -->
-<script defer src="/assets/js/ui/saved-store.js"></script>
-<script defer src="/assets/js/ui/saved-panel.js"></script>
+  <script defer src="/assets/js/ui/saved-store.js"></script>
+  <script defer src="/assets/js/ui/saved-panel.js"></script>
 
-<!-- Matches + Today -->
-<script defer src="/assets/js/ui/matches-panel.js"></script>
-<script defer src="/assets/js/ui/today-panel.js"></script>
+  <script defer src="/assets/js/ui/matches-panel.js"></script>
+  <script defer src="/assets/js/ui/today-panel.js"></script>
 
-<!-- Details (INLINE + MODAL) -->
-<script defer src="/assets/js/ui/details-panel.js"></script>
-<script defer src="/assets/js/ui/details-modal.js"></script>
+  <script defer src="/assets/js/ui/details-panel.js"></script>
+  <script defer src="/assets/js/ui/details-modal.js"></script>
 
-<!-- Center odds -->
-<script defer src="/assets/js/ui/odds-panels.js"></script>
-<script defer src="/assets/js/ui/odds-radar.js"></script>
+  <script defer src="/assets/js/ui/odds-panels.js"></script>
+  <script defer src="/assets/js/ui/odds-radar.js"></script>
+  <script defer src="/assets/js/demo/odds-demo-feed.js?v=246"></script>
+  <script defer src="/assets/js/right-panels.js"></script>
 
-<!-- Right panels -->
-<script defer src="/assets/js/right-panels.js"></script>
+  <script defer src="/assets/js/mobile-ui.js"></script>
+  <script defer src="/assets/js/language.js"></script>
 
-<!-- UI helpers -->
-<script defer src="/assets/js/mobile-ui.js"></script>
-<script defer src="/assets/js/language.js"></script>
-
-<!-- Update banner -->
-<script defer src="/assets/js/utils/version-check.js"></script>
-
+  <script defer src="/assets/js/utils/version-check.js"></script>
 </body>
 </html>

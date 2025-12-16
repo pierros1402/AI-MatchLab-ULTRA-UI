@@ -451,7 +451,8 @@ body{
 /* Drawer content scroll */
 #left-panel > .panel-body,
 #right-panel > .panel-body{
-  height: 100% !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
   overflow-y: auto !important;
   -webkit-overflow-scrolling: touch;
 }
@@ -697,10 +698,11 @@ body{
   }
 
   #right-panel > .panel-body {
-    height: 100% !important;
-    overflow-y: auto !important;
-    padding-bottom: 40px !important;
-  }
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  padding-bottom: 40px !important;
+}
 }
 /* =========================================================
    MOBILE OVERLAY + CENTER DIM FIX (final)
@@ -734,4 +736,72 @@ body.drawer-right-open #center-panel{
   opacity: 1 !important;
   filter: none !important;
   pointer-events: auto !important;
+}
+/* FORCE center visible on mobile */
+#center-panel{
+  opacity: 1 !important;
+  filter: none !important;
+  visibility: visible !important;
+}
+
+body.drawer-left-open #center-panel,
+body.drawer-right-open #center-panel{
+  opacity: 1 !important;
+  filter: none !important;
+  pointer-events: auto !important;
+}
+
+/* overlay off unless explicitly shown */
+#drawer-overlay{ opacity:0; pointer-events:none; display:none; }
+#drawer-overlay.visible, #drawer-overlay.show{ opacity:1; pointer-events:auto; display:block !important; }
+/* =========================================================
+   FINAL — STOP GLOBAL DIMMING ON DRAWER OPEN
+   (Does NOT change right panel sizing/scroll rules)
+========================================================= */
+
+/* Never dim the app shell/center when drawers open */
+body.drawer-left-open #center-panel,
+body.drawer-right-open #center-panel,
+body.drawer-left-open .app-shell,
+body.drawer-right-open .app-shell,
+body.drawer-left-open .app-main,
+body.drawer-right-open .app-main {
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+/* Also neutralize any dimming on common wrappers if they exist */
+body.drawer-left-open #app,
+body.drawer-right-open #app,
+body.drawer-left-open .app,
+body.drawer-right-open .app,
+body.drawer-left-open .app-grid,
+body.drawer-right-open .app-grid {
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+/* Keep the right drawer scroll behavior intact (reinforce only) */
+@media (max-width: 900px){
+  #right-panel > .panel-body{
+    overflow-y: auto !important;
+    min-height: 0 !important;
+  }
+}
+/* =========================================================
+   FIX — Enable outer scroll for the entire right drawer
+   (keeps internal subpanels scrollable independently)
+========================================================= */
+#right-panel {
+  display: flex !important;
+  flex-direction: column !important;
+  overflow-y: auto !important;     /* outer scroll */
+  -webkit-overflow-scrolling: touch !important;
+}
+
+#right-panel > .panel-body {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;    /* allow inner panels to scroll internally */
+  padding-bottom: 60px !important; /* avoid cut-off near bottom */
 }

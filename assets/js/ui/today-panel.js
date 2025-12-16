@@ -1,22 +1,30 @@
 /* =========================================================
-   TODAY PANEL — AI MatchLab ULTRA (GLOBAL SCRIPT)
+   TODAY PANEL — AI MatchLab ULTRA (STABLE + LOG)
+   ---------------------------------------------------------
    - Renders demo "today matches" into #today-list
    - Row click => emit('match-selected', match)
-   - ★ => SavedStore.toggle(match) (no auto-open Saved)
-   - i => emit('details-open', match) + match-selected
+   - ★ => SavedStore.toggle(match)
+   - i => emit('details-open', match)
+   - Emits 'today-matches:loaded' after successful render
 ========================================================= */
 
 (function () {
   "use strict";
-
   if (window.__AIML_TODAY_PANEL_INIT__) return;
   window.__AIML_TODAY_PANEL_INIT__ = true;
 
   function emitBus(name, payload) {
     if (typeof window.emit === "function") window.emit(name, payload);
-    else {
-      try { document.dispatchEvent(new CustomEvent(name, { detail: payload })); } catch (_) {}
-    }
+    else document.dispatchEvent(new CustomEvent(name, { detail: payload }));
+  }
+
+  function escapeHtml(s) {
+    return String(s || "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#39;");
   }
 
   function hasSavedStore() {
@@ -27,15 +35,6 @@
 
   function isSaved(id) {
     try { return hasSavedStore() ? !!window.SavedStore.isSaved(id) : false; } catch { return false; }
-  }
-
-  function escapeHtml(s) {
-    return String(s || "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
   }
 
   function todayKey() {
@@ -58,150 +57,120 @@
     ].map(m => ({ ...m, id: m.matchId }));
   }
 
-  function ensureStyles() {
-    if (document.getElementById("aiml-today-style")) return;
-    const st = document.createElement("style");
-    st.id = "aiml-today-style";
-    st.textContent = `
-      #today-list .today-item{
-        position:relative;
-        padding:10px 82px 10px 12px;
-        border:1px solid rgba(255,255,255,.10);
-        border-radius:12px;
-        margin:8px 0;
-        cursor:pointer;
-      }
-      #today-list .today-item:hover{ background: rgba(255,255,255,.04); }
-      #today-list .t-teams{ font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-      #today-list .t-sub{ opacity:.75; font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  function parseFromEl(itemEl) {
+    return {
+      id: itemEl.getAttribute("data-id") || "",
+      matchId: itemEl.getAttribute("data-match-id") || "",
+      home: itemEl.getAttribute("data-home") || "",
+      away: itemEl.getAttribute("data-away") || "",
+      kickoff: itemEl.getAttribute("data-kickoff") || "",
+      leagueName: itemEl.getAttribute("data-league") || ""
+    };
+  }
 
-      #today-list .t-actions{
-        position:absolute; right:10px; top:50%; transform:translateY(-50%);
-        display:flex; gap:8px; align-items:center;
+  function ensureStyles() {
+    if (document.getElementById("__today_panel_styles__")) return;
+    const st = document.createElement("style");
+    st.id = "__today_panel_styles__";
+    st.textContent = `
+      #today-list .today-item {
+        display:flex; align-items:center; justify-content:space-between;
+        gap:10px; padding:10px 12px; margin:8px 0;
+        border:1px solid rgba(255,255,255,0.08);
+        border-radius:14px;
+        background:rgba(0,0,0,0.15);
+        cursor:pointer; transition:background .15s ease;
       }
-      #today-list .t-btn{
-        width:30px; height:28px;
+      #today-list .today-item:hover { background:rgba(0,0,0,0.25); }
+      #today-list .t-left { flex:1; overflow:hidden; }
+      #today-list .t-teams { font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+      #today-list .t-sub { opacity:0.75; font-size:12px; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+      #today-list .t-actions { display:flex; gap:8px; }
+      #today-list .t-btn {
+        width:32px; height:32px; border-radius:10px;
         display:flex; align-items:center; justify-content:center;
-        border-radius:10px;
-        border:1px solid rgba(255,255,255,.16);
-        background: rgba(255,255,255,.06);
-        font-weight:900;
-        user-select:none;
-        cursor:pointer;
-        opacity:.9;
+        border:1px solid rgba(255,255,255,0.10);
+        background:rgba(0,0,0,0.2);
       }
-      #today-list .t-btn:hover{ background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.24); }
-      #today-list .t-star.active{
-        background: rgba(61,255,184,.16);
-        border-color: rgba(61,255,184,.35);
+      #today-list .t-star.active {
+        color:#ffa400; border-color:rgba(255,164,0,0.3);
+        background:rgba(255,164,0,0.1);
       }
-      #today-list .t-details{
-        background: rgba(61,184,255,.14);
-        border-color: rgba(61,184,255,.32);
-      }
-      #today-list .t-details:hover{ background: rgba(61,184,255,.20); }
+      #today-list .t-details { color:#3db8ff; border-color:rgba(61,184,255,0.3); }
     `;
     document.head.appendChild(st);
   }
 
   function renderToday(listEl) {
     const matches = makeDemoTodayMatches();
-
     if (!matches.length) {
-      listEl.innerHTML = `<div class="nav-empty" style="opacity:.7;padding:10px 6px;">No matches today.</div>`;
+      listEl.innerHTML = `<div class="nav-empty">No matches today.</div>`;
+      emitBus("today-matches:loaded", []);
       return;
     }
 
     listEl.innerHTML = matches.map(m => {
       const saved = isSaved(m.matchId);
-      const sub = `${m.kickoff || ""}${m.leagueName ? (m.kickoff ? " • " : "") + m.leagueName : ""}`.trim();
+      const sub = `${m.kickoff} · ${m.leagueName}`;
       return `
-        <div class="today-item" data-mid="${escapeHtml(m.matchId)}"
-             data-home="${escapeHtml(m.home)}" data-away="${escapeHtml(m.away)}"
-             data-kickoff="${escapeHtml(m.kickoff || "")}" data-league="${escapeHtml(m.leagueName || "")}">
-          <div class="t-teams">${escapeHtml(m.home)} vs ${escapeHtml(m.away)}</div>
-          <div class="t-sub">${escapeHtml(sub)}</div>
-
-          <div class="t-actions">
-            <div class="t-btn t-details" title="Details" aria-label="Details">i</div>
-            <div class="t-btn t-star ${saved ? "active" : ""}" title="${saved ? "Unsave" : "Save"}" aria-label="Save">
-              ${saved ? "★" : "☆"}
-            </div>
+        <div class="today-item"
+             data-id="${escapeHtml(m.matchId)}"
+             data-match-id="${escapeHtml(m.matchId)}"
+             data-home="${escapeHtml(m.home)}"
+             data-away="${escapeHtml(m.away)}"
+             data-kickoff="${escapeHtml(m.kickoff)}"
+             data-league="${escapeHtml(m.leagueName)}">
+          <div class="t-left">
+            <div class="t-teams">${escapeHtml(m.home)} vs ${escapeHtml(m.away)}</div>
+            <div class="t-sub">${escapeHtml(sub)}</div>
           </div>
-        </div>
-      `;
+          <div class="t-actions">
+            <div class="t-btn t-details" title="Details">i</div>
+            <div class="t-btn t-star ${saved ? "active" : ""}" title="${saved ? "Unsave" : "Save"}">${saved ? "★" : "☆"}</div>
+          </div>
+        </div>`;
     }).join("");
+
+    // === Emit after render + debug log ===
+    setTimeout(() => {
+      console.log("[TODAY] emit today-matches:loaded", matches.length);
+      emitBus("today-matches:loaded", { matches, ts: Date.now(), source: "today-panel" });
+    }, 150);
   }
 
-  function parseFromEl(el) {
-    const mid = el.getAttribute("data-mid") || "";
-    const home = el.getAttribute("data-home") || "";
-    const away = el.getAttribute("data-away") || "";
-    const kickoff = el.getAttribute("data-kickoff") || "";
-    const leagueName = el.getAttribute("data-league") || "";
-    return { id: mid, matchId: mid, home, away, kickoff, leagueName };
-  }
+  function attachHandlers(listEl) {
+    listEl.addEventListener("click", (ev) => {
+      const item = ev.target.closest(".today-item");
+      if (!item) return;
+      const match = parseFromEl(item);
 
-  function syncStars(listEl) {
-    const items = listEl.querySelectorAll(".today-item");
-    items.forEach(it => {
-      const id = it.getAttribute("data-mid");
-      const star = it.querySelector(".t-star");
-      if (!id || !star) return;
-      const s = isSaved(id);
-      star.classList.toggle("active", s);
-      star.textContent = s ? "★" : "☆";
-      star.title = s ? "Unsave" : "Save";
+      if (ev.target.closest(".t-details")) {
+        emitBus("match-selected", match);
+        emitBus("details-open", match);
+        return;
+      }
+      if (ev.target.closest(".t-star") && hasSavedStore()) {
+        const nowSaved = window.SavedStore.toggle(match);
+        ev.target.classList.toggle("active", !!nowSaved);
+        ev.target.textContent = nowSaved ? "★" : "☆";
+        emitBus("saved-updated", { id: match.matchId, match });
+        return;
+      }
+      emitBus("match-selected", match);
     });
   }
 
   function init() {
-    const listEl = document.getElementById("today-list");
-    if (!listEl) return;
-
+    const el = document.getElementById("today-list");
+    if (!el) return;
     ensureStyles();
-    renderToday(listEl);
-
-    listEl.addEventListener("click", (ev) => {
-      const item = ev.target.closest(".today-item");
-      if (!item) return;
-
-      const match = parseFromEl(item);
-
-      // DETAILS (i)
-      const detailsBtn = ev.target.closest(".t-details");
-      if (detailsBtn) {
-        ev.preventDefault(); ev.stopPropagation();
-        emitBus("match-selected", match);
-        emitBus("details-open", match);
-        emitBus("details:open", match);
-        emitBus("match-details", match);
-        return;
-      }
-
-      // SAVED (★)
-      const starBtn = ev.target.closest(".t-star");
-      if (starBtn && hasSavedStore()) {
-        ev.preventDefault(); ev.stopPropagation();
-        const nowSaved = window.SavedStore.toggle(match);
-        starBtn.classList.toggle("active", !!nowSaved);
-        starBtn.textContent = nowSaved ? "★" : "☆";
-        starBtn.title = nowSaved ? "Unsave" : "Save";
-        emitBus("saved-updated", { id: match.matchId, match });
-        return;
-      }
-
-      // ROW SELECT
-      emitBus("match-selected", match);
-    });
-
-    // Keep stars synced when saved changes elsewhere
-    if (typeof window.on === "function") {
-      window.on("saved-updated", () => syncStars(listEl));
-    }
+    renderToday(el);
+    attachHandlers(el);
   }
 
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
-  else init();
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", init);
+  else
+    init();
 
 })();

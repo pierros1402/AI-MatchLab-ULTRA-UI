@@ -126,3 +126,95 @@
   min-width:0;
   padding-bottom:140px;
 }
+/* =========================================================
+   TEMP FIX — hide redundant line in AI Radar panel
+========================================================= */
+#panel-ai-radar .odds-card-header .odds-card-title,
+#panel-ai-radar .odds-card-header h3,
+#panel-ai-radar .odds-card-header span {
+  display: none !important;
+}
+/* =========================================================
+   CLEANUP — Remove demo header line from AI Radar
+========================================================= */
+#panel-ai-radar .right-card-header .panel-title,
+#panel-ai-radar .right-card-header .odds-card-title,
+#panel-ai-radar .right-card-header h3,
+#panel-ai-radar .right-card-header span {
+  display: none !important;
+}
+/* ==========================================================
+   CENTER ODDS COLORING (Opening -> Current), accent-aware
+========================================================== */
+
+html{
+  --accent-positive:#22c55e;
+  --accent-negative:#ef4444;
+}
+
+/* Το “κουτί” που περιέχει O→C */
+.oc-chip[data-delta]{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:4px 8px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.03);
+  transition: background .2s ease, border-color .2s ease, transform .1s ease;
+}
+
+/* pos / neg */
+.oc-chip[data-sign="pos"]{
+  border-color: rgba(34,197,94,0.35);
+  background: rgba(34,197,94,0.10);
+}
+.oc-chip[data-sign="neg"]{
+  border-color: rgba(239,68,68,0.35);
+  background: rgba(239,68,68,0.10);
+}
+
+/* intensity tiers */
+.oc-chip[data-intense="true"]{
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.06) inset,
+    0 8px 16px rgba(0,0,0,0.22);
+  background: rgba(255,255,255,0.06);
+}
+.oc-chip[data-critical="true"]{
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.10) inset,
+    0 12px 24px rgba(0,0,0,0.30);
+  background: rgba(255,255,255,0.08);
+}
+
+.oc-chip:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,0.10);
+}
+
+/* προαιρετικά: μικρό badge του Δ */
+.oc-chip .oc-delta{
+  font-weight:700;
+  opacity:0.9;
+}
+.oc-chip[data-sign="pos"] .oc-delta{ color: var(--accent-positive); }
+.oc-chip[data-sign="neg"] .oc-delta{ color: var(--accent-negative); }
+/* prettier O→C chips spacing */
+.oc-chip {
+  padding: 4px 10px;
+  font-weight: 800;
+}
+.oc-chip .oc-o,
+.oc-chip .oc-c {
+  font-size: 13px;
+  font-weight: 900;
+}
+.oc-chip .oc-arrow {
+  opacity: 0.7;
+  font-weight: 700;
+}
+.oc-chip .oc-delta {
+  margin-left: 8px;
+  font-weight: 900;
+}

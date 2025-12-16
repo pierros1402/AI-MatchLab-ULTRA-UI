@@ -1,465 +1,142 @@
-/* ============================================================
-   AI MatchLab ULTRA — assets/js/right-panels.js
-   Right column cards (single stack):
-     1) AI Radar (handled by odds-radar.js)
-     2) AI Smart Money · Top Picks (AI/Stats — rendered here)
-     3) AI Value Picks (AI vs Market — rendered by value-picks.js)
-     4) Live Matches (demo ticker)
-
-   This file ensures the "AI Value Picks" CARD exists between Top Picks and Live
-   using the SAME markup/classes as the other right cards in index.html:
-     section.right-card > header.right-card-header > .panel-title + .right-meta
-     + div.right-card-body > div.right-list
-
-   Requires global event bus: on()/emit() from app.js
-============================================================ */
-
-(function () {
-  "use strict";
-  if (window.__AIML_RIGHT_PANELS_V5__) return;
-  window.__AIML_RIGHT_PANELS_V5__ = true;
-
-  // Existing anchors from index.html
-  var elPicksList = document.getElementById("picks-list");
-  var elPicksMeta = document.getElementById("picks-meta");
-  var elLiveList  = document.getElementById("live-list");
-  var elLiveMeta  = document.getElementById("live-meta");
-
-  var state = {
-    currentMatch: null,
-    currentMatchId: null,
-    lastPicksPayload: null,
-    demoMatches: [],
-    liveTimer: null
-  };
-
-  // -----------------------------
-  // Utilities
-  // -----------------------------
-  function esc(s) {
-    return String(s == null ? "" : s)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#39;");
-  }
-
-  function setText(el, txt) {
-    if (!el) return;
-    el.textContent = txt == null ? "" : String(txt);
-  }
-
-  function badge(text, tone) {
-    // Leverage existing badge style if present; fall back to simple
-    var cls = "right-badge " + (tone || "tone-gray");
-    return '<span class="' + cls + '">' + esc(text) + "</span>";
-  }
-
-  function ensureScriptOnce(id, src) {
-    if (document.getElementById(id)) return;
-    var s = document.createElement("script");
-    s.id = id;
-    s.src = src;
-    s.defer = true;
-    document.head.appendChild(s);
-  }
-
-  function bindBus(name, fn) {
-    if (typeof window.on === "function") window.on(name, fn);
-    else document.addEventListener(name, function (e) { fn(e && e.detail); });
-  }
-
-  function getMatchId(m) {
-    return m ? (m.id || m.matchId || m.fixtureId || m.gameId) : null;
-  }
-
-  // -----------------------------
-  // Ensure AI Value Picks card exists and matches other cards' markup
-  // -----------------------------
-  function ensureValueCard() {
-    if (document.getElementById("card-value-picks")) return true;
-
-    var topCard = document.getElementById("card-top-picks");
-    var liveCard = document.getElementById("card-live");
-    var parent = null;
-
-    if (liveCard && liveCard.parentNode) parent = liveCard.parentNode;
-    else if (topCard && topCard.parentNode) parent = topCard.parentNode;
-    if (!parent) return false;
-
-    var sec = document.createElement("section");
-    sec.className = "right-card";
-    sec.id = "card-value-picks";
-    sec.innerHTML = `
-      <header class="right-card-header">
-        <div class="panel-title">AI Value Picks</div>
-        <div class="right-meta" id="value-picks-meta">AI vs Market</div>
-      </header>
-      <div class="right-card-body" id="panel-value-picks">
-        <div class="right-list" id="value-picks-list">
-          <div class="muted">Select a match to see AI Value Picks.</div>
-        </div>
-      </div>
-    `;
-
-    // Insert between Top Picks and Live if possible
-    if (liveCard && liveCard.parentNode) {
-      liveCard.parentNode.insertBefore(sec, liveCard);
-      return true;
-    }
-    // else append after Top Picks
-    if (topCard && topCard.parentNode) {
-      if (topCard.nextSibling) topCard.parentNode.insertBefore(sec, topCard.nextSibling);
-      else topCard.parentNode.appendChild(sec);
-      return true;
-    }
-
-    parent.appendChild(sec);
-    return true;
-  }
-
-  // -----------------------------
-  // Top Picks rendering (AI/Stats)
-  // Expects payload: { matchId, picks:[{title,score,rationale,tags}] }
-  // -----------------------------
-  function renderTopPicks(payload) {
-    if (!elPicksList) elPicksList = document.getElementById("picks-list");
-    if (!elPicksList) return;
-
-    var match = state.currentMatch;
-    var matchId = state.currentMatchId;
-
-    if (payload && matchId && payload.matchId && String(payload.matchId) !== String(matchId)) return;
-
-    var picks = payload && Array.isArray(payload.picks) ? payload.picks : [];
-
-    if (!match) {
-      elPicksList.innerHTML = '<div class="muted">Select a match to see Top Picks.</div>';
-      setText(elPicksMeta, "AI/Stats");
-      return;
-    }
-
-    if (!payload) {
-      elPicksList.innerHTML = '<div class="muted">Waiting for <b>top-picks:update</b> (AI/Stats engine).</div>';
-      setText(elPicksMeta, "AI/Stats · Offline");
-      return;
-    }
-
-    if (!picks.length) {
-      elPicksList.innerHTML = '<div class="muted">No picks available for this match.</div>';
-      setText(elPicksMeta, "AI/Stats");
-      return;
-    }
-
-    var title = esc(match.home || "Home") + " vs " + esc(match.away || "Away");
-    var html = '';
-    html += '<div class="right-item" style="border-bottom:1px solid rgba(255,255,255,.10);padding-bottom:10px;margin-bottom:10px;">';
-    html += '  <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">';
-    html += '    <div style="font-weight:950;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + title + '</div>';
-    html += '    <div class="right-meta" style="opacity:.72;">AI/Stats</div>';
-    html += '  </div>';
-    html += '</div>';
-
-    for (var i = 0; i < picks.length; i++) {
-      var p = picks[i] || {};
-      var t = p.title || p.pick || p.name || ("Pick " + (i + 1));
-      var score = (p.score != null && isFinite(Number(p.score))) ? Number(p.score) : null;
-      var rationale = p.rationale || p.reason || p.notes || "";
-      var tags = Array.isArray(p.tags) ? p.tags : [];
-
-      html += '<div class="right-item">';
-      html += '  <div style="display:flex;align-items:center;gap:10px;">';
-      html += '    <div style="font-weight:950;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + esc(t) + '</div>';
-      if (score != null) html += '    <div style="margin-left:auto;">' + badge("Score " + score, "tone-green") + '</div>';
-      html += "  </div>";
-
-      if (rationale) html += '  <div class="right-sub">' + esc(rationale) + "</div>";
-      if (tags.length) {
-        html += '  <div class="right-sub" style="opacity:.9;margin-top:6px;">' +
-          tags.map(function (x) { return '<span class="right-badge tone-gray" style="margin-right:6px;">' + esc(x) + '</span>'; }).join("") +
-          "</div>";
-      }
-      html += "</div>";
-    }
-
-    elPicksList.innerHTML = html;
-    setText(elPicksMeta, "AI/Stats · " + picks.length + " picks");
-  }
-
-  function clearTopPicks() {
-    state.lastPicksPayload = null;
-    renderTopPicks(null);
-  }
-
-  // -----------------------------
-  // Live (demo ticker)
-  // -----------------------------
-  function normalizeLiveMatches(matches) {
-    if (!Array.isArray(matches)) return [];
-    return matches.slice(0, 16).map(function (m) {
-      return {
-        id: m.id || m.matchId,
-        home: m.home || m.homeName || "Home",
-        away: m.away || m.awayName || "Away",
-        minute: m.minute || 0,
-        score: m.score || "0 - 0"
-      };
-    });
-  }
-
-  function renderLive(list) {
-    if (!elLiveList) elLiveList = document.getElementById("live-list");
-    if (!elLiveList) return;
-
-    if (!list || !list.length) {
-      elLiveList.innerHTML = '<div class="muted">No live feed (demo).</div>';
-      setText(elLiveMeta, "Service offline");
-      return;
-    }
-
-    var html = "";
-    for (var i = 0; i < list.length; i++) {
-      var m = list[i];
-      html += '<div class="right-item">';
-      html += '  <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">';
-      html += '    <div style="min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + esc(m.home) + " vs " + esc(m.away) + "</div>";
-      html += '    <span class="right-badge tone-cyan">LIVE</span>';
-      html += "  </div>";
-      html += '  <div class="right-sub">' + esc(m.score) + " • " + esc(m.minute) + "'</div>";
-      html += "</div>";
-    }
-
-    elLiveList.innerHTML = html;
-    setText(elLiveMeta, "Demo ticker");
-  }
-
-  function startDemoLiveTicker() {
-    if (state.liveTimer) return;
-    state.liveTimer = setInterval(function () {
-      if (!state.demoMatches || !state.demoMatches.length) return;
-      var list = normalizeLiveMatches(state.demoMatches).map(function (m, idx) {
-        var minute = ((Date.now() / 1000) | 0) % 90;
-        var scoreA = (minute > 60 ? 1 : 0) + (idx % 3 === 0 && minute > 70 ? 1 : 0);
-        var scoreB = (minute > 75 ? 1 : 0) + (idx % 5 === 0 && minute > 80 ? 1 : 0);
-        m.minute = minute;
-        m.score = scoreA + " - " + scoreB;
-        return m;
-      });
-      renderLive(list);
-    }, 2000);
-  }
-
-  // -----------------------------
-  // Boot
-  // -----------------------------
-  function boot() {
-    // Ensure AI Value Picks card exists (uniform header/frame)
-    ensureValueCard();
-
-    // Ensure engines are available (classic scripts)
-    ensureScriptOnce("aiml-top-picks-engine", "/assets/js/ui/top-picks.js");
-    ensureScriptOnce("aiml-value-picks-engine", "/assets/js/ui/value-picks.js");
-
-    // Initial render
-    renderTopPicks(null);
-    renderLive(null);
-
-    // Selection
-    function onSelect(match) {
-      state.currentMatch = match || null;
-      state.currentMatchId = getMatchId(match);
-
-      clearTopPicks();
-
-      if (typeof window.emit === "function") {
-        window.emit("top-picks:request", { match: state.currentMatch });
-      }
-    }
-
-    bindBus("match-selected", onSelect);
-    bindBus("match-selected-normalized", onSelect);
-
-    bindBus("top-picks:update", function (payload) {
-      state.lastPicksPayload = payload || null;
-      renderTopPicks(state.lastPicksPayload);
-    });
-
-    bindBus("top-picks:clear", function () {
-      clearTopPicks();
-    });
-
-    bindBus("matches-loaded", function (matches) {
-      state.demoMatches = Array.isArray(matches) ? matches : [];
-      if (!state.liveTimer) startDemoLiveTicker();
-    });
-  }
-
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
-  else boot();
-})();
 /* =========================================================
-   DEMO INJECT v2 (safe): populate + animate right panels
-   - Fills: radar-list, picks-list, deviations-list, value-picks-list, live-list
-   - Runs only if lists are empty / show "offline/select/no" placeholders
-   - Updates every 8s to simulate live movement
+   AI MatchLab ULTRA — RIGHT PANELS (accent + stable)
+   --------------------------------------------------------
+   IDs:
+     Radar list:        #radar-list
+     Top picks list:    #picks-list
+     Value picks list:  #value-picks-list
+     Live list:         #live-list
 ========================================================= */
-(function () {
+
+(function(){
   "use strict";
 
-  if (window.__AIML_RIGHT_DEMO_INJECT_V2__) return;
-  window.__AIML_RIGHT_DEMO_INJECT_V2__ = true;
+  const els = {
+    radarList: document.getElementById('radar-list'),
+    picksList: document.getElementById('picks-list'),
+    valueList: document.getElementById('value-picks-list'),
+    liveList:  document.getElementById('live-list'),
 
-  function $(id) { return document.getElementById(id); }
-
-  function esc(s) {
-    return String(s || "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
-
-  function looksPlaceholder(el) {
-    if (!el) return true;
-    const txt = (el.textContent || "").trim().toLowerCase();
-    const hasChildren = el.children && el.children.length > 0;
-    if (hasChildren) return false;
-    if (!txt) return true;
-    return (
-      txt.includes("select a match") ||
-      txt.includes("no ") ||
-      txt.includes("offline") ||
-      txt.includes("service offline") ||
-      txt.includes("no live feed")
-    );
-  }
-
-  function item(title, sub) {
-    return `
-      <div class="right-item">
-        <div><strong>${esc(title)}</strong></div>
-        <div style="opacity:.82;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-          ${esc(sub)}
-        </div>
-      </div>
-    `;
-  }
-
-  // --- Demo state (mutates over time) ------------------------------------
-  const state = {
-    radar: [
-      { m: "Olympiacos vs AEK", d: 0.25, mk: "1X2", b: "Stoiximan" },
-      { m: "PAOK vs Aris", d: -0.22, mk: "O/U 2.5", b: "Bet365" },
-      { m: "Panathinaikos vs Volos", d: 0.31, mk: "Asian +0.25", b: "OPAP" },
-      { m: "Atromitos vs OFI", d: 0.18, mk: "1X2", b: "Novibet" },
-      { m: "Lamia vs Asteras", d: 0.27, mk: "BTTS", b: "Betshop" }
-    ],
-    picks: [
-      { m: "Arsenal vs Chelsea", d: 0.42, note: "AI edge +4.2%", src: "EU" },
-      { m: "Inter vs Napoli", d: 0.35, note: "Steam move", src: "Betfair" },
-      { m: "Barcelona vs Sevilla", d: 0.31, note: "Sharp drift", src: "Greek" },
-      { m: "PSG vs Lyon", d: 0.29, note: "Reversal", src: "EU" },
-      { m: "Real Madrid vs Girona", d: 0.33, note: "Totals dev", src: "EU" }
-    ],
-    deviations: [
-      { m: "Liverpool vs City", d: 0.40, mk: "1X2" },
-      { m: "Real Madrid vs Girona", d: 0.33, mk: "O/U 2.5" },
-      { m: "PSG vs Lyon", d: 0.29, mk: "Asian +0.5" },
-      { m: "Ajax vs AZ", d: 0.25, mk: "BTTS" },
-      { m: "Porto vs Braga", d: 0.23, mk: "1X2" }
-    ],
-    value: [
-      { m: "Bayern vs Dortmund", edge: 6.2, mk: "1X2", note: "Mispriced drift" },
-      { m: "Inter vs Napoli", edge: 5.6, mk: "O/U 2.5", note: "Overreaction" },
-      { m: "AEK vs Olympiacos", edge: 7.1, mk: "Asian +0.25", note: "Line move lag" },
-      { m: "Barcelona vs Sevilla", edge: 5.3, mk: "BTTS", note: "Market split" }
-    ],
-    live: [
-      { m: "Aris vs PAOK", min: 57, sc: "1–1", st: "Live" },
-      { m: "AEK vs Olympiacos", min: 45, sc: "2–0", st: "HT" },
-      { m: "Atromitos vs Panserraikos", min: 74, sc: "0–0", st: "Live" },
-      { m: "Panetolikos vs Lamia", min: 28, sc: "1–0", st: "1H" },
-      { m: "OFI vs Volos", min: 89, sc: "2–2", st: "Live" }
-    ]
+    radarMeta: document.getElementById('radar-meta'),
+    picksMeta: document.getElementById('picks-meta'),
+    valueMeta: document.getElementById('value-picks-meta'),
+    liveMeta:  document.getElementById('live-meta')
   };
 
-  function fmtDelta(x) {
-    const sign = x >= 0 ? "+" : "";
-    return sign + x.toFixed(2);
-  }
+  function setMeta(el, text){ if (el) el.textContent = text; }
 
-  function renderAll(force) {
-    const radarEl = $("radar-list");
-    const picksEl = $("picks-list");
-    const devEl = $("deviations-list");
-    const valueEl = $("value-picks-list");   // IMPORTANT: your id
-    const liveEl = $("live-list");
-
-    if (force || looksPlaceholder(radarEl)) {
-      radarEl && (radarEl.innerHTML = state.radar
-        .map(r => item(r.m, `${r.mk} · ${r.b} · Δ ${fmtDelta(r.d)}`)).join(""));
+  function renderList(container, items, htmlFn, emptyText){
+    if (!container) return;
+    container.innerHTML = '';
+    if (!items || !items.length){
+      container.innerHTML = `<div class="right-empty">${emptyText || 'No data'}</div>`;
+      return;
     }
-
-    if (force || looksPlaceholder(picksEl)) {
-      picksEl && (picksEl.innerHTML = state.picks
-        .map(p => item(p.m, `${p.note} · ${p.src} · Δ ${fmtDelta(p.d)}`)).join(""));
-    }
-
-    if (force || looksPlaceholder(devEl)) {
-      devEl && (devEl.innerHTML = state.deviations
-        .map(d => item(d.m, `${d.mk} · Δ ${fmtDelta(d.d)}`)).join(""));
-    }
-
-    // Value Picks demo (so the card is not empty)
-    if (force || looksPlaceholder(valueEl)) {
-      valueEl && (valueEl.innerHTML = state.value
-        .map(v => item(v.m, `${v.mk} · Edge ${v.edge.toFixed(1)}% · ${v.note}`)).join(""));
-    }
-
-    if (force || looksPlaceholder(liveEl)) {
-      liveEl && (liveEl.innerHTML = state.live
-        .map(l => item(l.m, `${l.st} · ${l.min}' · ${l.sc}`)).join(""));
+    for (const it of items){
+      const row = document.createElement('div');
+      row.className = 'right-item';
+      row.innerHTML = htmlFn(it);
+      // add attributes only if exist
+      if (it._tone)   row.dataset.tone   = it._tone;
+      if (it._strong) row.dataset.strong = it._strong;
+      container.appendChild(row);
     }
   }
 
-  function tick() {
-    // mutate a couple deltas to simulate live movement
-    function jitter() { return (Math.random() * 0.10 - 0.05); } // ±0.05
-    const r = state.radar[Math.floor(Math.random() * state.radar.length)];
-    r.d = Math.max(-0.60, Math.min(0.60, r.d + jitter()));
+  /* -----------------------------
+     PANEL 2:  TOP PICKS
+  ----------------------------- */
+  const demoTopPicks = [
+    { match: "Barcelona vs Sevilla",  form: 9.1, motivation: "High",    rank: 1 },
+    { match: "Man City vs Arsenal",   form: 8.8, motivation: "Medium",  rank: 2 },
+    { match: "Panathinaikos vs AEK",  form: 7.9, motivation: "High",    rank: 3 },
+    { match: "PSG vs Monaco",         form: 6.2, motivation: "Low",     rank: 4 }
+  ];
 
-    const p = state.picks[Math.floor(Math.random() * state.picks.length)];
-    p.d = Math.max(0.10, Math.min(0.80, p.d + jitter()));
+  function renderTopPicks(){
+    const picks = demoTopPicks.map(p=>{
+      const tone   = p.form >= 8 ? "positive" : p.form <= 6 ? "negative" : "neutral";
+      const strong = p.form >= 9 ? "true" : "false";
+      return { ...p, _tone:tone, _strong:strong };
+    });
 
-    const d = state.deviations[Math.floor(Math.random() * state.deviations.length)];
-    d.d = Math.max(0.15, Math.min(0.70, d.d + jitter()));
-
-    // live minutes advance
-    state.live.forEach(l => { if (l.st !== "FT") l.min = Math.min(90, l.min + (Math.random() < 0.35 ? 1 : 0)); });
-
-    // occasionally rotate one item for freshness
-    if (Math.random() < 0.30) state.radar.push(state.radar.shift());
-    if (Math.random() < 0.25) state.picks.push(state.picks.shift());
-    if (Math.random() < 0.20) state.deviations.push(state.deviations.shift());
-
-    renderAll(true);
+    renderList(els.picksList, picks, it => `
+      <div class="right-main"><strong>${it.match}</strong></div>
+      <div class="right-sub">Form ${it.form.toFixed(1)} · Motivation ${it.motivation} · AI Rank #${it.rank}</div>
+    `, 'Offline (demo)');
+    setMeta(els.picksMeta, `AI Stats demo · ${picks.length}`);
   }
 
-  function init() {
-    renderAll(false);
+  /* -----------------------------
+     PANEL 3:  VALUE PICKS
+  ----------------------------- */
+  const demoValueSignals = [
+    { match: "Atalanta vs Napoli",    edge: 12.4, label: "Overreaction" },
+    { match: "Liverpool vs Chelsea",  edge: 5.8,  label: "Sharp drift" },
+    { match: "Olympiacos vs PAOK",    edge: -2.6, label: "Overvalued" },
+    { match: "Juventus vs Milan",     edge: 9.9,  label: "Market lag" }
+  ];
 
-    // refresh after match selection too (in case other code overwrites placeholders)
-    if (typeof window.on === "function") {
-      window.on("match-selected", function () { setTimeout(() => renderAll(false), 60); });
-    }
+  function renderValue(){
+    const values = demoValueSignals.map(v=>{
+      const tone   = v.edge > 10 ? "positive" : v.edge < 0 ? "negative" : "neutral";
+      const strong = Math.abs(v.edge) >= 10 ? "true" : "false";
+      return { ...v, _tone:tone, _strong:strong };
+    });
 
-    // start demo ticker
-    setInterval(tick, 8000);
+    renderList(els.valueList, values, it => `
+      <div class="right-main"><strong>${it.match}</strong></div>
+      <div class="right-sub">Edge ${it.edge.toFixed(1)}% · ${it.label}</div>
+    `, 'Offline (demo)');
+    setMeta(els.valueMeta, `AI vs Market · ${values.length}`);
   }
 
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
-  else init();
+  /* -----------------------------
+     PANEL 1:  RADAR
+  ----------------------------- */
+  function renderRadar(moves){
+    renderList(els.radarList, moves, it => `
+      <div class="right-main"><strong>${it.match}</strong></div>
+      <div class="right-sub">Δ ${Number(it.delta).toFixed(2)} · ${it.bookmaker}${it.label ? " · " + it.label : ""}</div>
+    `, 'No significant moves');
+    setMeta(els.radarMeta, moves.length ? `Δ≥0.20 · ${moves.length}` : 'No significant moves');
+  }
 
+  /* -----------------------------
+     PANEL 4:  LIVE
+  ----------------------------- */
+  function renderLive(list){
+    renderList(els.liveList, list, it => `
+      <div class="right-main"><strong>${it.home} vs ${it.away}</strong></div>
+      <div class="right-sub">${it.minute}' · ${it.score || "0 - 0"}</div>
+    `, 'Service offline');
+    setMeta(els.liveMeta, list && list.length ? `Live (demo) · ${list.length}` : 'Service offline');
+  }
+
+  /* -----------------------------
+     EVENT BINDING
+  ----------------------------- */
+  function onSafe(ev, fn){
+    if (typeof window.on === 'function') window.on(ev, fn);
+    else document.addEventListener(ev, (e)=>fn(e.detail));
+  }
+
+  onSafe('radar-moves:update', payload=>{
+    const moves = Array.isArray(payload?.moves) ? payload.moves : [];
+    renderRadar(moves);
+  });
+
+  onSafe('live-demo:update', payload=>{
+    const list = Array.isArray(payload?.matches) ? payload.matches : [];
+    renderLive(list);
+  });
+
+  /* -----------------------------
+     INITIAL RENDER
+  ----------------------------- */
+  renderTopPicks();
+  renderValue();
+  renderLive([]);
+
+  console.log('[RIGHT] Right panels ready (accent + stable).');
 })();
