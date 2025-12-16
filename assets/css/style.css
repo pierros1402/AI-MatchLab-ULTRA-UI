@@ -702,3 +702,36 @@ body{
     padding-bottom: 40px !important;
   }
 }
+/* =========================================================
+   MOBILE OVERLAY + CENTER DIM FIX (final)
+========================================================= */
+
+/* Overlay must be OFF by default */
+#drawer-overlay{
+  display: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Overlay ON only when mobile-ui toggles classes */
+#drawer-overlay.visible,
+#drawer-overlay.show{
+  display: block !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* Never permanently dim center; only overlay itself should cover */
+#center-panel{
+  opacity: 1 !important;
+  filter: none !important;
+  visibility: visible !important;
+}
+
+/* If any older rules try to dim center on drawer open, neutralize them */
+body.drawer-left-open #center-panel,
+body.drawer-right-open #center-panel{
+  opacity: 1 !important;
+  filter: none !important;
+  pointer-events: auto !important;
+}

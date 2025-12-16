@@ -1,54 +1,60 @@
 /* =========================================================
-   AI MatchLab ULTRA — RIGHT PANELS (Radar / Top Picks / Live)
-   FINAL (Premium look + Stable Mobile Drawer)
+   AI MatchLab ULTRA — RIGHT PANELS (Radar / Picks / Value / Live)
+   CLEAN / STABLE
+   - Outer scroll for the whole right column
+   - 4 equal-height cards (grid rows)
+   - Inner scroll per card body
+   - No mobile hide (drawer handled in style.css)
 ========================================================= */
 
-/* -----------------------------
-   Base: right panel container
------------------------------- */
-#right-panel {
+/* Right panel should be shrinkable in grid/flex layouts */
+#right-panel{
   min-height: 0;
 }
 
-#right-panel > .panel-body {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+/* OUTER SCROLL + 4 EQUAL ROWS */
+#right-panel > .panel-body{
   min-height: 0;
+  height: 100%;
+  overflow: auto;
+
+  display: grid;
+  grid-template-rows: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+
   padding: 10px;
 }
 
-/* Optional wrapper */
+/* Optional wrapper if used */
 #right-panel .right-stack{
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
   min-height: 0;
+  display: contents; /* keep DOM wrapper without affecting grid */
 }
 
-/* -----------------------------
-   Card look (premium, not flat)
------------------------------- */
+/* CARD */
 #right-panel .right-card{
+  min-height: 0;
   border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--line-2, rgba(255,255,255,0.10));
+  background: color-mix(in srgb, var(--panel-2, rgba(10,14,22,0.86)) 92%, transparent);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.22);
   overflow: hidden;
+
   display: flex;
   flex-direction: column;
-  min-height: 0;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.28);
 }
 
-/* Header with accent underline like the rest of UI */
+/* HEADER */
 #right-panel .right-card-header{
-  position: relative;
-  padding: 10px 12px 12px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  flex: 0 0 auto;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 10px;
+
+  padding: 10px 12px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  position: relative;
 }
 
 #right-panel .right-card-header::after{
@@ -62,21 +68,14 @@
   background: linear-gradient(90deg, rgba(61,184,255,.95), rgba(255,140,0,.92));
 }
 
-#right-panel .right-card-title{
-  font-weight: 950;
-  font-size: 14px;
-  letter-spacing: .2px;
-  line-height: 1.15;
-}
-
 #right-panel .right-meta{
   font-size: 12px;
-  font-weight: 900;
   opacity: 0.72;
   white-space: nowrap;
+  font-weight: 900;
 }
 
-/* Body: internal scroll so cards don't stretch forever */
+/* BODY = INNER SCROLL */
 #right-panel .right-card-body{
   flex: 1 1 auto;
   min-height: 0;
@@ -84,66 +83,79 @@
   padding: 10px 12px 12px;
 }
 
-/* -----------------------------
-   Lists (picks / live / radar)
------------------------------- */
+/* LISTS */
 #right-panel .right-list{
   display: grid;
   gap: 10px;
 }
 
 #right-panel .right-item{
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(0,0,0,0.18);
   padding: 10px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--line-2, rgba(255,255,255,0.10));
+  background: rgba(0,0,0,0.18);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+  transition: transform .12s ease, border-color .12s ease, background .12s ease, box-shadow .12s ease;
 }
 
+#right-panel .right-item:hover{
+  background: color-mix(in srgb, var(--glow, var(--accent, #19d3ff)) 10%, rgba(0,0,0,0.18));
+  border-color: color-mix(in srgb, var(--glow, var(--accent, #19d3ff)) 34%, var(--line, rgba(255,255,255,0.14)));
+  box-shadow: 0 0 0 2px var(--ring-2, rgba(25,211,255,0.16)), 0 10px 22px rgba(0,0,0,0.20);
+}
+
+#right-panel .right-item:active{ transform: translateY(1px); }
+
+/* TEXT */
 #right-panel .right-title{
-  font-weight: 950;
-  font-size: 13.5px;
-  letter-spacing: .15px;
-}
-
-#right-panel .right-sub{
-  margin-top: 4px;
-  font-size: 12px;
-  opacity: 0.80;
-}
-
-/* If your renderer uses simple divs without classes */
-#right-panel .right-list > div{
-  min-width: 0;
-}
-
-/* Subpanels (if used) */
-#right-panel .right-subpanel{
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid rgba(255,255,255,0.10);
-}
-
-#right-panel .right-subheader{
-  position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 0 2px 10px;
-  margin-bottom: 10px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  gap: 8px;
+  font-weight: 900;
 }
 
-#right-panel .right-subheader .sub-title{
-  font-weight: 950;
-  font-size: 13px;
-  letter-spacing: 0.2px;
+#right-panel .right-title-text{ line-height: 1.15; }
+
+#right-panel .right-sub{
+  margin-top: 6px;
+  font-size: 12px;
+  opacity: 0.72;
+  line-height: 1.25;
 }
 
-#right-panel .right-subbody{
-  max-height: clamp(160px, 24vh, 300px);
-  overflow: auto;
-  padding-right: 4px;
+/* BADGE */
+#right-panel .right-badge{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 18px;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .2px;
+  white-space: nowrap;
+  border: 1px solid var(--line, rgba(255,255,255,0.14));
+  background: rgba(255,255,255,0.06);
 }
 
-/* Mobile drawer layout is handled by style.css */
+#right-panel .right-badge.tone-cyan{
+  border-color: color-mix(in srgb, var(--glow, var(--accent, #19d3ff)) 45%, var(--line, rgba(255,255,255,0.14)));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--glow, var(--accent, #19d3ff)) 18%, transparent);
+}
+
+#right-panel .right-badge.tone-green{
+  border-color: color-mix(in srgb, #17d49a 55%, var(--line, rgba(255,255,255,0.14)));
+  box-shadow: 0 0 0 2px color-mix(in srgb, #17d49a 16%, transparent);
+}
+
+#right-panel .right-badge.tone-gray{ opacity: 0.78; }
+
+/* EMPTY */
+#right-panel .right-empty{
+  padding: 10px 10px;
+  border-radius: 12px;
+  border: 1px dashed var(--line-2, rgba(255,255,255,0.10));
+  background: color-mix(in srgb, var(--panel-2, rgba(10,14,22,0.86)) 86%, transparent);
+  opacity: 0.78;
+}
