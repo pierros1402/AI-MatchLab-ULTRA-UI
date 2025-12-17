@@ -139,4 +139,32 @@
   renderLive([]);
 
   console.log('[RIGHT] Right panels ready (accent + stable).');
+// === global delegated click → center odds (με ομαδικά ονόματα) ===
+document.addEventListener('click', (e) => {
+  const el = e.target.closest('#right-panel .right-item');
+  if (!el) return;
+
+  // Πάρε τίτλο (home vs away) από το στοιχείο
+  const titleEl = el.querySelector('.right-main strong');
+  const title = titleEl ? titleEl.textContent.trim() : el.textContent.trim();
+
+  // Απόσπαση ονομάτων ομάδων
+  let home = '', away = '';
+  if (title.includes(' vs ')) {
+    [home, away] = title.split(' vs ').map(s => s.trim());
+  } else {
+    // fallback: μπορεί να είναι "TeamA - TeamB" ή μόνο ένα όνομα
+    const parts = title.split(/[-–]/);
+    home = parts[0]?.trim() || 'Home';
+    away = parts[1]?.trim() || 'Away';
+  }
+
+  const id = title.replace(/\s+/g, '_').toLowerCase();
+
+  window.emit?.('match-selected', { id, home, away, title });
+
+  // κλείσε το δεξί drawer στο mobile
+  document.body.classList.remove('drawer-right-open');
+});
+
 })();
