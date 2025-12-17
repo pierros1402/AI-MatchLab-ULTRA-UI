@@ -668,11 +668,21 @@ body{
     overflow: hidden !important;
   }
 
+  /* Overlay must NOT be permanently visible.
+     It should appear only when a drawer is open or when JS sets .visible/.show. */
   #drawer-overlay {
     display: block !important;
-    opacity: 1 !important;
-    background: rgba(0,0,0,0.85) !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    background: rgba(0,0,0,0.55) !important;
     z-index: 9998 !important;
+  }
+  body.drawer-left-open #drawer-overlay,
+  body.drawer-right-open #drawer-overlay,
+  #drawer-overlay.visible,
+  #drawer-overlay.show{
+    opacity: 1 !important;
+    pointer-events: auto !important;
   }
 
   #right-panel {
@@ -752,8 +762,8 @@ body.drawer-right-open #center-panel{
 }
 
 /* overlay off unless explicitly shown */
-#drawer-overlay{ opacity:0; pointer-events:none; display:none; }
-#drawer-overlay.visible, #drawer-overlay.show{ opacity:1; pointer-events:auto; display:block !important; }
+#drawer-overlay{ opacity:0; pointer-events:none; display:block; }
+#drawer-overlay.visible, #drawer-overlay.show{ opacity:1; pointer-events:auto; }
 /* =========================================================
    FINAL — STOP GLOBAL DIMMING ON DRAWER OPEN
    (Does NOT change right panel sizing/scroll rules)
