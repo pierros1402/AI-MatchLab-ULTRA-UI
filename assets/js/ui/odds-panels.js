@@ -60,6 +60,43 @@
     return Number.isFinite(x) ? x.toFixed(2) : "—";
   }
 
+  // ---------- Active Match Bar (title/subtitle) ----------
+  function updateActiveMatchBar(m) {
+    const bar = document.getElementById("active-match-bar");
+    if (!bar) return;
+
+    // Support both class-based and id-based markup
+    const titleEl =
+      bar.querySelector(".amb-title") || document.getElementById("amb-title");
+    const subEl =
+      bar.querySelector(".amb-sub") || document.getElementById("amb-sub");
+
+    if (!titleEl || !subEl) return;
+
+    if (!m) {
+      titleEl.textContent = "No match selected";
+      subEl.textContent = "Select a match from the left panel.";
+      return;
+    }
+
+    const home = m.home || m.homeName || m.team_home || "Home";
+    const away = m.away || m.awayName || m.team_away || "Away";
+
+    const country = m.country || m.countryName || "";
+    const league = m.leagueName || m.league || "";
+    const time =
+      m.displayTime || m.kickoff || m.time || m.startTime || m.date || "";
+
+    titleEl.textContent = `${home} vs ${away}`;
+
+    const parts = [];
+    if (country) parts.push(country);
+    if (league) parts.push(league);
+    if (time) parts.push(time);
+
+    subEl.textContent = parts.length ? parts.join(" • ") : "Selected match";
+  }
+
   // ---------- DRIFT DEMO ----------
   function demoPrices(seed, bias, tick) {
     const drift = (Math.sin(seed * 20 + bias * 5 + tick * 0.6) + 1) * 0.5;
@@ -67,13 +104,17 @@
 
     const baseHome = clamp(2.10 - favBias * 0.8, 1.45, 3.50);
     const baseAway = clamp(2.30 + favBias * 0.9, 1.55, 4.20);
-    const baseDraw = clamp(3.20 + (0.5 - Math.abs(seed - 0.5)) * 0.8, 2.60, 4.20);
+    const baseDraw = clamp(
+      3.20 + (0.5 - Math.abs(seed - 0.5)) * 0.8,
+      2.60,
+      4.20
+    );
 
     const factor = 1 + (drift - 0.5) * 0.14;
 
     const home = clamp(baseHome * factor, 1.40, 4.00);
     const away = clamp(baseAway / factor, 1.40, 4.50);
-    const draw = clamp(baseDraw * (1 + (Math.sin(tick * 0.4) * 0.05)), 2.4, 4.5);
+    const draw = clamp(baseDraw * (1 + Math.sin(tick * 0.4) * 0.05), 2.4, 4.5);
 
     const over = clamp(1.90 * factor, 1.60, 2.30);
     const under = clamp(1.90 / factor, 1.60, 2.30);
@@ -91,7 +132,9 @@
     const sign = d >= 0 ? "pos" : "neg";
     const intense = abs >= 0.20 ? "true" : "false";
     const critical = abs >= 0.40 ? "true" : "false";
-    return `data-delta="${d.toFixed(2)}" data-sign="${sign}" data-intense="${intense}" data-critical="${critical}"`;
+    return `data-delta="${d.toFixed(
+      2
+    )}" data-sign="${sign}" data-intense="${intense}" data-critical="${critical}"`;
   }
 
   function cell(o, c) {
@@ -101,7 +144,9 @@
         <span class="oc-o">${fmt(o)}</span>
         <span class="oc-arrow">→</span>
         <span class="oc-c">${fmt(c)}</span>
-        <span class="oc-delta">Δ ${(diff >= 0 ? "+" : "") + diff.toFixed(2)}</span>
+        <span class="oc-delta">Δ ${(diff >= 0 ? "+" : "") + diff.toFixed(
+          2
+        )}</span>
       </span>`;
   }
 
@@ -140,8 +185,12 @@
   }
 
   function setActiveMatch(m) {
-    ACTIVE_MATCH = m;
+    ACTIVE_MATCH = m || null;
     TICK = 0;
+
+    // Update center header (match title/subtitle)
+    updateActiveMatchBar(ACTIVE_MATCH);
+
     renderAll();
   }
 
@@ -158,6 +207,10 @@
     if (typeof window.on === "function") {
       window.on("match-selected", setActiveMatch);
     }
+
+    // Ensure header shows correct state on load
+    updateActiveMatchBar(null);
+
     renderAll();
     tickLoop();
   }
