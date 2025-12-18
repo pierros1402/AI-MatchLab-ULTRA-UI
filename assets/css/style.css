@@ -815,3 +815,51 @@ body.drawer-right-open .app-grid {
   overflow: visible !important;    /* allow inner panels to scroll internally */
   padding-bottom: 60px !important; /* avoid cut-off near bottom */
 }
+/* =========================================================
+   FINAL OVERRIDE — MOBILE RIGHT DRAWER OVERLAY (LOCKED)
+   Fixes: unintended dimming / z-index conflicts
+   Paste at VERY END of assets/css/style.css
+========================================================= */
+@media (max-width: 900px){
+
+  /* Overlay: always exists, but OFF by default */
+  #drawer-overlay{
+    display: block !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    background: rgba(0,0,0,0.55) !important; /* adjust darkness here */
+    z-index: 9998 !important;
+  }
+
+  /* Overlay ON only when a drawer is open (body state) or JS sets visible/show */
+  body.drawer-left-open #drawer-overlay,
+  body.drawer-right-open #drawer-overlay,
+  #drawer-overlay.visible,
+  #drawer-overlay.show{
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  /* Drawers must always sit above the overlay */
+  #left-panel,
+  #right-panel{
+    z-index: 9999 !important;
+    background: #070912 !important; /* force opaque surface (no bleed) */
+  }
+
+  /* Never dim the app shell/center via opacity/filter rules (neutralize old patches) */
+  body.drawer-left-open #center-panel,
+  body.drawer-right-open #center-panel,
+  body.drawer-left-open .app-shell,
+  body.drawer-right-open .app-shell,
+  body.drawer-left-open .app-main,
+  body.drawer-right-open .app-main{
+    opacity: 1 !important;
+    filter: none !important;
+  }
+
+  #center-panel{
+    opacity: 1 !important;
+    filter: none !important;
+  }
+}

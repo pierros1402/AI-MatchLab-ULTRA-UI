@@ -101,7 +101,7 @@
       <div class="topbar-brand">
         <div class="brand-title">AI MatchLab ULTRA</div>
         <div class="brand-version">
-          <span class="ver-pill">v2.9.0</span>
+          <span class="ver-pill">v2.9.4</span>
           <span class="ver-sub">Global Live Lab</span>
         </div>
       </div>
@@ -309,25 +309,21 @@
     </section>
 
     <section class="right-card" id="card-top-picks">
-      <header class="right-card-header">
-        <div class="panel-title">AI Smart Money · Top Picks</div>
-        <div class="right-meta" id="picks-meta">Offline (demo)</div>
-      </header>
+  <header class="right-card-header right-header-2lines">
+    <div class="rheader-line1">
+      <div class="panel-title" id="top-picks-header">AI Smart Money · Top Picks • 1X2</div>
+    </div>
+    <div class="rheader-line2">
+      <button id="btn-view-all-deviations" class="right-btn" type="button">View All</button>
+      <div class="right-meta" id="picks-meta">Top 6 / 6</div>
+    </div>
+  </header>
 
-      <div class="right-card-body" id="panel-top-picks">
-        <div class="right-list" id="picks-list"></div>
-
-        <div class="right-subpanel" id="panel-deviations">
-          <div class="right-subheader">
-            <div class="sub-title">Deviations · Δ≥0.20</div>
-            <div class="right-meta" id="deviations-meta">Offline (demo)</div>
-          </div>
-          <div class="right-subbody">
-            <div class="right-list" id="deviations-list"></div>
-          </div>
-        </div>
-      </div>
-    </section>
+  <div class="right-card-body" id="panel-top-picks">
+    <div class="right-list" id="picks-list"></div>
+    <div class="right-list hidden" id="deviations-list"></div>
+  </div>
+</section>
 
     <!-- ADDED: VALUE PICKS (4th card) -->
     <section class="right-card" id="card-value-picks">
@@ -394,6 +390,7 @@
   <script defer src="/assets/js/ui/odds-panels.js"></script>
   <script defer src="/assets/js/ui/odds-radar.js"></script>
   <script defer src="/assets/js/demo/odds-demo-feed.js?v=246"></script>
+  <script src="/assets/js/demo/stats-demo-feed.js"></script>
   <script defer src="/assets/js/right-panels.js"></script>
 
   <script defer src="/assets/js/mobile-ui.js"></script>

@@ -1,37 +1,14 @@
 /* =========================================================
-   AI MatchLab ULTRA — Odds Radar (Right Panel + Intensity)
-   ---------------------------------------------------------
-   Listens:
-     - radar-moves:update  (Today overview moves array)
-   Renders into:
-     - #panel-radar (or fallback #radar-list)
-========================================================= */
-
+   AI MatchLab ULTRA — Odds Radar v2.9.3 Final (UI label patch)
+   - Remove "Δ≥0.20" from header/meta (display only)
+   - Show OU15/OU25/OU35 as O/U 1.5 / 2.5 / 3.5 (display only)
+======================================================== */
 (function () {
   "use strict";
 
-  function esc(s) {
-    return String(s ?? "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#39;");
-  }
-
-  function $(sel) {
-    return document.querySelector(sel);
-  }
-
-  // Containers (index-compatible)
-  const elPanel = $("#panel-radar") || $("#radar-list");
-  const elList = $("#radar-list") || elPanel;
-  const elMeta = $("#radar-meta");
-
-  if (!elPanel) {
-    console.warn("[odds-radar] #panel-radar not found.");
-    return;
-  }
+  const elList   = document.getElementById("radar-list");
+  const elMeta   = document.getElementById("radar-meta");
+  const elHeader = document.getElementById("radar-header");
 
   const state = {
     bestByMatch: Object.create(null),
@@ -39,94 +16,98 @@
     threshold: 0.20
   };
 
-  function setMeta(text) {
-    if (elMeta) elMeta.textContent = text;
-  }
+  const esc = (s) =>
+    String(s ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
 
-  function formatDelta(d) {
-    const n = Number(d);
-    if (!Number.isFinite(n)) return "0.00";
-    const sign = n >= 0 ? "+" : "";
-    return sign + n.toFixed(2);
+  // Display-only label mapping (do NOT change internal keys)
+  function marketLabel(k) {
+    const key = String(k || "1X2").trim();
+    if (key === "OU15") return "O/U 1.5";
+    if (key === "OU25") return "O/U 2.5";
+    if (key === "OU35") return "O/U 3.5";
+    return key;
   }
 
   function pickTitle(it) {
-    if (it && it.matchTitle) return it.matchTitle;
-    if (it && it.match) return it.match;
-    if (it && (it.home || it.away)) return `${it.home || "Home"} vs ${it.away || "Away"}`;
-    return (it && it.matchId) ? String(it.matchId) : "Unknown match";
+    if (it.home && it.away) return `${it.home} vs ${it.away}`;
+    if (it.matchTitle) return it.matchTitle;
+    return it.match || "Unknown match";
   }
 
   function render() {
-    const items = Object.values(state.bestByMatch || {});
-    items.sort((a, b) => Math.abs(Number(b.delta || 0)) - Math.abs(Number(a.delta || 0)));
+    const arr = Object.values(state.bestByMatch);
+    arr.sort((a, b) => Math.abs(b.delta || 0) - Math.abs(a.delta || 0));
 
-    if (!items.length) {
-      if (elList) elList.innerHTML =
-        `<div class="right-empty">No significant ${esc(state.market)} movements yet.</div>`;
-      setMeta("No significant moves");
+    const lbl = marketLabel(state.market);
+
+    if (!arr.length) {
+      elList.innerHTML = `<div class="right-empty">No ${esc(lbl)} moves.</div>`;
+      elMeta.textContent = `${lbl}`;
+      if (elHeader) elHeader.textContent = `Radar • ${lbl}`;
       return;
     }
 
-    setMeta(`Δ≥${state.threshold.toFixed(2)} · ${items.length}`);
+    elMeta.textContent = `${lbl} • ${arr.length}`;
+    if (elHeader) elHeader.textContent = `Radar • ${lbl}`;
 
-    const html = items.map(it => {
-      const title = pickTitle(it);
-      const delta = Number(it.delta ?? it.D ?? 0);
-      const sign = (delta >= 0) ? "pos" : "neg";
-      const intense = (Math.abs(delta) >= 0.40) ? "true" : "false";
-      const critical = (Math.abs(delta) >= 0.60) ? "true" : "false";
-
-      const src = it.source || it.bookmaker || it.provider || "";
-      const book = (it.bookmaker && src !== it.bookmaker) ? ` · ${it.bookmaker}` : "";
-      const label = it.label ? ` · ${it.label}` : "";
-
-      const o = (it.opening != null) ? Number(it.opening) : null;
-      const c = (it.current != null) ? Number(it.current) : null;
-
-      const oddsLine = (Number.isFinite(o) && Number.isFinite(c))
-        ? `<div class="right-sub">${esc(o.toFixed(2))} → ${esc(c.toFixed(2))}</div>`
-        : "";
-
+    elList.innerHTML = arr.map((it) => {
+      const d = Number(it.delta ?? 0);
+      const sign = d >= 0 ? "pos" : "neg";
+      const strong = Math.abs(d) >= 0.40 ? "strong" : "";
+      const provider = it.provider || it.bookmaker || it.source || "";
       return `
-        <div class="right-item"
-             data-delta="${esc(delta)}"
-             data-sign="${esc(sign)}"
-             data-intense="${esc(intense)}"
-             data-critical="${esc(critical)}">
-          <div class="right-main"><strong>${esc(title)}</strong></div>
-          <div class="right-sub">Δ ${esc(formatDelta(delta))}${src ? " · " + esc(src) : ""}${esc(book)}${esc(label)}</div>
-          ${oddsLine}
-        </div>
-      `;
+        <div class="right-item ${strong}" data-sign="${sign}">
+          <div class="right-main"><strong>${esc(pickTitle(it))}</strong></div>
+          <div class="right-sub">Δ ${d.toFixed(2)} • ${esc(provider)}</div>
+        </div>`;
     }).join("");
-
-    if (elList) elList.innerHTML = html;
   }
 
-  function onSafe(ev, fn) {
-    if (typeof window.on === "function") window.on(ev, fn);
-    else document.addEventListener(ev, (e) => fn(e.detail));
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    onSafe("radar-moves:update", (p) => {
-      const arr = Array.isArray(p?.moves) ? p.moves : [];
-      console.log("[RADAR] radar-moves:update received", arr.length, "items");
-
-      state.market = p?.market || state.market;
-      state.threshold = Number(p?.threshold ?? state.threshold) || state.threshold;
-
-      state.bestByMatch = Object.create(null);
-      arr.forEach(it => {
-        const key = it.matchId || it.matchTitle || it.match || ("M_" + Math.random());
-        state.bestByMatch[key] = it;
-      });
-
-      render();
+  // --- listen for odds updates ---
+  window.on("radar-moves:update", (p) => {
+    const arr = Array.isArray(p?.moves) ? p.moves : [];
+    state.market = p?.market || state.market;
+    state.bestByMatch = Object.create(null);
+    arr.forEach((it) => {
+      const key = it.matchId || it.matchTitle || it.match || Math.random();
+      state.bestByMatch[key] = it;
     });
-
     render();
   });
 
+  // --- sync when market changes (display only) ---
+  window.on("radar:market-update", (marketKey) => {
+    state.market = marketKey || state.market;
+    const lbl = marketLabel(state.market);
+    if (elHeader) elHeader.textContent = `Radar • ${lbl}`;
+    if (elMeta)   elMeta.textContent   = `${lbl}`;
+    render();
+  });
+
+  // --- click-to-select ---
+  document.addEventListener("click", (e) => {
+    const item = e.target.closest("#radar-list .right-item");
+    if (!item) return;
+    const titleEl = item.querySelector(".right-main strong");
+    const title = titleEl ? titleEl.textContent.trim() : "";
+    if (!title) return;
+
+    let home = "", away = "";
+    if (title.includes(" vs ")) [home, away] = title.split(" vs ").map((s) => s.trim());
+    else {
+      const parts = title.split(/[-–]/);
+      home = (parts[0] || "").trim();
+      away = (parts[1] || "").trim();
+    }
+    const id = title.replace(/\s+/g, "_").toLowerCase();
+    window.emit?.("match-selected", { id, home, away, title });
+    document.body.classList.remove("drawer-right-open");
+  });
+
+  render();
 })();
