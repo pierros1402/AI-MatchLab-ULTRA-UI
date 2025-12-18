@@ -1,18 +1,14 @@
 /* =========================================================
-   AI MatchLab ULTRA — Right Panels v3.2.0
-   - Radar: radar-moves:update (odds moves)
-   - Top Picks: odds-snapshot:canonical (deterministic)
-     + View All Deviations toggle (same card; no extra panel)
-   - Value Picks: value:update (statistical/model)
-   - Live: live:update
-   Notes:
-   - Odds drop (current < opening) = GREEN  => class "up"
-   - Odds rise (current > opening) = RED   => class "down"
+   AI MatchLab ULTRA — Right Panels v3.2.3
+   Fixes:
+   - acceptCanonical restored (Top Picks live)
+   - Filter out Draw/X but fallback if empty
+   - Single click handler (no duplicates)
 ========================================================= */
 (function () {
   "use strict";
-  if (window.__AIML_RIGHT_PANELS_V320__) return;
-  window.__AIML_RIGHT_PANELS_V320__ = true;
+  if (window.__AIML_RIGHT_PANELS_V323__) return;
+  window.__AIML_RIGHT_PANELS_V323__ = true;
 
   function onSafe(ev, fn) {
     if (typeof window.on === "function") window.on(ev, fn);
@@ -41,13 +37,9 @@
 
   const state = {
     market: (window.__AIML_CURRENT_MARKET__ || "1X2").trim() || "1X2",
-
     radar: { bestByMatch: Object.create(null) },
-
     top: { showAll: false, allMoves: [], topMoves: [] },
-
     value: { values: [] },
-
     live: { matches: [] }
   };
 
@@ -108,43 +100,44 @@
     const oc = (mv.opening != null && mv.current != null)
       ? `${Number(mv.opening).toFixed(2)} → ${Number(mv.current).toFixed(2)}`
       : "";
-
     return `
       <div class="right-item ${cls}"
            data-match-id="${esc(mv.matchId || "")}"
            data-home="${esc(mv.home || "")}"
            data-away="${esc(mv.away || "")}"
-           data-title="${esc(mv.title || "")}">
+           data-title="${esc(mv.title)}">
         <div class="right-main"><strong>${esc(mv.title)}</strong></div>
         <div class="right-sub">Δ ${esc(dTxt)}${oc ? ` • ${esc(oc)}` : ""}${mv.provider ? ` • ${esc(mv.provider)}` : ""}${mv.sel ? ` • ${esc(mv.sel)}` : ""}</div>
-      </div>
-    `;
+      </div>`;
   }
 
   function renderRadar() {
     if (!elRadarList) return;
-
     const mk = state.market;
     const lbl = marketLabel(mk);
 
-    const arr = Object.values(state.radar.bestByMatch)
-      .map((it) => normalizeMove(it, mk))
-      .sort((a, b) => (b.abs || 0) - (a.abs || 0));
+    let arr = Object.values(state.radar.bestByMatch)
+      .map(it => normalizeMove(it, mk))
+      .filter(mv => mv.sel !== "X" && mv.sel !== "Draw")
+      .sort((a,b) => (b.abs||0)-(a.abs||0));
+
+    if (!arr.length) {
+      arr = Object.values(state.radar.bestByMatch)
+        .map(it => normalizeMove(it, mk))
+        .sort((a,b) => (b.abs||0)-(a.abs||0));
+    }
 
     if (elRadarMeta) elRadarMeta.textContent = `${lbl} • ${arr.length}`;
-
     elRadarList.innerHTML = arr.length
-      ? arr.map((mv) => buildMoveHtml(mv, mk)).join("")
+      ? arr.map(mv => buildMoveHtml(mv, mk)).join("")
       : `<div class="right-empty">No ${esc(lbl)} moves.</div>`;
   }
 
   function setTopHeaderText() {
     if (!elTopTitle) return;
-
     const mk = state.market;
     const lbl = marketLabel(mk);
     const thr = thresholdForMarket(mk);
-
     elTopTitle.textContent = state.top.showAll
       ? `All Deviations • ${lbl} (Δ≥${thr.toFixed(2)})`
       : `AI Smart Money · Top Picks • ${lbl}`;
@@ -152,10 +145,7 @@
 
   function setTopMetaText(totalCount) {
     if (!elTopMeta) return;
-
     const topN = state.top.topMoves.length;
-
-  // 2η γραμμή: μόνο counters δίπλα στο κουμπί
     elTopMeta.textContent = state.top.showAll
       ? `All ${totalCount}`
       : `Top ${topN} / ${totalCount}`;
@@ -170,7 +160,6 @@
       const canShowAll = all.length > top.length;
       btnViewAll.disabled = !canShowAll && !state.top.showAll;
       btnViewAll.textContent = state.top.showAll ? "Back" : "View All";
-      btnViewAll.setAttribute("aria-pressed", state.top.showAll ? "true" : "false");
     }
 
     setTopHeaderText();
@@ -181,54 +170,66 @@
 
     const listEl = state.top.showAll ? elDevList : elTopList;
     const src = state.top.showAll ? all : top;
-
     if (!listEl) return;
-
     listEl.innerHTML = src.length
-      ? src.map((mv) => buildMoveHtml(normalizeMove(mv, mk), mk)).join("")
+      ? src.map(mv => buildMoveHtml(normalizeMove(mv, mk), mk)).join("")
       : `<div class="right-empty">No deviations for ${esc(marketLabel(mk))}.</div>`;
   }
 
   function renderValue() {
-    if (!elValueList) return;
-    const arr = Array.isArray(state.value.values) ? state.value.values : [];
-    if (elValueMeta) elValueMeta.textContent = `AI vs Market · ${arr.length}`;
+  if (!elValueList) return;
+  const arr = Array.isArray(state.value.values) ? state.value.values : [];
+  if (elValueMeta) elValueMeta.textContent = `AI vs Market · ${arr.length}`;
 
-    elValueList.innerHTML = arr.length
-      ? arr.map((v) => {
-          const title = v.match || v.title || "Match";
-          const edge = (v.edge != null) ? `Edge ${Number(v.edge).toFixed(1)}%` : "Value signal";
-          const label = v.label ? ` • ${esc(v.label)}` : "";
-          return `
-            <div class="right-item">
-              <div class="right-main"><strong>${esc(title)}</strong></div>
-              <div class="right-sub">${esc(edge)}${label}</div>
-            </div>
-          `;
-        }).join("")
-      : `<div class="right-empty">No ${esc(marketLabel(state.market))} value picks (stats engine offline).</div>`;
-  }
+  elValueList.innerHTML = arr.length
+    ? arr.map(v => {
+        let home = v.home || "";
+        let away = v.away || "";
+        let title = v.title || v.match || "";
+
+        // Fallback: split title like "TeamA vs TeamB"
+        if ((!home || !away) && title.includes(" vs ")) {
+          const parts = title.split(" vs ");
+          home = parts[0].trim();
+          away = parts[1]?.trim() || "";
+        }
+
+        // Fallback: generic name
+        if (!title) title = home && away ? `${home} vs ${away}` : "Match";
+
+        const edge = v.edge != null ? `Edge ${Number(v.edge).toFixed(1)}%` : "Value signal";
+        const label = v.label ? ` • ${esc(v.label)}` : "";
+
+        return `
+          <div class="right-item"
+               data-match-id="${esc(v.matchId || v.id || title.replace(/\s+/g,"_").toLowerCase())}"
+               data-home="${esc(home)}"
+               data-away="${esc(away)}"
+               data-title="${esc(title)}">
+            <div class="right-main"><strong>${esc(title)}</strong></div>
+            <div class="right-sub">${esc(edge)}${label}</div>
+          </div>`;
+      }).join("")
+    : `<div class="right-empty">No ${esc(marketLabel(state.market))} value picks (stats engine offline).</div>`;
+}
 
   function renderLive() {
     if (!elLiveList) return;
     const arr = Array.isArray(state.live.matches) ? state.live.matches : [];
     if (elLiveMeta) elLiveMeta.textContent = `Live • ${arr.length}`;
-
     elLiveList.innerHTML = arr.length
-      ? arr.map((m) => {
+      ? arr.map(m => {
           const title = (m.home && m.away) ? `${m.home} vs ${m.away}` : (m.title || m.matchTitle || "Match");
           const minute = m.minute != null ? `${esc(m.minute)}’` : "";
           const score = m.score != null ? `${esc(m.score)}` : "";
-          return `
-            <div class="right-item"
+          return `<div class="right-item"
                  data-match-id="${esc(m.id || m.matchId || "")}"
                  data-home="${esc(m.home || "")}"
                  data-away="${esc(m.away || "")}"
                  data-title="${esc(title)}">
               <div class="right-main"><strong>${esc(title)}</strong></div>
               <div class="right-sub">${minute}${minute && score ? " • " : ""}${score}</div>
-            </div>
-          `;
+            </div>`;
         }).join("")
       : `<div class="right-empty">No live matches.</div>`;
   }
@@ -238,71 +239,70 @@
     state.market = mk;
 
     let moves = Array.isArray(p?.moves) ? p.moves : null;
-
     if (!moves) {
       const rows = Array.isArray(p?.rows) ? p.rows : [];
       const limit = Number(p?.threshold) || thresholdForMarket(mk);
       const best = Object.create(null);
-
       for (let i = 0; i < rows.length; i++) {
         const r = rows[i];
         const d = Number(r?.delta ?? 0);
         const abs = Math.abs(d);
         if (!Number.isFinite(abs) || abs < limit) continue;
-
         const key = r?.matchId || r?.matchTitle || `${i}`;
         const cur = best[key];
         if (!cur || abs > Math.abs(Number(cur.delta ?? 0))) best[key] = r;
       }
-
       moves = Object.values(best);
     }
 
-    const sorted = moves
-      .map((m) => normalizeMove(m, mk))
-      .sort((a, b) => (b.abs || 0) - (a.abs || 0));
+    let filtered = moves
+      .map(m => normalizeMove(m, mk))
+      .filter(mv => mv.sel !== "X" && mv.sel !== "Draw");
 
+    if (!filtered.length && Array.isArray(moves) && moves.length) {
+      filtered = moves.map(m => normalizeMove(m, mk));
+    }
+
+    const sorted = filtered.sort((a,b) => (b.abs||0)-(a.abs||0));
+
+    const topCount = 6;
     state.top.allMoves = sorted;
-    state.top.topMoves = sorted.slice(0, 8);
+    state.top.topMoves = sorted.slice(0, topCount);
 
     renderTop();
   }
 
-  onSafe("radar-moves:update", (p) => {
+  onSafe("radar-moves:update", p => {
     const mk = String(p?.market || state.market || "1X2").trim() || "1X2";
     state.market = mk;
-
     const arr = Array.isArray(p?.moves) ? p.moves : [];
     state.radar.bestByMatch = Object.create(null);
     arr.forEach((it, idx) => {
       const key = it?.matchId || it?.matchTitle || it?.match || `M_${idx}`;
       state.radar.bestByMatch[key] = it;
     });
-
     renderRadar();
   });
 
   onSafe("odds-snapshot:canonical", acceptCanonical);
 
-  onSafe("value:update", (p) => {
+  onSafe("value:update", p => {
     if (!p) return;
     if (p.market) state.market = String(p.market).trim() || state.market;
     state.value.values = Array.isArray(p.values) ? p.values : [];
     renderValue();
   });
 
-  onSafe("live:update", (p) => {
+  onSafe("live:update", p => {
     state.live.matches = Array.isArray(p?.matches) ? p.matches : [];
     renderLive();
   });
 
-  onSafe("market-selected", (mk) => {
+  onSafe("market-selected", mk => {
     if (!mk) return;
     state.market = String(mk).trim() || "1X2";
     state.top.showAll = false;
-
     emitSafe("radar:market-update", state.market);
-
     setTopHeaderText();
     renderRadar();
     renderTop();
@@ -316,25 +316,18 @@
     });
   }
 
-  document.addEventListener("click", (e) => {
+  document.addEventListener("click", e => {
     const item = e.target.closest("#right-panel .right-item");
     if (!item) return;
-
     const matchId = item.getAttribute("data-match-id") || "";
     const home = item.getAttribute("data-home") || "";
     const away = item.getAttribute("data-away") || "";
     const title = item.getAttribute("data-title") || "";
-
     if (!home && !away && !title) return;
-
     emitSafe("match-selected", {
       id: matchId || title.replace(/\s+/g, "_").toLowerCase(),
-      matchId,
-      home,
-      away,
-      title
+      matchId, home, away, title
     });
-
     document.body.classList.remove("drawer-right-open");
   });
 
@@ -343,5 +336,4 @@
   renderTop();
   renderValue();
   renderLive();
-
 })();
