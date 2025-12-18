@@ -172,5 +172,29 @@
     document.addEventListener("DOMContentLoaded", init);
   else
     init();
+  /* =========================================================
+     DAILY CLEANUP ENGINE
+     ---------------------------------------------------------
+     Clears demo/today caches when the date changes
+     Keeps app fresh each morning
+  ========================================================= */
+  try {
+    const key = "AIML_LAST_TODAY_KEY";
+    const last = localStorage.getItem(key);
+    const now = todayKey();
+
+    if (last && last !== now) {
+      console.log("[TODAY] New day detected → clearing old demo data");
+      // clear demo or temporary storage safely
+      localStorage.removeItem("AIML_DEMO_TODAY");
+      localStorage.removeItem("AIML_DEMO_SNAPSHOT");
+      localStorage.removeItem("AIML_DEMO_STATE");
+      localStorage.removeItem("AIML_TODAY_CACHE");
+    }
+
+    localStorage.setItem(key, now);
+  } catch (err) {
+    console.warn("[TODAY] Cleanup check failed", err);
+  }
 
 })();

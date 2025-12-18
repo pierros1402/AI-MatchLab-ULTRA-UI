@@ -1,14 +1,15 @@
 /* =========================================================
-   STATS DEMO FEED — v0.3
-   - Emits ONLY: value:update  (for Value Picks)
+   STATS DEMO FEED — v0.4 (Daily Cleanup Ready)
+   - Emits ONLY: value:update (for Value Picks)
    - Listens: matches-loaded, market-selected
    - Deterministic signals per match+market (no noise from odds)
+   - Daily cleanup of demo cache (resets each new day)
 ========================================================= */
 (function () {
   "use strict";
 
-  if (window.__AIML_STATS_DEMO_FEED_V03__) return;
-  window.__AIML_STATS_DEMO_FEED_V03__ = true;
+  if (window.__AIML_STATS_DEMO_FEED_V04__) return;
+  window.__AIML_STATS_DEMO_FEED_V04__ = true;
 
   const TICK_MS = 20000; // slower than odds
   let dataset = [];
@@ -98,24 +99,23 @@
     if (!dataset.length) return [];
 
     const values = dataset.map((m) => {
-      const seedFn = xmur3(`${m.id}::${mk}::VALUE_V03`);
+      const seedFn = xmur3(`${m.id}::${mk}::VALUE_V04`);
       const rand = mulberry32(seedFn());
       const r1 = rand();
       const r2 = rand();
 
-      // deterministic edge 2%..12% (just demo)
-      const edge = 2 + r1 * 10;
-
+      const edge = 2 + r1 * 10; // deterministic 2–12%
       return {
         matchId: m.id,
         match: `${m.home} vs ${m.away}`,
+        home: m.home,
+        away: m.away,
         edge: +edge.toFixed(1),
         label: pickStatLabel(mk, r2),
         market: mk
       };
     });
 
-    // sort by edge desc and keep top N
     values.sort((a, b) => (b.edge || 0) - (a.edge || 0));
     return values.slice(0, 8);
   }
@@ -125,6 +125,26 @@
     const mk = getCurrentMarket();
     const values = buildValuePicks(mk);
     emit("value:update", { market: mk, values, ts: Date.now(), source: "stats-demo-feed" });
+  }
+
+  /* =========================================================
+     DAILY CLEANUP ENGINE — STATS DEMO
+  ========================================================= */
+  try {
+    const key = "AIML_LAST_STATS_KEY";
+    const last = localStorage.getItem(key);
+    const now = new Date().toISOString().slice(0, 10);
+
+    if (last && last !== now) {
+      console.log("[STATS DEMO] New day detected → clearing cached stats data");
+      localStorage.removeItem("AIML_STATS_CACHE");
+      localStorage.removeItem("AIML_DEMO_VALUE");
+      localStorage.removeItem("AIML_STATS_STATE");
+    }
+
+    localStorage.setItem(key, now);
+  } catch (err) {
+    console.warn("[STATS DEMO] Cleanup check failed", err);
   }
 
   onSafe("matches-loaded", (list) => {
@@ -140,10 +160,9 @@
   });
 
   document.addEventListener("DOMContentLoaded", () => {
-    // if odds-demo-feed already fired matches-loaded before us, we still run with fallback dataset
     tick();
     if (timer) clearInterval(timer);
     timer = setInterval(tick, TICK_MS);
-    console.log("[STATS DEMO] v0.3 — emits value:update only");
+    console.log("[STATS DEMO] v0.4 — emits value:update only (daily reset active)");
   });
 })();
