@@ -101,7 +101,7 @@
       <div class="topbar-brand">
         <div class="brand-title">AI MatchLab ULTRA</div>
         <div class="brand-version">
-          <span class="ver-pill">v2.9.4</span>
+          <span class="ver-pill">v2.11.0</span>
           <span class="ver-sub">Global Live Lab</span>
         </div>
       </div>
@@ -291,9 +291,12 @@
 
       <!-- RIGHT -->
       <aside id="right-panel" class="app-panel">
-  <div class="panel-header">
+  <!-- NEW FIXED HEADER for right panels -->
+  <div id="right-panels-header" class="panel-header" style="display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative;">
     <div class="panel-title">Intelligence Panels</div>
+    <!-- button will auto-insert here by history-viewer.js -->
   </div>
+
 
   <!-- IMPORTANT: NO right-stack class here -->
   <div class="panel-body">
@@ -389,6 +392,8 @@
 
   <script defer src="/assets/js/ui/odds-panels.js"></script>
   <script defer src="/assets/js/ui/odds-radar.js"></script>
+  <script src="/assets/js/utils/history-engine.js"></script>
+  <script src="/assets/js/ui/history-viewer.js"></script>
   <script defer src="/assets/js/demo/odds-demo-feed.js?v=246"></script>
   <script src="/assets/js/demo/stats-demo-feed.js"></script>
   <script defer src="/assets/js/right-panels.js"></script>

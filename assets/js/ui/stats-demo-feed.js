@@ -1,15 +1,15 @@
 /* =========================================================
-   STATS DEMO FEED — v0.5 (History-Synced + Safer Dataset)
+   STATS DEMO FEED — v0.4 (Daily Cleanup Ready)
    - Emits ONLY: value:update (for Value Picks)
-   - Listens: matches-loaded, today-matches:loaded, market-selected
+   - Listens: matches-loaded, market-selected
    - Deterministic signals per match+market (no noise from odds)
    - Daily cleanup of demo cache (resets each new day)
 ========================================================= */
 (function () {
   "use strict";
 
-  if (window.__AIML_STATS_DEMO_FEED_V05__) return;
-  window.__AIML_STATS_DEMO_FEED_V05__ = true;
+  if (window.__AIML_STATS_DEMO_FEED_V04__) return;
+  window.__AIML_STATS_DEMO_FEED_V04__ = true;
 
   const TICK_MS = 20000; // slower than odds
   let dataset = [];
@@ -18,6 +18,13 @@
   function emit(ev, data) {
     if (typeof window.emit === "function") window.emit(ev, data);
     else document.dispatchEvent(new CustomEvent(ev, { detail: data }));
+  
+    // HISTORY (daily overwrite)
+    try {
+      if (window.AIMLHistory && typeof window.AIMLHistory.saveSnapshot === "function") {
+        if (ev === "value:update") window.AIMLHistory.saveSnapshot("value", data);
+      }
+    } catch (_) {}
   }
 
   function onSafe(ev, fn) {
@@ -25,38 +32,13 @@
     else document.addEventListener(ev, (e) => fn(e.detail));
   }
 
-  function dayKey() {
-    try {
-      if (window.AIMLHistory && typeof window.AIMLHistory.todayKey === "function") {
-        return window.AIMLHistory.todayKey();
-      }
-    } catch (_) {}
-    return new Date().toISOString().slice(0, 10);
-  }
-
   function normalizeMatch(m, i) {
-    const id = m?.id || m?.matchId || `DEMO_${i + 1}`;
-    const home =
-      m?.home ||
-      m?.homeName ||
-      m?.team_home ||
-      m?.home_team ||
-      m?.teams?.home?.name ||
-      "Home";
-    const away =
-      m?.away ||
-      m?.awayName ||
-      m?.team_away ||
-      m?.away_team ||
-      m?.teams?.away?.name ||
-      "Away";
-
     return {
-      id,
-      matchId: m?.matchId || m?.id || id,
-      home,
-      away,
-      league: m?.league || m?.competition || m?.tournament || "Demo League"
+      id: m?.id || m?.matchId || `DEMO_${i + 1}`,
+      matchId: m?.matchId || m?.id || `DEMO_${i + 1}`,
+      home: m?.home || "Home",
+      away: m?.away || "Away",
+      league: m?.league || "Demo League"
     };
   }
 
@@ -124,7 +106,7 @@
     if (!dataset.length) return [];
 
     const values = dataset.map((m) => {
-      const seedFn = xmur3(`${m.id}::${mk}::VALUE_V05`);
+      const seedFn = xmur3(`${m.id}::${mk}::VALUE_V04`);
       const rand = mulberry32(seedFn());
       const r1 = rand();
       const r2 = rand();
@@ -135,7 +117,6 @@
         match: `${m.home} vs ${m.away}`,
         home: m.home,
         away: m.away,
-        league: m.league,
         edge: +edge.toFixed(1),
         label: pickStatLabel(mk, r2),
         market: mk
@@ -150,52 +131,38 @@
     if (!dataset.length) ensureFallbackDataset();
     const mk = getCurrentMarket();
     const values = buildValuePicks(mk);
-
-    emit("value:update", {
-      market: mk,
-      values,
-      ts: Date.now(),
-      day: dayKey(),
-      source: "stats-demo-feed"
-    });
+    emit("value:update", { market: mk, values, ts: Date.now(), source: "stats-demo-feed" });
   }
 
   /* =========================================================
      DAILY CLEANUP ENGINE — STATS DEMO
   ========================================================= */
   try {
-    const kLast = "AIML_LAST_STATS_KEY";
-    const last = localStorage.getItem(kLast);
-    const now = dayKey();
+    const key = "AIML_LAST_STATS_KEY";
+    const last = localStorage.getItem(key);
+    const now = new Date().toISOString().slice(0, 10);
 
     if (last && last !== now) {
-      console.log("[STATS DEMO] New day detected → clearing demo stats cache");
+      console.log("[STATS DEMO] New day detected → clearing cached stats data");
       localStorage.removeItem("AIML_STATS_CACHE");
       localStorage.removeItem("AIML_DEMO_VALUE");
       localStorage.removeItem("AIML_STATS_STATE");
     }
-    localStorage.setItem(kLast, now);
+
+    localStorage.setItem(key, now);
   } catch (err) {
     console.warn("[STATS DEMO] Cleanup check failed", err);
   }
 
-  // Accept dataset from either source
-  function acceptDataset(list) {
-    if (!Array.isArray(list) || !list.length) return;
-    dataset = list.map(normalizeMatch);
-    tick();
-  }
-
-  onSafe("matches-loaded", acceptDataset);
-
-  // Today panel often emits its own payload shape -> support both:
-  onSafe("today-matches:loaded", (p) => {
-    const list = Array.isArray(p) ? p : (Array.isArray(p?.matches) ? p.matches : null);
-    if (list) acceptDataset(list);
+  onSafe("matches-loaded", (list) => {
+    if (Array.isArray(list) && list.length) {
+      dataset = list.map(normalizeMatch);
+      tick();
+    }
   });
 
   onSafe("market-selected", (mk) => {
-    if (mk) window.__AIML_CURRENT_MARKET__ = String(mk).trim() || "1X2";
+    if (mk) window.__AIML_CURRENT_MARKET__ = mk;
     tick();
   });
 
@@ -203,6 +170,6 @@
     tick();
     if (timer) clearInterval(timer);
     timer = setInterval(tick, TICK_MS);
-    console.log("[STATS DEMO] v0.5 — emits value:update only (daily reset active)");
+    console.log("[STATS DEMO] v0.4 — emits value:update only (daily reset active)");
   });
 })();

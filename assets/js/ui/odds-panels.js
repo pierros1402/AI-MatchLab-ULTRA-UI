@@ -1,21 +1,14 @@
 /* =========================================================
-   AI MatchLab ULTRA — Odds Panels v2.9.4 FULL (Stable)
-   + Color coding (O→C green/red)
-   + Market dropdown (top-right)
-   + OU labels: 1.5 / 2.5 / 3.5
-   + Null-guards (Active Match Bar)
+   AI MatchLab ULTRA — Odds Panels v2.9.5 STABLE (Header Clean)
+   + Removed table header-row artifact (no <thead>)
+   + Preserves column alignment and styling
 ======================================================== */
 (function () {
   "use strict";
 
-  // Guard (compatible with older v2.9.3 flag)
-  if (window.__AIML_ODDS_PANELS_V293__ || window.__AIML_ODDS_PANELS_V294__) return;
-  window.__AIML_ODDS_PANELS_V294__ = true;
-  window.__AIML_ODDS_PANELS_V293__ = true;
+  if (window.__AIML_ODDS_PANELS_V295__) return;
+  window.__AIML_ODDS_PANELS_V295__ = true;
 
-  // ------------------------------------------------------
-  //  GLOBALS & HELPERS
-  // ------------------------------------------------------
   const BODY_IDS = {
     greek: "greek-odds-body",
     eu: "eu-odds-body",
@@ -30,37 +23,33 @@
     betfair: ["Betfair Exchange", "Betfair Sportsbook"],
   };
 
-  // ✅ OU labels fixed (1.5 / 2.5 / 3.5)
   const MARKETS = [
     { key: "1X2", label: "1X2", cols: ["1", "X", "2"] },
-    { key: "DC",  label: "DC", cols: ["1X", "12", "X2"] },
-    { key: "GG",  label: "GG/NG", cols: ["Yes", "No"] },
+    { key: "DC", label: "DC", cols: ["1X", "12", "X2"] },
+    { key: "GG", label: "GG/NG", cols: ["Yes", "No"] },
     { key: "OU15", label: "O/U 1.5", cols: ["Over 1.5", "Under 1.5"] },
     { key: "OU25", label: "O/U 2.5", cols: ["Over 2.5", "Under 2.5"] },
     { key: "OU35", label: "O/U 3.5", cols: ["Over 3.5", "Under 3.5"] },
   ];
 
   const TICK_MS = 2500;
-
   let ACTIVE_MATCH = null;
   let ACTIVE_MARKET = localStorage.getItem("AIML_ACTIVE_MARKET") || "1X2";
   let TICK = 0;
   let TIMER = null;
 
   const el = (id) => document.getElementById(id);
-
   const esc = (s) =>
     String(s ?? "")
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;");
-
   const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
   const fmt = (x) => (Number.isFinite(x) ? x.toFixed(2) : "—");
 
   // ------------------------------------------------------
-  //  INLINE CSS (ODDS COLORING)
+  // INLINE CSS (ODDS COLORING)
   // ------------------------------------------------------
   if (!document.getElementById("aiml-oc-style")) {
     const s = document.createElement("style");
@@ -78,7 +67,7 @@
   }
 
   // ------------------------------------------------------
-  //  DEMO GENERATOR
+  // DEMO GENERATOR
   // ------------------------------------------------------
   function seedFromMatch(m) {
     const s = `${m?.id || ""}|${m?.home || ""}|${m?.away || ""}`;
@@ -103,27 +92,11 @@
     const away = clamp(baseAway / factor, 1.40, 4.50);
     const draw = clamp(baseDraw * (1 + Math.sin(tick * 0.4) * 0.05), 2.4, 4.5);
 
-    const ou15 = {
-      "Over 1.5": clamp(1.70 * factor, 1.45, 2.10),
-      "Under 1.5": clamp(2.10 / factor, 1.60, 2.40)
-    };
-    const ou25 = {
-      "Over 2.5": clamp(1.90 * factor, 1.55, 2.30),
-      "Under 2.5": clamp(1.90 / factor, 1.55, 2.30)
-    };
-    const ou35 = {
-      "Over 3.5": clamp(2.30 * factor, 1.80, 3.00),
-      "Under 3.5": clamp(1.60 / factor, 1.40, 2.10)
-    };
-    const gg = {
-      Yes: clamp(1.80 * factor, 1.50, 2.30),
-      No: clamp(1.95 / factor, 1.50, 2.40)
-    };
-    const dc = {
-      "1X": clamp(1.35 * factor, 1.20, 1.60),
-      "12": clamp(1.35 / factor, 1.20, 1.60),
-      "X2": clamp(1.40 * factor, 1.25, 1.70)
-    };
+    const ou15 = { "Over 1.5": clamp(1.70 * factor, 1.45, 2.10), "Under 1.5": clamp(2.10 / factor, 1.60, 2.40) };
+    const ou25 = { "Over 2.5": clamp(1.90 * factor, 1.55, 2.30), "Under 2.5": clamp(1.90 / factor, 1.55, 2.30) };
+    const ou35 = { "Over 3.5": clamp(2.30 * factor, 1.80, 3.00), "Under 3.5": clamp(1.60 / factor, 1.40, 2.10) };
+    const gg = { Yes: clamp(1.80 * factor, 1.50, 2.30), No: clamp(1.95 / factor, 1.50, 2.40) };
+    const dc = { "1X": clamp(1.35 * factor, 1.20, 1.60), "12": clamp(1.35 / factor, 1.20, 1.60), "X2": clamp(1.40 * factor, 1.25, 1.70) };
 
     return (
       {
@@ -132,7 +105,7 @@
         GG: gg,
         OU15: ou15,
         OU25: ou25,
-        OU35: ou35
+        OU35: ou35,
       }[marketKey] || { "1": home, X: draw, "2": away }
     );
   }
@@ -149,11 +122,18 @@
   };
 
   // ------------------------------------------------------
-  //  RENDER PANELS (NO THEAD: only tbody)
+  // RENDER PANELS (Header clean)
   // ------------------------------------------------------
   function renderPanel(groupKey) {
     const body = el(BODY_IDS[groupKey]);
     if (!body) return;
+
+    // Clean previous header artifacts (if any)
+    const oldTables = body.querySelectorAll("table");
+    oldTables.forEach((t) => {
+      const theads = t.querySelectorAll("thead");
+      theads.forEach((th) => th.remove());
+    });
 
     if (!ACTIVE_MATCH) {
       body.innerHTML = `<div class="aiml-empty">Select a match</div>`;
@@ -161,37 +141,34 @@
     }
 
     const seed = seedFromMatch(ACTIVE_MATCH);
-    const market = MARKETS.find(m => m.key === ACTIVE_MARKET) || MARKETS[0];
+    const market = MARKETS.find((m) => m.key === ACTIVE_MARKET) || MARKETS[0];
     const providers = GROUP_PROVIDERS[groupKey] || [];
 
     let html = `<table class="aiml-odds"><tbody>`;
     providers.forEach((p, i) => {
       const bias = (i + 1) * 0.2;
       const open = demoPrices(seed, bias, 0, market.key);
-      const cur  = demoPrices(seed, bias, TICK, market.key);
-
+      const cur = demoPrices(seed, bias, TICK, market.key);
       html += `<tr><td class="prov">${esc(p)}</td>`;
-      market.cols.forEach(k => { html += `<td>${cell(open[k], cur[k])}</td>`; });
+      market.cols.forEach((k) => {
+        html += `<td>${cell(open[k], cur[k])}</td>`;
+      });
       html += `</tr>`;
     });
     html += `</tbody></table>`;
-
     body.innerHTML = html;
   }
 
   const renderAll = () => ["greek", "eu", "asian", "betfair"].forEach(renderPanel);
 
   // ------------------------------------------------------
-  //  ACTIVE MATCH BAR (NULL-GUARDS)
+  // ACTIVE MATCH BAR (Null guards)
   // ------------------------------------------------------
   function updateActiveMatchBar(m) {
     const bar = document.getElementById("active-match-bar");
     if (!bar) return;
-
     const titleEl = bar.querySelector(".amb-title");
     const subEl = bar.querySelector(".amb-sub");
-
-    // ✅ null-guard
     if (!titleEl || !subEl) return;
 
     if (!m) {
@@ -203,105 +180,75 @@
     const home = m.home || m.homeName || m.team_home || "Home";
     const away = m.away || m.awayName || m.team_away || "Away";
     titleEl.textContent = `${home} vs ${away}`;
-
     const info = [m.country || "", m.league || "", m.time || ""].filter(Boolean).join(" • ");
     subEl.textContent = info || "";
   }
 
   // ------------------------------------------------------
-  //  MARKET SELECTOR (top-right on Active Match Bar)
+  // MARKET SELECTOR
   // ------------------------------------------------------
   function ensureMarketSelector() {
     const bar = document.getElementById("active-match-bar");
     if (!bar) return null;
-
     let sel = document.getElementById("market-selector");
     if (sel) return sel;
 
     const wrap = document.createElement("div");
     wrap.className = "amb-market-right";
-    wrap.innerHTML = `
-      <select id="market-selector" class="amb-market-select" aria-label="Market selector"></select>
-    `;
+    wrap.innerHTML = `<select id="market-selector" class="amb-market-select" aria-label="Market selector"></select>`;
     bar.appendChild(wrap);
 
     if (!document.getElementById("aiml-market-style")) {
-  const st = document.createElement("style");
-  st.id = "aiml-market-style";
-  st.textContent = `
-    #active-match-bar{position:relative;}
-    .amb-market-right{position:absolute;top:6px;right:10px;}
-    .amb-market-select{
-      appearance:auto;
-      padding:4px 10px;
-      border-radius:8px;
-      border:1px solid rgba(255,255,255,.15);
-      background-color:#2a2d33;
-      color:#fff;
-      font-size:13px;
+      const st = document.createElement("style");
+      st.id = "aiml-market-style";
+      st.textContent = `
+        #active-match-bar{position:relative;}
+        .amb-market-right{position:absolute;top:6px;right:10px;}
+        .amb-market-select{
+          appearance:auto;
+          padding:4px 10px;
+          border-radius:8px;
+          border:1px solid rgba(255,255,255,.15);
+          background-color:#2a2d33;
+          color:#fff;font-size:13px;}
+        .amb-market-select option{background-color:#2a2d33;color:#fff;}
+        html[data-theme="light"] .amb-market-select{
+          background:#f5f5f5;color:#000;border-color:rgba(0,0,0,.2);}
+        html[data-theme="light"] .amb-market-select option{background:#fff;color:#000;}
+      `;
+      document.head.appendChild(st);
     }
-    .amb-market-select option{
-      background-color:#2a2d33;
-      color:#fff;
-    }
-    html[data-theme="light"] .amb-market-select{
-      background:#f5f5f5;
-      color:#000;
-      border-color:rgba(0,0,0,.2);
-    }
-    html[data-theme="light"] .amb-market-select option{
-      background:#fff;
-      color:#000;
-    }
-  `;
-  document.head.appendChild(st);
-}
-
     return document.getElementById("market-selector");
   }
 
   const setActiveMarket = (key, shouldEmit) => {
-    const exists = MARKETS.some(m => m.key === key);
+    const exists = MARKETS.some((m) => m.key === key);
     ACTIVE_MARKET = exists ? key : "1X2";
     localStorage.setItem("AIML_ACTIVE_MARKET", ACTIVE_MARKET);
-
     const sel = document.getElementById("market-selector");
     if (sel && sel.value !== ACTIVE_MARKET) sel.value = ACTIVE_MARKET;
-
-    if (shouldEmit && typeof window.emit === "function") {
-      window.emit("market-selected", ACTIVE_MARKET);
-    }
-
+    if (shouldEmit && typeof window.emit === "function") window.emit("market-selected", ACTIVE_MARKET);
     renderAll();
   };
 
   function initMarketSelector() {
     const sel = ensureMarketSelector();
     if (!sel) return;
-
-    sel.innerHTML = MARKETS.map(m =>
-      `<option value="${m.key}" ${m.key === ACTIVE_MARKET ? "selected" : ""}>${m.label}</option>`
+    sel.innerHTML = MARKETS.map(
+      (m) => `<option value="${m.key}" ${m.key === ACTIVE_MARKET ? "selected" : ""}>${m.label}</option>`
     ).join("");
-
     if (sel.dataset.bound === "1") {
       sel.value = ACTIVE_MARKET;
       return;
     }
     sel.dataset.bound = "1";
-
     sel.addEventListener("change", () => setActiveMarket(sel.value, true));
-
-    // Sync from external selection (right panels etc.)
-    window.on?.("market-selected", (k) => {
-      if (k && k !== ACTIVE_MARKET) setActiveMarket(k, false);
-    });
-
-    // Broadcast initial market once
+    window.on?.("market-selected", (k) => { if (k && k !== ACTIVE_MARKET) setActiveMarket(k, false); });
     setTimeout(() => window.emit?.("market-selected", ACTIVE_MARKET), 50);
   }
 
   // ------------------------------------------------------
-  //  ENGINE
+  // ENGINE
   // ------------------------------------------------------
   const setActiveMatch = (m) => {
     ACTIVE_MATCH = m || null;

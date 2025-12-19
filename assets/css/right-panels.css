@@ -1,58 +1,52 @@
 /* =========================================================
-   AI MatchLab ULTRA — RIGHT PANELS (CLEAN / FINAL)
-   - 4 equal cards (uniform height)
-   - OUTER scroll: #right-panel > .panel-body
-   - INNER scroll: .right-card-body
-   IMPORTANT: no height:100% on .panel-body (breaks with header)
+   AI MatchLab ULTRA — RIGHT PANELS (STACK + BIG CARDS)
+   - Bigger cards (~2x) with outer scroll
+   - Single scroll per card: .right-card-body
+   - Value header: title single-line, button+meta below
 ========================================================= */
 
-#right-panel{
-  min-height: 0;
-}
+#right-panel{ min-height:0; }
 
-/* Outer scroll container + 4 equal rows */
+/* Outer scroll container (STACK) */
 #right-panel > .panel-body{
-  /* Must be constrained by flex, not explicit height */
   flex: 1 1 auto;
   min-height: 0;
 
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 
-  display: grid;
-  grid-template-rows: repeat(4, minmax(0, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 12px;
   padding: 10px;
-  align-content: stretch;
 }
 
-/* Card */
+/* Card (bigger) */
 #right-panel .right-card{
+  flex: 0 0 auto;
+  height: clamp(260px, 34vh, 420px); /* αντί για min-height */
   min-height: 0;
-  overflow: hidden;
 
+  overflow: hidden;
   border-radius: 16px;
-  border: 1px solid var(--line-2, rgba(255,255,255,0.10));
-  background: color-mix(in srgb, var(--panel-2, rgba(10,14,22,0.86)) 92%, transparent);
+  border: 1px solid rgba(255,255,255,0.10);
+  background: color-mix(in srgb, rgba(10,14,22,0.86) 92%, transparent);
   box-shadow: 0 10px 26px rgba(0,0,0,0.22);
 
   display: flex;
   flex-direction: column;
 }
 
-/* Header */
+/* Header (generic) */
 #right-panel .right-card-header{
   flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
 
   padding: 10px 12px 12px;
   border-bottom: 1px solid rgba(255,255,255,0.08);
   position: relative;
 }
 
+/* Single underline (source of truth) */
 #right-panel .right-card-header::after{
   content: "";
   position: absolute;
@@ -64,6 +58,14 @@
   background: linear-gradient(90deg, rgba(61,184,255,.95), rgba(255,140,0,.92));
 }
 
+/* Title */
+#right-panel .right-card-header .panel-title{
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+/* Meta + button (generic helpers) */
 #right-panel .right-meta{
   font-size: 12px;
   opacity: 0.72;
@@ -71,223 +73,9 @@
   font-weight: 900;
 }
 
-/* Body = inner scroll */
-#right-panel .right-card-body{
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-  padding: 10px 12px 12px;
-}
-
-/* Lists */
-#right-panel .right-list{
-  display: grid;
-  gap: 10px;
-}
-
-#right-panel .right-item{
-  padding: 10px 10px;
-  border-radius: 12px;
-  border: 1px solid var(--line-2, rgba(255,255,255,0.10));
-  background: rgba(0,0,0,0.18);
-  box-shadow: 0 8px 18px rgba(0,0,0,0.18);
-}
-/* =========================================================
-   RIGHT PANELS — restore larger size + stable scroll
-   AI MatchLab ULTRA v2.4.5
-========================================================= */
-
-/* Μεγαλύτερα δεξιά cards (περίπου 1.5x από το τωρινό) */
-#right-panel > .panel-body {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 16px !important;
-  overflow-y: auto !important;
-  padding: 12px !important;
-  -webkit-overflow-scrolling: touch !important;
-}
-
-#right-panel .right-card {
-  flex: 1 1 auto !important;
-  min-height: clamp(180px, 21vh, 315px) !important;
-  display: flex !important;
-  flex-direction: column !important;
-  overflow: hidden !important;
-}
-
-/* Κάθε card διατηρεί εσωτερικό scroll */
-#right-panel .right-card-body {
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  overflow-y: auto !important;
-  -webkit-overflow-scrolling: touch !important;
-  padding: 10px 12px 12px !important;
-}
-
-/* Ενοποιημένο στυλ header */
-#right-panel .right-card-header {
-  padding: 12px 14px 14px !important;
-  border-bottom: 1px solid rgba(255,255,255,0.08) !important;
-  position: relative !important;
-}
-#right-panel .right-card-header::after {
-  content: "" !important;
-  position: absolute !important;
-  left: 12px !important;
-  bottom: 8px !important;
-  width: 88px !important;
-  height: 3px !important;
-  border-radius: 999px !important;
-  background: linear-gradient(90deg, rgba(61,184,255,.95), rgba(255,140,0,.92)) !important;
-}
-/* =========================================================
-   FIX — prevent double scroll inside right cards
-   Keep scroll ONLY on .right-card-body
-========================================================= */
-
-/* Disable nested scroll areas inside cards */
-#right-panel .right-subpanel-body,
-#right-panel #value-picks-list{
-  max-height: none !important;
-  overflow: visible !important;
-}
-/* ==========================================================
-   ACCENT VARIABLES (linked with html[data-accent])
-========================================================== */
-
-html{
-  --accent-color:#ffa400;
-  --accent-positive:#22c55e;
-  --accent-negative:#ef4444;
-}
-html[data-accent="default"]     { --accent-color:#ffa400; }
-html[data-accent="green-gold"]  { --accent-color:#d4af37; }
-html[data-accent="red-silver"]  { --accent-color:#c0c0c0; }
-html[data-accent="purple-aqua"] { --accent-color:#22d3ee; }
-html[data-accent="black-lime"]  { --accent-color:#a3e635; --accent-positive:#a3e635; }
-
-/* ==========================================================
-   RADAR / MOVES COLORING BY DELTA + INTENSITY
-========================================================== */
-
-#panel-radar .right-item {
-  transition: background .20s ease, border-color .20s ease, transform .10s ease;
-  border-left: 4px solid var(--accent-color);
-  background: rgba(255,255,255,0.03);
-}
-
-#panel-radar .right-item[data-sign="pos"]{
-  border-left-color: var(--accent-positive);
-  background: rgba(34,197,94,0.10);
-}
-#panel-radar .right-item[data-sign="neg"]{
-  border-left-color: var(--accent-negative);
-  background: rgba(239,68,68,0.10);
-}
-
-/* moderate intensity (|Δ|≥0.40) */
-#panel-radar .right-item[data-intense="true"]{
-  border-left-width: 5px;
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.06) inset,
-    0 8px 16px rgba(0,0,0,0.25);
-  background: rgba(255,255,255,0.05);
-}
-
-/* high intensity (|Δ|≥0.60) */
-#panel-radar .right-item[data-critical="true"]{
-  border-left-width: 6px;
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.10) inset,
-    0 12px 24px rgba(0,0,0,0.35);
-  background: rgba(255,255,255,0.08);
-}
-
-#panel-radar .right-item:hover{
-  transform: translateY(-1px);
-  background: rgba(255,255,255,0.10);
-}
-/* ==========================================================
-   TOP PICKS & VALUE PICKS VISUAL ACCENTING
-   unified color system
-========================================================== */
-
-/* Base cards */
-#panel-top-picks .right-item,
-#panel-value-picks .right-item {
-  transition: background .2s ease, border-color .2s ease, transform .1s ease;
-  border-left: 4px solid var(--accent-color);
-  background: rgba(255,255,255,0.03);
-}
-
-/* Positive AI evaluation (high form / high value) */
-#panel-top-picks .right-item[data-tone="positive"],
-#panel-value-picks .right-item[data-tone="positive"] {
-  border-left-color: var(--accent-positive);
-  background: rgba(34,197,94,0.10);
-}
-
-/* Neutral (balanced) */
-#panel-top-picks .right-item[data-tone="neutral"],
-#panel-value-picks .right-item[data-tone="neutral"] {
-  border-left-color: var(--accent-color);
-  background: rgba(255,255,255,0.05);
-}
-
-/* Negative (poor form / low value) */
-#panel-top-picks .right-item[data-tone="negative"],
-#panel-value-picks .right-item[data-tone="negative"] {
-  border-left-color: var(--accent-negative);
-  background: rgba(239,68,68,0.10);
-}
-
-/* Highlight intensity if marked as strong pick/value */
-#panel-top-picks .right-item[data-strong="true"],
-#panel-value-picks .right-item[data-strong="true"] {
-  border-left-width: 5px;
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.06) inset,
-    0 8px 16px rgba(0,0,0,0.25);
-  background: rgba(255,255,255,0.06);
-}
-
-/* Hover feedback */
-#panel-top-picks .right-item:hover,
-#panel-value-picks .right-item:hover {
-  transform: translateY(-1px);
-  background: rgba(255,255,255,0.10);
-}
-/* =====================================================
-   AI MatchLab ULTRA — Radar Move Coloring (Directional)
-   Green = drop (odds decrease), Red = rise (odds increase)
-===================================================== */
-#panel-radar .right-item.up {
-  border-left-color: var(--accent-positive);
-  background: rgba(34,197,94,0.10); /* green background for drops */
-  color: var(--accent-positive);
-}
-#panel-radar .right-item.down {
-  border-left-color: var(--accent-negative);
-  background: rgba(239,68,68,0.10); /* red background for rises */
-  color: var(--accent-negative);
-}
-
-
-/* =====================================================
-   TOP PICKS — View All Deviations button + list toggle
-===================================================== */
-
-#right-panel .right-head-actions{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  white-space:nowrap;
-}
-
 #right-panel .right-btn{
   appearance:none;
-  border: 1px solid var(--line-2, rgba(255,255,255,0.18));
+  border: 1px solid rgba(255,255,255,0.18);
   background: rgba(255,255,255,0.05);
   color: inherit;
   font-weight: 900;
@@ -298,88 +86,165 @@ html[data-accent="black-lime"]  { --accent-color:#a3e635; --accent-positive:#a3e
   cursor: pointer;
   user-select: none;
 }
+#right-panel .right-btn:hover{ background: rgba(255,255,255,0.10); }
+#right-panel .right-btn:active{ transform: translateY(1px); }
 
-#right-panel .right-btn:hover{
+#right-panel .hidden{ display:none !important; }
+
+/* Body = the ONLY inner scroll */
+#right-panel .right-card-body{
+  flex: 1 1 auto;
+  min-height: 0;
+
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+
+  padding: 10px 12px 12px;
+}
+
+/* Lists */
+#right-panel .right-list{
+  display: grid;
+  gap: 10px;
+}
+
+/* Items */
+#right-panel .right-item{
+  padding: 10px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.18);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+  transition: background .20s ease, border-color .20s ease, transform .10s ease;
+}
+#right-panel .right-item:hover{
+  transform: translateY(-1px);
   background: rgba(255,255,255,0.10);
 }
 
-#right-panel .right-btn:active{
-  transform: translateY(1px);
+/* Directional coloring (odds drop=green, rise=red) */
+#panel-radar .right-item.up,
+#panel-top-picks .right-item.up{
+  border-left: 4px solid #22c55e;
+  background: rgba(34,197,94,0.10);
+  color: #22c55e;
 }
-
-#right-panel .right-btn:focus{
-  outline: 2px solid color-mix(in srgb, var(--accent-color,#ffa400) 75%, transparent);
-  outline-offset: 2px;
-}
-
-/* Ensure toggle works even if global .hidden is missing */
-#right-panel .hidden{
-  display:none !important;
+#panel-radar .right-item.down,
+#panel-top-picks .right-item.down{
+  border-left: 4px solid #ef4444;
+  background: rgba(239,68,68,0.10);
+  color: #ef4444;
 }
 
 /* =====================================================
-   TOP PICKS — directional coloring (same rule as Radar)
-   Green = drop (odds decrease) => .up
-   Red   = rise (odds increase) => .down
+   TOP PICKS (your existing 2-line header stays)
+===================================================== */
+#card-top-picks .right-card-header.right-header-2lines{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:6px;
+  padding-top:10px;
+  padding-bottom:10px;
+}
+#card-top-picks .rheader-line2{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  width:100%;
+  gap:10px;
+}
+
+/* =====================================================
+   VALUE — requested layout
+   - Title: single-line (no wrap)
+   - Button + meta: below title (2nd line)
+   - No inner scroll on #value-picks-list
 ===================================================== */
 
-#panel-top-picks .right-item.up{
-  border-left-color: var(--accent-positive);
-  background: rgba(34,197,94,0.10);
-  color: var(--accent-positive);
+/* Make Value header 2-line */
+#panel-value-picks .right-card-header{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:6px;
 }
 
-#panel-top-picks .right-item.down{
-  border-left-color: var(--accent-negative);
-  background: rgba(239,68,68,0.10);
-  color: var(--accent-negative);
-}
-/* === FIXED FLEX LAYOUT FOR TOP PICKS HEADER === */
-.right-card-header.right-header-flex {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-}
-
-.right-header-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-/* === 2-line header layout for Top Picks === */
-#card-top-picks .right-card-header.right-header-2lines {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 6px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-#card-top-picks .rheader-line1 .panel-title {
-  font-size: 15px;
-  font-weight: 800;
-  line-height: 1.2;
-}
-
-#card-top-picks .rheader-line2 {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* Force title in one line (in “ευθεία”) */
+#panel-value-picks .right-card-header .panel-title{
   width: 100%;
-  gap: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-#card-top-picks .rheader-line2 .right-btn {
-  border: 1px solid rgba(255,255,255,0.15);
-  font-size: 12px;
-  padding: 5px 10px;
-  border-radius: 999px;
+/* Second line container comes from JS: #value-picks-meta -> .rheader-line2 */
+#value-picks-meta{
+  width: 100%;
 }
 
-#card-top-picks .rheader-line2 .right-meta {
+#value-picks-meta .rheader-line2{
+  display:flex;
+  align-items:center;
+  width:100%;
+  gap:10px;
+}
+
+/* Keep button where it is; push meta far-right */
+#value-picks-meta .rheader-line2 .right-meta{
+  margin-left:auto;
+  text-align:right;
+}
+
+/* Kill any inner list scroll (only card-body scrolls) */
+#value-picks-list{
+  max-height:none !important;
+  overflow:visible !important;
+}
+/* ===== FINAL INLINE HISTORY BUTTON (Right of Intelligence Panels title) ===== */
+#btn-history-viewer {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  padding: 3px 10px;
   font-size: 12px;
-  font-weight: 700;
-  opacity: 0.85;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s, border 0.2s;
+  z-index: 10;
+}
+#btn-history-viewer:hover {
+  background: rgba(255,255,255,0.25);
+  border-color: rgba(255,255,255,0.4);
+}
+/* Disable absolute positioning when anchored manually in header */
+[data-aiml-hv-anchor="1"] #btn-history-viewer {
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
+  transform: none !important;
+  margin-left: auto !important;
+}
+#right-panels-header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:8px 12px;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  position:relative;
+}
+
+#right-panels-header .panel-title {
+  font-weight:800;
+  font-size:15px;
+}
+
+#right-panels-header #btn-history-viewer {
+  position:relative !important;
+  margin-left:auto;
 }
