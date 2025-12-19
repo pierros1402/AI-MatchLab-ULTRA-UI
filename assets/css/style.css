@@ -880,22 +880,49 @@ body.drawer-right-open .app-grid {
   }
 }
 /* =========================================================
-   FIX — MOBILE RIGHT PANEL TITLE CLIPPING (v2 final)
-   Ensures header of first right panel stays visible below topbar
+   FINAL MOBILE DRAWER VISIBILITY FIX (BOTH SIDES)
+   Ensures titles and top sections never hide under topbar
+   and restores proper scroll behaviour for both drawers
 ========================================================= */
 @media (max-width: 900px) {
-  #right-panel.drawer-open .right-section:first-child {
-    padding-top: 78px !important; /* was 64px */
-    margin-top: 0 !important;
-  }
-
-  #right-panel.drawer-open .right-section .right-header {
-    position: relative;
-    z-index: 10;
-  }
-
-  #right-panel.drawer-open {
+  /* LEFT drawer (accordion / navigation) */
+  body.drawer-left-open #left-panel {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9998 !important;
+    background: var(--app-bg, #0b0b0f);
     overflow-y: auto !important;
-    padding-top: 0 !important;
+    -webkit-overflow-scrolling: touch;
+    padding-top: 78px !important; /* clear topbar */
+  }
+
+  /* RIGHT drawer (Radar / Top Picks / Value / Live) */
+  body.drawer-right-open #right-panel {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999 !important;
+    background: var(--app-bg, #0b0b0f);
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    padding-top: 78px !important; /* clear topbar */
+  }
+
+  /* Normalize headers in both drawers */
+  body.drawer-left-open .accordion-header,
+  body.drawer-right-open .right-header {
+    position: relative;
+    z-index: 10000 !important;
+  }
+
+  /* Prevent any vertical compression of sections */
+  body.drawer-left-open .accordion,
+  body.drawer-right-open .right-section {
+    margin-top: 0 !important;
   }
 }
