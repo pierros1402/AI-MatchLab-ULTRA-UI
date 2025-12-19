@@ -863,3 +863,19 @@ body.drawer-right-open .app-grid {
     filter: none !important;
   }
 }
+/* =========================================================
+   FIX — MOBILE RIGHT DRAWER TITLE VISIBILITY
+   Ensures first right panel header stays fully visible
+========================================================= */
+@media (max-width: 900px) {
+  #right-panel.drawer-open .right-section:first-child .right-header {
+    margin-top: env(safe-area-inset-top, 12px);
+    padding-top: 8px;
+    position: relative;
+    z-index: 1001;
+  }
+
+  #right-panel.drawer-open .right-section:first-child {
+    scroll-margin-top: 60px; /* prevent hiding under topbar */
+  }
+}
