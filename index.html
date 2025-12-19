@@ -371,7 +371,40 @@
   </div>
 
   <!-- SCRIPTS (ORDER FIXED) -->
-  <script defer src="/assets/js/ui/app.js"></script>
+  
+
+  <!-- LIVE CONFIG (Weekend Top Leagues) -->
+  <script>
+  window.AIML_LIVE_CFG = {
+    enabled: true,
+
+    liveUltraBase: "https://aimatchlab-main.pierros1402.workers.dev",
+    fixturesPath: "/fixtures",
+    liveUltraPath: "/live-ultra",
+
+    // Today ON (αυτό μας νοιάζει τώρα)
+    emitToday: true,
+
+    // Live OFF μέχρι να φέρουμε πραγματικά live δεδομένα
+    emitLive: false,
+
+    // Top 5 μόνο (οι δεύτερες κόβονται)
+    competitions: "PL,PD,BL1,SA,FL1",
+
+    useFD: true,
+    useTSDB: true,
+
+    strictTopDivisions: true,
+    includeGreece: true,
+
+    pollTodayMs: 600000,   // 10 λεπτά
+    pollLiveMs: 60000,     // 60s (δεν παίζει τώρα γιατί emitLive:false)
+    timeoutMs: 9000,
+
+    debug: false
+  };
+</script>
+<script defer src="/assets/js/ui/app.js"></script>
 
   <script defer src="/assets/js/theme.js"></script>
   <script defer src="/assets/js/legal-menu.js"></script>
@@ -397,6 +430,7 @@
   <script defer src="/assets/js/demo/odds-demo-feed.js?v=246"></script>
   <script src="/assets/js/demo/stats-demo-feed.js"></script>
   <script defer src="/assets/js/right-panels.js"></script>
+  <script defer src="/assets/js/live/live-adapter.js"></script>
 
   <script defer src="/assets/js/mobile-ui.js"></script>
   <script defer src="/assets/js/language.js"></script>
