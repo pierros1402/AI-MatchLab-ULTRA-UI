@@ -880,23 +880,22 @@ body.drawer-right-open .app-grid {
   }
 }
 /* =========================================================
-   FIX — MOBILE RIGHT DRAWER HEADER VISIBILITY
-   Prevent top header from being hidden under topbar
+   FIX — MOBILE RIGHT PANEL TITLE CLIPPING (v2 final)
+   Ensures header of first right panel stays visible below topbar
 ========================================================= */
 @media (max-width: 900px) {
-  body.drawer-right-open #right-panel {
-    padding-top: 64px !important;     /* χώρο κάτω από το topbar */
-    box-sizing: border-box;
-    overflow-y: auto;
-    overscroll-behavior: contain;
+  #right-panel.drawer-open .right-section:first-child {
+    padding-top: 78px !important; /* was 64px */
+    margin-top: 0 !important;
   }
 
-  #right-panel .right-section:first-child .right-header {
-    position: sticky;
-    top: 0;
-    z-index: 1002;
-    background: var(--c-bg, #0b0c14);
-    padding-top: 10px;
-    padding-bottom: 6px;
+  #right-panel.drawer-open .right-section .right-header {
+    position: relative;
+    z-index: 10;
+  }
+
+  #right-panel.drawer-open {
+    overflow-y: auto !important;
+    padding-top: 0 !important;
   }
 }
