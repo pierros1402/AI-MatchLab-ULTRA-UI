@@ -879,3 +879,24 @@ body.drawer-right-open .app-grid {
     scroll-margin-top: 60px; /* prevent hiding under topbar */
   }
 }
+/* =========================================================
+   FIX — MOBILE RIGHT DRAWER HEADER VISIBILITY
+   Prevent top header from being hidden under topbar
+========================================================= */
+@media (max-width: 900px) {
+  body.drawer-right-open #right-panel {
+    padding-top: 64px !important;     /* χώρο κάτω από το topbar */
+    box-sizing: border-box;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  #right-panel .right-section:first-child .right-header {
+    position: sticky;
+    top: 0;
+    z-index: 1002;
+    background: var(--c-bg, #0b0c14);
+    padding-top: 10px;
+    padding-bottom: 6px;
+  }
+}
