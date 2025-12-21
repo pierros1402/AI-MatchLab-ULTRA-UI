@@ -1,19 +1,20 @@
 /* =========================================================
-   AI MatchLab ULTRA — Right Panels v3.3.4 (SAFE HARDENING)
+   AI MatchLab ULTRA — Right Panels v3.3.5 (LIVE PRIORITY FIX)
    ---------------------------------------------------------
-   - SAME DOM IDs as v3.3.2 (drop-in replacement)
+   - SAME DOM IDs as v3.3.4 (drop-in replacement)
    - Strict separation:
        Top Picks  <- odds-snapshot:canonical
        Value      <- value:update
        Live       <- live:update
        Radar      <- radar-moves:update
-   - SOFT guards: never clears lists on malformed/partial events
-   - Market is primarily driven by market-selected (UI authority)
+   - LIVE FIX:
+       If real live feed is active, ignore demo live:update
+       to prevent "snap back to demo" while scrolling.
 ========================================================= */
 (function () {
   "use strict";
-  if (window.__AIML_RIGHT_PANELS_V334__) return;
-  window.__AIML_RIGHT_PANELS_V334__ = true;
+  if (window.__AIML_RIGHT_PANELS_V335__) return;
+  window.__AIML_RIGHT_PANELS_V335__ = true;
 
   function onSafe(ev, fn) {
     if (typeof window.on === "function") window.on(ev, fn);
@@ -61,7 +62,11 @@
     radar: { bestByMatch: Object.create(null) },
     top:   { showAll: false, allMoves: [], topMoves: [] },
     value: { showAll: false, values: [] },
-    live:  { matches: [] }
+    live:  {
+      matches: [],
+      lastRealTs: 0,
+      lastSource: ""
+    }
   };
 
   const esc = (s) =>
@@ -352,8 +357,33 @@
   // Live ONLY: live:update
   onSafe("live:update", (p) => {
     if (!p) return;
-    const arr = Array.isArray(p?.matches) ? p.matches : null;
+
+    const src = String(p?.source || "").toLowerCase();
+    const isDemo = (src === "demo" || p?.demo === true || p?.isDemo === true);
+
+    // If we've seen real live recently, ignore demo live updates
+    const now = Date.now();
+    const hasRealRecently = state.live.lastRealTs && (now - state.live.lastRealTs < 5 * 60 * 1000);
+
+    // Live is enabled -> protect real feed from demo overwrite
+    const liveCfgActive = !!(window.AIML_LIVE_CFG && window.AIML_LIVE_CFG.emitLive === true);
+
+    if (isDemo && liveCfgActive && hasRealRecently) {
+      return;
+    }
+
+    // Accept both shapes: {matches:[...]} or {items:[...]} (back-compat)
+    const arr = Array.isArray(p?.matches) ? p.matches : (Array.isArray(p?.items) ? p.items : null);
     if (!arr) return; // SOFT guard
+
+    // Mark "real" if not demo and has data
+    if (!isDemo && arr.length) {
+      state.live.lastRealTs = now;
+      state.live.lastSource = src || "live";
+    } else if (!state.live.lastSource) {
+      state.live.lastSource = isDemo ? "demo" : (src || "unknown");
+    }
+
     state.live.matches = arr;
     renderLive();
   });
@@ -422,7 +452,7 @@
     renderTop();
     renderValue();
     renderLive();
-    console.log("[RIGHT PANELS] v3.3.4 SAFE — separation preserved, no event blocking");
+    console.log("[RIGHT PANELS] v3.3.5 — LIVE priority lock enabled (demo cannot overwrite real live)");
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);

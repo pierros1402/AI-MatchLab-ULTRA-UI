@@ -219,11 +219,24 @@
 
             <!-- TODAY -->
             <div class="accordion-item">
-              <div class="accordion-header" data-target="panel-today">Today</div>
-              <div class="accordion-panel" id="panel-today">
-                <div class="list" id="today-list"></div>
-              </div>
-            </div>
+  <div class="accordion-header" data-target="panel-today">Today</div>
+  <div class="accordion-panel" id="panel-today">
+    <div class="today-filter">
+      <select id="today-day-select" class="day-select">
+        <option value="today">Today</option>
+        <option value="Mon">Monday</option>
+        <option value="Tue">Tuesday</option>
+        <option value="Wed">Wednesday</option>
+        <option value="Thu">Thursday</option>
+        <option value="Fri">Friday</option>
+        <option value="Sat">Saturday</option>
+        <option value="Sun">Sunday</option>
+      </select>
+    </div>
+    <div class="list" id="today-list"></div>
+  </div>
+</div>
+
 
             <div class="accordion-item">
               <div class="accordion-header" data-target="panel-saved">Saved</div>
@@ -386,7 +399,7 @@
     emitToday: true,
 
     // Live OFF μέχρι να φέρουμε πραγματικά live δεδομένα
-    emitLive: false,
+    emitLive: true,
 
     // Top 5 μόνο (οι δεύτερες κόβονται)
     competitions: "PL,PD,BL1,SA,FL1",

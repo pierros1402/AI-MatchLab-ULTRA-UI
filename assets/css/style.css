@@ -927,3 +927,11 @@ body.drawer-right-open .app-grid {
     margin-top: 0 !important;
   }
 }
+.live-update-label {
+  color: var(--accent, #f6b73c);
+  font-weight: 500;
+  transition: opacity 0.3s ease;
+}
+#live-meta[data-live-freshness="fresh"] { opacity: 0.95; }
+#live-meta[data-live-freshness="warm"]  { opacity: 0.85; }
+#live-meta[data-live-freshness="stale"] { opacity: 0.75; }

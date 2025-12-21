@@ -1,15 +1,16 @@
 /* =========================================================
-   AI MATCHLAB ULTRA — LIVE ADAPTER v1.6 (AUTO DAILY + TOP DIVISIONS ONLY)
-   - Auto range:
-       Mon–Thu: TODAY
-       Fri–Sun: Fri→Sun window
-   - Competitions (football-data): Top 5 only + (Greece via TSDB)
-       PL,PD,BL1,SA,FL1
-     Greece is not reliably covered by football-data codes; TSDB is used as supplement.
-   - TSDB filtering: STRICT top divisions (NO Championship/2nd tiers)
-   - Emits:
-       today-matches:loaded (from /fixtures)
-       live:update          (from /live-ultra)  [optional]
+   AI MATCHLAB ULTRA — LIVE ADAPTER v1.8
+   AUTO TODAY (Top divisions only) + LIVE parsing for Unified Live worker
+   - Today:
+       Mon–Thu: TODAY → Thu window
+       Fri–Sun: TODAY → Sun window
+       football-data competitions: PL,PD,BL1,SA,FL1
+       TSDB supplement (for Greece) filtered to TOP divisions only
+   - Live:
+       Reads /live-ultra (main worker) and emits live:update items + matches
+       Supports matches where score is either:
+         a) {score:{live:{home,away}}} style
+         b) "1-0" string (Unified Live worker: FotMob/OpenLigaDB)
 ========================================================= */
 (function () {
   "use strict";
@@ -32,31 +33,26 @@
 
   var debug = !!CFG.debug;
   function log() { if (debug) console.log.apply(console, arguments); }
+
   function emitSafe(evt, payload) { if (typeof window.emit === "function") window.emit(evt, payload); }
+
+  function pad2(n) { n = Number(n || 0); return (n < 10 ? "0" : "") + n; }
+  function startOfDay(d) { var x = new Date(d); x.setHours(0,0,0,0); return x; }
+  function isoDate(d) { return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate()); }
 
   // Auto range on by default
   var autoRange = (CFG.autoRange !== false);
 
   // Football-data competitions (Top 5)
-  // Note: Greece is handled via TSDB supplement; keep FD list clean.
   var primaryCompetitions = String(CFG.competitions || "PL,PD,BL1,SA,FL1").trim();
 
   // TSDB supplement is ON by default (to help Greece)
   var useTSDB = (CFG.useTSDB !== false);
   var useFD   = (CFG.useFD   !== false);
 
-  // If primary result is smaller than this, we still emit (it can be a quiet day).
-  var minPrimaryCount = Number(CFG.minPrimaryCount || 0);
-
-  // STRICT TSDB filter for top divisions only (no Championship / no 2nd tiers)
+  // STRICT TSDB filter for top divisions only
   var strictTopDivisions = (CFG.strictTopDivisions !== false);
-
-  // Include Greece in TSDB filter
   var includeGreece = (CFG.includeGreece !== false);
-
-  function pad2(n) { return (n < 10 ? "0" : "") + n; }
-  function isoDate(d) { return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate()); }
-  function startOfDay(d) { return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
 
   function rangeAuto() {
     var now = new Date();
@@ -66,18 +62,21 @@
     }
 
     var day = now.getDay(); // 0=Sun..6=Sat
+    var from = isoDate(now);
+
+    // Mon–Thu => from TODAY → Thu (same week)
     if (day >= 1 && day <= 4) {
-      var s1 = isoDate(now);
-      return { from: s1, to: s1, mode: "today" };
+      var base = startOfDay(now);
+      var diffToThu = 4 - day; // Mon(1)->3, Tue(2)->2, Wed(3)->1, Thu(4)->0
+      var thu = new Date(base); thu.setDate(base.getDate() + diffToThu);
+      return { from: from, to: isoDate(thu), mode: "mon-thu" };
     }
 
-    // Fri/Sat/Sun => Fri→Sun
-    var base = startOfDay(now);
-    var shiftToFri = (day === 5) ? 0 : (day === 6 ? -1 : -2);
-    base.setDate(base.getDate() + shiftToFri);
-    var fri = base;
-    var sun = new Date(fri); sun.setDate(fri.getDate() + 2);
-    return { from: isoDate(fri), to: isoDate(sun), mode: "fri-sun" };
+    // Fri/Sat/Sun => from TODAY → Sun (same week)
+    var base2 = startOfDay(now);
+    var diffToSun = (day === 5) ? 2 : (day === 6 ? 1 : 0); // Fri->Sun, Sat->Sun, Sun->Sun
+    var sun = new Date(base2); sun.setDate(base2.getDate() + diffToSun);
+    return { from: from, to: isoDate(sun), mode: "fri-sun" };
   }
 
   function fetchJSON(url) {
@@ -99,70 +98,28 @@
       });
   }
 
-  function buildFixturesURL(dateFrom, dateTo, comps) {
-    var u = new URL(BASE + fixturesPath);
-    u.searchParams.set("dateFrom", dateFrom);
-    u.searchParams.set("dateTo", dateTo);
-    u.searchParams.set("fd", useFD ? "1" : "0");
-    u.searchParams.set("tsdb", useTSDB ? "1" : "0");
-    if (comps) u.searchParams.set("competitions", comps);
-    return u.toString();
-  }
-
-  // TSDB strict league allow-list
-  function isAllowedTSDBLeague(leagueLower) {
-    if (!strictTopDivisions) return true;
-    if (!leagueLower) return false;
-
-    // hard exclusions (avoid 2nd tiers)
-    if (leagueLower.indexOf("championship") >= 0) return false;
-    if (leagueLower.indexOf("segunda") >= 0) return false;
-    if (leagueLower.indexOf("serie b") >= 0) return false;
-    if (leagueLower.indexOf("ligue 2") >= 0) return false;
-    if (leagueLower.indexOf("2. bundesliga") >= 0) return false;
-    if (leagueLower.indexOf("bundesliga 2") >= 0) return false;
-
-    // Top 5
-    if (leagueLower.indexOf("premier league") >= 0) return true;
-    if (leagueLower.indexOf("la liga") >= 0) return true;
-    if (leagueLower.indexOf("bundesliga") >= 0) return true; // after exclusions
-    if (leagueLower.indexOf("serie a") >= 0) return true;
-    if (leagueLower.indexOf("ligue 1") >= 0) return true;
-
-    // Greece (variations)
-    if (includeGreece) {
-      if (leagueLower.indexOf("super league greece") >= 0) return true;
-      if (leagueLower.indexOf("greek super league") >= 0) return true;
-      if (leagueLower.indexOf("stoiximan super league") >= 0) return true;
-      if (leagueLower.indexOf("superleague greece") >= 0) return true;
-      if (leagueLower.indexOf("super league 1") >= 0) return true;
-    }
-
-    return false;
-  }
-
-  function filterMatchesStrict(arr) {
-    return (arr || []).filter(function (m) {
-      if (!m) return false;
-      var p = (m.provider || "").toLowerCase();
-      if (p !== "thesportsdb") return true; // keep football-data results
-
-      var league = (m.league || "").toLowerCase();
-      return isAllowedTSDBLeague(league);
-    });
-  }
-
-  function mergeAndDedupe(arr) {
+  function normalizeTodayMatches(payload) {
     var out = [];
-    var seen = Object.create(null);
-    (arr || []).forEach(function (m) {
-      if (!m) return;
-      var id = m.id || m.matchId || m.match_id || null;
-      if (!id) return;
-      if (seen[id]) return;
-      seen[id] = 1;
-      out.push(m);
-    });
+    var matches = payload && Array.isArray(payload.matches) ? payload.matches : [];
+    for (var i = 0; i < matches.length; i++) {
+      var m = matches[i] || {};
+      var id = m.id || m.matchId || m.match_id || ("m_" + i);
+
+      var home = m.home || (m.homeTeam && m.homeTeam.name) || m.homeTeam || "";
+      var away = m.away || (m.awayTeam && m.awayTeam.name) || m.awayTeam || "";
+
+      var league = m.league || m.competition || m.tournament || "";
+      var utcDate = m.utcDate || m.date || m.date_utc || "";
+
+      out.push({
+        id: String(id),
+        home: String(home || ""),
+        away: String(away || ""),
+        league: String(league || ""),
+        utcDate: utcDate ? String(utcDate) : "",
+        date_utc: m.date_utc ? String(m.date_utc) : ""
+      });
+    }
     return out;
   }
 
@@ -170,23 +127,18 @@
     if (!emitToday) return;
 
     var rge = rangeAuto();
-    var url1 = buildFixturesURL(rge.from, rge.to, primaryCompetitions);
+    var qs = "?dateFrom=" + encodeURIComponent(rge.from) +
+             "&dateTo=" + encodeURIComponent(rge.to);
 
-    var r1 = await fetchJSON(url1);
-    if (!r1.ok || !r1.data || r1.data.ok !== true) return;
+    var url = BASE + fixturesPath + qs;
+    var r = await fetchJSON(url);
+    if (!r.ok || !r.data) return;
 
-    var matches = Array.isArray(r1.data.matches) ? r1.data.matches : [];
-    matches = filterMatchesStrict(matches);
-    matches = mergeAndDedupe(matches);
-
-    if (matches.length < minPrimaryCount) {
-      // still emit, quiet days happen
-    }
+    var matches = normalizeTodayMatches(r.data);
 
     emitSafe("today-matches:loaded", {
       ts: Date.now(),
       source: "live-adapter",
-      mode: "auto",
       range_mode: rge.mode,
       dateFrom: rge.from,
       dateTo: rge.to,
@@ -197,18 +149,57 @@
     log("[LIVE-ADAPTER] today-matches:loaded", matches.length, rge.from, rge.to, rge.mode);
   }
 
+  function parseScoreAny(m) {
+    var sh = null, sa = null;
+
+    if (m && m.score && typeof m.score === "object") {
+      if (m.score.fullTime) {
+        sh = m.score.fullTime.home;
+        sa = m.score.fullTime.away;
+      } else if (m.score.live) {
+        sh = m.score.live.home;
+        sa = m.score.live.away;
+      }
+    }
+
+    if ((sh == null || sa == null) && typeof m.score === "string") {
+      var s = String(m.score);
+      var parts = s.split("-");
+      if (parts.length === 2) {
+        var a = Number(parts[0].trim());
+        var b = Number(parts[1].trim());
+        if (!isNaN(a) && !isNaN(b)) { sh = a; sa = b; }
+      }
+    }
+
+    return { home: sh, away: sa };
+  }
+
+  function isLiveStatus(s) {
+    s = String(s || "").toUpperCase();
+    if (!s) return false;
+    return (s === "LIVE" || s === "IN_PLAY" || s === "INPLAY" ||
+            s.indexOf("LIVE") >= 0 || s.indexOf("PLAY") >= 0 ||
+            s === "1H" || s === "2H" || s === "HT");
+  }
+
   function mapLiveToItems(data) {
     var arr = (data && Array.isArray(data.matches)) ? data.matches : [];
     return arr.map(function (m) {
       var id = m.match_id || m.id || null;
-      var home = (m.teams && m.teams.home && m.teams.home.name) || m.home || "Home";
-      var away = (m.teams && m.teams.away && m.teams.away.name) || m.away || "Away";
-      var minute = (m.status && m.status.minute) || m.minute || null;
 
-      var sh = (m.score && m.score.live && m.score.live.home != null) ? m.score.live.home
-             : (m.score && m.score.ft && m.score.ft.home != null) ? m.score.ft.home : null;
-      var sa = (m.score && m.score.live && m.score.live.away != null) ? m.score.live.away
-             : (m.score && m.score.ft && m.score.ft.away != null) ? m.score.ft.away : null;
+      var home = (m.teams && m.teams.home && m.teams.home.name) || m.home || m.homeTeam || "Home";
+      var away = (m.teams && m.teams.away && m.teams.away.name) || m.away || m.awayTeam || "Away";
+
+      var minute = (m.status && m.status.minute) || m.minute || null;
+      if (minute == null && m.matchTime != null) minute = m.matchTime;
+
+      var status = (m.status && m.status.code) || m.status || m.state || null;
+
+      var sc = parseScoreAny(m);
+      var score_text = (sc.home != null && sc.away != null)
+        ? (String(sc.home) + "-" + String(sc.away))
+        : (typeof m.score === "string" ? String(m.score) : "");
 
       return {
         id: id,
@@ -216,8 +207,9 @@
         home: home,
         away: away,
         minute: minute,
-        score: { home: sh, away: sa },
-        score_text: (sh != null && sa != null) ? (sh + "-" + sa) : ""
+        score: { home: sc.home, away: sc.away },
+        status: status,
+        score_text: score_text
       };
     }).filter(function (x) { return !!x.id; });
   }
@@ -229,8 +221,23 @@
     if (!r.ok || !r.data) return;
 
     var items = mapLiveToItems(r.data);
-    emitSafe("live:update", { ts: Date.now(), source: "live-adapter", items: items });
-    log("[LIVE-ADAPTER] live:update", items.length);
+
+    // Right Panels expect p.matches (simple objects). Keep p.items too (back-compat).
+    var matches = items
+      .filter(function (it) { return isLiveStatus(it.status) || (it.minute != null && it.minute !== ""); })
+      .map(function (it) {
+        return {
+          id: it.id,
+          home: it.home,
+          away: it.away,
+          minute: it.minute,
+          score: it.score_text || "",
+          title: it.title
+        };
+      });
+
+    emitSafe("live:update", { ts: Date.now(), source: "live-adapter", items: items, matches: matches });
+    log("[LIVE-ADAPTER] live:update", matches.length);
   }
 
   function start() {
