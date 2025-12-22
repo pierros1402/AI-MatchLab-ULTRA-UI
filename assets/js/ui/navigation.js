@@ -1,15 +1,13 @@
 // ======================================================================
 // navigation.js — AI MatchLab ULTRA (GLOBAL SCRIPTS, NO MODULES)
-// Continents → Countries → Leagues (from per-continent betting_ready FINAL files)
-// Uses stable openAccordion() from accordion.js (NO duplicate openAccordion here)
-// Emits: league-selected { id, name, ...context } for matches-panel.js
+// Continents → Countries → Leagues
+// v3.1: NO auto-open on boot + writes into *-list containers + league-binding ingest
 // ======================================================================
 
 (function () {
   "use strict";
 
   const DATA_BASE = "./AI-MATCHLAB-DATA";
-
   const URL_CONTINENTS = `${DATA_BASE}/indexes/continents.json`;
 
   const CONTINENT_DATA = {
@@ -22,8 +20,8 @@
     IN: `${DATA_BASE}/international/international_betting_ready_FINAL.json`
   };
 
-  let _continents = null;                // array
-  const _continentCache = Object.create(null); // code -> array of countries
+  let _continents = null;
+  const _continentCache = Object.create(null);
 
   function safeOpen(panelBodyId) {
     if (typeof window.openAccordion === "function") window.openAccordion(panelBodyId);
@@ -40,16 +38,10 @@
     return res.json();
   }
 
-  function mustPanel(id) {
+  function mustEl(id) {
     const el = document.getElementById(id);
     if (!el) throw new Error(`[NAV] Missing #${id} in DOM`);
     return el;
-  }
-
-  function setPanelMessage(panelId, msg) {
-    const panel = document.getElementById(panelId);
-    if (!panel) return;
-    panel.innerHTML = `<div class="nav-empty">${escapeHtml(msg)}</div>`;
   }
 
   function escapeHtml(s) {
@@ -61,6 +53,12 @@
       .replaceAll("'", "&#039;");
   }
 
+  function setListMessage(listId, msg) {
+    const list = document.getElementById(listId);
+    if (!list) return;
+    list.innerHTML = `<div class="nav-empty">${escapeHtml(msg)}</div>`;
+  }
+
   function makeItem(text, onClick) {
     const div = document.createElement("div");
     div.className = "nav-item";
@@ -70,14 +68,8 @@
   }
 
   // ----------------------------
-  // League ordering (yesterday plan):
-  // 1) Divisions (tier asc)
-  // 2) Cups after divisions
-  // 3) Women
-  // 4) Youth/Reserves
-  // Then tie-breakers (England priority, then alpha)
+  // League sorting (your existing rules)
   // ----------------------------
-
   function leagueGroup(name, id) {
     const n = String(name || "");
     const i = String(id || "");
@@ -93,7 +85,6 @@
     const isCup =
       /\bcup\b|trophy|league cup|carabao|fa cup|coppa|copa|pokalen|taça|cup\b/i.test(n);
 
-    // order: divisions first
     if (!isCup && !isWomen && !isYouth) return 0;
     if (isCup) return 1;
     if (isWomen) return 2;
@@ -133,13 +124,11 @@
     const tb = normTier(b.tier);
     if (ta !== tb) return ta - tb;
 
-    // England special ordering inside same (group,tier)
     if (countryCode === "EN") {
       const pa = enPriorityScore(a.name);
       const pb = enPriorityScore(b.name);
       if (pa !== pb) return pa - pb;
     }
-
     return String(a.name || "").localeCompare(String(b.name || ""));
   }
 
@@ -148,28 +137,31 @@
   // ----------------------------
   window.loadNavigation = async function loadNavigation() {
     try {
-      _continents = await fetchJson(URL_CONTINENTS);
+      // Ensure LeagueBinding is warm (Europe preload)
+      if (window.LeagueBinding && typeof window.LeagueBinding.init === "function") {
+        window.LeagueBinding.init({ preload: ["EU"] });
+      }
 
+      _continents = await fetchJson(URL_CONTINENTS);
       renderContinents();
 
-      safeOpen("panel-continents");
+      // IMPORTANT: no safeOpen("panel-continents") here (ALL CLOSED default)
     } catch (e) {
       console.error("[NAV] init failed:", e);
-      setPanelMessage("panel-continents", "Failed to load continents.json. Check console.");
+      setListMessage("continents-list", "Failed to load continents.json. Check console.");
     }
   };
 
   function renderContinents() {
-    const panel = mustPanel("panel-continents");
-    panel.innerHTML = "";
+    const list = mustEl("continents-list");
+    list.innerHTML = "";
 
-    _continents.forEach((c) => {
-      const label = c.name;
-      panel.appendChild(makeItem(label, () => onContinentSelected(c)));
+    (_continents || []).forEach((c) => {
+      list.appendChild(makeItem(c.name, () => onContinentSelected(c)));
     });
 
-    setPanelMessage("panel-countries", "Select a continent.");
-    setPanelMessage("panel-leagues", "Select a country.");
+    setListMessage("countries-list", "Select a continent.");
+    setListMessage("leagues-list", "Select a country.");
   }
 
   async function loadContinentCountries(code) {
@@ -179,8 +171,17 @@
     if (!url) return [];
 
     const arr = await fetchJson(url);
-    // expected: array of { country_code, country_name, leagues:[{league_id,display_name,tier},...] }
     _continentCache[code] = Array.isArray(arr) ? arr : [];
+
+    // Feed LeagueBinding from the SAME dataset the accordion uses
+    if (window.LeagueBinding && typeof window.LeagueBinding.ingestContinentDataset === "function") {
+      try {
+        window.LeagueBinding.ingestContinentDataset(code, _continentCache[code]);
+      } catch (e) {
+        console.warn("[NAV] LeagueBinding ingest failed:", e);
+      }
+    }
+
     return _continentCache[code];
   }
 
@@ -188,38 +189,37 @@
     const code = continentObj.code;
     console.log("[NAV] continent-selected:", code, continentObj.name);
 
-    setPanelMessage("panel-countries", "Loading countries...");
-    setPanelMessage("panel-leagues", "Select a country.");
+    setListMessage("countries-list", "Loading countries...");
+    setListMessage("leagues-list", "Select a country.");
 
     let countries;
     try {
       countries = await loadContinentCountries(code);
     } catch (e) {
       console.error("[NAV] failed loading continent file:", code, e);
-      setPanelMessage("panel-countries", `Failed to load ${code} dataset. Check path in CONTINENT_DATA.`);
+      setListMessage("countries-list", `Failed to load ${code} dataset. Check CONTINENT_DATA path.`);
       safeOpen("panel-countries");
       return;
     }
 
     renderCountriesFromArray(code, continentObj.name, countries);
     safeOpen("panel-countries");
+    safeEmit("continent-selected", { code, name: continentObj.name });
   }
 
   function renderCountriesFromArray(continentCode, continentName, countriesArray) {
-    const panel = mustPanel("panel-countries");
-    panel.innerHTML = "";
+    const list = mustEl("countries-list");
+    list.innerHTML = "";
 
     const sorted = (countriesArray || [])
       .slice()
       .sort((a, b) => String(a.country_name || "").localeCompare(String(b.country_name || "")));
 
     sorted.forEach((c) => {
-      panel.appendChild(makeItem(c.country_name, () => onCountrySelected(continentCode, continentName, c)));
+      list.appendChild(makeItem(c.country_name, () => onCountrySelected(continentCode, continentName, c)));
     });
 
-    if (!sorted.length) {
-      setPanelMessage("panel-countries", "No countries found for this continent dataset.");
-    }
+    if (!sorted.length) setListMessage("countries-list", "No countries found for this continent dataset.");
   }
 
   function onCountrySelected(continentCode, continentName, countryObj) {
@@ -229,8 +229,6 @@
     console.log("[NAV] country-selected:", countryCode, countryName);
 
     const rawLeagues = Array.isArray(countryObj.leagues) ? countryObj.leagues : [];
-
-    // Debug count (to prove “missing leagues” is UI vs data)
     console.log("[NAV] leagues count:", countryName, rawLeagues.length);
 
     const leagues = rawLeagues
@@ -250,29 +248,30 @@
     });
 
     safeOpen("panel-leagues");
+    safeEmit("country-selected", { continent_code: continentCode, country_code: countryCode, country_name: countryName });
   }
 
   function renderLeagues(leagues, context) {
-    const panel = mustPanel("panel-leagues");
-    panel.innerHTML = "";
+    const list = mustEl("leagues-list");
+    list.innerHTML = "";
 
     leagues.forEach((lg) => {
-      const label = lg.name;
-      panel.appendChild(
-        makeItem(label, () => {
+      list.appendChild(
+        makeItem(lg.name, () => {
           console.log("[NAV] league-selected:", lg.id, lg.name);
           safeEmit("league-selected", { id: lg.id, name: lg.name, ...context });
+
+          // Open matches panel on selection (stable UX)
+          safeOpen("panel-matches");
         })
       );
     });
 
-    if (!leagues.length) {
-      setPanelMessage("panel-leagues", "No leagues found for this country.");
-    }
+    if (!leagues.length) setListMessage("leagues-list", "No leagues found for this country.");
   }
 
-  // Auto-start (safe even if app.js also calls loadNavigation)
   document.addEventListener("DOMContentLoaded", () => {
     if (typeof window.loadNavigation === "function") window.loadNavigation();
   });
+
 })();

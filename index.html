@@ -218,27 +218,18 @@
             </div>
 
             <!-- TODAY -->
-            <div class="accordion-item">
+<div class="accordion-item">
   <div class="accordion-header" data-target="panel-today">Today</div>
   <div class="accordion-panel" id="panel-today">
-    <div class="today-filter">
-      <select id="today-day-select" class="day-select">
-        <option value="today">Today</option>
-        <option value="Mon">Monday</option>
-        <option value="Tue">Tuesday</option>
-        <option value="Wed">Wednesday</option>
-        <option value="Thu">Thursday</option>
-        <option value="Fri">Friday</option>
-        <option value="Sat">Saturday</option>
-        <option value="Sun">Sunday</option>
-      </select>
-    </div>
+    <!-- NOTE:
+         Do NOT insert dropdowns or buttons here.
+         The today-panel.js v3.1 script will automatically
+         build its own control bar (Day / View / Scope / Refresh / Saved).
+    -->
     <div class="list" id="today-list"></div>
   </div>
 </div>
-
-
-            <div class="accordion-item">
+          <div class="accordion-item">
               <div class="accordion-header" data-target="panel-saved">Saved</div>
               <div class="accordion-panel" id="panel-saved">
                 <div class="list" id="saved-list"></div>
@@ -383,71 +374,75 @@
     </div>
   </div>
 
-  <!-- SCRIPTS (ORDER FIXED) -->
-  
-
-  <!-- LIVE CONFIG (Weekend Top Leagues) -->
+    <!-- LIVE CONFIG (LOCAL + WORKER) -->
   <script>
-  window.AIML_LIVE_CFG = {
-    enabled: true,
+    window.AIML_LIVE_CFG = {
+      emitToday: true,
+      emitLive: true,
 
-    liveUltraBase: "https://aimatchlab-main.pierros1402.workers.dev",
-    fixturesPath: "/fixtures",
-    liveUltraPath: "/live-ultra",
+      // IMPORTANT: base for /fixtures and /live-ultra
+      liveUltraBase: "https://aimatchlab-main.pierros1402.workers.dev",
+      fixturesBase: "https://aimatchlab-main.pierros1402.workers.dev",
 
-    // Today ON (αυτό μας νοιάζει τώρα)
-    emitToday: true,
+      fixturesPath: "/fixtures",
+      liveUltraPath: "/live-ultra",
 
-    // Live OFF μέχρι να φέρουμε πραγματικά live δεδομένα
-    emitLive: true,
+      // "all" = όπως χθες (ό,τι δίνει το ESPN/worker)
+      // "top" = μόνο top leagues
+      fixturesScope: "all"
+    };
+  </script>
 
-    // Top 5 μόνο (οι δεύτερες κόβονται)
-    competitions: "PL,PD,BL1,SA,FL1",
+  <!-- CORE BUS -->
+  <script defer src="/assets/js/ui/app.js"></script>
 
-    useFD: true,
-    useTSDB: true,
+  <!-- GLOBAL UTILS -->
+  <script defer src="/assets/js/state.js"></script>
+  <script defer src="/assets/js/utils/team-names.js"></script>
 
-    strictTopDivisions: true,
-    includeGreece: true,
-
-    pollTodayMs: 600000,   // 10 λεπτά
-    pollLiveMs: 60000,     // 60s (δεν παίζει τώρα γιατί emitLive:false)
-    timeoutMs: 9000,
-
-    debug: false
-  };
-</script>
-<script defer src="/assets/js/ui/app.js"></script>
-
+  <!-- GLOBAL UI (ROOT PATHS - ΟΠΩΣ ΕΙΠΕΣ) -->
   <script defer src="/assets/js/theme.js"></script>
   <script defer src="/assets/js/legal-menu.js"></script>
-
-  <script defer src="/assets/js/state.js"></script>
-
-  <script defer src="/assets/js/ui/accordion.js"></script>
-  <script defer src="/assets/js/ui/navigation.js"></script>
-
-  <script defer src="/assets/js/ui/saved-store.js"></script>
-  <script defer src="/assets/js/ui/saved-panel.js"></script>
-
-  <script defer src="/assets/js/ui/matches-panel.js"></script>
-  <script defer src="/assets/js/ui/today-panel.js"></script>
-
-  <script defer src="/assets/js/ui/details-panel.js"></script>
-  <script defer src="/assets/js/ui/details-modal.js"></script>
-
-  <script defer src="/assets/js/ui/odds-panels.js"></script>
-  <script defer src="/assets/js/ui/odds-radar.js"></script>
-  <script src="/assets/js/utils/history-engine.js"></script>
-  <script src="/assets/js/ui/history-viewer.js"></script>
-  <script defer src="/assets/js/demo/odds-demo-feed.js?v=246"></script>
-  <script src="/assets/js/demo/stats-demo-feed.js"></script>
-  <script defer src="/assets/js/right-panels.js"></script>
-  <script defer src="/assets/js/live/live-adapter.js"></script>
-
   <script defer src="/assets/js/mobile-ui.js"></script>
   <script defer src="/assets/js/language.js"></script>
 
+  <!-- LEFT NAV -->
+  <script defer src="/assets/js/ui/accordion.js"></script>
+  <script defer src="/assets/js/ui/navigation.js"></script>
+  <script defer src="/assets/js/utils/league-binding.js"></script>
+
+  <!-- SAVED + TODAY -->
+  <script defer src="/assets/js/ui/saved-store.js"></script>
+  <script defer src="/assets/js/ui/saved-panel.js"></script>
+  <script defer src="/assets/js/ui/today-panel.js"></script>
+
+  <!-- MATCHES + DETAILS -->
+  <script defer src="/assets/js/ui/matches-panel.js"></script>
+  <script defer src="/assets/js/ui/details-modal.js"></script>
+  <script defer src="/assets/js/ui/details-espn.js"></script>
+  <script defer src="/assets/js/ui/details-panel.js"></script>
+
+  <!-- ODDS + RIGHT PANELS -->
+  <script defer src="/assets/js/ui/odds-panels.js"></script>
+  <script defer src="/assets/js/ui/odds-radar.js"></script>
+  <script defer src="/assets/js/ui/top-picks.js"></script>
+  <script defer src="/assets/js/ui/value-picks.js"></script>
+  <script defer src="/assets/js/right-panels.js"></script>
+
+  <!-- HISTORY -->
+  <script defer src="/assets/js/utils/history-engine.js"></script>
+  <script defer src="/assets/js/ui/history-viewer.js"></script>
+
+  <!-- LIVE ADAPTER (REAL EVENTS) -->
+  <script defer src="/assets/js/live/live-adapter.js"></script>
+
+  <!-- DEMO (κρατάς το demo, αλλά θα το “πατάει” το real live όταν υπάρχει) -->
+  <script defer src="/assets/js/demo/odds-demo-feed.js"></script>
+  <script defer src="/assets/js/demo/stats-demo-feed.js"></script>
+
+  <!-- PWA / VERSION -->
+  <script defer src="/assets/js/install.js"></script>
   <script defer src="/assets/js/utils/version-check.js"></script>
+
 </body>
 </html>

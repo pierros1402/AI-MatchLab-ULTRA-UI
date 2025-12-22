@@ -25,7 +25,7 @@
   var livePath = String(CFG.liveUltraPath || "/live-ultra");
 
   var emitToday = (CFG.emitToday !== false);
-  var emitLive  = (CFG.emitLive  === true); // default OFF for clarity
+  var emitLive  = (CFG.emitLive !== false); // default ON (real live is primary)
 
   var pollTodayMs = Number(CFG.pollTodayMs || 600000); // 10 min
   var pollLiveMs  = Number(CFG.pollLiveMs  || 60000);  // 60 sec

@@ -1,5 +1,6 @@
 // ======================================================================
-// ACCORDION — AI MATCHLAB ULTRA (SINGLE OPEN + DEFAULT CONTINENTS)
+// ACCORDION — AI MATCHLAB ULTRA
+// v2.6: Single-open main flow + Autonomous Today/Saved + ALL CLOSED default
 // ======================================================================
 
 (function () {
@@ -8,46 +9,92 @@
   const accordion = document.getElementById("left-accordion");
   if (!accordion) return;
 
-  const headers = accordion.querySelectorAll(".accordion-header");
-  const panels = accordion.querySelectorAll(".accordion-panel");
+  const AUTONOMOUS = new Set(["panel-today", "panel-saved"]);
 
-  // close all panels
-  function closeAll() {
-    panels.forEach((p) => (p.style.display = "none"));
-    headers.forEach((h) => h.classList.remove("active"));
+  function qHeaders() {
+    return accordion.querySelectorAll(".accordion-header");
+  }
+  function qPanels() {
+    return accordion.querySelectorAll(".accordion-panel");
   }
 
-  // open panel by id
+  function setHeaderActive(id, on) {
+    const h = accordion.querySelector(`.accordion-header[data-target="${id}"]`);
+    if (!h) return;
+    if (on) h.classList.add("active");
+    else h.classList.remove("active");
+  }
+
+  function closePanel(id) {
+    const p = document.getElementById(id);
+    if (p) p.style.display = "none";
+    setHeaderActive(id, false);
+    if (window.emit) window.emit("accordion:closed", { id });
+  }
+
+  function openPanel(id) {
+    const p = document.getElementById(id);
+    if (p) p.style.display = "block";
+    setHeaderActive(id, true);
+    if (window.emit) window.emit("accordion:opened", { id });
+  }
+
+  function isOpen(id) {
+    const p = document.getElementById(id);
+    return !!(p && p.style.display !== "none" && p.offsetParent !== null);
+  }
+
+  function closeAllMainPanels() {
+    // closes ONLY non-autonomous
+    qPanels().forEach((p) => {
+      if (!p || !p.id) return;
+      if (AUTONOMOUS.has(p.id)) return;
+      p.style.display = "none";
+      setHeaderActive(p.id, false);
+    });
+  }
+
+  function closeAllPanelsHard() {
+    // closes everything (startup)
+    qPanels().forEach((p) => {
+      if (!p || !p.id) return;
+      p.style.display = "none";
+      setHeaderActive(p.id, false);
+    });
+  }
+
   function openAccordion(id) {
-    closeAll();
+    if (!id) return;
     const panel = document.getElementById(id);
-    const header = accordion.querySelector(`.accordion-header[data-target="${id}"]`);
-    if (panel) panel.style.display = "block";
-    if (header) header.classList.add("active");
+    if (!panel) return;
+
+    const auto = AUTONOMOUS.has(id);
+
+    // Toggle for autonomous panels
+    if (auto) {
+      const nowOpen = panel.style.display !== "none" && panel.offsetParent !== null;
+      if (nowOpen) closePanel(id);
+      else openPanel(id);
+      return;
+    }
+
+    // Single-open for main flow
+    closeAllMainPanels();
+    openPanel(id);
   }
 
-  // global
+  // Global
   window.openAccordion = openAccordion;
 
-  // click binding
-  headers.forEach((header) => {
-    const targetId = header.getAttribute("data-target");
-    header.addEventListener("click", () => openAccordion(targetId));
+  // Click binding (delegation)
+  accordion.addEventListener("click", (e) => {
+    const h = e.target && e.target.closest ? e.target.closest(".accordion-header") : null;
+    if (!h) return;
+    const targetId = h.getAttribute("data-target");
+    if (targetId) openAccordion(targetId);
   });
 
-  // default open continents
-  openAccordion("panel-continents");
-
-  // ======================================================================
-  // PATCH: Ensure Saved panel is always clickable (in case loaded later)
-  // ======================================================================
-  document.addEventListener("DOMContentLoaded", () => {
-    const savedHeader = document.querySelector('.accordion-header[data-target="panel-saved"]');
-    if (savedHeader) {
-      savedHeader.addEventListener("click", () => {
-        window.openAccordion("panel-saved");
-      });
-    }
-  });
+  // ALL CLOSED default (hard)
+  closeAllPanelsHard();
 
 })();

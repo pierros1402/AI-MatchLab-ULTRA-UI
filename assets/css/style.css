@@ -935,3 +935,56 @@ body.drawer-right-open .app-grid {
 #live-meta[data-live-freshness="fresh"] { opacity: 0.95; }
 #live-meta[data-live-freshness="warm"]  { opacity: 0.85; }
 #live-meta[data-live-freshness="stale"] { opacity: 0.75; }
+/* =========================================================
+   FINAL FIX — TODAY PANEL FULL WIDTH TEXT VISIBILITY + FIT
+   Keeps working grid fix + better width & readability
+========================================================= */
+
+#left-panel {
+  width: 340px !important;              /* ελαφρώς φαρδύτερο */
+  overflow-x: visible !important;
+}
+
+#left-panel .accordion {
+  display: block !important;            /* grid → block (core fix) */
+  overflow-x: visible !important;
+}
+
+#left-panel .accordion-item {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: visible !important;
+}
+
+#left-panel .accordion-panel {
+  overflow-x: visible !important;
+  white-space: normal !important;
+}
+
+#panel-today .list,
+#panel-today .today-row,
+#panel-today .t-title {
+  white-space: normal !important;
+  overflow: visible !important;
+  word-break: break-word !important;
+  text-overflow: unset !important;
+  padding-right: 10px !important;
+  max-width: 100% !important;
+  display: block !important;
+}
+
+#panel-today .today-row {
+  min-height: 56px !important;
+  font-size: 13px !important;
+  line-height: 1.3em !important;
+}
+
+#panel-today .t-title {
+  font-size: 13px !important;
+  font-weight: 500 !important;
+}
+
+#panel-today .t-sub {
+  font-size: 12px !important;
+  opacity: 0.8 !important;
+}
