@@ -269,3 +269,26 @@ html{
 @media (max-width: 900px){
   #active-match-bar .amb-market-select{ max-width: 52vw; }
 }
+/* =========================================================
+   MOBILE-ONLY FIX
+   Desktop: dropdown στο Active Match Bar
+   Mobile: market tabs στο Odds Intelligence Center
+========================================================= */
+
+/* Tabs κρυφά στο desktop (default) */
+.oic-marketbar {
+  display: none;
+}
+
+/* Mobile behaviour */
+@media (max-width: 900px) {
+  /* Εμφανίζουμε tabs μόνο στο mobile */
+  .oic-marketbar {
+    display: inline-flex;
+  }
+
+  /* Κρύβουμε το dropdown στο Active Match Bar */
+  #active-match-bar .amb-market-select {
+    display: none !important;
+  }
+}
