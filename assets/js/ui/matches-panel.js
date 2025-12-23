@@ -1,381 +1,235 @@
 /* ============================================================
-   Matches Panel v3.0 FINAL (ESPN-only)
-   - On league-selected: opens Matches panel
-   - Renders ONLY matches coming from ESPN (/fixtures) that match selected leagueId
-   - No demo fallback
-   - Saved-only toggle + Save + Details
+   assets/js/ui/matches-panel.js (FULL LINKED v3.4.0)
+   - ESPN/fixtures driven (no demo)
+   - Listens:
+       league-selected   -> render matches for that league
+       today-matches:loaded -> cache fixtures for filtering
+   - Actions:
+       row click -> emit("match-selected", match)
+       i -> DetailsModal.open(match) / emit("details-open", match)
+       ★ -> SavedStore.toggle(match)
 ============================================================ */
 (function () {
   "use strict";
+
+  const VER = "3.4.0";
+  if (window.__AIML_MATCHES_PANEL_VER__ === VER) return;
+  window.__AIML_MATCHES_PANEL_VER__ = VER;
 
   const panel = document.getElementById("panel-matches");
   const listEl = document.getElementById("matches-list");
   if (!panel || !listEl) return;
 
-  const state = {
-    league: null,          // {id,name,...}
-    savedOnly: false,
-    matches: [],
-    lastToday: { dateKey: "", items: [] }
-  };
+  const cfg = () => window.AIML_LIVE_CFG || {};
+  const base = () => String(cfg().fixturesBase || cfg().liveUltraBase || "").replace(/\/+$/, "");
+  const fixturesPath = () => String(cfg().fixturesPath || "/fixtures");
 
-  // ---------- helpers ----------
+  const on = (n, f) => (window.on ? window.on(n, f) : null);
+  const emit = (n, p) => (window.emit ? window.emit(n, p) : null);
+
   const esc = (s) =>
     String(s == null ? "" : s)
       .replaceAll("&", "&amp;")
       .replaceAll("<", "&lt;")
       .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#39;");
+      .replaceAll('"', "&quot;");
 
-  function pad2(n) {
-    const x = Number(n) || 0;
-    return x < 10 ? "0" + x : String(x);
+  function parseKickoffMs(m) {
+    const raw =
+      m?.kickoff ||
+      m?.utcDate ||
+      m?.startDate ||
+      m?.startTime ||
+      m?.eventDate ||
+      m?.date ||
+      m?.competitions?.[0]?.date ||
+      null;
+    if (!raw) return 0;
+    if (typeof raw === "number") return raw;
+    const t = Date.parse(String(raw));
+    return Number.isNaN(t) ? 0 : t;
   }
 
-  function ymdInAthens(d) {
+  function athensTime(ms) {
+    const t = Number(ms || 0);
+    if (!t) return "--:--";
     try {
-      const parts = new Intl.DateTimeFormat("en-CA", {
-        timeZone: "Europe/Athens",
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit"
-      }).formatToParts(d);
-      const map = Object.create(null);
-      parts.forEach((p) => (map[p.type] = p.value));
-      return `${map.year}-${map.month}-${map.day}`;
-    } catch (_) {
-      return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
-    }
-  }
-
-  function kickoffMs(m) {
-    const km =
-      (m && (m.kickoff_ms || m.kickoffMs)) ||
-      (m && typeof m.kickoff === "number" ? m.kickoff : null);
-    if (typeof km === "number" && isFinite(km) && km > 0) return km;
-
-    const k1 = m && (m.kickoff || m.kickoffISO || m.utcDate || m.start || m.startDate || m.date);
-    if (k1) {
-      const t = Date.parse(String(k1));
-      if (isFinite(t) && t > 0) return t;
-    }
-    return 0;
-  }
-
-  function athensHHMMFromKickoff(k) {
-    const ms = kickoffMs({ kickoff: k, kickoff_ms: (typeof k === "number" ? k : null) });
-    if (!ms) return "--:--";
-    try {
-      const parts = new Intl.DateTimeFormat("el-GR", {
-        timeZone: "Europe/Athens",
+      return new Date(t).toLocaleTimeString("el-GR", {
         hour: "2-digit",
         minute: "2-digit",
+        timeZone: "Europe/Athens",
         hour12: false
-      }).formatToParts(new Date(ms));
-      const map = Object.create(null);
-      parts.forEach((p) => (map[p.type] = p.value));
-      return `${map.hour}:${map.minute}`;
+      });
     } catch (_) {
-      const d = new Date(ms);
-      return `${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
+      return "--:--";
     }
   }
 
-  function tnDisplay(name) {
-    const TN = window.TeamNames;
-    return (TN && typeof TN.display === "function") ? TN.display(name) : String(name || "");
+  function normalizeMatch(m) {
+    const kickoff_ms = m?.kickoff_ms || parseKickoffMs(m);
+    const home = m?.home ?? m?.homeName ?? m?.home_team ?? m?.teams?.home ?? "";
+    const away = m?.away ?? m?.awayName ?? m?.away_team ?? m?.teams?.away ?? "";
+    const leagueSlug = m?.leagueSlug ?? m?.league ?? m?.league_code ?? "";
+    const leagueId = m?.leagueId ?? m?.lid ?? "";
+    const leagueName = m?.leagueName ?? m?.competition ?? m?.league_name ?? "";
+    const id = m?.id ?? m?.eventId ?? m?.event ?? "";
+    const status = m?.status ?? m?.state ?? "";
+    const score = m?.score_text ?? m?.score ?? "";
+    return { ...m, id, home, away, leagueSlug, leagueId, leagueName, status, score, kickoff_ms };
   }
 
-  function isSaved(id) {
-    try {
-      return !!(window.SavedStore && typeof window.SavedStore.isSaved === "function" && window.SavedStore.isSaved(id));
-    } catch (_) {
-      return false;
+  const state = {
+    fixtures: [], // latest fixtures from Today/fixtures
+    league: null  // {id,name,leagueSlug,leagueId}
+  };
+
+  function openDetails(m) {
+    if (!m) return;
+    if (window.DetailsModal && typeof window.DetailsModal.open === "function") {
+      window.DetailsModal.open(m);
+      return;
     }
+    emit("details-open", m);
   }
 
-  function toggleSave(match) {
-    try {
-      if (window.SavedStore && typeof window.SavedStore.toggleSave === "function") {
-        window.SavedStore.toggleSave(match);
-      }
-    } catch (_) {}
+  function toggleSave(m) {
+    const st = window.SavedStore;
+    if (st && typeof st.toggle === "function") st.toggle(m);
   }
 
-  function emit(name, payload) {
-    try { if (window.emit) window.emit(name, payload); } catch (_) {}
-  }
-  function on(name, fn) {
-    try { if (window.on) window.on(name, fn); } catch (_) {}
-  }
-
-  function baseUrl() {
-    const b =
-      (window.AIML_LIVE_CFG && (window.AIML_LIVE_CFG.liveUltraBase || window.AIML_LIVE_CFG.base)) ||
-      "";
-    return String(b || "").replace(/\/+$/, "");
-  }
-
-  async function safeJson(url) {
-    try {
-      const r = await fetch(url, { cache: "no-store" });
-      const t = await r.text();
-      return JSON.parse(t);
-    } catch (_) {
-      return null;
-    }
-  }
-
-  function extractArray(p) {
-    if (!p) return [];
-    if (Array.isArray(p)) return p;
-    if (Array.isArray(p.matches)) return p.matches;
-    if (Array.isArray(p.items)) return p.items;
-    if (Array.isArray(p.data)) return p.data;
-    return [];
-  }
-
-  function normalizeMatch(raw) {
-    const id =
-      raw?.id || raw?.matchId || raw?.fixtureId || raw?.eventId || raw?.uid ||
-      (raw?.home && raw?.away && raw?.kickoff ? `${raw.home}-${raw.away}-${raw.kickoff}` : "") ||
-      "m_" + Math.random().toString(16).slice(2);
-
-    const home =
-      raw?.home?.name || raw?.homeName || raw?.home || raw?.teamHome || raw?.home_team || "";
-
-    const away =
-      raw?.away?.name || raw?.awayName || raw?.away || raw?.teamAway || raw?.away_team || "";
-
-    const kickoff =
-      raw?.kickoff || raw?.kickoffISO || raw?.utcDate || raw?.startDate || raw?.start || raw?.date || "";
-
-    const leagueName =
-      raw?.league?.name || raw?.leagueName || raw?.competition?.name || raw?.competitionName || raw?.tournament?.name || raw?.tournamentName || raw?.league_name || "";
-
-    const leagueSlug =
-      raw?.leagueSlug || raw?.leagueCode || raw?.competitionSlug || raw?.tournamentSlug || raw?.slug || "";
-
-    const status = raw?.status || raw?.state || raw?.stage || "";
-
-    const scoreHome = (raw?.scoreHome ?? raw?.homeScore ?? raw?.score_home ?? raw?.goalsHome);
-    const scoreAway = (raw?.scoreAway ?? raw?.awayScore ?? raw?.score_away ?? raw?.goalsAway);
-
-    const m = {
-      id: String(id),
-      home: String(home || ""),
-      away: String(away || ""),
-      kickoff: kickoff,
-      kickoff_ms: raw?.kickoff_ms || raw?.kickoffMs || null,
-      leagueName: String(leagueName || ""),
-      leagueSlug: String(leagueSlug || ""),
-      leagueId: raw?.leagueId || raw?.league_id || "",
-      status: String(status || ""),
-      minute: String(raw?.minute || raw?.clock || raw?.timeText || ""),
-      scoreHome: (scoreHome == null ? "" : String(scoreHome)),
-      scoreAway: (scoreAway == null ? "" : String(scoreAway))
-    };
-
-    // Enrich via LeagueBinding (maps ESPN → accordion leagueId)
-    try {
-      if (window.LeagueBinding && typeof window.LeagueBinding.enrichMatch === "function") {
-        window.LeagueBinding.enrichMatch(m);
-      }
-    } catch (_) {}
-
-    return m;
-  }
-
-  function matchLeagueEquals(m, league) {
+  function sameLeague(m, league) {
     if (!m || !league) return false;
 
-    const lid = String(league.id || "").trim();
-    if (lid && String(m.leagueId || "").trim() === lid) return true;
+    const mid = String(m.leagueId || "").trim();
+    const mslug = String(m.leagueSlug || "").trim();
+    const mname = String(m.leagueName || "").trim();
 
-    // fallback name match
-    const a = String(m.leagueName || "").toLowerCase().trim();
-    const b = String(league.name || "").toLowerCase().trim();
-    if (a && b && a === b) return true;
+    const lid = String(league.leagueId || league.id || "").trim();
+    const lslug = String(league.leagueSlug || "").trim();
+    const lname = String(league.name || "").trim();
+
+    // Prefer strong keys (leagueId), then slug, then name.
+    if (lid && mid && lid === mid) return true;
+    if (lslug && mslug && lslug === mslug) return true;
+    if (lname && mname && lname.toLowerCase() === mname.toLowerCase()) return true;
+
+    // last resort: derived id match (ENG1 etc.)
+    const derived = String(mslug || mname || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+    if (league.id && derived && String(league.id) === derived) return true;
 
     return false;
   }
 
-  // ---------- UI ----------
-  function ensureToolbar() {
-    let toolbar = panel.querySelector(".matches-toolbar");
-    if (!toolbar) {
-      toolbar = document.createElement("div");
-      toolbar.className = "matches-toolbar";
-      toolbar.style.display = "flex";
-      toolbar.style.alignItems = "center";
-      toolbar.style.gap = "8px";
-      toolbar.style.padding = "8px 0";
-      panel.insertBefore(toolbar, listEl);
-    }
-
-    let btnSaved = document.getElementById("matches-saved-only");
-    if (!btnSaved) {
-      btnSaved = document.createElement("button");
-      btnSaved.id = "matches-saved-only";
-      btnSaved.className = "btn";
-      btnSaved.type = "button";
-      btnSaved.textContent = "Saved only";
-      toolbar.appendChild(btnSaved);
-      btnSaved.addEventListener("click", () => {
-        state.savedOnly = !state.savedOnly;
-        btnSaved.classList.toggle("active", state.savedOnly);
-        render();
-      });
-    }
-
-    let meta = document.getElementById("matches-meta");
-    if (!meta) {
-      meta = document.createElement("div");
-      meta.id = "matches-meta";
-      meta.style.marginLeft = "auto";
-      meta.style.opacity = ".75";
-      meta.style.fontSize = "12px";
-      toolbar.appendChild(meta);
-    }
-  }
-
-  function setMeta(text) {
-    const meta = document.getElementById("matches-meta");
-    if (meta) meta.textContent = text || "";
-  }
-
   function render() {
-    ensureToolbar();
-
-    const leagueName = state.league ? (state.league.name || state.league.id || "") : "";
-    const all = Array.isArray(state.matches) ? state.matches.slice() : [];
-
-    const arr = state.savedOnly ? all.filter((m) => isSaved(m.id)) : all;
-    arr.sort((a, b) => (kickoffMs(a) || 0) - (kickoffMs(b) || 0));
-
-    setMeta(leagueName ? `${leagueName} • ${arr.length}` : `${arr.length}`);
-
-    if (!state.league) {
-      listEl.innerHTML = `<div class="muted" style="padding:10px;opacity:.75;">Select a league to view ESPN matches.</div>`;
+    const league = state.league;
+    if (!league) {
+      listEl.innerHTML = `<div class="muted" style="padding:10px;">Select a league to view matches.</div>`;
       return;
     }
+
+    const arr = state.fixtures
+      .map(normalizeMatch)
+      .filter((m) => sameLeague(m, league))
+      .sort((a, b) => (a.kickoff_ms || 0) - (b.kickoff_ms || 0));
 
     if (!arr.length) {
-      listEl.innerHTML = `<div class="muted" style="padding:10px;opacity:.75;">No ESPN matches for this league today.</div>`;
+      listEl.innerHTML = `<div class="muted" style="padding:10px;">No matches for ${esc(league.name || league.id || "league")}.</div>`;
       return;
     }
 
-    listEl.innerHTML = arr.map((m) => {
-      const timeTxt = athensHHMMFromKickoff(m.kickoff_ms || m.kickoff);
-      const saved = isSaved(m.id);
-      const scoreTxt = (m.scoreHome !== "" && m.scoreAway !== "") ? `${m.scoreHome}-${m.scoreAway}` : "";
-      const sub = `${esc(m.status || "")}${m.minute ? ` • ${esc(m.minute)}` : ""}`;
-
-      return `
-        <div class="row match-row" data-mid="${esc(m.id)}" style="padding:10px;">
-          <div style="display:flex;gap:10px;align-items:flex-start;">
-            <div style="min-width:56px;opacity:.95;font-variant-numeric:tabular-nums;">${esc(timeTxt)}</div>
-
-            <div style="flex:1;min-width:0;">
-              <div style="display:flex;gap:8px;align-items:flex-start;">
-                <div style="flex:1;min-width:0;line-height:1.25em;">
-                  ${esc(tnDisplay(m.home))} <span style="opacity:.7;">-</span> ${esc(tnDisplay(m.away))}
-                </div>
-                ${scoreTxt ? `<div style="white-space:nowrap;opacity:.95;">${esc(scoreTxt)}</div>` : ``}
-              </div>
-              ${sub.trim() ? `<div style="opacity:.7;font-size:11px;margin-top:4px;">${sub}</div>` : ``}
+    listEl.innerHTML = arr
+      .map((m) => {
+        const mid = esc(m.id);
+        const t = athensTime(m.kickoff_ms);
+        const title = `${esc(m.home)} - ${esc(m.away)}`;
+        const score = esc(m.score || "");
+        const st = esc(m.status || "");
+        return `
+          <div class="match-row" data-mid="${mid}" style="padding:10px;border-bottom:1px solid rgba(255,255,255,0.06);cursor:pointer;">
+            <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;">
+              <div style="font-weight:800;">${t}</div>
+              <div style="opacity:.8;font-size:12px;white-space:nowrap;">${st}</div>
             </div>
-
-            <div style="display:flex;gap:8px;align-items:center;">
-              <button class="today-icon-btn save ${saved ? "active" : ""}" data-act="save" title="Save">
-                ${saved ? "★" : "☆"}
-              </button>
-              <button class="today-icon-btn" data-act="details" title="Details">i</button>
+            <div style="opacity:.96;margin-top:2px;">${title}</div>
+            ${score ? `<div style="opacity:.85;margin-top:2px;">${score}</div>` : ``}
+            <div style="margin-top:8px;display:flex;gap:8px;">
+              <button class="btn-slim" data-act="save" data-mid="${mid}" title="Save">★</button>
+              <button class="btn-slim" data-act="info" data-mid="${mid}" title="Details">i</button>
             </div>
-          </div>
-        </div>
-      `;
-    }).join("");
+          </div>`;
+      })
+      .join("");
   }
 
-  // ---------- data load ----------
-  async function loadFixturesForDate(dateKey) {
-    const b = baseUrl();
+  async function fetchFixturesToday(dateKey) {
+    const b = base();
     if (!b) return [];
-    const url = `${b}/fixtures?date=${encodeURIComponent(dateKey)}`;
-    const p = await safeJson(url);
-    const arr = extractArray(p);
-    return arr.map(normalizeMatch);
+
+    const d = dateKey || new Date().toISOString().slice(0, 10);
+    const url = `${b}${fixturesPath()}?date=${encodeURIComponent(d)}&scope=all&v=${Date.now()}`;
+    try {
+      const res = await fetch(url, { method: "GET", credentials: "omit" });
+      const data = await res.json().catch(() => null);
+      const matches = Array.isArray(data?.matches) ? data.matches.map(normalizeMatch) : [];
+      return matches;
+    } catch (_) {
+      return [];
+    }
   }
 
-  async function loadForLeague(league) {
-    state.league = league;
-    state.matches = [];
-    render();
+  // Click handlers
+  panel.addEventListener("click", (e) => {
+    const t = e.target;
 
-    // Prefer Today cache (fast) if same day loaded
-    const todayKey = state.lastToday.dateKey || ymdInAthens(new Date());
-    let pool = Array.isArray(state.lastToday.items) ? state.lastToday.items.slice() : [];
+    const actBtn = t && t.closest ? t.closest("[data-act]") : null;
+    const act = actBtn ? String(actBtn.getAttribute("data-act") || "") : "";
+    const mid = actBtn ? String(actBtn.getAttribute("data-mid") || "") : "";
 
-    if (!pool.length) {
-      const fetched = await loadFixturesForDate(todayKey);
-      pool = fetched;
-    } else {
-      // Ensure normalization/enrichment for cached items too
-      pool = pool.map(normalizeMatch);
+    if ((act === "save" || act === "info") && mid) {
+      e.preventDefault();
+      e.stopPropagation();
+      const m = state.fixtures.find((x) => String(x.id) === String(mid));
+      if (m) {
+        if (act === "save") toggleSave(m);
+        if (act === "info") openDetails(m);
+      }
+      return;
     }
 
-    const filtered = pool.filter((m) => matchLeagueEquals(m, league));
-    state.matches = filtered;
-    render();
-  }
-
-  // ---------- events ----------
-  on("league-selected", (lg) => {
-    if (!lg || !lg.id) return;
-    // open Matches panel on click (as before)
-    if (typeof window.openAccordion === "function") window.openAccordion("panel-matches");
-    loadForLeague(lg);
+    const row = t && t.closest ? t.closest(".match-row") : null;
+    if (row) {
+      const id = row.getAttribute("data-mid");
+      const m = state.fixtures.find((x) => String(x.id) === String(id));
+      if (m) emit("match-selected", m);
+      return;
+    }
   });
 
-  // Keep a cache of today's matches so Matches panel can filter without extra fetch
+  // Event wiring
   on("today-matches:loaded", (p) => {
-    const items = Array.isArray(p?.items) ? p.items : (Array.isArray(p?.matches) ? p.matches : []);
-    const dateKey = String(p?.dateKey || "");
-    state.lastToday = { dateKey, items: items };
+    const arr = Array.isArray(p?.matches) ? p.matches : Array.isArray(p) ? p : [];
+    if (arr.length) state.fixtures = arr.map(normalizeMatch);
+    render();
   });
 
-  on("saved-store:updated", () => render());
+  on("league-selected", async (p) => {
+    // league-selected payload typically: {id,name,leagueSlug,leagueId}
+    if (!p) return;
+    state.league = {
+      id: p.id || p.leagueId || p.leagueSlug || "",
+      name: p.name || p.leagueName || p.leagueSlug || p.id || "League",
+      leagueSlug: p.leagueSlug || "",
+      leagueId: p.leagueId || p.id || ""
+    };
 
-  // Clicks: save/details/row select
-  listEl.addEventListener("click", (ev) => {
-    const row = ev.target && ev.target.closest ? ev.target.closest("[data-mid]") : null;
-    if (!row) return;
-
-    const id = row.getAttribute("data-mid") || "";
-    const m = (state.matches || []).find((x) => String(x.id) === String(id));
-    if (!m) return;
-
-    const btn = ev.target && ev.target.closest ? ev.target.closest("[data-act]") : null;
-    const act = btn ? btn.getAttribute("data-act") : "";
-
-    if (act === "save") {
-      toggleSave(m);
-      render();
-      return;
+    // If we don't have fixtures yet, fetch once (today)
+    if (!state.fixtures || !state.fixtures.length) {
+      listEl.innerHTML = `<div class="muted" style="padding:10px;">Loading…</div>`;
+      state.fixtures = await fetchFixturesToday();
     }
-    if (act === "details") {
-      emit("details-open", m);
-      return;
-    }
-
-    // row click -> match-selected
-    emit("match-selected", m);
+    render();
   });
 
-  // Boot: remain empty until league-selected
-  ensureToolbar();
+  // Initial placeholder
   render();
-
 })();

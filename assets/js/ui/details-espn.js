@@ -1,669 +1,240 @@
-/* assets/js/ui/details-espn.js */
-/* v1.0.0 — ESPN Data Adapter (standings / teams+logos / news / fixtures / results + value stats) */
-/* Global scripts, requires window.on/window.emit from app.js */
+/* ============================================================
+   assets/js/ui/details-espn.js  (FINAL v1.6.0)
+   Worker-backed Match Details data layer for AIML ULTRA
 
+   Uses:
+     - {base}/match-summary?league=<eng.1>&event=<id>
+     - {base}/standings?league=<eng.1>
+
+   Exposes:
+     window.DetailsAPI.load(match) -> { ok, match, league, summary, standings, h2h? }
+     window.DetailsAPI.extractStats(payload) -> [{name, home, away}]
+     window.DetailsAPI.extractTimeline(payload) -> [{t, text, side}]
+============================================================ */
 (function () {
   "use strict";
 
-  // -----------------------------
-  // Guards
-  // -----------------------------
+  if (window.__AIML_DETAILS_API__) return;
+  window.__AIML_DETAILS_API__ = true;
+
   const hasBus = typeof window.on === "function" && typeof window.emit === "function";
   if (!hasBus) return;
 
-  // -----------------------------
-  // Config
-  // -----------------------------
-  const VERSION = "1.0.0";
-  const DEFAULT_NEWS_LIMIT = 20;
+  const cfg = () => window.AIML_LIVE_CFG || {};
+  const base = () => String(cfg().fixturesBase || cfg().liveUltraBase || "").replace(/\/+$/, "");
 
-  // Abort timeouts (ms)
-  const TMO_FAST = 8000;
-  const TMO_SLOW = 12000;
+  const esc = (s) =>
+    String(s == null ? "" : s)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#39;");
 
-  // In-memory cache TTLs (ms) — the worker itself also KV-caches
-  const TTL_SCOREBOARD = 60 * 1000;
-  const TTL_FIXRES = 60 * 1000;
-  const TTL_NEWS = 10 * 60 * 1000;
-  const TTL_TEAMS = 6 * 60 * 60 * 1000;
-  const TTL_STANDINGS = 30 * 60 * 1000;
-  const TTL_H2H = 30 * 60 * 1000;
+  // id -> espn slug fallback (only if leagueSlug missing)
+  const ID_TO_SLUG = {
+    ENG1: "eng.1", ENG2: "eng.2", ENG3: "eng.3", ENG4: "eng.4",
+    ESP1: "esp.1", ESP2: "esp.2",
+    GER1: "ger.1", GER2: "ger.2",
+    ITA1: "ita.1", ITA2: "ita.2",
+    FRA1: "fra.1", FRA2: "fra.2",
+    GRE1: "gre.1",
+    NED1: "ned.1", POR1: "por.1", SCO1: "sco.1", BEL1: "bel.1",
+    TUR1: "tur.1", CYP1: "cyp.1", SUI1: "sui.1"
+  };
 
-  const DEBUG = !!window.AIML_DEBUG_ESPN;
+  function leagueFromMatch(m) {
+    const slug = String(m?.leagueSlug || m?.league || "").trim().toLowerCase();
+    if (slug && slug.includes(".")) return slug;
 
-  // -----------------------------
-  // Store (global)
-  // -----------------------------
-  const STORE = (window.ESPN_STORE = window.ESPN_STORE || {
-    version: VERSION,
-    meta: { boot_ts: new Date().toISOString() },
-    cache: {
-      scoreboard: Object.create(null), // key -> {ts,data}
-      fixtures: Object.create(null),   // key -> {ts,data}
-      results: Object.create(null),    // key -> {ts,data}
-      standings: Object.create(null),  // key -> {ts,data,normalized,valueStats}
-      teams: Object.create(null),      // key -> {ts,data,normalized,byName,byId}
-      news: Object.create(null),       // key -> {ts,data,items}
-      h2h: Object.create(null)         // key -> {ts,data}
-    }
-  });
+    const lid = String(m?.leagueId || "").trim().toUpperCase();
+    if (lid && ID_TO_SLUG[lid]) return ID_TO_SLUG[lid];
 
-  // -----------------------------
-  // Helpers
-  // -----------------------------
-  function log() {
-    if (!DEBUG) return;
-    try { console.log.apply(console, ["[ESPN]", ...arguments]); } catch (_) {}
+    // last fallback: try to see a dotted league inside any string
+    const any = String(m?.leagueName || "").toLowerCase();
+    if (any.includes("premier")) return "eng.1";
+    if (any.includes("laliga") || any.includes("la liga")) return "esp.1";
+    return "";
   }
 
-  function baseUrl() {
-    const cfg = window.AIML_LIVE_CFG || {};
-    const b = (cfg.liveUltraBase || cfg.fixturesBase || "").trim();
-    return b ? b.replace(/\/+$/, "") : "";
-  }
+  async function fetchJson(path, params, timeoutMs) {
+    const b = base();
+    if (!b) return null;
 
-  function toYYYYMMDD(input) {
-    if (!input) return new Date().toISOString().slice(0, 10).replace(/-/g, "");
-    const s = String(input).trim();
-    if (/^\d{8}$/.test(s)) return s;
-    if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s.replace(/-/g, "");
-    return new Date().toISOString().slice(0, 10).replace(/-/g, "");
-  }
+    const q = new URLSearchParams(params || {});
+    q.set("v", String(Date.now())); // cache-bust always
 
-  function nowMs() { return Date.now(); }
+    const url = `${b}${path}${path.includes("?") ? "&" : "?"}${q.toString()}`;
 
-  function isFresh(entry, ttlMs) {
-    return entry && entry.ts && (nowMs() - entry.ts) <= ttlMs;
-  }
-
-  async function fetchJson(url, timeoutMs) {
-    const ctrl = new AbortController();
-    const t = setTimeout(() => ctrl.abort(), timeoutMs || TMO_FAST);
-
+    const ac = new AbortController();
+    const t = setTimeout(() => ac.abort(), Number(timeoutMs) || 12000);
     try {
-      const res = await fetch(url, {
-        method: "GET",
-        cache: "no-store",
-        mode: "cors",
-        signal: ctrl.signal
-      });
-      const ok = !!res.ok;
-      const status = res.status;
-
-      let data = null;
-      try { data = await res.json(); } catch (_) { data = null; }
-
-      return { ok, status, url, data };
-    } catch (e) {
-      return { ok: false, status: 0, url, error: e && e.message ? e.message : String(e) };
+      const r = await fetch(url, { cache: "no-store", signal: ac.signal });
+      const txt = await r.text();
+      try { return JSON.parse(txt); } catch (_) { return null; }
+    } catch (_) {
+      return null;
     } finally {
       clearTimeout(t);
     }
   }
 
-  function apiUrl(path) {
-    const b = baseUrl();
-    if (!b) return "";
-    const p = String(path || "");
-    return b + (p.startsWith("/") ? p : ("/" + p));
-  }
+  // Lightweight client cache (per match id)
+  const cache = Object.create(null);
 
-  function emit(name, payload) {
-    try { window.emit(name, payload); } catch (_) {}
-  }
+  async function load(match) {
+    const id = String(match?.id || "").trim();
+    if (!id) return { ok: false, error: "missing_match_id" };
 
-  // -----------------------------
-  // League code mapping (your IDs -> ESPN)
-  // -----------------------------
-  const MAP = {
-    // Common internal IDs
-    "ENG1": "eng.1",
-    "ENG2": "eng.2",
-    "ENG3": "eng.3",
-    "ENG4": "eng.4",
-    "ESP1": "esp.1",
-    "ESP2": "esp.2",
-    "ITA1": "ita.1",
-    "ITA2": "ita.2",
-    "FRA1": "fra.1",
-    "FRA2": "fra.2",
-    "GER1": "ger.1",
-    "GER2": "ger.2",
-    "NED1": "ned.1",
-    "POR1": "por.1",
-    "GRE1": "gre.1",
+    const league = leagueFromMatch(match);
 
-    // Your historic shortcuts
-    "PL": "eng.1",
-    "PD": "esp.1",
-    "SA": "ita.1",
-    "FL1": "fra.1",
-    "BL1": "ger.1",
+    const key = `${league}|${id}`;
+    const c = cache[key];
+    if (c && (Date.now() - c.ts) < 30000) return c.data;
 
-    // UEFA
-    "UCL": "uefa.champions",
-    "UEL": "uefa.europa",
-    "UECL": "uefa.europa.conf"
-  };
+    const out = { ok: true, ts: new Date().toISOString(), match, league };
 
-  function toEspnLeagueCode(input) {
-    const s0 = String(input || "").trim();
-    if (!s0) return "";
-    const s = s0.toUpperCase();
+    // Summary is required
+    const sum = league ? await fetchJson("/match-summary", { league, event: id }, 15000) : null;
+    out.summary = sum;
 
-    // If already ESPN form like "ENG.1"
-    if (/^[A-Z]{3}\.\d$/.test(s)) return s.toLowerCase();
+    // Standings is best-effort
+    const st = league ? await fetchJson("/standings", { league }, 15000) : null;
+    out.standings = st;
 
-    // If already like "eng.1"
-    if (/^[a-z]{3}\.\d$/.test(s0)) return s0.toLowerCase();
-
-    if (MAP[s]) return MAP[s];
-
-    // If match object passes leagueSlug "ENG.1"
-    if (/^[A-Z]{3}\.\d$/.test(s)) return s.toLowerCase();
-
-    return "";
-  }
-
-  // -----------------------------
-  // Standings normalizer (robust)
-  // -----------------------------
-  function toNum(x) {
-    const n = typeof x === "number" ? x : parseFloat(String(x || "").replace(",", "."));
-    return Number.isFinite(n) ? n : null;
-  }
-
-  function flattenEntries(node, out) {
-    if (!node) return;
-    if (Array.isArray(node.entries)) {
-      node.entries.forEach((e) => out.push(e));
+    // Optional H2H (only if the worker exposes it; keep best-effort)
+    const homeId = String(match?.homeId || "").trim();
+    const awayId = String(match?.awayId || "").trim();
+    if (league && homeId && awayId) {
+      const h2h = await fetchJson("/espn/h2h", { league, homeId, awayId, limit: 10 }, 15000);
+      out.h2h = h2h;
+    } else {
+      out.h2h = null;
     }
-    // ESPN often nests inside children
-    if (Array.isArray(node.children)) {
-      node.children.forEach((ch) => flattenEntries(ch, out));
-    }
-    // sometimes "standings" key holds the real object
-    if (node.standings) flattenEntries(node.standings, out);
+
+    cache[key] = { ts: Date.now(), data: out };
+    return out;
   }
 
-  function normalizeStandings(json, leagueCode) {
-    // Find a root that contains entries
-    const root = json?.standings || json;
-    const entries = [];
-    flattenEntries(root, entries);
+  // -----------------------------
+  // Robust extraction helpers (works even if worker-normalized is thin)
+  // -----------------------------
+  function getSummaryRaw(payload) {
+    const s = payload?.summary;
+    if (!s) return null;
+    if (s.summary) return s.summary;       // worker format
+    if (s.data) return s.data;             // alternative
+    return s;                              // already raw
+  }
 
-    const rows = entries.map((en) => {
-      const team = en?.team || {};
-      const stats = Array.isArray(en?.stats) ? en.stats : [];
+  function getNormalized(payload) {
+    const s = payload?.summary;
+    if (!s) return null;
+    return s.normalized || s.norm || null;
+  }
 
-      const statByName = Object.create(null);
-      stats.forEach((st) => {
-        const key = String(st?.name || st?.abbreviation || st?.shortDisplayName || st?.displayName || "").trim();
-        if (!key) return;
-        statByName[key] = st;
-      });
+  function extractTeams(payload) {
+    const N = getNormalized(payload) || {};
+    const raw = getSummaryRaw(payload) || {};
+    const comp = raw?.header?.competitions?.[0] || null;
+    const comps = Array.isArray(comp?.competitors) ? comp.competitors : [];
+    const home = comps.find(c => c?.homeAway === "home") || null;
+    const away = comps.find(c => c?.homeAway === "away") || null;
 
-      function pick(keys) {
-        for (let i = 0; i < keys.length; i++) {
-          const k = keys[i];
-          if (statByName[k]) return statByName[k];
-        }
-        return null;
+    const homeName = N?.home?.name || home?.team?.displayName || home?.team?.name || payload?.match?.home || "";
+    const awayName = N?.away?.name || away?.team?.displayName || away?.team?.name || payload?.match?.away || "";
+    const homeScore = (N?.home?.score != null && String(N.home.score) !== "") ? String(N.home.score) : (home?.score != null ? String(home.score) : "");
+    const awayScore = (N?.away?.score != null && String(N.away.score) !== "") ? String(N.away.score) : (away?.score != null ? String(away.score) : "");
+
+    const kickoff_ms = Number(N?.kickoff_ms || payload?.match?.kickoff_ms || 0) || 0;
+    const status = String(N?.status || payload?.match?.status || "") || "";
+    const clock = String(N?.clock || payload?.match?.minute || "") || "";
+    const venue = String(N?.venue || raw?.gameInfo?.venue?.fullName || "") || "";
+
+    return { homeName, awayName, homeScore, awayScore, kickoff_ms, status, clock, venue };
+  }
+
+  function extractStats(payload) {
+    const N = getNormalized(payload) || {};
+    const raw = getSummaryRaw(payload) || {};
+
+    // 1) worker normalized list (if present and already home/away)
+    if (Array.isArray(N.statistics) && N.statistics.length) {
+      // Accept either {name,homeDisplayValue,awayDisplayValue} or {name,homeValue,awayValue}
+      return N.statistics.map(s => ({
+        name: String(s?.name || s?.abbreviation || ""),
+        home: String(s?.homeDisplayValue ?? s?.homeValue ?? s?.home ?? ""),
+        away: String(s?.awayDisplayValue ?? s?.awayValue ?? s?.away ?? "")
+      })).filter(x => x.name);
+    }
+
+    // 2) ESPN boxscore shape for soccer: boxscore.teams[].statistics[]
+    const teams = Array.isArray(raw?.boxscore?.teams) ? raw.boxscore.teams : [];
+    if (teams.length >= 2) {
+      const a = teams[0], b = teams[1];
+      const sa = Array.isArray(a?.statistics) ? a.statistics : [];
+      const sb = Array.isArray(b?.statistics) ? b.statistics : [];
+
+      const mapA = Object.create(null);
+      for (const s of sa) {
+        const key = String(s?.name || s?.abbreviation || "").trim();
+        if (!key) continue;
+        mapA[key] = s;
       }
 
-      const rank =
-        toNum(en?.stats?.find?.((s) => s?.name === "rank")?.value) ??
-        toNum(en?.rank) ??
-        null;
+      const out = [];
+      for (const s of sb) {
+        const key = String(s?.name || s?.abbreviation || "").trim();
+        if (!key) continue;
+        const sa0 = mapA[key];
+        const home = sa0?.displayValue ?? sa0?.value ?? "";
+        const away = s?.displayValue ?? s?.value ?? "";
+        out.push({ name: key, home: String(home), away: String(away) });
+      }
 
-      const gp = pick(["gamesPlayed", "GP"]) || null;
-      const w  = pick(["wins", "W"]) || null;
-      const d  = pick(["ties", "draws", "T", "D"]) || null;
-      const l  = pick(["losses", "L"]) || null;
+      // If empty due to mismatch, fall back to whichever exists
+      if (out.length) return out;
+    }
 
-      const pts = pick(["points", "PTS", "P"]) || null;
+    // 3) last-resort: competition.statistics (rare)
+    const comp = raw?.header?.competitions?.[0];
+    const cstats = Array.isArray(comp?.statistics) ? comp.statistics : [];
+    if (cstats.length) {
+      return cstats.map(s => ({
+        name: String(s?.name || s?.abbreviation || ""),
+        home: String(s?.homeDisplayValue ?? s?.homeValue ?? ""),
+        away: String(s?.awayDisplayValue ?? s?.awayValue ?? "")
+      })).filter(x => x.name);
+    }
 
-      const gf = pick(["goalsFor", "GF"]) || null;
-      const ga = pick(["goalsAgainst", "GA"]) || null;
-      const gd = pick(["goalDifference", "GD"]) || null;
-
-      const form = pick(["lastFive", "form"]) || null;
-      const streak = pick(["streak"]) || null;
-
-      const logo = (Array.isArray(team?.logos) && team.logos[0]?.href) ? team.logos[0].href : "";
-
-      return {
-        league: leagueCode,
-        teamId: team?.id ? String(team.id) : "",
-        teamName: team?.displayName || team?.name || "",
-        teamShort: team?.shortDisplayName || "",
-        abbr: team?.abbreviation || "",
-        logo,
-
-        rank: rank,
-        played: toNum(gp?.value ?? gp?.displayValue),
-        wins: toNum(w?.value ?? w?.displayValue),
-        draws: toNum(d?.value ?? d?.displayValue),
-        losses: toNum(l?.value ?? l?.displayValue),
-
-        points: toNum(pts?.value ?? pts?.displayValue),
-
-        goalsFor: toNum(gf?.value ?? gf?.displayValue),
-        goalsAgainst: toNum(ga?.value ?? ga?.displayValue),
-        goalDiff: toNum(gd?.value ?? gd?.displayValue),
-
-        form: form?.displayValue || form?.summary || "",
-        streak: streak?.displayValue || streak?.summary || ""
-      };
-    }).filter((r) => r.teamId && r.teamName);
-
-    // If rank missing, infer from order
-    rows.forEach((r, idx) => { if (r.rank == null) r.rank = idx + 1; });
-
-    return rows;
+    return [];
   }
 
-  function buildValueStatsFromStandings(rows) {
-    const byTeam = rows.map((r) => {
-      const played = r.played || 0;
-      const gf = r.goalsFor != null ? r.goalsFor : null;
-      const ga = r.goalsAgainst != null ? r.goalsAgainst : null;
-      const gd = r.goalDiff != null ? r.goalDiff : (gf != null && ga != null ? (gf - ga) : null);
-      const pts = r.points != null ? r.points : null;
+  function extractTimeline(payload) {
+    const N = getNormalized(payload) || {};
+    const raw = getSummaryRaw(payload) || {};
 
-      const gfpg = (played > 0 && gf != null) ? (gf / played) : null;
-      const gapg = (played > 0 && ga != null) ? (ga / played) : null;
-      const gdpg = (played > 0 && gd != null) ? (gd / played) : null;
-      const ppg  = (played > 0 && pts != null) ? (pts / played) : null;
+    // ESPN often provides "details" array (play-by-play style)
+    const details = Array.isArray(N.details) ? N.details
+      : (Array.isArray(raw?.details) ? raw.details : []);
 
-      return {
-        league: r.league,
-        teamId: r.teamId,
-        teamName: r.teamName,
-        logo: r.logo,
-        rank: r.rank,
-        played,
-        points: pts,
-        wins: r.wins,
-        draws: r.draws,
-        losses: r.losses,
-        goalsFor: gf,
-        goalsAgainst: ga,
-        goalDiff: gd,
-        gfpg,
-        gapg,
-        gdpg,
-        ppg,
-        form: r.form || "",
-        streak: r.streak || ""
-      };
-    });
-
-    return { teams: byTeam, ts: new Date().toISOString() };
+    const out = [];
+    for (const d of details.slice(0, 50)) {
+      const t = String(d?.clock?.displayValue || d?.clock || d?.time || d?.displayClock || "");
+      const text = String(d?.text || d?.shortText || d?.description || "");
+      const side = String(d?.team?.id || d?.teamId || "");
+      if (!text) continue;
+      out.push({ t, text, side });
+    }
+    return out;
   }
 
-  // -----------------------------
-  // Teams normalizer (logos + maps)
-  // -----------------------------
-  function normalizeTeams(json) {
-    const teamsArr = [];
-    const sports = Array.isArray(json?.sports) ? json.sports : [];
-    const leagues = Array.isArray(sports?.[0]?.leagues) ? sports[0].leagues : [];
-    const tw = Array.isArray(leagues?.[0]?.teams) ? leagues[0].teams : [];
-
-    tw.forEach((wrap) => {
-      const t = wrap?.team || wrap || {};
-      if (!t?.id) return;
-
-      const logos = Array.isArray(t?.logos) ? t.logos : [];
-      teamsArr.push({
-        id: String(t.id),
-        name: t.displayName || t.name || "",
-        shortName: t.shortDisplayName || "",
-        abbr: t.abbreviation || "",
-        logo: logos?.[0]?.href || "",
-        logos: logos.map((x) => ({
-          href: x?.href || "",
-          width: x?.width || null,
-          height: x?.height || null,
-          rel: x?.rel || null
-        }))
-      });
-    });
-
-    const byId = Object.create(null);
-    const byName = Object.create(null);
-
-    teamsArr.forEach((t) => {
-      byId[t.id] = t;
-      if (t.name) byName[String(t.name).toLowerCase()] = t;
-      if (t.shortName) byName[String(t.shortName).toLowerCase()] = t;
-      if (t.abbr) byName[String(t.abbr).toLowerCase()] = t;
-    });
-
-    return { teams: teamsArr, byId, byName };
-  }
-
-  // -----------------------------
-  // News normalizer
-  // -----------------------------
-  function normalizeNews(json) {
-    const arr = Array.isArray(json?.articles) ? json.articles : [];
-    return arr.map((a) => ({
-      headline: a?.headline || "",
-      description: a?.description || "",
-      published: a?.published || a?.lastModified || "",
-      url: a?.links?.web?.href || a?.links?.api?.news?.href || "",
-      image: Array.isArray(a?.images) && a.images[0]?.url ? a.images[0].url : "",
-      byline: a?.byline || "",
-      type: a?.type || ""
-    })).filter((x) => x.headline);
-  }
-
-  // -----------------------------
-  // Core fetch API (cached)
-  // -----------------------------
-  async function getScoreboard(league, dateYYYYMMDD) {
-    const lg = (league || "all").toLowerCase();
-    const dateKey = toYYYYMMDD(dateYYYYMMDD);
-    const key = `${lg}:${dateKey}`;
-
-    const hit = STORE.cache.scoreboard[key];
-    if (isFresh(hit, TTL_SCOREBOARD)) return { ok: true, source: "mem", data: hit.data };
-
-    const url = apiUrl(`/espn/scoreboard?league=${encodeURIComponent(lg)}&date=${encodeURIComponent(dateKey)}`);
-    if (!url) return { ok: false, error: "missing_base_url" };
-
-    const r = await fetchJson(url, TMO_FAST);
-    if (!r.ok || !r.data) return { ok: false, status: r.status, error: r.error || "fetch_failed", url: r.url };
-
-    STORE.cache.scoreboard[key] = { ts: nowMs(), data: r.data };
-    return { ok: true, source: "net", data: r.data };
-  }
-
-  async function getFixtures(league, dateYYYYMMDD) {
-    const lg = (league || "all").toLowerCase();
-    const dateKey = toYYYYMMDD(dateYYYYMMDD);
-    const key = `${lg}:${dateKey}`;
-
-    const hit = STORE.cache.fixtures[key];
-    if (isFresh(hit, TTL_FIXRES)) return { ok: true, source: "mem", data: hit.data };
-
-    const url = apiUrl(`/espn/fixtures?league=${encodeURIComponent(lg)}&date=${encodeURIComponent(dateKey)}`);
-    if (!url) return { ok: false, error: "missing_base_url" };
-
-    const r = await fetchJson(url, TMO_FAST);
-    if (!r.ok || !r.data) return { ok: false, status: r.status, error: r.error || "fetch_failed", url: r.url };
-
-    STORE.cache.fixtures[key] = { ts: nowMs(), data: r.data };
-    return { ok: true, source: "net", data: r.data };
-  }
-
-  async function getResults(league, dateYYYYMMDD) {
-    const lg = (league || "all").toLowerCase();
-    const dateKey = toYYYYMMDD(dateYYYYMMDD);
-    const key = `${lg}:${dateKey}`;
-
-    const hit = STORE.cache.results[key];
-    if (isFresh(hit, TTL_FIXRES)) return { ok: true, source: "mem", data: hit.data };
-
-    const url = apiUrl(`/espn/results?league=${encodeURIComponent(lg)}&date=${encodeURIComponent(dateKey)}`);
-    if (!url) return { ok: false, error: "missing_base_url" };
-
-    const r = await fetchJson(url, TMO_FAST);
-    if (!r.ok || !r.data) return { ok: false, status: r.status, error: r.error || "fetch_failed", url: r.url };
-
-    STORE.cache.results[key] = { ts: nowMs(), data: r.data };
-    return { ok: true, source: "net", data: r.data };
-  }
-
-  async function getStandings(league, season) {
-    const lg = (league || "").toLowerCase();
-    if (!lg) return { ok: false, error: "missing_league" };
-    const yr = String(season || "").trim() || "";
-    const key = `${lg}:${yr || "current"}`;
-
-    const hit = STORE.cache.standings[key];
-    if (isFresh(hit, TTL_STANDINGS)) return { ok: true, source: "mem", data: hit.data, normalized: hit.normalized, valueStats: hit.valueStats };
-
-    const qs = `league=${encodeURIComponent(lg)}` + (yr ? `&season=${encodeURIComponent(yr)}` : "");
-    const url = apiUrl(`/espn/standings?${qs}`);
-    if (!url) return { ok: false, error: "missing_base_url" };
-
-    const r = await fetchJson(url, TMO_SLOW);
-    if (!r.ok || !r.data) return { ok: false, status: r.status, error: r.error || "fetch_failed", url: r.url };
-
-    const normalized = normalizeStandings(r.data?.standings || r.data, lg);
-    const valueStats = buildValueStatsFromStandings(normalized);
-
-    STORE.cache.standings[key] = { ts: nowMs(), data: r.data, normalized, valueStats };
-    return { ok: true, source: "net", data: r.data, normalized, valueStats };
-  }
-
-  async function getTeams(league) {
-    const lg = (league || "").toLowerCase();
-    if (!lg) return { ok: false, error: "missing_league" };
-    const key = lg;
-
-    const hit = STORE.cache.teams[key];
-    if (isFresh(hit, TTL_TEAMS)) return { ok: true, source: "mem", data: hit.data, normalized: hit.normalized };
-
-    const url = apiUrl(`/espn/teams?league=${encodeURIComponent(lg)}`);
-    if (!url) return { ok: false, error: "missing_base_url" };
-
-    const r = await fetchJson(url, TMO_SLOW);
-    if (!r.ok || !r.data) return { ok: false, status: r.status, error: r.error || "fetch_failed", url: r.url };
-
-    const normalized = normalizeTeams(r.data);
-    STORE.cache.teams[key] = { ts: nowMs(), data: r.data, normalized };
-
-    return { ok: true, source: "net", data: r.data, normalized };
-  }
-
-  async function getNews(league, limit) {
-    const lg = (league || "").toLowerCase();
-    if (!lg) return { ok: false, error: "missing_league" };
-    const lim = Math.max(1, Math.min(50, parseInt(limit || DEFAULT_NEWS_LIMIT, 10) || DEFAULT_NEWS_LIMIT));
-    const key = `${lg}:${lim}`;
-
-    const hit = STORE.cache.news[key];
-    if (isFresh(hit, TTL_NEWS)) return { ok: true, source: "mem", data: hit.data, items: hit.items };
-
-    const url = apiUrl(`/espn/news?league=${encodeURIComponent(lg)}&limit=${encodeURIComponent(lim)}`);
-    if (!url) return { ok: false, error: "missing_base_url" };
-
-    const r = await fetchJson(url, TMO_FAST);
-    if (!r.ok || !r.data) return { ok: false, status: r.status, error: r.error || "fetch_failed", url: r.url };
-
-    const items = normalizeNews(r.data);
-    STORE.cache.news[key] = { ts: nowMs(), data: r.data, items };
-
-    return { ok: true, source: "net", data: r.data, items };
-  }
-
-  // -----------------------------
-  // H2H hook (requires main endpoint later)
-  // -----------------------------
-  async function getH2H(league, homeTeamId, awayTeamId, limit) {
-    const lg = (league || "").toLowerCase();
-    const h = String(homeTeamId || "").trim();
-    const a = String(awayTeamId || "").trim();
-    const lim = Math.max(1, Math.min(20, parseInt(limit || 10, 10) || 10));
-
-    if (!lg || !h || !a) return { ok: false, error: "missing_params" };
-
-    const key = `${lg}:${h}:${a}:${lim}`;
-    const hit = STORE.cache.h2h[key];
-    if (isFresh(hit, TTL_H2H)) return { ok: true, source: "mem", data: hit.data };
-
-    // Optional endpoint (add later in aimatchlab-main):
-    // /espn/h2h?league=eng.1&homeId=123&awayId=456&limit=10
-    const url = apiUrl(`/espn/h2h?league=${encodeURIComponent(lg)}&homeId=${encodeURIComponent(h)}&awayId=${encodeURIComponent(a)}&limit=${encodeURIComponent(lim)}`);
-    if (!url) return { ok: false, error: "missing_base_url" };
-
-    const r = await fetchJson(url, TMO_SLOW);
-    if (!r.ok || !r.data) return { ok: false, status: r.status, error: r.error || "fetch_failed", url: r.url };
-
-    STORE.cache.h2h[key] = { ts: nowMs(), data: r.data };
-    return { ok: true, source: "net", data: r.data };
-  }
-
-  // -----------------------------
-  // Public API
-  // -----------------------------
-  const ESPNAdapter = (window.ESPNAdapter = window.ESPNAdapter || {});
-  ESPNAdapter.version = VERSION;
-
-  ESPNAdapter.resolveLeague = function (anyCode) {
-    return toEspnLeagueCode(anyCode) || (String(anyCode || "").trim().toLowerCase() || "");
+  // expose
+  window.DetailsAPI = {
+    load,
+    esc,
+    extractTeams,
+    extractStats,
+    extractTimeline
   };
-
-  ESPNAdapter.loadLeaguePack = async function (leagueCode, opts) {
-    const league = ESPNAdapter.resolveLeague(leagueCode);
-    if (!league) return;
-
-    const season = opts && opts.season ? String(opts.season) : "";
-    const newsLimit = opts && opts.newsLimit ? opts.newsLimit : DEFAULT_NEWS_LIMIT;
-
-    log("loadLeaguePack", league, season);
-
-    const [st, tm, nw] = await Promise.allSettled([
-      getStandings(league, season),
-      getTeams(league),
-      getNews(league, newsLimit)
-    ]);
-
-    if (st.status === "fulfilled" && st.value && st.value.ok) {
-      emit("espn:standings:loaded", {
-        league,
-        season: season || null,
-        source: st.value.source,
-        raw: st.value.data,
-        normalized: st.value.normalized
-      });
-
-      // Value feed (separate event, does NOT touch current value:update pipeline)
-      emit("espn:value:stats", {
-        league,
-        season: season || null,
-        source: st.value.source,
-        stats: st.value.valueStats
-      });
-    } else {
-      emit("espn:standings:error", { league, season: season || null, error: st?.reason || "failed" });
-    }
-
-    if (tm.status === "fulfilled" && tm.value && tm.value.ok) {
-      emit("espn:teams:loaded", {
-        league,
-        source: tm.value.source,
-        raw: tm.value.data,
-        teams: tm.value.normalized.teams
-      });
-    } else {
-      emit("espn:teams:error", { league, error: tm?.reason || "failed" });
-    }
-
-    if (nw.status === "fulfilled" && nw.value && nw.value.ok) {
-      emit("espn:news:loaded", {
-        league,
-        limit: newsLimit,
-        source: nw.value.source,
-        raw: nw.value.data,
-        items: nw.value.items
-      });
-    } else {
-      emit("espn:news:error", { league, error: nw?.reason || "failed" });
-    }
-  };
-
-  ESPNAdapter.loadDay = async function (dateYYYYMMDD, leagueCode) {
-    const dateKey = toYYYYMMDD(dateYYYYMMDD);
-    const league = leagueCode ? ESPNAdapter.resolveLeague(leagueCode) : "all";
-
-    log("loadDay", league, dateKey);
-
-    const [fx, rs] = await Promise.allSettled([
-      getFixtures(league, dateKey),
-      getResults(league, dateKey)
-    ]);
-
-    if (fx.status === "fulfilled" && fx.value && fx.value.ok) {
-      emit("espn:fixtures:loaded", fx.value.data);
-    } else {
-      emit("espn:fixtures:error", { league, date: dateKey });
-    }
-
-    if (rs.status === "fulfilled" && rs.value && rs.value.ok) {
-      emit("espn:results:loaded", rs.value.data);
-    } else {
-      emit("espn:results:error", { league, date: dateKey });
-    }
-  };
-
-  ESPNAdapter.getTeamLogo = function (leagueCode, teamNameOrId) {
-    const league = ESPNAdapter.resolveLeague(leagueCode);
-    const hit = STORE.cache.teams[league];
-    if (!hit || !hit.normalized) return "";
-
-    const q = String(teamNameOrId || "").trim();
-    if (!q) return "";
-
-    // id
-    if (hit.normalized.byId && hit.normalized.byId[q]) return hit.normalized.byId[q].logo || "";
-
-    // name
-    const k = q.toLowerCase();
-    if (hit.normalized.byName && hit.normalized.byName[k]) return hit.normalized.byName[k].logo || "";
-
-    return "";
-  };
-
-  ESPNAdapter.loadH2HForMatch = async function (match, opts) {
-    const league = ESPNAdapter.resolveLeague(match?.leagueSlug || match?.leagueCode || match?.league || "");
-    const homeId = match?.homeId || match?.homeTeamId || "";
-    const awayId = match?.awayId || match?.awayTeamId || "";
-    const lim = opts && opts.limit ? opts.limit : 10;
-
-    if (!league || !homeId || !awayId) {
-      emit("espn:h2h:unavailable", { league, reason: "missing_ids" });
-      return;
-    }
-
-    const r = await getH2H(league, homeId, awayId, lim);
-    if (r.ok) emit("espn:h2h:loaded", { league, homeId, awayId, source: r.source, data: r.data });
-    else emit("espn:h2h:unavailable", { league, homeId, awayId, reason: r.error || "unavailable" });
-  };
-
-  // -----------------------------
-  // Event wiring
-  // -----------------------------
-  // 1) When a league is selected from accordion navigation
-  window.on("league-selected", function (p) {
-    const id = p?.id || p?.leagueId || p?.league || "";
-    const name = p?.name || "";
-    const league = ESPNAdapter.resolveLeague(id) || ESPNAdapter.resolveLeague(name);
-
-    if (!league) return;
-    ESPNAdapter.loadLeaguePack(league, { newsLimit: DEFAULT_NEWS_LIMIT });
-  });
-
-  // 2) When Today panel loads matches, we can prefetch "ALL day" fixtures+results if desired
-  // (kept off by default; enable by setting window.AIML_ESPN_PREFETCH_DAY = true)
-  window.on("today-matches:loaded", function (p) {
-    if (!window.AIML_ESPN_PREFETCH_DAY) return;
-    const dk = p?.dateKey || "";
-    ESPNAdapter.loadDay(dk, "all");
-  });
-
-  // 3) When a match is selected, allow optional H2H if IDs exist and endpoint is available
-  // (kept off by default; enable by setting window.AIML_ESPN_H2H = true)
-  window.on("match-selected", function (m) {
-    if (!window.AIML_ESPN_H2H) return;
-    ESPNAdapter.loadH2HForMatch(m, { limit: 10 });
-  });
-
-  // Boot marker
-  emit("espn:adapter:ready", { version: VERSION, ts: new Date().toISOString() });
-  log("ready", VERSION);
 })();

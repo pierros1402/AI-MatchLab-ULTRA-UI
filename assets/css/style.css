@@ -988,3 +988,25 @@ body.drawer-right-open .app-grid {
   font-size: 12px !important;
   opacity: 0.8 !important;
 }
+/* =======================================
+   DETAILS MODAL VISIBILITY OVERRIDE FIX
+   Ensures the modal always appears on top
+======================================= */
+#details-modal {
+  position: fixed !important;
+  z-index: 99999 !important;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.8);
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+#details-modal.hidden {
+  display: none !important;
+}

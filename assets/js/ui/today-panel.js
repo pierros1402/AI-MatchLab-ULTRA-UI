@@ -1,325 +1,458 @@
 /* ============================================================
-   Today Panel v3.2 (Full Controls + Robust Fetch)
-   - Removes legacy inline day dropdown (#today-day-select) if present
-   - Day dropdown (Today + next 6)
-   - Scope toggle: All / Top (defaults from AIML_LIVE_CFG.fixturesScope)
-   - View toggle: League / Time
-   - Refresh + Saved-only (best-effort integration with SavedStore)
-   - Emits: today-matches:loaded { matches }
-   - Row click emits: match-selected (and does not auto-open Saved)
-   - Info button emits: details-open
-   ============================================================ */
+   assets/js/ui/today-panel.js  (FULL LINKED v1.8.5)
+   - Loads fixtures from Worker (/fixtures) — no demo dependency
+   - View modes:
+       • Time  (sorted by kickoff time)
+       • League (grouped in clean league cards, sorted by kickoff time)
+   - Actions:
+       • Row click -> emit("match-selected", match)
+       • ★ -> SavedStore.toggle(match)
+       • i -> DetailsModal.open(match) or emit("details-open", match)
+       • League header click (League view) -> emit("league-selected", {id,name,...}) and open Matches panel
+   - Emits:
+       today-matches:loaded { dateKey, scope, matches, meta }
+============================================================ */
 (function () {
   "use strict";
+
+  // Allow upgrades without hard-refresh (versioned guard)
+  const VER = "1.8.5";
+  if (window.__AIML_TODAY_PANEL_VER__ === VER) return;
+  window.__AIML_TODAY_PANEL_VER__ = VER;
 
   const panel = document.getElementById("panel-today");
   const listEl = document.getElementById("today-list");
   if (!panel || !listEl) return;
 
-  // Remove legacy dropdown if it exists in index.html
-  const legacySel = document.getElementById("today-day-select");
-  if (legacySel && legacySel.parentElement) {
-    try { legacySel.parentElement.remove(); } catch (_) {}
-  }
+  const cfg = () => window.AIML_LIVE_CFG || {};
+  const base = () => String(cfg().fixturesBase || cfg().liveUltraBase || "").replace(/\/+$/, "");
+  const fixturesPath = () => String(cfg().fixturesPath || "/fixtures");
+  const defaultScope = () => String(cfg().fixturesScope || "all"); // "all" | "top"
 
-  // Avoid duplicating controls on hot reload
-  const existing = panel.querySelector(".today-controls");
-  if (existing) { try { existing.remove(); } catch (_) {} }
+  const on = (n, f) => (window.on ? window.on(n, f) : null);
+  const emit = (n, p) => (window.emit ? window.emit(n, p) : null);
 
-  const cfg = window.AIML_LIVE_CFG || {};
-  const base = String(cfg.fixturesBase || cfg.liveUltraBase || "").replace(/\/+$/, "");
-  const path = String(cfg.fixturesPath || "/fixtures");
-  const fixturesPath = path.startsWith("/") ? path : ("/" + path);
-
-  let currentScope = String(cfg.fixturesScope || "all").trim().toLowerCase() === "top" ? "top" : "all";
-  let currentView = "league";
-  let savedOnly = false;
-
-  const esc = (s) => String(s ?? "").replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
-  const on = (n, fn) => { try { window.on && window.on(n, fn); } catch (_) {} };
-  const emit = (n, p) => { try { window.emit && window.emit(n, p); } catch (_) {} };
+  const esc = (s) =>
+    String(s == null ? "" : s)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;");
 
   function toYMD(d) {
     const y = d.getFullYear();
     const m = String(d.getMonth() + 1).padStart(2, "0");
     const dd = String(d.getDate()).padStart(2, "0");
-    return `${y}${m}${dd}`;
+    return `${y}-${m}-${dd}`;
+  }
+
+  function parseKickoffMs(m) {
+    // accept many shapes
+    const raw =
+      m?.kickoff ||
+      m?.utcDate ||
+      m?.startDate ||
+      m?.startTime ||
+      m?.eventDate ||
+      m?.date ||
+      m?.competitionDate ||
+      m?.competitions?.[0]?.date ||
+      null;
+
+    if (!raw) return 0;
+
+    // numeric epoch?
+    if (typeof raw === "number") return raw;
+    if (typeof raw === "string") {
+      // YYYY-MM-DDTHH:mm:ssZ / ISO
+      const t = Date.parse(raw);
+      if (!Number.isNaN(t)) return t;
+
+      // "20251223T200000Z" etc.
+      const m1 = raw.match(/^(\d{4})(\d{2})(\d{2})[T\s]?(\d{2})(\d{2})/);
+      if (m1) {
+        const [_, yy, mm, dd, hh, mi] = m1;
+        const iso = `${yy}-${mm}-${dd}T${hh}:${mi}:00Z`;
+        const t2 = Date.parse(iso);
+        if (!Number.isNaN(t2)) return t2;
+      }
+    }
+    return 0;
   }
 
   function athensTime(ms) {
     const t = Number(ms || 0);
     if (!t) return "--:--";
-    const d = new Date(t);
-    return d.toLocaleTimeString("el-GR", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Athens", hour12: false });
+    try {
+      return new Date(t).toLocaleTimeString("el-GR", {
+        hour: "2-digit",
+        minute: "2-digit",
+        timeZone: "Europe/Athens",
+        hour12: false
+      });
+    } catch (_) {
+      return "--:--";
+    }
   }
 
   function isFinished(status) {
     const s = String(status || "").toUpperCase();
-    return (s.includes("FINAL") || s.includes("FULL") || s.includes("POST") || s.includes("CANCEL") || s.includes("COMPLETE") || s.includes("FINISH") || s.includes("GAME_OVER") || s.includes("ENDED"));
+    return s === "FINISHED" || s === "FT" || s === "FINAL" || s === "AET" || s === "PEN" || s === "ENDED";
   }
 
-  // SavedStore integration (best-effort)
-  function getSavedIdSet() {
-    const set = new Set();
-    try {
-      const ss = window.SavedStore;
-      if (ss) {
-        if (typeof ss.getIds === "function") {
-          const ids = ss.getIds();
-          if (Array.isArray(ids)) ids.forEach((x) => set.add(String(x)));
-          return set;
-        }
-        if (typeof ss.all === "function") {
-          const arr = ss.all();
-          if (Array.isArray(arr)) arr.forEach((x) => set.add(String(x?.id || x)));
-          return set;
-        }
-      }
-    } catch (_) {}
-
-    // Fallback localStorage common keys
-    const keys = ["AIML_SAVED_V1", "AIML_SAVED", "AIMATCHLAB_SAVED_V1"];
-    for (const k of keys) {
-      try {
-        const raw = localStorage.getItem(k);
-        if (!raw) continue;
-        const j = JSON.parse(raw);
-        if (Array.isArray(j)) j.forEach((x) => set.add(String(x?.id || x)));
-        else if (j && typeof j === "object") Object.keys(j).forEach((id) => set.add(String(id)));
-      } catch (_) {}
-    }
-    return set;
-  }
-
-  function toggleSave(match) {
-    try {
-      const ss = window.SavedStore;
-      if (ss) {
-        if (typeof ss.toggle === "function") return ss.toggle(match);
-        if (typeof ss.toggleById === "function") return ss.toggleById(match.id, match);
-        if (typeof ss.add === "function" && typeof ss.remove === "function") {
-          const ids = getSavedIdSet();
-          return ids.has(String(match.id)) ? ss.remove(match.id) : ss.add(match);
-        }
-      }
-    } catch (_) {}
-    // Fallback: do nothing (Saved panel may still work from other panels)
-    return false;
-  }
-
-  // Build controls
-  const ctrls = document.createElement("div");
-  ctrls.className = "today-controls";
-  ctrls.innerHTML = `
-    <div class="ctrl-row" style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;padding:4px 8px;">
-      <select id="today-date"></select>
-      <button id="btn-scope" class="btn-slim">${currentScope === "all" ? "All" : "Top"}</button>
-      <button id="btn-view" class="btn-slim">View: ${currentView === "league" ? "League" : "Time"}</button>
-      <button id="btn-refresh" class="btn-slim">Refresh</button>
-      <button id="btn-saved" class="btn-slim">Saved only</button>
-    </div>
-  `;
-  panel.insertBefore(ctrls, listEl);
-
-  const selDate = ctrls.querySelector("#today-date");
-  const btnScope = ctrls.querySelector("#btn-scope");
-  const btnView = ctrls.querySelector("#btn-view");
-  const btnRefresh = ctrls.querySelector("#btn-refresh");
-  const btnSaved = ctrls.querySelector("#btn-saved");
-
-  function buildDates() {
-    selDate.innerHTML = "";
-    const today = new Date();
-    for (let i = 0; i < 7; i++) {
-      const d = new Date(today.getTime() + i * 86400000);
-      const lbl = i === 0
-        ? `Today (${d.toLocaleDateString("el-GR")})`
-        : d.toLocaleDateString("el-GR", { weekday: "short", day: "2-digit", month: "2-digit" });
-      const opt = document.createElement("option");
-      opt.value = toYMD(d);
-      opt.textContent = lbl;
-      selDate.appendChild(opt);
-    }
-  }
-  buildDates();
-
+  // --- State
+  let currentScope = defaultScope();
+  let currentView = "time"; // "time" | "league"
+  let savedOnly = false;
+  let lastDateKey = toYMD(new Date());
   let lastPayload = [];
+  let lastMeta = null;
+
+  // --- Controls / UI
+  function inner() {
+    return document.getElementById("today-list-inner");
+  }
+
+  function selDate() {
+    return document.getElementById("today-date");
+  }
+
+  function btn(id) {
+    return document.getElementById(id);
+  }
+
+  function getSavedIdSet() {
+    const st = window.SavedStore;
+    if (!st) return new Set();
+    try {
+      if (typeof st.getIds === "function") return new Set((st.getIds() || []).map(String));
+      if (Array.isArray(st.ids)) return new Set(st.ids.map(String));
+    } catch (_) {}
+    return new Set();
+  }
+
+  function ensureScaffold() {
+    // Rebuild scaffold if someone overwrote #today-list (common during UI changes)
+    if (document.getElementById("today-list-inner")) return;
+
+    listEl.innerHTML = `
+      <div class="today-toolbar" style="padding:8px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+        <select id="today-date" class="btn-slim"></select>
+        <button id="btn-scope" class="btn-slim">${currentScope === "all" ? "All" : "Top"}</button>
+        <button id="btn-view" class="btn-slim">View: ${currentView === "league" ? "League" : "Time"}</button>
+        <button id="btn-refresh" class="btn-slim">Refresh</button>
+        <button id="btn-saved" class="btn-slim">Saved only</button>
+      </div>
+      <div id="today-list-inner"></div>
+    `;
+
+    // Populate day selector: today + next 6
+    const sel = selDate();
+    if (sel) {
+      sel.innerHTML = "";
+      const now = new Date();
+      const days = [];
+      for (let i = 0; i < 7; i++) {
+        const d = new Date(now);
+        d.setDate(now.getDate() + i);
+        const ymd = toYMD(d);
+        const label =
+          i === 0
+            ? `Today (${d.toLocaleDateString("el-GR", { day: "2-digit", month: "2-digit", year: "numeric" })})`
+            : d.toLocaleDateString("el-GR", { weekday: "short", day: "2-digit", month: "2-digit" });
+        days.push({ ymd, label });
+      }
+      days.forEach((d) => {
+        const opt = document.createElement("option");
+        opt.value = d.ymd;
+        opt.textContent = d.label;
+        sel.appendChild(opt);
+      });
+      sel.value = lastDateKey;
+    }
+  }
+
+  function normalizeMatch(m) {
+    const kickoff_ms = parseKickoffMs(m);
+    const home = m?.home ?? m?.homeName ?? m?.home_team ?? m?.teams?.home ?? "";
+    const away = m?.away ?? m?.awayName ?? m?.away_team ?? m?.teams?.away ?? "";
+    const leagueSlug = m?.leagueSlug ?? m?.league ?? m?.league_code ?? m?.leagueKey ?? "";
+    const leagueId = m?.leagueId ?? m?.lid ?? m?.league_id ?? "";
+    const leagueName = m?.leagueName ?? m?.league_name ?? m?.competition ?? m?.leagueTitle ?? "";
+    const id = m?.id ?? m?.eventId ?? m?.event ?? "";
+    const status = m?.status ?? m?.state ?? m?.matchStatus ?? "";
+    const score = m?.score_text ?? m?.score ?? "";
+    return {
+      ...m,
+      id,
+      home,
+      away,
+      leagueSlug,
+      leagueId,
+      leagueName,
+      status,
+      score,
+      kickoff_ms
+    };
+  }
 
   function render(matches) {
+    ensureScaffold();
+    const innerEl = inner();
+    if (!innerEl) return;
+
     const savedIds = savedOnly ? getSavedIdSet() : null;
     let arr = Array.isArray(matches) ? matches.slice() : [];
+
+    // Normalize once for render stability
+    arr = arr.map(normalizeMatch);
+
+    // Do not show FINISHED in Today view
     arr = arr.filter((m) => !isFinished(m.status));
     if (savedIds) arr = arr.filter((m) => savedIds.has(String(m.id)));
 
     if (!arr.length) {
-      listEl.innerHTML = `<div class="muted" style="padding:10px;">No matches found.</div>`;
+      innerEl.innerHTML = `<div class="muted" style="padding:10px;">No matches found.</div>`;
       return;
     }
 
     // TIME view
     if (currentView === "time") {
       arr.sort((a, b) => (a.kickoff_ms || 0) - (b.kickoff_ms || 0));
-      listEl.innerHTML = arr.map((m) => {
-        const mid = esc(m.id);
-        const t = athensTime(m.kickoff_ms);
-        const score = esc(m.score || "");
-        const title = `${esc(m.home)} - ${esc(m.away)}`;
-        return `
-          <div class="today-row" data-mid="${mid}" style="padding:8px 10px;border-bottom:1px solid rgba(255,255,255,0.06);cursor:pointer;">
-            <div style="font-weight:700;">${t}</div>
-            <div style="opacity:.95;">${title}</div>
-            <div style="opacity:.8;">${score}</div>
-            <div style="margin-top:6px;display:flex;gap:8px;">
-              <button class="btn-slim" data-act="save" data-mid="${mid}">★</button>
-              <button class="btn-slim" data-act="info" data-mid="${mid}">i</button>
-            </div>
-          </div>`;
-      }).join("");
+      innerEl.innerHTML = arr
+        .map((m) => {
+          const mid = esc(m.id);
+          const t = athensTime(m.kickoff_ms);
+          const score = esc(m.score || "");
+          const title = `${esc(m.home)} - ${esc(m.away)}`;
+          const league = esc(m.leagueName || m.leagueSlug || "");
+          return `
+            <div class="today-row" data-mid="${mid}" style="padding:10px;border-bottom:1px solid rgba(255,255,255,0.06);cursor:pointer;">
+              <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;">
+                <div style="font-weight:800;">${t}</div>
+                <div style="opacity:.75;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70%">${league}</div>
+              </div>
+              <div style="opacity:.96;margin-top:2px;">${title}</div>
+              ${score ? `<div style="opacity:.85;margin-top:2px;">${score}</div>` : ``}
+              <div style="margin-top:8px;display:flex;gap:8px;">
+                <button class="btn-slim" data-act="save" data-mid="${mid}" title="Save">★</button>
+                <button class="btn-slim" data-act="info" data-mid="${mid}" title="Details">i</button>
+              </div>
+            </div>`;
+        })
+        .join("");
       return;
     }
 
     // LEAGUE view
     const map = Object.create(null);
     for (const m of arr) {
-      const k = String(m.leagueName || m.leagueSlug || "Unknown");
-      (map[k] ||= []).push(m);
+      const leagueId = String(m.leagueId || "").trim();
+      const leagueName = String(m.leagueName || "").trim();
+      const leagueSlug = String(m.leagueSlug || "").trim();
+      const key = leagueId || leagueSlug || leagueName || "Unknown";
+      if (!map[key]) map[key] = { key, leagueId, leagueName, leagueSlug, items: [] };
+      map[key].items.push(m);
     }
 
-    const leagues = Object.keys(map).sort((a, b) => a.localeCompare(b));
-    listEl.innerHTML = leagues.map((k) => {
-      const items = map[k].slice().sort((a, b) => (a.kickoff_ms || 0) - (b.kickoff_ms || 0));
-      return `
-        <div class="today-league-card" style="margin:8px;padding:8px;border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);">
-          <div class="today-league-head" data-act="league" data-league="${esc(k)}" style="font-weight:700;cursor:pointer;">${esc(k)} • ${items.length}</div>
-          <div class="today-league-body">
-            ${items.map((m) => {
-              const mid = esc(m.id);
-              const t = athensTime(m.kickoff_ms);
-              const score = esc(m.score || "");
-              const title = `${esc(m.home)} - ${esc(m.away)}`;
-              return `
-                <div class="today-row" data-mid="${mid}" style="padding:8px 10px;border-top:1px solid rgba(255,255,255,0.06);cursor:pointer;">
-                  <div style="font-weight:700;">${t}</div>
-                  <div style="opacity:.95;">${title}</div>
-                  <div style="opacity:.8;">${score}</div>
-                  <div style="margin-top:6px;display:flex;gap:8px;">
-                    <button class="btn-slim" data-act="save" data-mid="${mid}">★</button>
-                    <button class="btn-slim" data-act="info" data-mid="${mid}">i</button>
-                  </div>
-                </div>`;
-            }).join("")}
-          </div>
-        </div>`;
-    }).join("");
+    const leagues = Object.values(map).sort((a, b) => {
+      const an = String(a.leagueName || a.key);
+      const bn = String(b.leagueName || b.key);
+      return an.localeCompare(bn);
+    });
+
+    innerEl.innerHTML = leagues
+      .map((L) => {
+        const label = esc(L.leagueName || L.leagueSlug || L.key || "Unknown");
+        const lid = esc(L.leagueId || "");
+        const lslug = esc(L.leagueSlug || "");
+        const items = L.items.slice().sort((a, b) => (a.kickoff_ms || 0) - (b.kickoff_ms || 0));
+        return `
+          <div class="today-league-card" style="margin:8px;padding:8px;border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);">
+            <div class="today-league-head" data-act="league" data-league-id="${lid}" data-league-name="${label}" data-league-slug="${lslug}"
+                 style="padding:6px 6px 10px 6px;font-weight:900;cursor:pointer;display:flex;justify-content:space-between;gap:10px;align-items:center;">
+              <div style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${label}</div>
+              <div style="opacity:.7;font-size:12px;">${items.length}</div>
+            </div>
+            <div class="today-league-body">
+              ${items
+                .map((m) => {
+                  const mid = esc(m.id);
+                  const t = athensTime(m.kickoff_ms);
+                  const score = esc(m.score || "");
+                  const title = `${esc(m.home)} - ${esc(m.away)}`;
+                  return `
+                    <div class="today-row" data-mid="${mid}" style="padding:8px;border-top:1px solid rgba(255,255,255,0.06);cursor:pointer;">
+                      <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;">
+                        <div style="font-weight:800;">${t}</div>
+                        ${score ? `<div style="opacity:.85;">${score}</div>` : `<div></div>`}
+                      </div>
+                      <div style="opacity:.96;margin-top:2px;">${title}</div>
+                      <div style="margin-top:8px;display:flex;gap:8px;">
+                        <button class="btn-slim" data-act="save" data-mid="${mid}" title="Save">★</button>
+                        <button class="btn-slim" data-act="info" data-mid="${mid}" title="Details">i</button>
+                      </div>
+                    </div>`;
+                })
+                .join("")}
+            </div>
+          </div>`;
+      })
+      .join("");
   }
 
+  // ----------------------------
+  // Data load
+  // ----------------------------
   async function fetchFixtures() {
-    // If base missing, fail fast (prevents hanging on "/" HTML -> json parse)
-    if (!base) {
-      listEl.innerHTML = `<div class="muted" style="padding:10px;">Today feed misconfigured (missing liveUltraBase/fixturesBase).</div>`;
+    ensureScaffold();
+
+    const b = base();
+    if (!b) {
+      const innerEl = inner();
+      if (innerEl) innerEl.innerHTML = `<div class="muted" style="padding:10px;">Missing fixturesBase/liveUltraBase.</div>`;
       return;
     }
 
-    listEl.innerHTML = `<div class="muted" style="padding:10px;">Loading...</div>`;
+    const dateKey = (selDate() && selDate().value) ? String(selDate().value) : lastDateKey;
+    lastDateKey = dateKey;
 
-    const ymd = selDate.value || toYMD(new Date());
-    const url = `${base}${fixturesPath}?scope=${encodeURIComponent(currentScope)}&date=${encodeURIComponent(ymd)}&v=${Date.now()}`;
-
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => { try { ctrl.abort(); } catch (_) {} }, 12000);
+    const url = `${b}${fixturesPath()}?date=${encodeURIComponent(dateKey)}&scope=${encodeURIComponent(currentScope)}&v=${Date.now()}`;
+    const innerEl = inner();
+    if (innerEl) innerEl.innerHTML = `<div class="muted" style="padding:10px;">Loading…</div>`;
 
     try {
-      const r = await fetch(url, { cache: "no-store", signal: ctrl.signal });
-      const ct = String(r.headers.get("content-type") || "");
-      if (!r.ok) throw new Error(`http_${r.status}`);
-      if (!ct.includes("application/json")) throw new Error("non_json");
+      const res = await fetch(url, { method: "GET", credentials: "omit" });
+      const data = await res.json().catch(() => null);
 
-      const j = await r.json();
-      const arr = Array.isArray(j?.matches) ? j.matches : [];
-      lastPayload = arr;
+      const matches = Array.isArray(data?.matches) ? data.matches.map(normalizeMatch) : [];
+      lastMeta = data?.meta || null;
+      lastPayload = matches;
 
-      render(arr);
-      emit("today-matches:loaded", { matches: arr });
-    } catch (e) {
-      const msg = (e && e.name === "AbortError") ? "Timeout loading fixtures." : "Error loading fixtures.";
-      listEl.innerHTML = `<div class="muted" style="padding:10px;">${esc(msg)}</div>`;
-    } finally {
-      clearTimeout(timer);
+      // Emit full payload (even if UI filters finished)
+      emit("today-matches:loaded", {
+        dateKey,
+        scope: currentScope,
+        matches: matches.slice(),
+        meta: lastMeta,
+        source: "fixtures"
+      });
+
+      render(matches);
+    } catch (err) {
+      const msg = (err && err.message) ? err.message : String(err || "unknown error");
+      if (innerEl) innerEl.innerHTML = `<div class="muted" style="padding:10px;">Failed to load fixtures: ${esc(msg)}</div>`;
     }
   }
 
-  // Controls
-  ctrls.addEventListener("click", (e) => {
-    const t = e.target;
-    if (t === btnScope) {
-      currentScope = currentScope === "all" ? "top" : "all";
-      btnScope.textContent = currentScope === "all" ? "All" : "Top";
-      fetchFixtures();
+  // ----------------------------
+  // Events
+  // ----------------------------
+  function openDetails(m) {
+    if (!m) return;
+    if (window.DetailsModal && typeof window.DetailsModal.open === "function") {
+      window.DetailsModal.open(m);
       return;
     }
-    if (t === btnView) {
-      currentView = currentView === "league" ? "time" : "league";
-      btnView.textContent = `View: ${currentView === "league" ? "League" : "Time"}`;
-      render(lastPayload);
-      return;
-    }
-    if (t === btnRefresh) {
-      fetchFixtures();
-      return;
-    }
-    if (t === btnSaved) {
-      savedOnly = !savedOnly;
-      btnSaved.textContent = savedOnly ? "Saved: ON" : "Saved only";
-      render(lastPayload);
-      return;
-    }
-  });
+    emit("details-open", m);
+  }
 
-  // List interactions
-  listEl.addEventListener("click", (e) => {
-    const act = e.target && e.target.getAttribute ? e.target.getAttribute("data-act") : "";
-    const mid = e.target && e.target.getAttribute ? e.target.getAttribute("data-mid") : "";
+  // Unified click handling (fixes "View Time/League same" issue caused by target != button)
+  panel.addEventListener("click", (e) => {
+    ensureScaffold();
+    const t = e.target;
+    const b = t && t.closest ? t.closest("button") : null;
+
+    if (b && b.id === "btn-scope") {
+      currentScope = currentScope === "all" ? "top" : "all";
+      b.textContent = currentScope === "all" ? "All" : "Top";
+      fetchFixtures();
+      return;
+    }
+
+    if (b && b.id === "btn-view") {
+      currentView = currentView === "league" ? "time" : "league";
+      b.textContent = `View: ${currentView === "league" ? "League" : "Time"}`;
+      render(lastPayload);
+      return;
+    }
+
+    if (b && b.id === "btn-refresh") {
+      fetchFixtures();
+      return;
+    }
+
+    if (b && b.id === "btn-saved") {
+      savedOnly = !savedOnly;
+      b.textContent = savedOnly ? "Saved only ✓" : "Saved only";
+      render(lastPayload);
+      return;
+    }
+
+    // League header click (League view)
+    const leagueHead = t && t.closest ? t.closest('[data-act="league"]') : null;
+    if (leagueHead) {
+      const leagueId = String(leagueHead.getAttribute("data-league-id") || "");
+      const leagueSlug = String(leagueHead.getAttribute("data-league-slug") || "");
+      const leagueName = String(leagueHead.getAttribute("data-league-name") || "");
+
+      // Prefer leagueId from worker; else derive from slug/name
+      const id =
+        leagueId ||
+        (leagueSlug ? leagueSlug.toUpperCase().replace(/[^A-Z0-9]/g, "") : "") ||
+        leagueName.toUpperCase().replace(/[^A-Z0-9]/g, "");
+
+      const name = leagueName || leagueSlug || "League";
+
+      emit("league-selected", { id, name, leagueSlug, leagueId, source: "today" });
+      if (typeof window.openAccordion === "function") window.openAccordion("panel-matches");
+      return;
+    }
+
+    // Save / Info buttons
+    const actBtn = t && t.closest ? t.closest("[data-act]") : null;
+    const act = actBtn ? String(actBtn.getAttribute("data-act") || "") : "";
+    const mid = actBtn ? String(actBtn.getAttribute("data-mid") || "") : "";
 
     if (act === "save" && mid) {
       e.preventDefault();
       e.stopPropagation();
-      const m = (lastPayload || []).find((x) => String(x.id) === String(mid));
-      if (m) toggleSave(m);
-      // Re-render to reflect saved-only filtering
-      render(lastPayload);
+      const store = window.SavedStore;
+      const m = lastPayload.find((x) => String(x.id) === String(mid));
+      if (store && typeof store.toggle === "function" && m) store.toggle(m);
       return;
     }
 
     if (act === "info" && mid) {
       e.preventDefault();
       e.stopPropagation();
-      const m = (lastPayload || []).find((x) => String(x.id) === String(mid));
-      if (m) emit("details-open", { match: m, source: "today" });
+      const m = lastPayload.find((x) => String(x.id) === String(mid));
+      if (m) openDetails(m);
       return;
     }
 
     // Match row click
-    const row = e.target && e.target.closest ? e.target.closest(".today-row") : null;
+    const row = t && t.closest ? t.closest(".today-row") : null;
     if (row) {
       const id = row.getAttribute("data-mid");
-      const m = (lastPayload || []).find((x) => String(x.id) === String(id));
+      const m = lastPayload.find((x) => String(x.id) === String(id));
       if (m) emit("match-selected", m);
       return;
     }
-
-    // League header click
-    const lh = e.target && e.target.closest ? e.target.closest(".today-league-head") : null;
-    if (lh) {
-      const leagueName = lh.getAttribute("data-league") || "";
-      // Best effort: emit league-selected with a predictable payload
-      emit("league-selected", { name: leagueName, source: "today" });
-    }
   });
 
-  selDate.addEventListener("change", fetchFixtures);
+  // Date change
+  panel.addEventListener("change", (e) => {
+    ensureScaffold();
+    const sel = selDate();
+    if (e.target === sel) fetchFixtures();
+  });
 
-  // Re-render on saved updates
-  on("saved-store:updated", () => { if (savedOnly) render(lastPayload); });
+  // Re-render when saved changes
+  on("saved-store:updated", () => render(lastPayload));
 
+  // Initial load when app becomes ready
+  on("app-ready", () => fetchFixtures());
+  // Also load immediately (in case app-ready already fired)
   fetchFixtures();
 })();
