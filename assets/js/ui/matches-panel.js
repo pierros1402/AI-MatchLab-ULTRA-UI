@@ -1,235 +1,272 @@
 /* ============================================================
-   assets/js/ui/matches-panel.js (FULL LINKED v3.4.0)
-   - ESPN/fixtures driven (no demo)
-   - Listens:
-       league-selected   -> render matches for that league
-       today-matches:loaded -> cache fixtures for filtering
+   assets/js/ui/matches-panel.js  (CLEAN v1.4.0)
+   - List league fixtures from Worker (/fixtures) for next 7 days
+   - Triggered by: emit("league-selected", {...})
    - Actions:
-       row click -> emit("match-selected", match)
-       i -> DetailsModal.open(match) / emit("details-open", match)
-       ★ -> SavedStore.toggle(match)
+       • Row click -> emit("match-selected", match)
+       • ★ -> SavedStore.toggle(match)
+       • i -> DetailsModal.open(match) / emit("details-open", match)
 ============================================================ */
 (function () {
   "use strict";
 
-  const VER = "3.4.0";
-  if (window.__AIML_MATCHES_PANEL_VER__ === VER) return;
-  window.__AIML_MATCHES_PANEL_VER__ = VER;
+  const cfg = window.AIML_LIVE_CFG || {};
+  const fixturesBase = (cfg.fixturesBase || cfg.liveUltraBase || "").replace(/\/+$/, "");
+  const fixturesPath = String(cfg.fixturesPath || "/fixtures");
 
-  const panel = document.getElementById("panel-matches");
   const listEl = document.getElementById("matches-list");
-  if (!panel || !listEl) return;
+  if (!listEl || !fixturesBase) return;
 
-  const cfg = () => window.AIML_LIVE_CFG || {};
-  const base = () => String(cfg().fixturesBase || cfg().liveUltraBase || "").replace(/\/+$/, "");
-  const fixturesPath = () => String(cfg().fixturesPath || "/fixtures");
+  const state = {
+    league: null, // payload from navigation
+    leagueSlug: "",
+    matches: []
+  };
 
-  const on = (n, f) => (window.on ? window.on(n, f) : null);
-  const emit = (n, p) => (window.emit ? window.emit(n, p) : null);
+  function esc(s) {
+    return String(s || "").replace(/[&<>"']/g, (c) => (
+      { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
+    ));
+  }
 
-  const esc = (s) =>
-    String(s == null ? "" : s)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;");
-
-  function parseKickoffMs(m) {
-    const raw =
-      m?.kickoff ||
-      m?.utcDate ||
-      m?.startDate ||
-      m?.startTime ||
-      m?.eventDate ||
-      m?.date ||
-      m?.competitions?.[0]?.date ||
-      null;
-    if (!raw) return 0;
-    if (typeof raw === "number") return raw;
-    const t = Date.parse(String(raw));
-    return Number.isNaN(t) ? 0 : t;
+  function ymdAthens(dt) {
+    try {
+      const parts = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Athens", year: "numeric", month: "2-digit", day: "2-digit" })
+        .formatToParts(dt)
+        .reduce((a, p) => (a[p.type] = p.value, a), {});
+      return `${parts.year}-${parts.month}-${parts.day}`;
+    } catch (_) {
+      const y = dt.getFullYear();
+      const m = String(dt.getMonth() + 1).padStart(2, "0");
+      const d = String(dt.getDate()).padStart(2, "0");
+      return `${y}-${m}-${d}`;
+    }
   }
 
   function athensTime(ms) {
-    const t = Number(ms || 0);
-    if (!t) return "--:--";
+    if (!ms || !Number.isFinite(ms)) return "--:--";
     try {
-      return new Date(t).toLocaleTimeString("el-GR", {
-        hour: "2-digit",
-        minute: "2-digit",
-        timeZone: "Europe/Athens",
-        hour12: false
-      });
+      return new Intl.DateTimeFormat("el-GR", { timeZone: "Europe/Athens", hour: "2-digit", minute: "2-digit" }).format(new Date(ms));
     } catch (_) {
-      return "--:--";
+      const d = new Date(ms);
+      return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
     }
   }
 
-  function normalizeMatch(m) {
-    const kickoff_ms = m?.kickoff_ms || parseKickoffMs(m);
-    const home = m?.home ?? m?.homeName ?? m?.home_team ?? m?.teams?.home ?? "";
-    const away = m?.away ?? m?.awayName ?? m?.away_team ?? m?.teams?.away ?? "";
-    const leagueSlug = m?.leagueSlug ?? m?.league ?? m?.league_code ?? "";
-    const leagueId = m?.leagueId ?? m?.lid ?? "";
-    const leagueName = m?.leagueName ?? m?.competition ?? m?.league_name ?? "";
-    const id = m?.id ?? m?.eventId ?? m?.event ?? "";
-    const status = m?.status ?? m?.state ?? "";
-    const score = m?.score_text ?? m?.score ?? "";
-    return { ...m, id, home, away, leagueSlug, leagueId, leagueName, status, score, kickoff_ms };
+  function parseKickoffMs(m) {
+    const raw = (typeof m?.kickoff_ms === "number" ? m.kickoff_ms : null) || m?.kickoff || m?.date || null;
+    if (!raw) return 0;
+    if (typeof raw === "number") return raw > 1e12 ? raw : raw * 1000;
+    const t = Date.parse(String(raw));
+    return Number.isFinite(t) ? t : 0;
   }
 
-  const state = {
-    fixtures: [], // latest fixtures from Today/fixtures
-    league: null  // {id,name,leagueSlug,leagueId}
-  };
+  function isLive(m) {
+    const s = String(m?.status || "").toUpperCase();
+    const st = String(m?.state || "").toLowerCase();
+    return st === "in" || st === "live" || s.includes("LIVE") || s.includes("IN PROGRESS");
+  }
 
-  function openDetails(m) {
-    if (!m) return;
-    if (window.DetailsModal && typeof window.DetailsModal.open === "function") {
-      window.DetailsModal.open(m);
-      return;
+  function liveClock(m) {
+    const min = Number(m?.minute || 0);
+    if (min > 0) return `${min}'`;
+    const c = String(m?.clock || "").trim();
+    if (c) return c;
+    const d = String(m?.status_detail || "").trim();
+    const mm = d.match(/(\d{1,3})/);
+    return mm && mm[1] ? `${mm[1]}'` : "LIVE";
+  }
+
+  function norm(m) {
+    const kickoff_ms = parseKickoffMs(m);
+    return {
+      id: String(m?.id || m?.eventId || m?.event_id || m?.matchId || `M_${kickoff_ms}_${Math.random().toString(16).slice(2)}`),
+      title: String(m?.title || `${m?.home || ""} - ${m?.away || ""}` || ""),
+      home: m?.home || "",
+      away: m?.away || "",
+      leagueName: String(m?.leagueName || m?.league || state.league?.name || "League"),
+      leagueSlug: String(m?.leagueSlug || state.leagueSlug || ""),
+      kickoff_ms,
+      status: m?.status || "",
+      state: m?.state || "",
+      status_detail: m?.status_detail || "",
+      clock: m?.clock || "",
+      minute: Number(m?.minute || 0),
+      score_text: String(m?.score_text || m?.score || ""),
+      raw: m
+    };
+  }
+
+  function deriveLeagueSlug(p) {
+    const direct = String(p?.leagueSlug || p?.slug || p?.espn || p?.espn_code || "").trim();
+    if (direct) return direct.toLowerCase();
+
+    const id = String(p?.id || "").trim();
+    if (/^[A-Z]{2,4}\d{1,3}$/.test(id)) {
+      return id.replace(/^([A-Z]{2,4})(\d{1,3})$/, (_, a, b) => `${a.toLowerCase()}.${b}`);
     }
-    emit("details-open", m);
+    if (/^[a-z]{2,4}\.\d{1,3}$/.test(id.toLowerCase())) return id.toLowerCase();
+
+    // small pragmatic fallbacks by name
+    const nm = String(p?.name || "").toLowerCase();
+    const map = {
+      "premier league": "eng.1",
+      "la liga": "esp.1",
+      "bundesliga": "ger.1",
+      "serie a": "ita.1",
+      "ligue 1": "fra.1",
+      "super league": "gre.1",
+      "superleague": "gre.1"
+    };
+    for (const k in map) {
+      if (nm.includes(k)) return map[k];
+    }
+    return "";
   }
 
-  function toggleSave(m) {
-    const st = window.SavedStore;
-    if (st && typeof st.toggle === "function") st.toggle(m);
-  }
-
-  function sameLeague(m, league) {
-    if (!m || !league) return false;
-
-    const mid = String(m.leagueId || "").trim();
-    const mslug = String(m.leagueSlug || "").trim();
-    const mname = String(m.leagueName || "").trim();
-
-    const lid = String(league.leagueId || league.id || "").trim();
-    const lslug = String(league.leagueSlug || "").trim();
-    const lname = String(league.name || "").trim();
-
-    // Prefer strong keys (leagueId), then slug, then name.
-    if (lid && mid && lid === mid) return true;
-    if (lslug && mslug && lslug === mslug) return true;
-    if (lname && mname && lname.toLowerCase() === mname.toLowerCase()) return true;
-
-    // last resort: derived id match (ENG1 etc.)
-    const derived = String(mslug || mname || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
-    if (league.id && derived && String(league.id) === derived) return true;
-
-    return false;
+  function groupByDate(items) {
+    const out = Object.create(null);
+    items.forEach((m) => {
+      const dt = new Date(m.kickoff_ms || 0);
+      const key = ymdAthens(dt);
+      (out[key] = out[key] || []).push(m);
+    });
+    return out;
   }
 
   function render() {
-    const league = state.league;
-    if (!league) {
-      listEl.innerHTML = `<div class="muted" style="padding:10px;">Select a league to view matches.</div>`;
+    if (!state.league) {
+      listEl.innerHTML = `<div class="empty">Select a league.</div>`;
       return;
     }
 
-    const arr = state.fixtures
-      .map(normalizeMatch)
-      .filter((m) => sameLeague(m, league))
-      .sort((a, b) => (a.kickoff_ms || 0) - (b.kickoff_ms || 0));
+    const head = `
+      <div class="matches-hdr">
+        <div class="matches-hdr-title">${esc(state.league.name || "League")}</div>
+        <div class="matches-hdr-sub">Next 7 days • ESPN: ${esc(state.leagueSlug || "unknown")}</div>
+      </div>
+    `.trim();
 
-    if (!arr.length) {
-      listEl.innerHTML = `<div class="muted" style="padding:10px;">No matches for ${esc(league.name || league.id || "league")}.</div>`;
+    if (!state.matches.length) {
+      listEl.innerHTML = head + `<div class="empty">No matches for this league.</div>`;
       return;
     }
 
-    listEl.innerHTML = arr
-      .map((m) => {
+    const by = groupByDate(state.matches);
+    const dates = Object.keys(by).sort((a, b) => a.localeCompare(b));
+
+    const body = dates.map((dk) => {
+      const arr = by[dk].slice().sort((a, b) => (a.kickoff_ms || 0) - (b.kickoff_ms || 0));
+      const rows = arr.map((m) => {
         const mid = esc(m.id);
         const t = athensTime(m.kickoff_ms);
-        const title = `${esc(m.home)} - ${esc(m.away)}`;
-        const score = esc(m.score || "");
-        const st = esc(m.status || "");
+        const sc = esc(m.score_text || "");
+        const sub = [sc, isLive(m) ? esc(liveClock(m)) : ""].filter(Boolean).join(" • ");
         return `
-          <div class="match-row" data-mid="${mid}" style="padding:10px;border-bottom:1px solid rgba(255,255,255,0.06);cursor:pointer;">
-            <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;">
-              <div style="font-weight:800;">${t}</div>
-              <div style="opacity:.8;font-size:12px;white-space:nowrap;">${st}</div>
+          <div class="match-row" data-mid="${mid}">
+            <div class="match-time">${t}</div>
+            <div class="match-main">
+              <div class="match-title">${esc(m.title || "")}</div>
+              <div class="match-sub">${sub}</div>
             </div>
-            <div style="opacity:.96;margin-top:2px;">${title}</div>
-            ${score ? `<div style="opacity:.85;margin-top:2px;">${score}</div>` : ``}
-            <div style="margin-top:8px;display:flex;gap:8px;">
+            <div class="match-actions">
               <button class="btn-slim" data-act="save" data-mid="${mid}" title="Save">★</button>
               <button class="btn-slim" data-act="info" data-mid="${mid}" title="Details">i</button>
             </div>
-          </div>`;
-      })
-      .join("");
+          </div>
+        `.trim();
+      }).join("");
+
+      return `
+        <div class="matches-day">
+          <div class="matches-day-h">${esc(dk)}</div>
+          <div class="matches-day-b">${rows}</div>
+        </div>
+      `.trim();
+    }).join("");
+
+    listEl.innerHTML = head + body;
   }
 
-  async function fetchFixturesToday(dateKey) {
-    const b = base();
-    if (!b) return [];
+  function openDetails(match) {
+    if (window.DetailsModal && typeof window.DetailsModal.open === "function") {
+      window.DetailsModal.open(match);
+      return;
+    }
+    if (typeof window.emit === "function") window.emit("details-open", match);
+  }
 
-    const d = dateKey || new Date().toISOString().slice(0, 10);
-    const url = `${b}${fixturesPath()}?date=${encodeURIComponent(d)}&scope=all&v=${Date.now()}`;
+  async function loadLeague(p) {
+    state.league = p || null;
+    state.leagueSlug = deriveLeagueSlug(p);
+    state.matches = [];
+
+    if (!state.leagueSlug) {
+      listEl.innerHTML = `
+        <div class="empty">
+          Cannot map this league to ESPN code.<br/>
+          League id: <b>${esc(p?.id || "")}</b> • name: <b>${esc(p?.name || "")}</b>
+        </div>
+      `.trim();
+      return;
+    }
+
+    listEl.innerHTML = `<div class="empty">Loading…</div>`;
+
+    const dateFrom = ymdAthens(new Date()).replace(/-/g, "");
+    const url = `${fixturesBase}${fixturesPath}?league=${encodeURIComponent(state.leagueSlug)}&date=${encodeURIComponent(dateFrom)}&days=7&includeFinished=1&scope=all`;
+
     try {
-      const res = await fetch(url, { method: "GET", credentials: "omit" });
+      const res = await fetch(url, { cache: "no-store" });
       const data = await res.json().catch(() => null);
-      const matches = Array.isArray(data?.matches) ? data.matches.map(normalizeMatch) : [];
-      return matches;
+
+      const raw = Array.isArray(data?.matches) ? data.matches : [];
+      state.matches = raw.map(norm).filter((x) => x && x.id);
+
+      render();
     } catch (_) {
-      return [];
+      listEl.innerHTML = `<div class="empty">Failed to load matches.</div>`;
+      state.matches = [];
     }
   }
 
-  // Click handlers
-  panel.addEventListener("click", (e) => {
-    const t = e.target;
+  function onClick(e) {
+    const btn = e.target && e.target.closest ? e.target.closest("button[data-act]") : null;
+    if (btn) {
+      const act = btn.getAttribute("data-act");
+      const mid = btn.getAttribute("data-mid");
+      const m = state.matches.find((x) => String(x.id) === String(mid));
+      if (!m) return;
 
-    const actBtn = t && t.closest ? t.closest("[data-act]") : null;
-    const act = actBtn ? String(actBtn.getAttribute("data-act") || "") : "";
-    const mid = actBtn ? String(actBtn.getAttribute("data-mid") || "") : "";
-
-    if ((act === "save" || act === "info") && mid) {
-      e.preventDefault();
-      e.stopPropagation();
-      const m = state.fixtures.find((x) => String(x.id) === String(mid));
-      if (m) {
-        if (act === "save") toggleSave(m);
-        if (act === "info") openDetails(m);
+      if (act === "save") {
+        window.SavedStore?.toggle?.(m);
+        render();
+        return;
+      }
+      if (act === "info") {
+        openDetails(m);
+        return;
       }
       return;
     }
 
-    const row = t && t.closest ? t.closest(".match-row") : null;
-    if (row) {
-      const id = row.getAttribute("data-mid");
-      const m = state.fixtures.find((x) => String(x.id) === String(id));
-      if (m) emit("match-selected", m);
-      return;
-    }
-  });
+    const row = e.target && e.target.closest ? e.target.closest(".match-row") : null;
+    if (!row) return;
+    const mid = row.getAttribute("data-mid");
+    const m = state.matches.find((x) => String(x.id) === String(mid));
+    if (!m) return;
+    if (typeof window.emit === "function") window.emit("match-selected", m);
+  }
 
-  // Event wiring
-  on("today-matches:loaded", (p) => {
-    const arr = Array.isArray(p?.matches) ? p.matches : Array.isArray(p) ? p : [];
-    if (arr.length) state.fixtures = arr.map(normalizeMatch);
-    render();
-  });
+  listEl.addEventListener("click", onClick);
 
-  on("league-selected", async (p) => {
-    // league-selected payload typically: {id,name,leagueSlug,leagueId}
-    if (!p) return;
-    state.league = {
-      id: p.id || p.leagueId || p.leagueSlug || "",
-      name: p.name || p.leagueName || p.leagueSlug || p.id || "League",
-      leagueSlug: p.leagueSlug || "",
-      leagueId: p.leagueId || p.id || ""
-    };
+  if (typeof window.on === "function") {
+    window.on("league-selected", loadLeague);
+    window.on("saved-store:updated", () => render());
+  } else {
+    // fallback: try global
+    window.addEventListener("league-selected", (e) => loadLeague(e.detail));
+  }
 
-    // If we don't have fixtures yet, fetch once (today)
-    if (!state.fixtures || !state.fixtures.length) {
-      listEl.innerHTML = `<div class="muted" style="padding:10px;">Loading…</div>`;
-      state.fixtures = await fetchFixturesToday();
-    }
-    render();
-  });
-
-  // Initial placeholder
   render();
 })();

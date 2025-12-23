@@ -101,7 +101,7 @@
       <div class="topbar-brand">
         <div class="brand-title">AI MatchLab ULTRA</div>
         <div class="brand-version">
-          <span class="ver-pill">v2.11.4</span>
+          <span class="ver-pill">v2.11.6</span>
           <span class="ver-sub">Global Live Lab</span>
         </div>
       </div>
@@ -218,18 +218,19 @@
             </div>
 
             <!-- TODAY -->
-<div class="accordion-item">
-  <div class="accordion-header" data-target="panel-today">Today</div>
-  <div class="accordion-panel" id="panel-today">
-    <!-- NOTE:
-         Do NOT insert dropdowns or buttons here.
-         The today-panel.js v3.1 script will automatically
-         build its own control bar (Day / View / Scope / Refresh / Saved).
-    -->
-    <div class="list" id="today-list"></div>
-  </div>
-</div>
-          <div class="accordion-item">
+            <div class="accordion-item">
+              <div class="accordion-header" data-target="panel-today">Today</div>
+              <div class="accordion-panel" id="panel-today">
+                <!-- NOTE:
+                     Do NOT insert dropdowns or buttons here.
+                     The today-panel.js v3.1 script will automatically
+                     build its own control bar (Day / View / Scope / Refresh / Saved).
+                -->
+                <div class="list" id="today-list"></div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
               <div class="accordion-header" data-target="panel-saved">Saved</div>
               <div class="accordion-panel" id="panel-saved">
                 <div class="list" id="saved-list"></div>
@@ -250,6 +251,8 @@
           <div class="active-match-bar" id="active-match-bar">
             <div class="amb-title" id="amb-title">No match selected</div>
             <div class="amb-sub" id="amb-sub">Select a match from the left panel.</div>
+
+            
           </div>
 
           <div class="odds-grid">
@@ -295,66 +298,65 @@
 
       <!-- RIGHT -->
       <aside id="right-panel" class="app-panel">
-  <!-- NEW FIXED HEADER for right panels -->
-  <div id="right-panels-header" class="panel-header" style="display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative;">
-    <div class="panel-title">Intelligence Panels</div>
-    <!-- button will auto-insert here by history-viewer.js -->
-  </div>
+        <!-- NEW FIXED HEADER for right panels -->
+        <div id="right-panels-header" class="panel-header" style="display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative;">
+          <div class="panel-title">Intelligence Panels</div>
+          <!-- button will auto-insert here by history-viewer.js -->
+        </div>
 
+        <!-- IMPORTANT: NO right-stack class here -->
+        <div class="panel-body">
 
-  <!-- IMPORTANT: NO right-stack class here -->
-  <div class="panel-body">
+          <section class="right-card" id="card-radar">
+            <header class="right-card-header">
+              <div class="panel-title">AI Radar · Line Moves</div>
+              <div class="right-meta" id="radar-meta">Offline (demo)</div>
+            </header>
+            <div class="right-card-body" id="panel-radar">
+              <div class="right-list" id="radar-list"></div>
+            </div>
+          </section>
 
-    <section class="right-card" id="card-radar">
-      <header class="right-card-header">
-        <div class="panel-title">AI Radar · Line Moves</div>
-        <div class="right-meta" id="radar-meta">Offline (demo)</div>
-      </header>
-      <div class="right-card-body" id="panel-radar">
-        <div class="right-list" id="radar-list"></div>
-      </div>
-    </section>
+          <section class="right-card" id="card-top-picks">
+            <header class="right-card-header right-header-2lines">
+              <div class="rheader-line1">
+                <div class="panel-title" id="top-picks-header">AI Smart Money · Top Picks • 1X2</div>
+              </div>
+              <div class="rheader-line2">
+                <button id="btn-view-all-deviations" class="right-btn" type="button">View All</button>
+                <div class="right-meta" id="picks-meta">Top 6 / 6</div>
+              </div>
+            </header>
 
-    <section class="right-card" id="card-top-picks">
-  <header class="right-card-header right-header-2lines">
-    <div class="rheader-line1">
-      <div class="panel-title" id="top-picks-header">AI Smart Money · Top Picks • 1X2</div>
-    </div>
-    <div class="rheader-line2">
-      <button id="btn-view-all-deviations" class="right-btn" type="button">View All</button>
-      <div class="right-meta" id="picks-meta">Top 6 / 6</div>
-    </div>
-  </header>
+            <div class="right-card-body" id="panel-top-picks">
+              <div class="right-list" id="picks-list"></div>
+              <div class="right-list hidden" id="deviations-list"></div>
+            </div>
+          </section>
 
-  <div class="right-card-body" id="panel-top-picks">
-    <div class="right-list" id="picks-list"></div>
-    <div class="right-list hidden" id="deviations-list"></div>
-  </div>
-</section>
+          <!-- ADDED: VALUE PICKS (4th card) -->
+          <section class="right-card" id="card-value-picks">
+            <header class="right-card-header">
+              <div class="panel-title">AI Value Picks</div>
+              <div class="right-meta" id="value-picks-meta">AI vs Market · 0</div>
+            </header>
+            <div class="right-card-body" id="panel-value-picks">
+              <div class="right-list" id="value-picks-list"></div>
+            </div>
+          </section>
 
-    <!-- ADDED: VALUE PICKS (4th card) -->
-    <section class="right-card" id="card-value-picks">
-      <header class="right-card-header">
-        <div class="panel-title">AI Value Picks</div>
-        <div class="right-meta" id="value-picks-meta">AI vs Market · 0</div>
-      </header>
-      <div class="right-card-body" id="panel-value-picks">
-        <div class="right-list" id="value-picks-list"></div>
-      </div>
-    </section>
+          <section class="right-card" id="card-live">
+            <header class="right-card-header">
+              <div class="panel-title">Live Matches</div>
+              <div class="right-meta" id="live-meta">Service offline</div>
+            </header>
+            <div class="right-card-body" id="panel-live">
+              <div class="right-list" id="live-list"></div>
+            </div>
+          </section>
 
-    <section class="right-card" id="card-live">
-      <header class="right-card-header">
-        <div class="panel-title">Live Matches</div>
-        <div class="right-meta" id="live-meta">Service offline</div>
-      </header>
-      <div class="right-card-body" id="panel-live">
-        <div class="right-list" id="live-list"></div>
-      </div>
-    </section>
-
-  </div>
-</aside>
+        </div>
+      </aside>
 
     </main>
   </div>
@@ -374,7 +376,7 @@
     </div>
   </div>
 
-    <!-- LIVE CONFIG (LOCAL + WORKER) -->
+  <!-- LIVE CONFIG (LOCAL + WORKER) -->
   <script>
     window.AIML_LIVE_CFG = {
       emitToday: true,

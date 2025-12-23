@@ -1,458 +1,461 @@
 /* ============================================================
-   assets/js/ui/today-panel.js  (FULL LINKED v1.8.5)
-   - Loads fixtures from Worker (/fixtures) — no demo dependency
+   assets/js/ui/today-panel.js  (CLEAN v1.9.0)
+   - Loads fixtures from Worker (/fixtures)
    - View modes:
        • Time  (sorted by kickoff time)
-       • League (grouped in clean league cards, sorted by kickoff time)
+       • League (grouped in league cards, matches sorted by kickoff)
    - Actions:
        • Row click -> emit("match-selected", match)
        • ★ -> SavedStore.toggle(match)
        • i -> DetailsModal.open(match) or emit("details-open", match)
-       • League header click (League view) -> emit("league-selected", {id,name,...}) and open Matches panel
    - Emits:
        today-matches:loaded { dateKey, scope, matches, meta }
 ============================================================ */
 (function () {
   "use strict";
 
-  // Allow upgrades without hard-refresh (versioned guard)
-  const VER = "1.8.5";
-  if (window.__AIML_TODAY_PANEL_VER__ === VER) return;
-  window.__AIML_TODAY_PANEL_VER__ = VER;
+  const cfg = window.AIML_LIVE_CFG || {};
+  const fixturesBase = (cfg.fixturesBase || cfg.liveUltraBase || "").replace(/\/+$/, "");
+  const fixturesPath = String(cfg.fixturesPath || "/fixtures");
+  const scope = String(cfg.fixturesScope || "all");
 
   const panel = document.getElementById("panel-today");
   const listEl = document.getElementById("today-list");
-  if (!panel || !listEl) return;
+  if (!panel || !listEl || !fixturesBase) return;
 
-  const cfg = () => window.AIML_LIVE_CFG || {};
-  const base = () => String(cfg().fixturesBase || cfg().liveUltraBase || "").replace(/\/+$/, "");
-  const fixturesPath = () => String(cfg().fixturesPath || "/fixtures");
-  const defaultScope = () => String(cfg().fixturesScope || "all"); // "all" | "top"
+  const PREF_KEY = "AIML_TODAY_PREFS_V1";
+  const CACHE_KEY_PREFIX = "AIML_TODAY_CACHE_V1:";
 
-  const on = (n, f) => (window.on ? window.on(n, f) : null);
-  const emit = (n, p) => (window.emit ? window.emit(n, p) : null);
+  const state = {
+    dateKey: ymdAthens(new Date()), // YYYY-MM-DD (Athens)
+    view: "time", // time | league
+    savedOnly: false,
+    matches: [],
+    meta: {}
+  };
 
-  const esc = (s) =>
-    String(s == null ? "" : s)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;");
-
-  function toYMD(d) {
-    const y = d.getFullYear();
-    const m = String(d.getMonth() + 1).padStart(2, "0");
-    const dd = String(d.getDate()).padStart(2, "0");
-    return `${y}-${m}-${dd}`;
+  function esc(s) {
+    return String(s || "").replace(/[&<>"']/g, (c) => (
+      { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
+    ));
   }
 
-  function parseKickoffMs(m) {
-    // accept many shapes
-    const raw =
-      m?.kickoff ||
-      m?.utcDate ||
-      m?.startDate ||
-      m?.startTime ||
-      m?.eventDate ||
-      m?.date ||
-      m?.competitionDate ||
-      m?.competitions?.[0]?.date ||
-      null;
-
-    if (!raw) return 0;
-
-    // numeric epoch?
-    if (typeof raw === "number") return raw;
-    if (typeof raw === "string") {
-      // YYYY-MM-DDTHH:mm:ssZ / ISO
-      const t = Date.parse(raw);
-      if (!Number.isNaN(t)) return t;
-
-      // "20251223T200000Z" etc.
-      const m1 = raw.match(/^(\d{4})(\d{2})(\d{2})[T\s]?(\d{2})(\d{2})/);
-      if (m1) {
-        const [_, yy, mm, dd, hh, mi] = m1;
-        const iso = `${yy}-${mm}-${dd}T${hh}:${mi}:00Z`;
-        const t2 = Date.parse(iso);
-        if (!Number.isNaN(t2)) return t2;
-      }
+  function ymdAthens(dt) {
+    // Stable "YYYY-MM-DD" in Europe/Athens.
+    try {
+      const parts = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Athens", year: "numeric", month: "2-digit", day: "2-digit" })
+        .formatToParts(dt)
+        .reduce((a, p) => (a[p.type] = p.value, a), {});
+      return `${parts.year}-${parts.month}-${parts.day}`;
+    } catch (_) {
+      // Fallback to local
+      const y = dt.getFullYear();
+      const m = String(dt.getMonth() + 1).padStart(2, "0");
+      const d = String(dt.getDate()).padStart(2, "0");
+      return `${y}-${m}-${d}`;
     }
-    return 0;
+  }
+
+  function addDaysYmd(ymd, add) {
+    const dt = new Date(`${ymd}T00:00:00`);
+    dt.setDate(dt.getDate() + Number(add || 0));
+    return ymdAthens(dt);
   }
 
   function athensTime(ms) {
-    const t = Number(ms || 0);
-    if (!t) return "--:--";
+    if (!ms || !Number.isFinite(ms)) return "--:--";
     try {
-      return new Date(t).toLocaleTimeString("el-GR", {
-        hour: "2-digit",
-        minute: "2-digit",
-        timeZone: "Europe/Athens",
-        hour12: false
-      });
+      return new Intl.DateTimeFormat("el-GR", { timeZone: "Europe/Athens", hour: "2-digit", minute: "2-digit" }).format(new Date(ms));
     } catch (_) {
-      return "--:--";
+      const d = new Date(ms);
+      const hh = String(d.getHours()).padStart(2, "0");
+      const mm = String(d.getMinutes()).padStart(2, "0");
+      return `${hh}:${mm}`;
     }
   }
 
-  function isFinished(status) {
-    const s = String(status || "").toUpperCase();
-    return s === "FINISHED" || s === "FT" || s === "FINAL" || s === "AET" || s === "PEN" || s === "ENDED";
+  function parseKickoffMs(m) {
+    const raw =
+      (typeof m?.kickoff_ms === "number" ? m.kickoff_ms : null) ||
+      m?.kickoff ||
+      m?.date ||
+      m?.utcDate ||
+      m?.utc_date ||
+      m?.startTime ||
+      m?.start_time ||
+      m?.ts ||
+      m?.timestamp ||
+      null;
+
+    if (!raw) return 0;
+    if (typeof raw === "number") return raw > 1e12 ? raw : raw * 1000;
+    const t = Date.parse(String(raw));
+    return Number.isFinite(t) ? t : 0;
   }
 
-  // --- State
-  let currentScope = defaultScope();
-  let currentView = "time"; // "time" | "league"
-  let savedOnly = false;
-  let lastDateKey = toYMD(new Date());
-  let lastPayload = [];
-  let lastMeta = null;
-
-  // --- Controls / UI
-  function inner() {
-    return document.getElementById("today-list-inner");
+  function isFinished(m) {
+    const s = String(m?.status || "").toUpperCase();
+    const st = String(m?.state || "").toLowerCase();
+    return (
+      st === "post" ||
+      s.includes("FINAL") ||
+      s.includes("FULL") ||
+      s.includes("FT") ||
+      s.includes("POST") ||
+      s.includes("CANCEL") ||
+      s.includes("ABANDON") ||
+      s.includes("SUSP") ||
+      s.includes("AWARDED")
+    );
   }
 
-  function selDate() {
-    return document.getElementById("today-date");
+  function isLive(m) {
+    const s = String(m?.status || "").toUpperCase();
+    const st = String(m?.state || "").toLowerCase();
+    return st === "in" || st === "live" || s.includes("LIVE") || s.includes("IN PROGRESS");
   }
 
-  function btn(id) {
-    return document.getElementById(id);
+  function liveClock(m) {
+    const min = Number(m?.minute || 0);
+    if (min > 0) return `${min}'`;
+    const c = String(m?.clock || "").trim();
+    if (c) return c;
+    const d = String(m?.status_detail || "").trim();
+    const mm = d.match(/(\d{1,3})/);
+    return mm && mm[1] ? `${mm[1]}'` : "LIVE";
   }
 
-  function getSavedIdSet() {
-    const st = window.SavedStore;
-    if (!st) return new Set();
+  function norm(m) {
+    const kickoff_ms = parseKickoffMs(m);
+    return {
+      id: String(m?.id || m?.eventId || m?.event_id || m?.matchId || `M_${kickoff_ms}_${Math.random().toString(16).slice(2)}`),
+      title: String(m?.title || `${m?.home || ""} - ${m?.away || ""}` || ""),
+      home: m?.home || m?.homeTeam || m?.home_name || "",
+      away: m?.away || m?.awayTeam || m?.away_name || "",
+      leagueName: String(m?.leagueName || m?.league || m?.competition || "Unknown League"),
+      leagueSlug: String(m?.leagueSlug || m?.league_slug || m?.leagueId || ""),
+      leagueId: m?.leagueId || null,
+      kickoff: m?.kickoff || m?.date || null,
+      kickoff_ms,
+      status: m?.status || "",
+      state: m?.state || "",
+      status_detail: m?.status_detail || m?.detail || "",
+      clock: m?.clock || "",
+      minute: Number(m?.minute || 0),
+      period: m?.period ?? null,
+      score_text: String(m?.score_text || m?.score || ""),
+      score: String(m?.score || ""),
+      raw: m
+    };
+  }
+
+  function loadPrefs() {
     try {
-      if (typeof st.getIds === "function") return new Set((st.getIds() || []).map(String));
-      if (Array.isArray(st.ids)) return new Set(st.ids.map(String));
+      const p = JSON.parse(localStorage.getItem(PREF_KEY) || "{}");
+      if (p && typeof p === "object") {
+        if (p.dateKey) state.dateKey = String(p.dateKey);
+        if (p.view === "time" || p.view === "league") state.view = p.view;
+        state.savedOnly = !!p.savedOnly;
+      }
+    } catch (_) {}
+  }
+
+  function savePrefs() {
+    try {
+      localStorage.setItem(PREF_KEY, JSON.stringify({ dateKey: state.dateKey, view: state.view, savedOnly: state.savedOnly }));
+    } catch (_) {}
+  }
+
+  function cacheGet(dateKey) {
+    try {
+      const obj = JSON.parse(localStorage.getItem(CACHE_KEY_PREFIX + dateKey) || "null");
+      if (!obj || !obj.ts || !Array.isArray(obj.matches)) return null;
+      if (Date.now() - Number(obj.ts) > 30 * 1000) return null; // 30s TTL
+      return obj;
+    } catch (_) { return null; }
+  }
+
+  function cacheSet(dateKey, matches, meta) {
+    try {
+      localStorage.setItem(CACHE_KEY_PREFIX + dateKey, JSON.stringify({ ts: Date.now(), matches, meta: meta || {} }));
+    } catch (_) {}
+  }
+
+  function ensureControls() {
+    if (panel.querySelector(".today-controls")) return;
+
+    const wrap = document.createElement("div");
+    wrap.className = "today-controls";
+    wrap.style.display = "flex";
+    wrap.style.gap = "8px";
+    wrap.style.alignItems = "center";
+    wrap.style.padding = "8px 8px 6px 8px";
+    wrap.style.borderBottom = "1px solid rgba(255,255,255,0.08)";
+
+    // Date selector (Today + next 6)
+    const sel = document.createElement("select");
+    sel.className = "today-date";
+    sel.style.flex = "1 1 auto";
+    sel.style.minWidth = "120px";
+
+    for (let i = 0; i < 7; i++) {
+      const dk = addDaysYmd(ymdAthens(new Date()), i);
+      const opt = document.createElement("option");
+      opt.value = dk;
+      opt.textContent = i === 0 ? "Today" : dk;
+      sel.appendChild(opt);
+    }
+
+    // View toggle
+    const btnTime = document.createElement("button");
+    btnTime.className = "btn-slim";
+    btnTime.type = "button";
+    btnTime.dataset.view = "time";
+    btnTime.textContent = "Time";
+
+    const btnLeague = document.createElement("button");
+    btnLeague.className = "btn-slim";
+    btnLeague.type = "button";
+    btnLeague.dataset.view = "league";
+    btnLeague.textContent = "League";
+
+    // Saved-only
+    const chkLbl = document.createElement("label");
+    chkLbl.style.display = "inline-flex";
+    chkLbl.style.alignItems = "center";
+    chkLbl.style.gap = "6px";
+    chkLbl.style.whiteSpace = "nowrap";
+    const chk = document.createElement("input");
+    chk.type = "checkbox";
+    chk.className = "today-saved-only";
+    chkLbl.appendChild(chk);
+    chkLbl.appendChild(document.createTextNode("Saved only"));
+
+    wrap.appendChild(sel);
+    wrap.appendChild(btnTime);
+    wrap.appendChild(btnLeague);
+    wrap.appendChild(chkLbl);
+
+    panel.insertBefore(wrap, panel.firstChild);
+
+    sel.addEventListener("change", () => {
+      state.dateKey = String(sel.value || state.dateKey);
+      savePrefs();
+      load();
+    });
+
+    wrap.addEventListener("click", (e) => {
+      const v = e.target && e.target.dataset ? e.target.dataset.view : "";
+      if (v === "time" || v === "league") {
+        state.view = v;
+        savePrefs();
+        render();
+      }
+    });
+
+    chk.addEventListener("change", () => {
+      state.savedOnly = !!chk.checked;
+      savePrefs();
+      render();
+    });
+  }
+
+  function getSavedSet() {
+    try {
+      const ids = window.SavedStore?.ids ? window.SavedStore.ids() : null;
+      if (Array.isArray(ids)) return new Set(ids.map(String));
     } catch (_) {}
     return new Set();
   }
 
-  function ensureScaffold() {
-    // Rebuild scaffold if someone overwrote #today-list (common during UI changes)
-    if (document.getElementById("today-list-inner")) return;
-
-    listEl.innerHTML = `
-      <div class="today-toolbar" style="padding:8px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-        <select id="today-date" class="btn-slim"></select>
-        <button id="btn-scope" class="btn-slim">${currentScope === "all" ? "All" : "Top"}</button>
-        <button id="btn-view" class="btn-slim">View: ${currentView === "league" ? "League" : "Time"}</button>
-        <button id="btn-refresh" class="btn-slim">Refresh</button>
-        <button id="btn-saved" class="btn-slim">Saved only</button>
-      </div>
-      <div id="today-list-inner"></div>
-    `;
-
-    // Populate day selector: today + next 6
-    const sel = selDate();
-    if (sel) {
-      sel.innerHTML = "";
-      const now = new Date();
-      const days = [];
-      for (let i = 0; i < 7; i++) {
-        const d = new Date(now);
-        d.setDate(now.getDate() + i);
-        const ymd = toYMD(d);
-        const label =
-          i === 0
-            ? `Today (${d.toLocaleDateString("el-GR", { day: "2-digit", month: "2-digit", year: "numeric" })})`
-            : d.toLocaleDateString("el-GR", { weekday: "short", day: "2-digit", month: "2-digit" });
-        days.push({ ymd, label });
-      }
-      days.forEach((d) => {
-        const opt = document.createElement("option");
-        opt.value = d.ymd;
-        opt.textContent = d.label;
-        sel.appendChild(opt);
-      });
-      sel.value = lastDateKey;
+  function applyFilters(arr) {
+    let out = Array.isArray(arr) ? arr.slice() : [];
+    // In Today view we do not keep finished by default (worker already filters, but we enforce)
+    out = out.filter((m) => !isFinished(m));
+    if (state.savedOnly) {
+      const saved = getSavedSet();
+      out = out.filter((m) => saved.has(String(m.id)));
     }
+    return out;
   }
 
-  function normalizeMatch(m) {
-    const kickoff_ms = parseKickoffMs(m);
-    const home = m?.home ?? m?.homeName ?? m?.home_team ?? m?.teams?.home ?? "";
-    const away = m?.away ?? m?.awayName ?? m?.away_team ?? m?.teams?.away ?? "";
-    const leagueSlug = m?.leagueSlug ?? m?.league ?? m?.league_code ?? m?.leagueKey ?? "";
-    const leagueId = m?.leagueId ?? m?.lid ?? m?.league_id ?? "";
-    const leagueName = m?.leagueName ?? m?.league_name ?? m?.competition ?? m?.leagueTitle ?? "";
-    const id = m?.id ?? m?.eventId ?? m?.event ?? "";
-    const status = m?.status ?? m?.state ?? m?.matchStatus ?? "";
-    const score = m?.score_text ?? m?.score ?? "";
-    return {
-      ...m,
-      id,
-      home,
-      away,
-      leagueSlug,
-      leagueId,
-      leagueName,
-      status,
-      score,
-      kickoff_ms
-    };
-  }
+  function render() {
+    const controls = panel.querySelector(".today-controls");
+    const sel = controls ? controls.querySelector(".today-date") : null;
+    const chk = controls ? controls.querySelector(".today-saved-only") : null;
+    if (sel) sel.value = state.dateKey;
+    if (chk) chk.checked = !!state.savedOnly;
 
-  function render(matches) {
-    ensureScaffold();
-    const innerEl = inner();
-    if (!innerEl) return;
+    const items = applyFilters(state.matches);
 
-    const savedIds = savedOnly ? getSavedIdSet() : null;
-    let arr = Array.isArray(matches) ? matches.slice() : [];
-
-    // Normalize once for render stability
-    arr = arr.map(normalizeMatch);
-
-    // Do not show FINISHED in Today view
-    arr = arr.filter((m) => !isFinished(m.status));
-    if (savedIds) arr = arr.filter((m) => savedIds.has(String(m.id)));
-
-    if (!arr.length) {
-      innerEl.innerHTML = `<div class="muted" style="padding:10px;">No matches found.</div>`;
+    if (!items.length) {
+      listEl.innerHTML = `<div class="empty">No matches.</div>`;
       return;
     }
 
-    // TIME view
-    if (currentView === "time") {
-      arr.sort((a, b) => (a.kickoff_ms || 0) - (b.kickoff_ms || 0));
-      innerEl.innerHTML = arr
-        .map((m) => {
-          const mid = esc(m.id);
-          const t = athensTime(m.kickoff_ms);
-          const score = esc(m.score || "");
-          const title = `${esc(m.home)} - ${esc(m.away)}`;
-          const league = esc(m.leagueName || m.leagueSlug || "");
-          return `
-            <div class="today-row" data-mid="${mid}" style="padding:10px;border-bottom:1px solid rgba(255,255,255,0.06);cursor:pointer;">
-              <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;">
-                <div style="font-weight:800;">${t}</div>
-                <div style="opacity:.75;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70%">${league}</div>
-              </div>
-              <div style="opacity:.96;margin-top:2px;">${title}</div>
-              ${score ? `<div style="opacity:.85;margin-top:2px;">${score}</div>` : ``}
-              <div style="margin-top:8px;display:flex;gap:8px;">
-                <button class="btn-slim" data-act="save" data-mid="${mid}" title="Save">★</button>
-                <button class="btn-slim" data-act="info" data-mid="${mid}" title="Details">i</button>
-              </div>
-            </div>`;
-        })
-        .join("");
+    if (state.view === "time") {
+      items.sort((a, b) => (a.kickoff_ms || 0) - (b.kickoff_ms || 0));
+      listEl.innerHTML = items.map((m) => {
+        const mid = esc(m.id);
+        const t = athensTime(m.kickoff_ms);
+        const subParts = [];
+        const lg = esc(m.leagueName || "");
+        if (lg) subParts.push(lg);
+        const sc = esc(m.score_text || "");
+        if (sc) subParts.push(sc);
+        if (isLive(m)) subParts.push(esc(liveClock(m)));
+        const sub = subParts.join(" • ");
+        return `
+          <div class="today-row" data-mid="${mid}">
+            <div class="today-time">${t}</div>
+            <div class="today-main">
+              <div class="today-title">${esc(m.title || "")}</div>
+              <div class="today-sub">${sub}</div>
+            </div>
+            <div class="today-actions">
+              <button class="btn-slim" data-act="save" data-mid="${mid}" title="Save">★</button>
+              <button class="btn-slim" data-act="info" data-mid="${mid}" title="Details">i</button>
+            </div>
+          </div>
+        `.trim();
+      }).join("");
       return;
     }
 
-    // LEAGUE view
-    const map = Object.create(null);
-    for (const m of arr) {
-      const leagueId = String(m.leagueId || "").trim();
-      const leagueName = String(m.leagueName || "").trim();
-      const leagueSlug = String(m.leagueSlug || "").trim();
-      const key = leagueId || leagueSlug || leagueName || "Unknown";
-      if (!map[key]) map[key] = { key, leagueId, leagueName, leagueSlug, items: [] };
-      map[key].items.push(m);
-    }
-
-    const leagues = Object.values(map).sort((a, b) => {
-      const an = String(a.leagueName || a.key);
-      const bn = String(b.leagueName || b.key);
-      return an.localeCompare(bn);
+    // League view
+    const byLeague = Object.create(null);
+    items.forEach((m) => {
+      const key = String(m.leagueSlug || m.leagueName || "Unknown").toLowerCase();
+      (byLeague[key] = byLeague[key] || []).push(m);
     });
 
-    innerEl.innerHTML = leagues
-      .map((L) => {
-        const label = esc(L.leagueName || L.leagueSlug || L.key || "Unknown");
-        const lid = esc(L.leagueId || "");
-        const lslug = esc(L.leagueSlug || "");
-        const items = L.items.slice().sort((a, b) => (a.kickoff_ms || 0) - (b.kickoff_ms || 0));
+    const leagues = Object.keys(byLeague).sort((a, b) => a.localeCompare(b));
+    listEl.innerHTML = leagues.map((k) => {
+      const arr = byLeague[k].slice().sort((a, b) => (a.kickoff_ms || 0) - (b.kickoff_ms || 0));
+      const label = esc(arr[0].leagueName || "Unknown League");
+      const body = arr.map((m) => {
+        const mid = esc(m.id);
+        const t = athensTime(m.kickoff_ms);
+        const sc = esc(m.score_text || "");
+        const sub = [sc, isLive(m) ? esc(liveClock(m)) : ""].filter(Boolean).join(" • ");
         return `
-          <div class="today-league-card" style="margin:8px;padding:8px;border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);">
-            <div class="today-league-head" data-act="league" data-league-id="${lid}" data-league-name="${label}" data-league-slug="${lslug}"
-                 style="padding:6px 6px 10px 6px;font-weight:900;cursor:pointer;display:flex;justify-content:space-between;gap:10px;align-items:center;">
-              <div style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${label}</div>
-              <div style="opacity:.7;font-size:12px;">${items.length}</div>
+          <div class="today-row" data-mid="${mid}">
+            <div class="today-time">${t}</div>
+            <div class="today-main">
+              <div class="today-title">${esc(m.title || "")}</div>
+              <div class="today-sub">${sub}</div>
             </div>
-            <div class="today-league-body">
-              ${items
-                .map((m) => {
-                  const mid = esc(m.id);
-                  const t = athensTime(m.kickoff_ms);
-                  const score = esc(m.score || "");
-                  const title = `${esc(m.home)} - ${esc(m.away)}`;
-                  return `
-                    <div class="today-row" data-mid="${mid}" style="padding:8px;border-top:1px solid rgba(255,255,255,0.06);cursor:pointer;">
-                      <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;">
-                        <div style="font-weight:800;">${t}</div>
-                        ${score ? `<div style="opacity:.85;">${score}</div>` : `<div></div>`}
-                      </div>
-                      <div style="opacity:.96;margin-top:2px;">${title}</div>
-                      <div style="margin-top:8px;display:flex;gap:8px;">
-                        <button class="btn-slim" data-act="save" data-mid="${mid}" title="Save">★</button>
-                        <button class="btn-slim" data-act="info" data-mid="${mid}" title="Details">i</button>
-                      </div>
-                    </div>`;
-                })
-                .join("")}
+            <div class="today-actions">
+              <button class="btn-slim" data-act="save" data-mid="${mid}" title="Save">★</button>
+              <button class="btn-slim" data-act="info" data-mid="${mid}" title="Details">i</button>
             </div>
-          </div>`;
-      })
-      .join("");
+          </div>
+        `.trim();
+      }).join("");
+
+      return `
+        <div class="today-league-card">
+          <div class="today-league-hdr">${label} <span class="today-league-count">(${arr.length})</span></div>
+          <div class="today-league-body">${body}</div>
+        </div>
+      `.trim();
+    }).join("");
   }
 
-  // ----------------------------
-  // Data load
-  // ----------------------------
-  async function fetchFixtures() {
-    ensureScaffold();
+  function openDetails(match) {
+    if (window.DetailsModal && typeof window.DetailsModal.open === "function") {
+      window.DetailsModal.open(match);
+      return;
+    }
+    if (typeof window.emit === "function") window.emit("details-open", match);
+  }
 
-    const b = base();
-    if (!b) {
-      const innerEl = inner();
-      if (innerEl) innerEl.innerHTML = `<div class="muted" style="padding:10px;">Missing fixturesBase/liveUltraBase.</div>`;
+  function onListClick(e) {
+    const btn = e.target && e.target.closest ? e.target.closest("button[data-act]") : null;
+    if (btn) {
+      const act = btn.getAttribute("data-act");
+      const mid = btn.getAttribute("data-mid");
+      const m = state.matches.find((x) => String(x.id) === String(mid));
+      if (!m) return;
+
+      if (act === "save") {
+        window.SavedStore?.toggle?.(m);
+        render();
+        return;
+      }
+      if (act === "info") {
+        openDetails(m);
+        return;
+      }
       return;
     }
 
-    const dateKey = (selDate() && selDate().value) ? String(selDate().value) : lastDateKey;
-    lastDateKey = dateKey;
+    const row = e.target && e.target.closest ? e.target.closest(".today-row") : null;
+    if (!row) return;
+    const mid = row.getAttribute("data-mid");
+    const m = state.matches.find((x) => String(x.id) === String(mid));
+    if (!m) return;
+    if (typeof window.emit === "function") window.emit("match-selected", m);
+  }
 
-    const url = `${b}${fixturesPath()}?date=${encodeURIComponent(dateKey)}&scope=${encodeURIComponent(currentScope)}&v=${Date.now()}`;
-    const innerEl = inner();
-    if (innerEl) innerEl.innerHTML = `<div class="muted" style="padding:10px;">Loading…</div>`;
+  async function load() {
+    ensureControls();
+
+    // cache
+    const cached = cacheGet(state.dateKey);
+    if (cached) {
+      state.matches = cached.matches;
+      state.meta = cached.meta || {};
+      render();
+      if (typeof window.emit === "function") window.emit("today-matches:loaded", { dateKey: state.dateKey, scope, matches: state.matches, meta: state.meta });
+      return;
+    }
+
+    listEl.innerHTML = `<div class="empty">Loading…</div>`;
+
+    const yyyymmdd = String(state.dateKey).replace(/-/g, "");
+    const url = `${fixturesBase}${fixturesPath}?scope=${encodeURIComponent(scope)}&date=${encodeURIComponent(yyyymmdd)}&days=1&includeFinished=0`;
 
     try {
-      const res = await fetch(url, { method: "GET", credentials: "omit" });
+      const res = await fetch(url, { cache: "no-store" });
       const data = await res.json().catch(() => null);
 
-      const matches = Array.isArray(data?.matches) ? data.matches.map(normalizeMatch) : [];
-      lastMeta = data?.meta || null;
-      lastPayload = matches;
+      const raw = Array.isArray(data?.matches) ? data.matches : [];
+      const normed = raw.map(norm).filter((x) => x && x.id);
 
-      // Emit full payload (even if UI filters finished)
-      emit("today-matches:loaded", {
-        dateKey,
-        scope: currentScope,
-        matches: matches.slice(),
-        meta: lastMeta,
-        source: "fixtures"
-      });
+      state.matches = normed;
+      state.meta = data?.meta || {};
+      cacheSet(state.dateKey, state.matches, state.meta);
 
-      render(matches);
+      if (typeof window.emit === "function") window.emit("today-matches:loaded", { dateKey: state.dateKey, scope, matches: state.matches, meta: state.meta });
+      render();
     } catch (err) {
-      const msg = (err && err.message) ? err.message : String(err || "unknown error");
-      if (innerEl) innerEl.innerHTML = `<div class="muted" style="padding:10px;">Failed to load fixtures: ${esc(msg)}</div>`;
+      listEl.innerHTML = `<div class="empty">Failed to load fixtures.</div>`;
+      state.matches = [];
+      state.meta = {};
     }
   }
 
-  // ----------------------------
-  // Events
-  // ----------------------------
-  function openDetails(m) {
-    if (!m) return;
-    if (window.DetailsModal && typeof window.DetailsModal.open === "function") {
-      window.DetailsModal.open(m);
-      return;
-    }
-    emit("details-open", m);
+  // init
+  loadPrefs();
+  ensureControls();
+
+  // apply prefs to controls
+  const controls = panel.querySelector(".today-controls");
+  if (controls) {
+    const sel = controls.querySelector(".today-date");
+    const chk = controls.querySelector(".today-saved-only");
+    if (sel) sel.value = state.dateKey;
+    if (chk) chk.checked = !!state.savedOnly;
   }
 
-  // Unified click handling (fixes "View Time/League same" issue caused by target != button)
-  panel.addEventListener("click", (e) => {
-    ensureScaffold();
-    const t = e.target;
-    const b = t && t.closest ? t.closest("button") : null;
+  listEl.addEventListener("click", onListClick);
 
-    if (b && b.id === "btn-scope") {
-      currentScope = currentScope === "all" ? "top" : "all";
-      b.textContent = currentScope === "all" ? "All" : "Top";
-      fetchFixtures();
-      return;
-    }
+  // Saved changes re-render
+  if (typeof window.on === "function") {
+    window.on("saved-store:updated", () => render());
+  }
 
-    if (b && b.id === "btn-view") {
-      currentView = currentView === "league" ? "time" : "league";
-      b.textContent = `View: ${currentView === "league" ? "League" : "Time"}`;
-      render(lastPayload);
-      return;
-    }
-
-    if (b && b.id === "btn-refresh") {
-      fetchFixtures();
-      return;
-    }
-
-    if (b && b.id === "btn-saved") {
-      savedOnly = !savedOnly;
-      b.textContent = savedOnly ? "Saved only ✓" : "Saved only";
-      render(lastPayload);
-      return;
-    }
-
-    // League header click (League view)
-    const leagueHead = t && t.closest ? t.closest('[data-act="league"]') : null;
-    if (leagueHead) {
-      const leagueId = String(leagueHead.getAttribute("data-league-id") || "");
-      const leagueSlug = String(leagueHead.getAttribute("data-league-slug") || "");
-      const leagueName = String(leagueHead.getAttribute("data-league-name") || "");
-
-      // Prefer leagueId from worker; else derive from slug/name
-      const id =
-        leagueId ||
-        (leagueSlug ? leagueSlug.toUpperCase().replace(/[^A-Z0-9]/g, "") : "") ||
-        leagueName.toUpperCase().replace(/[^A-Z0-9]/g, "");
-
-      const name = leagueName || leagueSlug || "League";
-
-      emit("league-selected", { id, name, leagueSlug, leagueId, source: "today" });
-      if (typeof window.openAccordion === "function") window.openAccordion("panel-matches");
-      return;
-    }
-
-    // Save / Info buttons
-    const actBtn = t && t.closest ? t.closest("[data-act]") : null;
-    const act = actBtn ? String(actBtn.getAttribute("data-act") || "") : "";
-    const mid = actBtn ? String(actBtn.getAttribute("data-mid") || "") : "";
-
-    if (act === "save" && mid) {
-      e.preventDefault();
-      e.stopPropagation();
-      const store = window.SavedStore;
-      const m = lastPayload.find((x) => String(x.id) === String(mid));
-      if (store && typeof store.toggle === "function" && m) store.toggle(m);
-      return;
-    }
-
-    if (act === "info" && mid) {
-      e.preventDefault();
-      e.stopPropagation();
-      const m = lastPayload.find((x) => String(x.id) === String(mid));
-      if (m) openDetails(m);
-      return;
-    }
-
-    // Match row click
-    const row = t && t.closest ? t.closest(".today-row") : null;
-    if (row) {
-      const id = row.getAttribute("data-mid");
-      const m = lastPayload.find((x) => String(x.id) === String(id));
-      if (m) emit("match-selected", m);
-      return;
-    }
-  });
-
-  // Date change
-  panel.addEventListener("change", (e) => {
-    ensureScaffold();
-    const sel = selDate();
-    if (e.target === sel) fetchFixtures();
-  });
-
-  // Re-render when saved changes
-  on("saved-store:updated", () => render(lastPayload));
-
-  // Initial load when app becomes ready
-  on("app-ready", () => fetchFixtures());
-  // Also load immediately (in case app-ready already fired)
-  fetchFixtures();
+  // Initial load
+  load();
 })();

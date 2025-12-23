@@ -1010,3 +1010,15 @@ body.drawer-right-open .app-grid {
 #details-modal.hidden {
   display: none !important;
 }
+/* Fix market selector position on desktop only */
+@media (min-width: 901px) {
+  #active-match-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  #active-match-bar .market-select {
+    width: 130px;
+    max-width: 160px;
+  }
+}
