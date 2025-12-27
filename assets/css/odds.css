@@ -286,9 +286,4 @@ html{
   .oic-marketbar {
     display: inline-flex;
   }
-
-  /* Κρύβουμε το dropdown στο Active Match Bar */
-  #active-match-bar .amb-market-select {
-    display: none !important;
-  }
 }

@@ -101,7 +101,7 @@
       <div class="topbar-brand">
         <div class="brand-title">AI MatchLab ULTRA</div>
         <div class="brand-version">
-          <span class="ver-pill">v2.11.6</span>
+          <span class="ver-pill">v2.11.7</span>
           <span class="ver-sub">Global Live Lab</span>
         </div>
       </div>
@@ -378,22 +378,20 @@
 
   <!-- LIVE CONFIG (LOCAL + WORKER) -->
   <script>
-    window.AIML_LIVE_CFG = {
-      emitToday: true,
-      emitLive: true,
+  window.AIML_LIVE_CFG = {
+    emitToday: true,
+    emitLive: true,
 
-      // IMPORTANT: base for /fixtures and /live-ultra
-      liveUltraBase: "https://aimatchlab-main.pierros1402.workers.dev",
-      fixturesBase: "https://aimatchlab-main.pierros1402.workers.dev",
+    // FIXTURES → main worker
+    fixturesBase: "https://aimatchlab-main.pierros1402.workers.dev",
+    fixturesPath: "/fixtures",
+    fixturesScope: "all",
 
-      fixturesPath: "/fixtures",
-      liveUltraPath: "/live-ultra",
-
-      // "all" = όπως χθες (ό,τι δίνει το ESPN/worker)
-      // "top" = μόνο top leagues
-      fixturesScope: "all"
-    };
-  </script>
+    // LIVE → live worker
+    liveUltraBase: "https://live-matches-worker.pierros1402.workers.dev",
+    liveUltraPath: "/api/unified-live"
+  };
+</script>
 
   <!-- CORE BUS -->
   <script defer src="/assets/js/ui/app.js"></script>
@@ -437,10 +435,6 @@
 
   <!-- LIVE ADAPTER (REAL EVENTS) -->
   <script defer src="/assets/js/live/live-adapter.js"></script>
-
-  <!-- DEMO (κρατάς το demo, αλλά θα το “πατάει” το real live όταν υπάρχει) -->
-  <script defer src="/assets/js/demo/odds-demo-feed.js"></script>
-  <script defer src="/assets/js/demo/stats-demo-feed.js"></script>
 
   <!-- PWA / VERSION -->
   <script defer src="/assets/js/install.js"></script>

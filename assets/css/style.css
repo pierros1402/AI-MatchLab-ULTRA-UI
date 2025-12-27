@@ -1022,3 +1022,45 @@ body.drawer-right-open .app-grid {
     max-width: 160px;
   }
 }
+/* =========================================================
+   FIX — Mobile market tabs not visible (Odds Center)
+   ========================================================= */
+@media (max-width: 900px) {
+
+  /* Ensure Odds panel header & body allow tabs */
+  .odds-card,
+  .odds-card-header,
+  .odds-card-body,
+  .odds-surface {
+    overflow: visible !important;
+    max-height: none !important;
+  }
+
+  /* FORCE show market tabs inside Odds Intelligence Center */
+  .oic-marketbar {
+    display: inline-flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    z-index: 10 !important;
+  }
+}
+.live-badge {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 1px 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: #d93025;
+  border-radius: 4px;
+}
+
+.live-meta {
+  color: #d93025;
+  font-weight: 600;
+}
+
+.muted {
+  opacity: 0.6;
+}

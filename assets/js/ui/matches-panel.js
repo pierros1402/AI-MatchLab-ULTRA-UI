@@ -1,138 +1,104 @@
 /* ============================================================
-   assets/js/ui/matches-panel.js  (CLEAN v1.4.0)
-   - List league fixtures from Worker (/fixtures) for next 7 days
-   - Triggered by: emit("league-selected", {...})
-   - Actions:
-       • Row click -> emit("match-selected", match)
-       • ★ -> SavedStore.toggle(match)
-       • i -> DetailsModal.open(match) / emit("details-open", match)
+   assets/js/ui/matches-panel.js
+   FINAL LOCKED – Fixtures + Live (CLEAN)
 ============================================================ */
 (function () {
   "use strict";
 
-  const cfg = window.AIML_LIVE_CFG || {};
-  const fixturesBase = (cfg.fixturesBase || cfg.liveUltraBase || "").replace(/\/+$/, "");
-  const fixturesPath = String(cfg.fixturesPath || "/fixtures");
-
   const listEl = document.getElementById("matches-list");
-  if (!listEl || !fixturesBase) return;
+  if (!listEl) return;
+
+  let fixturesBase = "";
+  let fixturesPath = "/fixtures";
+
+  function ensureCfg() {
+    const cfg = window.AIML_LIVE_CFG;
+    if (!cfg) return false;
+    fixturesBase = (cfg.fixturesBase || "").replace(/\/+$/, "");
+    fixturesPath = String(cfg.fixturesPath || "/fixtures");
+    return !!fixturesBase;
+  }
 
   const state = {
-    league: null, // payload from navigation
+    league: null,
     leagueSlug: "",
-    matches: []
+    matches: [],
+    liveMap: Object.create(null)
   };
 
-  function esc(s) {
-    return String(s || "").replace(/[&<>"']/g, (c) => (
-      { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
-    ));
+  const esc = (s) =>
+    String(s || "").replace(/[&<>"']/g, (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
+    );
+
+  function ymdAthens(d) {
+    return new Intl.DateTimeFormat("en-CA", {
+      timeZone: "Europe/Athens",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit"
+    }).format(d).replace(/-/g, "");
   }
 
-  function ymdAthens(dt) {
-    try {
-      const parts = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Athens", year: "numeric", month: "2-digit", day: "2-digit" })
-        .formatToParts(dt)
-        .reduce((a, p) => (a[p.type] = p.value, a), {});
-      return `${parts.year}-${parts.month}-${parts.day}`;
-    } catch (_) {
-      const y = dt.getFullYear();
-      const m = String(dt.getMonth() + 1).padStart(2, "0");
-      const d = String(dt.getDate()).padStart(2, "0");
-      return `${y}-${m}-${d}`;
-    }
+  function timeAthens(ms) {
+    return new Intl.DateTimeFormat("el-GR", {
+      timeZone: "Europe/Athens",
+      hour: "2-digit",
+      minute: "2-digit"
+    }).format(new Date(ms));
   }
 
-  function athensTime(ms) {
-    if (!ms || !Number.isFinite(ms)) return "--:--";
-    try {
-      return new Intl.DateTimeFormat("el-GR", { timeZone: "Europe/Athens", hour: "2-digit", minute: "2-digit" }).format(new Date(ms));
-    } catch (_) {
-      const d = new Date(ms);
-      return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
-    }
-  }
-
-  function parseKickoffMs(m) {
-    const raw = (typeof m?.kickoff_ms === "number" ? m.kickoff_ms : null) || m?.kickoff || m?.date || null;
-    if (!raw) return 0;
-    if (typeof raw === "number") return raw > 1e12 ? raw : raw * 1000;
-    const t = Date.parse(String(raw));
-    return Number.isFinite(t) ? t : 0;
-  }
-
-  function isLive(m) {
-    const s = String(m?.status || "").toUpperCase();
-    const st = String(m?.state || "").toLowerCase();
-    return st === "in" || st === "live" || s.includes("LIVE") || s.includes("IN PROGRESS");
-  }
-
-  function liveClock(m) {
-    const min = Number(m?.minute || 0);
-    if (min > 0) return `${min}'`;
-    const c = String(m?.clock || "").trim();
-    if (c) return c;
-    const d = String(m?.status_detail || "").trim();
-    const mm = d.match(/(\d{1,3})/);
-    return mm && mm[1] ? `${mm[1]}'` : "LIVE";
-  }
+  /* ---------------- normalization ---------------- */
 
   function norm(m) {
-    const kickoff_ms = parseKickoffMs(m);
+    const kickoff =
+      typeof m.kickoff_ms === "number"
+        ? m.kickoff_ms
+        : typeof m.kickoff === "number"
+        ? m.kickoff * 1000
+        : Date.parse(m.kickoff || m.date || 0) || 0;
+
     return {
-      id: String(m?.id || m?.eventId || m?.event_id || m?.matchId || `M_${kickoff_ms}_${Math.random().toString(16).slice(2)}`),
-      title: String(m?.title || `${m?.home || ""} - ${m?.away || ""}` || ""),
-      home: m?.home || "",
-      away: m?.away || "",
-      leagueName: String(m?.leagueName || m?.league || state.league?.name || "League"),
-      leagueSlug: String(m?.leagueSlug || state.leagueSlug || ""),
-      kickoff_ms,
-      status: m?.status || "",
-      state: m?.state || "",
-      status_detail: m?.status_detail || "",
-      clock: m?.clock || "",
-      minute: Number(m?.minute || 0),
-      score_text: String(m?.score_text || m?.score || ""),
-      raw: m
+      id: String(m.id || m.eventId || ""),
+      title: m.title || `${m.home} - ${m.away}`,
+      leagueName: m.leagueName || "",
+      leagueSlug: String(m.leagueSlug || "").toLowerCase(),
+      kickoff_ms: kickoff,
+
+      // FT scores from fixtures
+      homeScore:
+  m.homeScore ??
+  m.scoreHome ??
+  (m.competitions?.[0]?.competitors?.[0]?.score != null
+    ? Number(m.competitions[0].competitors[0].score)
+    : null),
+
+awayScore:
+  m.awayScore ??
+  m.scoreAway ??
+  (m.competitions?.[0]?.competitors?.[1]?.score != null
+    ? Number(m.competitions[0].competitors[1].score)
+    : null),
+
+
+      // live score (if any)
+      score_text: m.score_text || ""
     };
   }
 
   function deriveLeagueSlug(p) {
-    const direct = String(p?.leagueSlug || p?.slug || p?.espn || p?.espn_code || "").trim();
-    if (direct) return direct.toLowerCase();
-
-    const id = String(p?.id || "").trim();
-    if (/^[A-Z]{2,4}\d{1,3}$/.test(id)) {
-      return id.replace(/^([A-Z]{2,4})(\d{1,3})$/, (_, a, b) => `${a.toLowerCase()}.${b}`);
-    }
-    if (/^[a-z]{2,4}\.\d{1,3}$/.test(id.toLowerCase())) return id.toLowerCase();
-
-    // small pragmatic fallbacks by name
-    const nm = String(p?.name || "").toLowerCase();
-    const map = {
-      "premier league": "eng.1",
-      "la liga": "esp.1",
-      "bundesliga": "ger.1",
-      "serie a": "ita.1",
-      "ligue 1": "fra.1",
-      "super league": "gre.1",
-      "superleague": "gre.1"
-    };
-    for (const k in map) {
-      if (nm.includes(k)) return map[k];
+    if (p?.leagueSlug) return p.leagueSlug.toLowerCase();
+    if (p?.id && /^[A-Z]{2,4}\d+$/.test(p.id)) {
+      return p.id.replace(/^([A-Z]+)(\d+)$/, (_, a, b) => `${a.toLowerCase()}.${b}`);
     }
     return "";
   }
 
-  function groupByDate(items) {
-    const out = Object.create(null);
-    items.forEach((m) => {
-      const dt = new Date(m.kickoff_ms || 0);
-      const key = ymdAthens(dt);
-      (out[key] = out[key] || []).push(m);
-    });
-    return out;
+  function isLive(m) {
+    return !!state.liveMap[m.id];
   }
+
+  /* ---------------- render ---------------- */
 
   function render() {
     if (!state.league) {
@@ -140,133 +106,153 @@
       return;
     }
 
-    const head = `
-      <div class="matches-hdr">
-        <div class="matches-hdr-title">${esc(state.league.name || "League")}</div>
-        <div class="matches-hdr-sub">Next 7 days • ESPN: ${esc(state.leagueSlug || "unknown")}</div>
-      </div>
-    `.trim();
-
     if (!state.matches.length) {
-      listEl.innerHTML = head + `<div class="empty">No matches for this league.</div>`;
+      listEl.innerHTML = `
+        <div class="matches-hdr">
+          <div class="matches-hdr-title">${esc(state.league.name)}</div>
+          <div class="matches-hdr-sub">Next 7 days</div>
+        </div>
+        <div class="empty">No matches for this league.</div>
+      `;
       return;
     }
 
-    const by = groupByDate(state.matches);
-    const dates = Object.keys(by).sort((a, b) => a.localeCompare(b));
+    const now = Date.now();
 
-    const body = dates.map((dk) => {
-      const arr = by[dk].slice().sort((a, b) => (a.kickoff_ms || 0) - (b.kickoff_ms || 0));
-      const rows = arr.map((m) => {
-        const mid = esc(m.id);
-        const t = athensTime(m.kickoff_ms);
-        const sc = esc(m.score_text || "");
-        const sub = [sc, isLive(m) ? esc(liveClock(m)) : ""].filter(Boolean).join(" • ");
+    const rows = state.matches
+      .slice()
+      .sort((a, b) => {
+        const al = isLive(a);
+        const bl = isLive(b);
+        if (al !== bl) return al ? -1 : 1; // LIVE first
+        return a.kickoff_ms - b.kickoff_ms;
+      })
+      .map((m) => {
+        const live = state.liveMap[m.id];
+        const badge = live ? `<span class="live-badge">LIVE</span>` : "";
+
+        let sub = "";
+
+        if (live) {
+          sub = `<span class="live-meta">${esc(live.minute)}’ • ${esc(
+            live.score_text
+          )}</span>`;
+        } else if (m.kickoff_ms && m.kickoff_ms > now) {
+          // not started yet → show nothing (time already shown)
+          sub = "";
+        } else {
+          // finished (FT)
+          if (m.homeScore != null && m.awayScore != null) {
+            sub = `<span class="muted">FT • ${m.homeScore}–${m.awayScore}</span>`;
+          } else {
+            sub = `<span class="muted">FT</span>`;
+          }
+        }
+
         return `
-          <div class="match-row" data-mid="${mid}">
-            <div class="match-time">${t}</div>
+          <div class="match-row"
+               data-match-id="${esc(m.id)}"
+               data-title="${esc(m.title)}">
+            <div class="match-time">
+              ${live ? "—" : timeAthens(m.kickoff_ms)}
+            </div>
             <div class="match-main">
-              <div class="match-title">${esc(m.title || "")}</div>
+              <div class="match-title">${badge} ${esc(m.title)}</div>
               <div class="match-sub">${sub}</div>
             </div>
-            <div class="match-actions">
-              <button class="btn-slim" data-act="save" data-mid="${mid}" title="Save">★</button>
-              <button class="btn-slim" data-act="info" data-mid="${mid}" title="Details">i</button>
-            </div>
           </div>
-        `.trim();
-      }).join("");
+        `;
+      })
+      .join("");
 
-      return `
-        <div class="matches-day">
-          <div class="matches-day-h">${esc(dk)}</div>
-          <div class="matches-day-b">${rows}</div>
-        </div>
-      `.trim();
-    }).join("");
-
-    listEl.innerHTML = head + body;
+    listEl.innerHTML = `
+      <div class="matches-hdr">
+        <div class="matches-hdr-title">${esc(state.league.name)}</div>
+        <div class="matches-hdr-sub">Next 7 days</div>
+      </div>
+      ${rows}
+    `;
   }
 
-  function openDetails(match) {
-    if (window.DetailsModal && typeof window.DetailsModal.open === "function") {
-      window.DetailsModal.open(match);
-      return;
-    }
-    if (typeof window.emit === "function") window.emit("details-open", match);
-  }
+  /* ---------------- data load ---------------- */
 
   async function loadLeague(p) {
-    state.league = p || null;
+    state.league = p;
     state.leagueSlug = deriveLeagueSlug(p);
     state.matches = [];
+    state.liveMap = Object.create(null);
 
-    if (!state.leagueSlug) {
-      listEl.innerHTML = `
-        <div class="empty">
-          Cannot map this league to ESPN code.<br/>
-          League id: <b>${esc(p?.id || "")}</b> • name: <b>${esc(p?.name || "")}</b>
-        </div>
-      `.trim();
+    if (!ensureCfg()) {
+      listEl.innerHTML = `<div class="empty">Config not ready.</div>`;
       return;
     }
 
-    listEl.innerHTML = `<div class="empty">Loading…</div>`;
+    listEl.innerHTML = `
+      <div class="matches-hdr">
+        <div class="matches-hdr-title">${esc(p.name || "")}</div>
+        <div class="matches-hdr-sub">Loading…</div>
+      </div>
+    `;
 
-    const dateFrom = ymdAthens(new Date()).replace(/-/g, "");
-    const url = `${fixturesBase}${fixturesPath}?league=${encodeURIComponent(state.leagueSlug)}&date=${encodeURIComponent(dateFrom)}&days=7&includeFinished=1&scope=all`;
+    const url =
+      fixturesBase +
+      fixturesPath +
+      `?league=${encodeURIComponent(state.leagueSlug)}&date=${ymdAthens(
+        new Date()
+      )}&days=7&includeFinished=1&scope=all`;
 
     try {
       const res = await fetch(url, { cache: "no-store" });
-      const data = await res.json().catch(() => null);
+      const data = await res.json();
 
-      const raw = Array.isArray(data?.matches) ? data.matches : [];
-      state.matches = raw.map(norm).filter((x) => x && x.id);
+      const all = Array.isArray(data.matches)
+        ? data.matches.map(norm)
+        : [];
 
+      let filtered = all.filter(
+        (m) => m.leagueSlug && m.leagueSlug === state.leagueSlug
+      );
+
+      if (!filtered.length && state.league?.name) {
+        const lname = state.league.name.toLowerCase();
+        filtered = all.filter((m) =>
+          String(m.leagueName || "").toLowerCase().includes(lname)
+        );
+      }
+
+      state.matches = filtered;
       render();
-    } catch (_) {
+    } catch (e) {
+      console.error("[matches-panel] load failed", e);
       listEl.innerHTML = `<div class="empty">Failed to load matches.</div>`;
-      state.matches = [];
     }
   }
 
-  function onClick(e) {
-    const btn = e.target && e.target.closest ? e.target.closest("button[data-act]") : null;
-    if (btn) {
-      const act = btn.getAttribute("data-act");
-      const mid = btn.getAttribute("data-mid");
-      const m = state.matches.find((x) => String(x.id) === String(mid));
-      if (!m) return;
+  /* ---------------- live updates ---------------- */
 
-      if (act === "save") {
-        window.SavedStore?.toggle?.(m);
-        render();
-        return;
-      }
-      if (act === "info") {
-        openDetails(m);
-        return;
-      }
-      return;
-    }
+  function onLiveUpdate(p) {
+    if (!p || !Array.isArray(p.matches)) return;
 
-    const row = e.target && e.target.closest ? e.target.closest(".match-row") : null;
-    if (!row) return;
-    const mid = row.getAttribute("data-mid");
-    const m = state.matches.find((x) => String(x.id) === String(mid));
-    if (!m) return;
-    if (typeof window.emit === "function") window.emit("match-selected", m);
+    p.matches.forEach((m) => {
+      if (!m.id) return;
+      state.liveMap[String(m.id)] = {
+        minute: m.minute ?? "",
+        score_text: m.score_text ?? ""
+      };
+    });
+
+    if (state.league) render();
   }
 
-  listEl.addEventListener("click", onClick);
+  /* ---------------- events ---------------- */
 
   if (typeof window.on === "function") {
     window.on("league-selected", loadLeague);
-    window.on("saved-store:updated", () => render());
-  } else {
-    // fallback: try global
-    window.addEventListener("league-selected", (e) => loadLeague(e.detail));
+    window.on("live:update", onLiveUpdate);
   }
+
+  window.addEventListener("league-selected", (e) => loadLeague(e.detail));
+  window.addEventListener("live:update", (e) => onLiveUpdate(e.detail));
 
   render();
 })();
