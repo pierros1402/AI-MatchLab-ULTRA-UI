@@ -101,7 +101,7 @@
       <div class="topbar-brand">
         <div class="brand-title">AI MatchLab ULTRA</div>
         <div class="brand-version">
-          <span class="ver-pill">v2.11.7</span>
+          <span class="ver-pill">v2.12.0</span>
           <span class="ver-sub">Global Live Lab</span>
         </div>
       </div>
@@ -188,6 +188,30 @@
         </div>
         <div class="panel-body">
           <div class="accordion" id="left-accordion">
+            <!-- ACTIVE LEAGUES TODAY (Flashscore-style) -->
+            <div class="accordion-item">
+              <div class="accordion-header" data-target="panel-active-leagues">Active Leagues Today</div>
+              <div class="accordion-panel" id="panel-active-leagues">
+                <div class="list" id="active-leagues-list"></div>
+              </div>
+            </div>
+
+            <!-- LEAGUE DETAILS (Central Flashscore-style panel) -->
+            <div class="accordion-item">
+              <div class="accordion-header" data-target="panel-league-details">League Details</div>
+              <div class="accordion-panel" id="panel-league-details">
+                <div class="league-details-header">League</div>
+                <div class="league-tabs">
+                  <div class="league-tab active" data-tab="matches">Matches</div>
+                  <div class="league-tab" data-tab="standings">Standings</div>
+                </div>
+                <div class="league-body">
+                  <div id="league-matches"></div>
+                  <div id="league-standings" style="display:none"></div>
+                </div>
+              </div>
+            </div>
+
 
             <div class="accordion-item">
               <div class="accordion-header" data-target="panel-continents">Continents</div>
@@ -376,69 +400,106 @@
     </div>
   </div>
 
-  <!-- LIVE CONFIG (LOCAL + WORKER) -->
-  <script>
+ <!-- =====================================================
+     LIVE CONFIG (LOCAL + WORKER)
+     ❌ Workers απενεργοποιημένοι (CORS)
+===================================================== -->
+<script>
   window.AIML_LIVE_CFG = {
-    emitToday: true,
-    emitLive: true,
+    emitToday: true,   // ⛔ STOP fixtures
+    emitLive: false,    // ⛔ STOP live worker
 
-    // FIXTURES → main worker
+    timezone: "Europe/Athens",
+
     fixturesBase: "https://aimatchlab-main.pierros1402.workers.dev",
     fixturesPath: "/fixtures",
     fixturesScope: "all",
 
-    // LIVE → live worker
     liveUltraBase: "https://live-matches-worker.pierros1402.workers.dev",
     liveUltraPath: "/api/unified-live"
   };
 </script>
 
-  <!-- CORE BUS -->
-  <script defer src="/assets/js/ui/app.js"></script>
+<!-- =====================================================
+     CORE EVENT BUS (ΠΡΩΤΟ – ΑΠΑΡΑΙΤΗΤΟ)
+===================================================== -->
+<script defer src="/assets/js/ui/app.js"></script>
+<script defer src="/assets/js/live/fixtures-loader.js"></script>
 
-  <!-- GLOBAL UTILS -->
-  <script defer src="/assets/js/state.js"></script>
-  <script defer src="/assets/js/utils/team-names.js"></script>
+<!-- =====================================================
+     ESPN LEAGUE MAP LOADER (ΥΠΟΧΡΕΩΤΙΚΟ)
+     φορτώνει το mapping από AI-MATCHLAB-DATA
+===================================================== -->
+<script defer src="/assets/js/data/espn-league-map-loader.js"></script>
 
-  <!-- GLOBAL UI (ROOT PATHS - ΟΠΩΣ ΕΙΠΕΣ) -->
-  <script defer src="/assets/js/theme.js"></script>
-  <script defer src="/assets/js/legal-menu.js"></script>
-  <script defer src="/assets/js/mobile-ui.js"></script>
-  <script defer src="/assets/js/language.js"></script>
+<!-- =====================================================
+     GLOBAL STATE / UTILS
+===================================================== -->
+<script defer src="/assets/js/state.js"></script>
+<script defer src="/assets/js/utils/team-names.js"></script>
 
-  <!-- LEFT NAV -->
-  <script defer src="/assets/js/ui/accordion.js"></script>
-  <script defer src="/assets/js/ui/navigation.js"></script>
-  <script defer src="/assets/js/utils/league-binding.js"></script>
+<!-- =====================================================
+     GLOBAL UI
+===================================================== -->
+<script defer src="/assets/js/theme.js"></script>
+<script defer src="/assets/js/legal-menu.js"></script>
+<script defer src="/assets/js/mobile-ui.js"></script>
+<script defer src="/assets/js/language.js"></script>
 
-  <!-- SAVED + TODAY -->
-  <script defer src="/assets/js/ui/saved-store.js"></script>
-  <script defer src="/assets/js/ui/saved-panel.js"></script>
-  <script defer src="/assets/js/ui/today-panel.js"></script>
 
-  <!-- MATCHES + DETAILS -->
-  <script defer src="/assets/js/ui/matches-panel.js"></script>
-  <script defer src="/assets/js/ui/details-modal.js"></script>
-  <script defer src="/assets/js/ui/details-espn.js"></script>
-  <script defer src="/assets/js/ui/details-panel.js"></script>
+<!-- =====================================================
+     LEFT NAV / ACCORDION
+===================================================== -->
+<script defer src="/assets/js/ui/accordion.js"></script>
 
-  <!-- ODDS + RIGHT PANELS -->
-  <script defer src="/assets/js/ui/odds-panels.js"></script>
-  <script defer src="/assets/js/ui/odds-radar.js"></script>
-  <script defer src="/assets/js/ui/top-picks.js"></script>
-  <script defer src="/assets/js/ui/value-picks.js"></script>
-  <script defer src="/assets/js/right-panels.js"></script>
+<!-- =====================================================
+     ACTIVE LEAGUES + LEAGUE DETAILS
+===================================================== -->
+<script defer src="/assets/js/ui/active-leagues-panel.js"></script>
+<script defer src="/assets/js/ui/league-details-panel.js"></script>
 
-  <!-- HISTORY -->
-  <script defer src="/assets/js/utils/history-engine.js"></script>
-  <script defer src="/assets/js/ui/history-viewer.js"></script>
+<!-- =====================================================
+     NAVIGATION / LEAGUE BINDING (AIML βάση)
+===================================================== -->
+<script defer src="/assets/js/ui/navigation.js"></script>
+<script defer src="/assets/js/utils/league-binding.js"></script>
 
-  <!-- LIVE ADAPTER (REAL EVENTS) -->
-  <script defer src="/assets/js/live/live-adapter.js"></script>
+<!-- =====================================================
+     SAVED + TODAY
+===================================================== -->
+<script defer src="/assets/js/ui/saved-store.js"></script>
+<script defer src="/assets/js/ui/saved-panel.js"></script>
+<script defer src="/assets/js/ui/today-panel.js"></script>
 
-  <!-- PWA / VERSION -->
-  <script defer src="/assets/js/install.js"></script>
-  <script defer src="/assets/js/utils/version-check.js"></script>
+<!-- =====================================================
+     MATCHES + DETAILS
+===================================================== -->
+<script defer src="/assets/js/ui/matches-panel.js"></script>
+<script defer src="/assets/js/ui/details-modal.js"></script>
+<script defer src="/assets/js/ui/details-espn.js"></script>
+<script defer src="/assets/js/ui/details-panel.js"></script>
+
+<!-- =====================================================
+     ODDS + RIGHT PANELS
+===================================================== -->
+<script defer src="/assets/js/ui/odds-panels.js"></script>
+<script defer src="/assets/js/ui/odds-radar.js"></script>
+<script defer src="/assets/js/ui/top-picks.js"></script>
+<script defer src="/assets/js/ui/value-picks.js"></script>
+<script defer src="/assets/js/right-panels.js"></script>
+
+<!-- =====================================================
+     HISTORY
+===================================================== -->
+<script defer src="/assets/js/utils/history-engine.js"></script>
+<script defer src="/assets/js/ui/history-viewer.js"></script>
+
+<!-- =====================================================
+     PWA / VERSIONING
+===================================================== -->
+<script defer src="/assets/js/install.js"></script>
+<script defer src="/assets/js/utils/version-check.js"></script>
+
 
 </body>
 </html>

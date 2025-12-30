@@ -1064,3 +1064,402 @@ body.drawer-right-open .app-grid {
 .muted {
   opacity: 0.6;
 }
+/* =========================================================
+   TODAY PANEL – LEAGUE LABEL STYLING
+   Makes league readable, not text noise
+========================================================= */
+
+#panel-today .match-league {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(180, 190, 210, 0.75);
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+/* Optional subtle separator for clarity */
+#panel-today .match-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+/* =========================================================
+   RIGHT LIVE – LEAGUE LABEL STYLING
+========================================================= */
+
+#panel-live .live-league {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(180, 190, 210, 0.75);
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+#panel-live .live-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+/* =========================================================
+   RIGHT LIVE – TABS + GROUPING
+========================================================= */
+
+.live-tabs {
+  display: flex;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.live-tab {
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #cfd6e4;
+  cursor: pointer;
+}
+
+.live-tab.active {
+  background: rgba(255,255,255,0.16);
+  color: #fff;
+}
+
+.live-group {
+  margin-bottom: 10px;
+}
+
+.live-league {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(180,190,210,0.75);
+  margin-bottom: 4px;
+}
+
+#panel-live .live-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-right: 6px;
+}
+
+#panel-live .right-actions {
+  margin-top: 2px;
+}
+/* =========================================================
+   RIGHT PANELS – SLIGHT HEIGHT BOOST (POST LIVE TABS)
+   Keeps panels breathable without breaking layout
+========================================================= */
+
+#right-panel .right-card {
+  min-height: calc(100vh - 140px);
+}
+
+@media (max-width: 900px) {
+  #right-panel .right-card {
+    min-height: calc(100vh - 120px);
+  }
+}
+/* =========================================================
+   HIDE LEGACY ACCORDION PANELS (DATA-ONLY MODE)
+   Continents / Countries / Leagues / Old Matches
+========================================================= */
+#panel-continents,
+#panel-countries,
+#panel-leagues,
+#panel-matches {
+  display: none !important;
+}
+/* =========================================================
+   LEGACY ACCORDION PANELS — HIDDEN (DATA-ONLY)
+========================================================= */
+#panel-continents,
+#panel-countries,
+#panel-leagues,
+#panel-matches {
+  display: none !important;
+}
+
+/* Προαιρετικά: κρύψε και τα headers τους αν εμφανίζονται */
+.accordion-header[data-target="panel-continents"],
+.accordion-header[data-target="panel-countries"],
+.accordion-header[data-target="panel-leagues"],
+.accordion-header[data-target="panel-matches"] {
+  display: none !important;
+}
+/* =====================================================
+   TODAY PANEL — CLEAN, SCOPED STYLES (FINAL)
+===================================================== */
+
+#panel-today .today-empty {
+  opacity: 0.7;
+  font-size: 13px;
+}
+
+#panel-today .today-block {
+  margin-bottom: 14px;
+}
+
+#panel-today .today-time {
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 6px;
+  opacity: 0.85;
+}
+
+#panel-today .today-league {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin: 6px 0 4px;
+}
+
+#panel-today .today-league.solo {
+  margin-top: 4px;
+}
+
+#panel-today .today-match {
+  padding-left: 6px;
+  margin-bottom: 4px;
+}
+
+#panel-today .today-teams {
+  font-size: 13px;
+  line-height: 1.3;
+}
+/* =====================================================
+   TODAY PANEL — CLEAN FINAL (24h, no patches)
+===================================================== */
+
+#panel-today .today-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.05);
+}
+
+#panel-today .today-row:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+#panel-today .today-main {
+  min-width: 0;
+}
+
+#panel-today .today-teams {
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#panel-today .today-meta {
+  font-size: 12px;
+  font-weight: 700;
+  text-align: right;
+  opacity: 0.85;
+  min-width: 52px;
+}
+
+#panel-today .today-meta.live {
+  color: #d93025;
+}
+
+#panel-today .today-meta.ft {
+  opacity: 0.7;
+}
+
+#panel-today .today-empty {
+  opacity: 0.7;
+  font-size: 13px;
+  padding: 8px 4px;
+}
+/* =====================================================
+   MATCH ROW — CLEAN, SHARED (Today / Live / Saved)
+===================================================== */
+
+.match-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.05);
+}
+
+.match-row:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+.mr-left {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.mr-teams {
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mr-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.mr-btn {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.mr-btn:hover {
+  opacity: 1;
+}
+
+.mr-right {
+  font-size: 12px;
+  font-weight: 700;
+  min-width: 64px;
+  text-align: right;
+}
+
+.mr-right.live {
+  color: #d93025;
+}
+
+.mr-right.ft {
+  opacity: 0.7;
+}
+
+.today-empty {
+  opacity: 0.7;
+  font-size: 13px;
+  padding: 8px 4px;
+}
+/* ===============================
+   MATCH ROWS – UNIFIED UI
+   =============================== */
+
+.match-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  cursor: pointer;
+}
+
+.match-row:hover {
+  background: rgba(255,255,255,0.04);
+}
+
+.mr-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.mr-teams {
+  font-size: 14px;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mr-right {
+  font-size: 13px;
+  opacity: 0.9;
+  margin-left: 10px;
+  white-space: nowrap;
+}
+
+.mr-right.live {
+  color: #ff5252;
+  font-weight: 600;
+}
+
+.mr-right.ft {
+  opacity: 0.6;
+}
+
+/* ===============================
+   ACTIVE LEAGUES
+   =============================== */
+
+.league-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  cursor: pointer;
+}
+
+.league-row:hover {
+  background: rgba(255,255,255,0.04);
+}
+
+.league-name {
+  font-size: 14px;
+}
+
+.league-count {
+  background: #1e88e5;
+  color: #fff;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+/* ===============================
+   EMPTY STATES
+   =============================== */
+
+.today-empty,
+.list-empty {
+  padding: 14px;
+  font-size: 13px;
+  opacity: 0.6;
+  text-align: center;
+}
+
+/* ===============================
+   MOBILE POLISH
+   =============================== */
+
+@media (max-width: 768px) {
+  .match-row,
+  .league-row {
+    padding: 12px 14px;
+  }
+
+  .mr-teams {
+    font-size: 15px;
+  }
+
+  .mr-right {
+    font-size: 14px;
+  }
+}
