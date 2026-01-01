@@ -487,979 +487,315 @@ body{
     pointer-events: none;
   }
 }
-
-/* ====================================================
-   RIGHT SUBPANELS (AI Value Picks, etc.)
-   - Used inside the Right "Intelligence Panels" stack
-   - Keeps subpanels visually consistent with existing right cards
-==================================================== */
-
-/* The Top Picks container can host subpanels below it */
-#panel-top-picks{
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-/* Generic subpanel wrapper (higher specificity to override any injected styles) */
-#right-panel .right-subpanel{
-  margin-top: 10px;
-  padding-top: 12px;
-  border-top: 1px solid rgba(255,255,255,0.10);
-}
-
-/* Subpanel header row */
-#right-panel .right-subpanel-head{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 0 2px 10px;
-  margin-bottom: 10px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-}
-
-/* Title + meta mirror the existing right-card header style */
-#right-panel .right-subpanel-title{
-  font-weight: 800;
-  font-size: 13px;
-  letter-spacing: 0.2px;
-}
-
-#right-panel .right-subpanel-meta{
-  font-size: 12px;
-  font-weight: 800;
-  opacity: 0.72;
-  white-space: nowrap;
-}
-
-/* Body scroll area */
-#right-panel .right-subpanel-body{
-  max-height: 260px;
-  overflow: auto;
-  padding-right: 2px;
-}
-
-/* Empty-state text */
-#right-panel .right-empty{
-  opacity: 0.78;
-  font-size: 12px;
-  padding: 8px 2px;
-}
-
-/* Keep mobile drawers comfortable */
-@media (max-width: 900px){
-  #right-panel .right-subpanel-body{ max-height: 38vh; }
-}
-
-/* Value picks list: same item style as the rest of the right column */
-#value-picks-list .right-item{
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-}
-
-/* Optional: slightly tighter list for value picks */
-#value-picks-list .right-sub{
-  opacity: 0.80;
-  font-size: 12px;
-  margin-top: 4px;
-}
-/* ============================================================
-   RIGHT PANELS — Uniform subpanel header + internal scroll
-   (Paste at END of style.css)
-============================================================ */
-
-/* Make all right subpanels visually consistent */
-.right-subpanel {
-  margin-top: 12px !important;
-  padding-top: 12px !important;
-  border-top: 1px solid rgba(255,255,255,.10) !important;
-}
-
-.right-subpanel-head {
-  position: relative !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  gap: 10px !important;
-  margin: 0 0 10px 0 !important;
-  padding-bottom: 10px !important;
-}
-
-/* Title look + “accent underline” like other panels */
-.right-subpanel-title {
-  font-weight: 950 !important;
-  font-size: 14px !important;
-  letter-spacing: .2px !important;
-  line-height: 1.15 !important;
-}
-
-.right-subpanel-head::after {
-  content: "" !important;
-  position: absolute !important;
-  left: 0 !important;
-  bottom: 0 !important;
-  width: 88px !important;
-  height: 3px !important;
-  border-radius: 999px !important;
-  background: linear-gradient(90deg, rgba(61,184,255,.95), rgba(255,140,0,.92)) !important;
-}
-
-.right-subpanel-meta {
-  opacity: .72 !important;
-  font-weight: 900 !important;
-  font-size: 12px !important;
-}
-
-/* Internal scroll for long content (keeps right column stable) */
-.right-subpanel-body {
-  max-height: clamp(150px, 22vh, 260px) !important;
-  overflow: auto !important;
-  padding-right: 4px !important;
-}
-
-/* Ensure AI Value Picks uses the same rules even if inline styles exist */
-#value-picks-subpanel .right-subpanel-head::after {
-  width: 88px !important;
-}
-#value-picks-list {
-  max-height: clamp(150px, 22vh, 260px) !important;
-  overflow: auto !important;
-  padding-right: 4px !important;
-}
-/* ============================================================
-   AI Value Picks — make the card body internally scrollable
-   (Paste at END of assets/css/style.css)
-============================================================ */
-
-#card-value-picks .right-card-body {
-  max-height: clamp(150px, 22vh, 260px);
-  overflow: auto;
-}
-
-#card-value-picks .right-list {
-  padding-right: 4px;
-}
 /* =========================================================
-   MOBILE ADJUSTMENT — remove redundant left drawer icon
-   (drawer toggling handled automatically via Home / Back)
+   FINAL OVERRIDE — MOBILE DRAWERS & RIGHT PANELS (CLEAN)
+   Single source of truth — DO NOT DUPLICATE
 ========================================================= */
-@media (max-width: 900px) {
-  #btn-drawer {
-    display: none !important;
-  }
+
+/* ---------- Overlay ---------- */
+#drawer-overlay{
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9998;
 }
-/* Prevent cut-off at bottom of match details */
-#center-panel .panel-body {
-  padding-bottom: 80px !important;
+#drawer-overlay.visible,
+#drawer-overlay.show{
+  display: block;
+  opacity: 1;
+  pointer-events: auto;
 }
 
+/* ---------- Never dim center ---------- */
+#center-panel,
+.app-shell,
+.app-main{
+  opacity: 1 !important;
+  filter: none !important;
+}
 
-
-/* Ensure Panels button is visible on mobile */
+/* ---------- Mobile drawers ---------- */
 @media (max-width: 900px){
-  #btn-panels{ display: inline-flex !important; }
-}
-/* =========================================================
-   MOBILE RIGHT DRAWER (force opaque full screen override)
-========================================================= */
-@media (max-width: 900px) {
-  body.drawer-right-open {
+
+  body.drawer-left-open,
+  body.drawer-right-open{
     overflow: hidden !important;
   }
 
-  /* Overlay must NOT be permanently visible.
-     It should appear only when a drawer is open or when JS sets .visible/.show. */
-  #drawer-overlay {
-    display: block !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-    background: rgba(0,0,0,0.55) !important;
-    z-index: 9998 !important;
-  }
-  body.drawer-left-open #drawer-overlay,
-  body.drawer-right-open #drawer-overlay,
-  #drawer-overlay.visible,
-  #drawer-overlay.show{
-    opacity: 1 !important;
-    pointer-events: auto !important;
-  }
-
-  #right-panel {
+  #left-panel,
+  #right-panel{
     position: fixed !important;
-    top: var(--topbar-h, 60px) !important;
+    top: var(--topbar-h, 112px) !important;
     left: 0 !important;
     right: 0 !important;
     bottom: 0 !important;
     width: 100vw !important;
     max-width: 100vw !important;
-    height: calc(100vh - var(--topbar-h, 60px)) !important;
-
     background: #070912 !important;
-    border: none !important;
-    box-shadow: 0 0 40px rgba(0,0,0,0.7) !important;
+    border-radius: 0 !important;
+    z-index: 9999 !important;
+    display: flex !important;
+    flex-direction: column !important;
     transform: translateX(105%) !important;
     transition: transform .18s ease !important;
-    z-index: 9999 !important;
   }
 
-  #right-panel.drawer-open {
+  #left-panel{
+    transform: translateX(-105%) !important;
+  }
+
+  #left-panel.drawer-open,
+  #right-panel.drawer-open{
     transform: translateX(0) !important;
   }
 
-  #right-panel > .panel-body {
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  overflow-y: auto !important;
-  padding-bottom: 40px !important;
-}
-}
-/* =========================================================
-   MOBILE OVERLAY + CENTER DIM FIX (final)
-========================================================= */
-
-/* Overlay must be OFF by default */
-#drawer-overlay{
-  display: none;
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* Overlay ON only when mobile-ui toggles classes */
-#drawer-overlay.visible,
-#drawer-overlay.show{
-  display: block !important;
-  opacity: 1 !important;
-  pointer-events: auto !important;
-}
-
-/* Never permanently dim center; only overlay itself should cover */
-#center-panel{
-  opacity: 1 !important;
-  filter: none !important;
-  visibility: visible !important;
-}
-
-/* If any older rules try to dim center on drawer open, neutralize them */
-body.drawer-left-open #center-panel,
-body.drawer-right-open #center-panel{
-  opacity: 1 !important;
-  filter: none !important;
-  pointer-events: auto !important;
-}
-/* FORCE center visible on mobile */
-#center-panel{
-  opacity: 1 !important;
-  filter: none !important;
-  visibility: visible !important;
-}
-
-body.drawer-left-open #center-panel,
-body.drawer-right-open #center-panel{
-  opacity: 1 !important;
-  filter: none !important;
-  pointer-events: auto !important;
-}
-
-/* overlay off unless explicitly shown */
-#drawer-overlay{ opacity:0; pointer-events:none; display:block; }
-#drawer-overlay.visible, #drawer-overlay.show{ opacity:1; pointer-events:auto; }
-/* =========================================================
-   FINAL — STOP GLOBAL DIMMING ON DRAWER OPEN
-   (Does NOT change right panel sizing/scroll rules)
-========================================================= */
-
-/* Never dim the app shell/center when drawers open */
-body.drawer-left-open #center-panel,
-body.drawer-right-open #center-panel,
-body.drawer-left-open .app-shell,
-body.drawer-right-open .app-shell,
-body.drawer-left-open .app-main,
-body.drawer-right-open .app-main {
-  opacity: 1 !important;
-  filter: none !important;
-}
-
-/* Also neutralize any dimming on common wrappers if they exist */
-body.drawer-left-open #app,
-body.drawer-right-open #app,
-body.drawer-left-open .app,
-body.drawer-right-open .app,
-body.drawer-left-open .app-grid,
-body.drawer-right-open .app-grid {
-  opacity: 1 !important;
-  filter: none !important;
-}
-
-/* Keep the right drawer scroll behavior intact (reinforce only) */
-@media (max-width: 900px){
+  #left-panel > .panel-body,
   #right-panel > .panel-body{
-    overflow-y: auto !important;
+    flex: 1 1 auto !important;
     min-height: 0 !important;
-  }
-}
-/* =========================================================
-   FIX — Enable outer scroll for the entire right drawer
-   (keeps internal subpanels scrollable independently)
-========================================================= */
-#right-panel {
-  display: flex !important;
-  flex-direction: column !important;
-  overflow-y: auto !important;     /* outer scroll */
-  -webkit-overflow-scrolling: touch !important;
-}
-
-#right-panel > .panel-body {
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  overflow: visible !important;    /* allow inner panels to scroll internally */
-  padding-bottom: 60px !important; /* avoid cut-off near bottom */
-}
-/* =========================================================
-   FINAL OVERRIDE — MOBILE RIGHT DRAWER OVERLAY (LOCKED)
-   Fixes: unintended dimming / z-index conflicts
-   Paste at VERY END of assets/css/style.css
-========================================================= */
-@media (max-width: 900px){
-
-  /* Overlay: always exists, but OFF by default */
-  #drawer-overlay{
-    display: block !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-    background: rgba(0,0,0,0.55) !important; /* adjust darkness here */
-    z-index: 9998 !important;
-  }
-
-  /* Overlay ON only when a drawer is open (body state) or JS sets visible/show */
-  body.drawer-left-open #drawer-overlay,
-  body.drawer-right-open #drawer-overlay,
-  #drawer-overlay.visible,
-  #drawer-overlay.show{
-    opacity: 1 !important;
-    pointer-events: auto !important;
-  }
-
-  /* Drawers must always sit above the overlay */
-  #left-panel,
-  #right-panel{
-    z-index: 9999 !important;
-    background: #070912 !important; /* force opaque surface (no bleed) */
-  }
-
-  /* Never dim the app shell/center via opacity/filter rules (neutralize old patches) */
-  body.drawer-left-open #center-panel,
-  body.drawer-right-open #center-panel,
-  body.drawer-left-open .app-shell,
-  body.drawer-right-open .app-shell,
-  body.drawer-left-open .app-main,
-  body.drawer-right-open .app-main{
-    opacity: 1 !important;
-    filter: none !important;
-  }
-
-  #center-panel{
-    opacity: 1 !important;
-    filter: none !important;
-  }
-}
-/* =========================================================
-   FIX — MOBILE RIGHT DRAWER TITLE VISIBILITY
-   Ensures first right panel header stays fully visible
-========================================================= */
-@media (max-width: 900px) {
-  #right-panel.drawer-open .right-section:first-child .right-header {
-    margin-top: env(safe-area-inset-top, 12px);
-    padding-top: 8px;
-    position: relative;
-    z-index: 1001;
-  }
-
-  #right-panel.drawer-open .right-section:first-child {
-    scroll-margin-top: 60px; /* prevent hiding under topbar */
-  }
-}
-/* =========================================================
-   MOBILE DRAWER VISIBILITY + SPACING (FINAL)
-   - Applies only on mobile
-   - Ensures BOTH left & right drawers start comfortably
-     below the topbar (similar spacing to Odds Center)
-========================================================= */
-@media (max-width: 900px) {
-  /* LEFT drawer (accordion / navigation) */
-  body.drawer-left-open #left-panel {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    z-index: 9998 !important;
-    background: var(--app-bg, #0b0b0f) !important;
     overflow-y: auto !important;
+    padding-bottom: 60px !important;
     -webkit-overflow-scrolling: touch;
-    padding-top: 96px !important; /* comfortable space under topbar */
-  }
-
-  /* RIGHT drawer (Radar / Top Picks / Value / Live) */
-  body.drawer-right-open #right-panel {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    z-index: 9999 !important;
-    background: var(--app-bg, #0b0b0f) !important;
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch;
-    padding-top: 96px !important; /* comfortable space under topbar */
-  }
-
-  /* Keep headers readable and above any internal layers */
-  body.drawer-left-open .accordion-header,
-  body.drawer-right-open .right-header {
-    position: relative !important;
-    z-index: 10000 !important;
-  }
-
-  /* Prevent vertical compression / weird offsets */
-  body.drawer-left-open .accordion,
-  body.drawer-right-open .right-section {
-    margin-top: 0 !important;
   }
 }
-.live-update-label {
-  color: var(--accent, #f6b73c);
-  font-weight: 500;
-  transition: opacity 0.3s ease;
-}
-#live-meta[data-live-freshness="fresh"] { opacity: 0.95; }
-#live-meta[data-live-freshness="warm"]  { opacity: 0.85; }
-#live-meta[data-live-freshness="stale"] { opacity: 0.75; }
-/* =========================================================
-   FINAL FIX — TODAY PANEL FULL WIDTH TEXT VISIBILITY + FIT
-   Keeps working grid fix + better width & readability
-========================================================= */
 
-#left-panel {
-  width: 340px !important;              /* ελαφρώς φαρδύτερο */
-  overflow-x: visible !important;
+/* ---------- Right subpanels (Radar / Live / Value) ---------- */
+.right-subpanel{
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,.10);
 }
 
-#left-panel .accordion {
-  display: block !important;            /* grid → block (core fix) */
-  overflow-x: visible !important;
-}
-
-#left-panel .accordion-item {
-  width: 100% !important;
-  max-width: 100% !important;
-  overflow-x: visible !important;
-}
-
-#left-panel .accordion-panel {
-  overflow-x: visible !important;
-  white-space: normal !important;
-}
-
-#panel-today .list,
-#panel-today .today-row,
-#panel-today .t-title {
-  white-space: normal !important;
-  overflow: visible !important;
-  word-break: break-word !important;
-  text-overflow: unset !important;
-  padding-right: 10px !important;
-  max-width: 100% !important;
-  display: block !important;
-}
-
-#panel-today .today-row {
-  min-height: 56px !important;
-  font-size: 13px !important;
-  line-height: 1.3em !important;
-}
-
-#panel-today .t-title {
-  font-size: 13px !important;
-  font-weight: 500 !important;
-}
-
-#panel-today .t-sub {
-  font-size: 12px !important;
-  opacity: 0.8 !important;
-}
-/* =======================================
-   DETAILS MODAL VISIBILITY OVERRIDE FIX
-   Ensures the modal always appears on top
-======================================= */
-#details-modal {
-  position: fixed !important;
-  z-index: 99999 !important;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex !important;
-  justify-content: center;
+.right-subpanel-head{
+  display: flex;
   align-items: center;
-  background: rgba(0,0,0,0.8);
-  visibility: visible !important;
-  opacity: 1 !important;
-  pointer-events: auto !important;
-}
-#details-modal.hidden {
-  display: none !important;
-}
-/* Fix market selector position on desktop only */
-@media (min-width: 901px) {
-  #active-match-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  #active-match-bar .market-select {
-    width: 130px;
-    max-width: 160px;
-  }
-}
-/* =========================================================
-   FIX — Mobile market tabs not visible (Odds Center)
-   ========================================================= */
-@media (max-width: 900px) {
-
-  /* Ensure Odds panel header & body allow tabs */
-  .odds-card,
-  .odds-card-header,
-  .odds-card-body,
-  .odds-surface {
-    overflow: visible !important;
-    max-height: none !important;
-  }
-
-  /* FORCE show market tabs inside Odds Intelligence Center */
-  .oic-marketbar {
-    display: inline-flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    z-index: 10 !important;
-  }
-}
-.live-badge {
-  display: inline-block;
-  margin-right: 6px;
-  padding: 1px 6px;
-  font-size: 11px;
-  font-weight: 700;
-  color: #fff;
-  background: #d93025;
-  border-radius: 4px;
-}
-
-.live-meta {
-  color: #d93025;
-  font-weight: 600;
-}
-
-.muted {
-  opacity: 0.6;
-}
-/* =========================================================
-   TODAY PANEL – LEAGUE LABEL STYLING
-   Makes league readable, not text noise
-========================================================= */
-
-#panel-today .match-league {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(180, 190, 210, 0.75);
-  margin-bottom: 4px;
-  line-height: 1.2;
-}
-
-/* Optional subtle separator for clarity */
-#panel-today .match-main {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-/* =========================================================
-   RIGHT LIVE – LEAGUE LABEL STYLING
-========================================================= */
-
-#panel-live .live-league {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(180, 190, 210, 0.75);
-  margin-bottom: 4px;
-  line-height: 1.2;
-}
-
-#panel-live .live-item {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-/* =========================================================
-   RIGHT LIVE – TABS + GROUPING
-========================================================= */
-
-.live-tabs {
-  display: flex;
-  gap: 6px;
-  margin-left: auto;
-}
-
-.live-tab {
-  font-size: 11px;
-  padding: 4px 8px;
-  border-radius: 6px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.08);
-  color: #cfd6e4;
-  cursor: pointer;
-}
-
-.live-tab.active {
-  background: rgba(255,255,255,0.16);
-  color: #fff;
-}
-
-.live-group {
+  justify-content: space-between;
+  padding-bottom: 10px;
   margin-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
 }
 
-.live-league {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(180,190,210,0.75);
-  margin-bottom: 4px;
+.right-subpanel-title{
+  font-weight: 900;
+  font-size: 14px;
 }
 
-#panel-live .live-item {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding-right: 6px;
-}
-
-#panel-live .right-actions {
-  margin-top: 2px;
+.right-subpanel-body{
+  max-height: clamp(160px, 22vh, 280px);
+  overflow: auto;
+  padding-right: 4px;
 }
 /* =========================================================
-   RIGHT PANELS – SLIGHT HEIGHT BOOST (POST LIVE TABS)
-   Keeps panels breathable without breaking layout
+   AIML — FINAL UI PATCH (SAFE)
+   Sticky Today time + unified drawers
 ========================================================= */
 
-#right-panel .right-card {
-  min-height: calc(100vh - 140px);
+/* ---- STOP GLOBAL DIMMING ---- */
+body.drawer-left-open #center-panel,
+body.drawer-right-open #center-panel{
+  opacity: 1 !important;
+  filter: none !important;
 }
 
-@media (max-width: 900px) {
-  #right-panel .right-card {
-    min-height: calc(100vh - 120px);
+/* ---- MOBILE RIGHT DRAWER ---- */
+@media (max-width: 900px){
+  #right-panel{
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 1200 !important;
+    background: var(--panel-bg, #0c0e14) !important;
+    transform: translateX(100%);
+    transition: transform .25s ease;
+  }
+  body.drawer-right-open #right-panel{
+    transform: translateX(0);
   }
 }
-/* =========================================================
-   HIDE LEGACY ACCORDION PANELS (DATA-ONLY MODE)
-   Continents / Countries / Leagues / Old Matches
-========================================================= */
-#panel-continents,
-#panel-countries,
-#panel-leagues,
-#panel-matches {
-  display: none !important;
+
+/* ---- TODAY STICKY TIME ---- */
+#panel-today .today-time{
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: rgba(12,14,20,.94);
+  backdrop-filter: blur(4px);
+  padding: 6px 10px;
+  margin: 0 -10px 6px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
 }
 /* =========================================================
-   LEGACY ACCORDION PANELS — HIDDEN (DATA-ONLY)
+   FINAL — HIDE LEGACY NAV PANELS (LOCKED)
+   Continents / Countries / Leagues / Matches
+   DO NOT MOVE — MUST BE LAST
 ========================================================= */
-#panel-continents,
-#panel-countries,
-#panel-leagues,
-#panel-matches {
+
+/* Hide accordion headers */
+#left-panel .accordion-header[data-target="panel-continents"],
+#left-panel .accordion-header[data-target="panel-countries"],
+#left-panel .accordion-header[data-target="panel-leagues"],
+#left-panel .accordion-header[data-target="panel-matches"] {
   display: none !important;
 }
 
-/* Προαιρετικά: κρύψε και τα headers τους αν εμφανίζονται */
-.accordion-header[data-target="panel-continents"],
-.accordion-header[data-target="panel-countries"],
-.accordion-header[data-target="panel-leagues"],
-.accordion-header[data-target="panel-matches"] {
+/* Hide accordion panels */
+#panel-continents,
+#panel-countries,
+#panel-leagues,
+#panel-matches {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Safety: prevent any script / layout from reviving them */
+#left-panel .accordion-item:has(#panel-continents),
+#left-panel .accordion-item:has(#panel-countries),
+#left-panel .accordion-item:has(#panel-leagues),
+#left-panel .accordion-item:has(#panel-matches) {
   display: none !important;
 }
 /* =====================================================
-   TODAY PANEL — CLEAN, SCOPED STYLES (FINAL)
+   TODAY PANEL – VISUAL HIERARCHY (FINAL)
 ===================================================== */
 
-#panel-today .today-empty {
-  opacity: 0.7;
-  font-size: 13px;
-}
-
-#panel-today .today-block {
-  margin-bottom: 14px;
-}
-
-#panel-today .today-time {
-  font-weight: 700;
-  font-size: 13px;
+/* ώρα έναρξης */
+.today-time-header {
+  margin-top: 14px;
   margin-bottom: 6px;
-  opacity: 0.85;
+  padding: 4px 8px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  background: linear-gradient(90deg, rgba(255,255,255,0.08), transparent);
+  border-left: 3px solid #4da3ff;
 }
 
-#panel-today .today-league {
-  font-size: 11px;
+/* τίτλος λίγκας */
+.today-league-header {
+  margin: 6px 0 4px 10px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  opacity: 0.7;
-  margin: 6px 0 4px;
+  color: rgba(255,255,255,0.75);
 }
 
-#panel-today .today-league.solo {
-  margin-top: 4px;
-}
-
-#panel-today .today-match {
-  padding-left: 6px;
-  margin-bottom: 4px;
-}
-
-#panel-today .today-teams {
-  font-size: 13px;
-  line-height: 1.3;
-}
-/* =====================================================
-   TODAY PANEL — CLEAN FINAL (24h, no patches)
-===================================================== */
-
-#panel-today .today-row {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(255,255,255,0.05);
-}
-
-#panel-today .today-row:hover {
-  background: rgba(255,255,255,0.08);
-}
-
-#panel-today .today-main {
-  min-width: 0;
-}
-
-#panel-today .today-teams {
-  font-size: 13px;
-  font-weight: 600;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-#panel-today .today-meta {
-  font-size: 12px;
-  font-weight: 700;
-  text-align: right;
-  opacity: 0.85;
-  min-width: 52px;
-}
-
-#panel-today .today-meta.live {
-  color: #d93025;
-}
-
-#panel-today .today-meta.ft {
-  opacity: 0.7;
-}
-
-#panel-today .today-empty {
-  opacity: 0.7;
-  font-size: 13px;
-  padding: 8px 4px;
-}
-/* =====================================================
-   MATCH ROW — CLEAN, SHARED (Today / Live / Saved)
-===================================================== */
-
-.match-row {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(255,255,255,0.05);
-}
-
-.match-row:hover {
-  background: rgba(255,255,255,0.08);
-}
-
-.mr-left {
-  min-width: 0;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 8px;
-  align-items: center;
-}
-
-.mr-teams {
-  font-size: 13px;
-  font-weight: 600;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.mr-actions {
+/* γραμμή αγώνα */
+.today-row {
   display: flex;
+  align-items: center;
   gap: 6px;
-}
-
-.mr-btn {
-  background: transparent;
-  border: 0;
-  cursor: pointer;
-  opacity: 0.8;
-}
-
-.mr-btn:hover {
-  opacity: 1;
-}
-
-.mr-right {
-  font-size: 12px;
-  font-weight: 700;
-  min-width: 64px;
-  text-align: right;
-}
-
-.mr-right.live {
-  color: #d93025;
-}
-
-.mr-right.ft {
-  opacity: 0.7;
-}
-
-.today-empty {
-  opacity: 0.7;
+  padding: 2px 0 2px 16px;
   font-size: 13px;
-  padding: 8px 4px;
-}
-/* ===============================
-   MATCH ROWS – UNIFIED UI
-   =============================== */
-
-.match-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 12px;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  cursor: pointer;
+  line-height: 1.45;
+  color: rgba(255,255,255,0.9);
 }
 
-.match-row:hover {
-  background: rgba(255,255,255,0.04);
-}
-
-.mr-left {
-  flex: 1;
-  min-width: 0;
-}
-
-.mr-teams {
-  font-size: 14px;
-  line-height: 1.3;
+/* ομάδες */
+.today-row .teams {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.mr-right {
+/* σκορ */
+.today-row .score {
+  margin-left: auto;
+  font-weight: 700;
+}
+
+/* live λεπτό */
+.today-row .time.live {
+  color: #ff4d4d;
+  font-weight: 700;
+}
+/* =====================================================
+   ACTIVE LEAGUES – LEAGUE HEADER EMPHASIS
+===================================================== */
+
+.active-league-header {
+  margin-top: 14px;
+  margin-bottom: 6px;
+  padding: 6px 8px;
   font-size: 13px;
-  opacity: 0.9;
-  margin-left: 10px;
-  white-space: nowrap;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffffff;
+
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.10),
+    rgba(255,255,255,0.02)
+  );
+
+  border-left: 3px solid #4da3ff;
+  border-radius: 4px;
 }
-
-.mr-right.live {
-  color: #ff5252;
-  font-weight: 600;
-}
-
-.mr-right.ft {
-  opacity: 0.6;
-}
-
-/* ===============================
-   ACTIVE LEAGUES
-   =============================== */
-
-.league-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 12px;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  cursor: pointer;
-}
-
-.league-row:hover {
-  background: rgba(255,255,255,0.04);
-}
-
-.league-name {
-  font-size: 14px;
-}
-
-.league-count {
-  background: #1e88e5;
-  color: #fff;
+.live-league-header {
+  margin: 10px 0 4px;
+  padding: 4px 6px;
   font-size: 12px;
-  padding: 2px 8px;
-  border-radius: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-left: 3px solid #ff5c5c;
+  background: rgba(255,255,255,0.06);
 }
+/* =====================================================
+   MOBILE DRAWER & PANEL HARD FIX (LOCKED)
+   Prevent empty panels / no-scroll on mobile
+===================================================== */
 
-/* ===============================
-   EMPTY STATES
-   =============================== */
+@media (max-width: 900px) {
 
-.today-empty,
-.list-empty {
-  padding: 14px;
-  font-size: 13px;
-  opacity: 0.6;
-  text-align: center;
-}
-
-/* ===============================
-   MOBILE POLISH
-   =============================== */
-
-@media (max-width: 768px) {
-  .match-row,
-  .league-row {
-    padding: 12px 14px;
+  html, body {
+    height: 100%;
+    overflow: hidden;
   }
 
-  .mr-teams {
-    font-size: 15px;
+  #app {
+    height: 100dvh;
+    overflow: hidden;
   }
 
-  .mr-right {
-    font-size: 14px;
+  /* LEFT & RIGHT DRAWERS */
+  #left-panel,
+  #right-panel {
+    position: fixed !important;
+    top: var(--topbar-height, 56px);
+    bottom: 0;
+    height: auto !important;
+    max-height: none !important;
+    overflow: hidden;
+    z-index: 1000;
+  }
+
+  /* PANEL CONTENT SCROLL OWNER */
+  #left-panel .panel-body,
+  #right-panel .panel-body {
+    height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* CENTER PANEL */
+  #center-panel {
+    height: calc(100dvh - var(--topbar-height, 56px));
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* PREVENT BACKGROUND SCROLL */
+  body.drawer-left-open #center-panel,
+  body.drawer-right-open #center-panel {
+    overflow: hidden;
   }
 }

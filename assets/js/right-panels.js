@@ -1,133 +1,74 @@
 /* =========================================================
-   AI MatchLab ULTRA — Right Panels FINAL (RESTORED)
-   LIVE:
-   - League header
-   - Minute από m.minute / m.clock (όπως παλιά)
+   AI MatchLab ULTRA — Right Panels (LIVE ONLY)
+   - Παίρνει ΜΟΝΟ από live:update
+   - Χρήση renderMatchRow (shared component)
+   - Grouping ανά λίγκα
 ========================================================= */
+
 (function () {
   "use strict";
-  if (window.__AIML_RIGHT_PANELS_RESTORED__) return;
-  window.__AIML_RIGHT_PANELS_RESTORED__ = true;
+  if (!window.on || !window.renderMatchRow) return;
 
-  function onSafe(ev, fn) {
-    if (typeof window.on === "function") window.on(ev, fn);
-    else document.addEventListener(ev, (e) => fn(e.detail));
-  }
-  function emitSafe(ev, data) {
-    if (typeof window.emit === "function") window.emit(ev, data);
-    else document.dispatchEvent(new CustomEvent(ev, { detail: data }));
-  }
-
-  const els = {
-    liveMeta: null,
-    liveList: null
-  };
-
-  function resolve() {
-    els.liveMeta = els.liveMeta || document.getElementById("live-meta");
-    els.liveList = els.liveList || document.getElementById("live-list");
-  }
-
-  const esc = (s) =>
-    String(s ?? "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
-
-  function leagueKey(m) {
-    return (
-      m.leagueName ||
-      m.league ||
-      m.league_slug ||
-      m.aimlLeagueId ||
-      "Other"
-    );
-  }
-
-  function minuteText(m) {
-    if (m.minute != null) return `${esc(m.minute)}’`;
-    if (m.clock != null) return `${esc(m.clock)}’`;
-    return "";
-  }
-
-  function scoreText(m) {
-    if (m.score_text) return esc(m.score_text);
-    if (m.scoreHome != null && m.scoreAway != null)
-      return `${esc(m.scoreHome)}–${esc(m.scoreAway)}`;
-    return "";
-  }
+  const LIST_ID = "live-list";
+  const META_ID = "live-meta";
 
   let matches = [];
 
   function render() {
-    resolve();
-    if (!els.liveList) return;
+    const list = document.getElementById(LIST_ID);
+    const meta = document.getElementById(META_ID);
+    if (!list) return;
 
-    if (els.liveMeta) els.liveMeta.textContent = `Live • ${matches.length}`;
+    list.innerHTML = "";
+
+    if (meta) {
+      meta.textContent = `Live • ${matches.length}`;
+    }
 
     if (!matches.length) {
-      els.liveList.innerHTML =
-        "<div class='right-empty'>No live matches.</div>";
+      list.innerHTML =
+        `<div class="empty-state">No live matches right now</div>`;
       return;
     }
 
-    const groups = {};
-    matches.forEach((m) => {
-      const k = leagueKey(m);
-      (groups[k] = groups[k] || []).push(m);
+    // sort by kickoff
+    const sorted = matches.slice().sort((a, b) => {
+      const ka = a.kickoff_ms || 0;
+      const kb = b.kickoff_ms || 0;
+      return ka - kb;
     });
 
-    let html = "";
+    // group by league
+    const byLeague = {};
+    sorted.forEach(m => {
+      const lg = m.leagueName || "";
+      (byLeague[lg] = byLeague[lg] || []).push(m);
+    });
 
-    Object.keys(groups).sort().forEach((lg) => {
-      html += `
-        <div class="live-group">
-          <div class="live-league">${esc(lg)}</div>
-      `;
+    Object.keys(byLeague).sort().forEach(league => {
+      const leagueHeader = document.createElement("div");
+      leagueHeader.className = "live-league-header";
+      leagueHeader.textContent = league;
+      list.appendChild(leagueHeader);
 
-      groups[lg].forEach((m) => {
-        const minute = minuteText(m);
-        const score = scoreText(m);
+      byLeague[league].forEach(m => {
+        const row = renderMatchRow(m, {
+          showMinute: true,
+          showScore: true
+        });
 
-        html += `
-          <div class="right-item live-item"
-               data-id="${esc(m.id)}"
-               data-home="${esc(m.home)}"
-               data-away="${esc(m.away)}">
-            <div class="right-main">
-              <strong>${esc(m.home)} – ${esc(m.away)}</strong>
-            </div>
-            <div class="right-sub">
-              ${minute}${minute && score ? " • " : ""}${score}
-            </div>
-          </div>
-        `;
+        list.appendChild(row);
       });
-
-      html += `</div>`;
     });
-
-    els.liveList.innerHTML = html;
   }
 
-  onSafe("today:updated", (list) => {
-  matches = Array.isArray(list)
-    ? list.filter(m => m.status === "LIVE")
-    : [];
-  render();
-});
-
-  document.addEventListener("click", (e) => {
-    const item = e.target.closest(".live-item");
-    if (!item) return;
-
-    emitSafe("match-selected", {
-      id: item.dataset.id,
-      home: item.dataset.home,
-      away: item.dataset.away
-    });
-
-    document.body.classList.remove("drawer-right-open");
+  /* =====================================================
+     EVENTS
+  ===================================================== */
+  on("live:update", payload => {
+    const list = payload?.matches || [];
+    matches = Array.isArray(list) ? list : [];
+    render();
   });
 
   render();

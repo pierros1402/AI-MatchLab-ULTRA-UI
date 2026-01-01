@@ -1,30 +1,50 @@
+/* =====================================================
+   FIXTURES LOADER — SINGLE SOURCE EMITTER
+   -----------------------------------------------------
+   Fetches /fixtures and emits TODAY events
+===================================================== */
+
 (function () {
-  if (!window.emit) return;
+  if (typeof emit !== "function") {
+    console.warn("[fixtures-loader] event bus not ready");
+    return;
+  }
 
   const cfg = window.AIML_LIVE_CFG || {};
   const base = cfg.fixturesBase;
   const path = cfg.fixturesPath || "/fixtures";
 
-  if (!base) return;
+  if (!base) {
+    console.error("[fixtures-loader] fixturesBase missing");
+    return;
+  }
 
-  fetch(base + path)
+  const url = base + path;
+
+  fetch(url)
     .then(r => r.json())
     .then(data => {
-      console.log("[FIXTURES] loaded:", data?.matches?.length || 0);
+      const matches = Array.isArray(data?.matches) ? data.matches : [];
 
-      // 🔒 GLOBAL CACHE (CRITICAL)
-      window.__FIXTURES_LAST__ = data;
+      console.log("[FIXTURES] loaded:", matches.length);
 
-      // 🔔 EVENT
-      window.emit("fixtures:loaded", data);
+      // 🔑 THIS IS THE KEY FIX
+     const payload = {
+  source: "fixtures",
+  matches
+};
+
+// 🔑 cache last payload for late subscribers
+window.__AIML_LAST_TODAY__ = payload;
+
+emit("today-matches:loaded", payload);
+
     })
     .catch(err => {
-      console.error("[FIXTURES] failed", err);
-
-      const empty = { matches: [] };
-
-      // 🔒 still cache, so Today boots correctly
-      window.__FIXTURES_LAST__ = empty;
-      window.emit("fixtures:loaded", empty);
+      console.error("[fixtures-loader] fetch failed", err);
+      emit("today-matches:loaded", {
+        source: "fixtures",
+        matches: []
+      });
     });
 })();

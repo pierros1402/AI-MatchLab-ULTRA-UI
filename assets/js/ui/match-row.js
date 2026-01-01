@@ -1,7 +1,6 @@
 (function () {
   if (!window.emit) return;
 
-  // 24h time helper
   function formatTime(iso) {
     if (!iso) return "";
     const d = new Date(iso);
@@ -13,6 +12,13 @@
   }
 
   window.renderMatchRow = function renderMatchRow(m, opts = {}) {
+    const {
+      showTime = false,
+      showScore = false,
+      showMinute = false,
+      label = ""
+    } = opts;
+
     const row = document.createElement("div");
     row.className = "match-row";
 
@@ -22,7 +28,6 @@
     const teams = document.createElement("div");
     teams.className = "mr-teams";
     teams.textContent = `${m.home} – ${m.away}`;
-
     left.appendChild(teams);
 
     const actions = document.createElement("div");
@@ -53,13 +58,16 @@
     const right = document.createElement("div");
     right.className = "mr-right";
 
-    if (m.status === "LIVE") {
+    if (label) {
+      right.textContent = label;
+    } else if (showMinute && m.status === "LIVE") {
       right.classList.add("live");
-      right.textContent = `LIVE ${m.minute || ""} ${m.scoreHome}-${m.scoreAway}`;
-    } else if (m.status === "FT") {
+      right.textContent =
+        `${m.minute || ""}' ${m.scoreHome}-${m.scoreAway}`;
+    } else if (showScore) {
       right.classList.add("ft");
-      right.textContent = `FT ${m.scoreHome}-${m.scoreAway}`;
-    } else {
+      right.textContent = `${m.scoreHome}-${m.scoreAway}`;
+    } else if (showTime) {
       right.textContent = formatTime(m.kickoff);
     }
 

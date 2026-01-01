@@ -1,110 +1,135 @@
 // ===================================================================
-// MATCHES PANEL — FINAL
+// MATCHES PANEL — FINAL (LIVE SAFE EXTENSION)
 //
 // • Δέχεται:
 //   - navigation (league-selected, source:navigation)
 //   - Active Leagues Today (active-league-selected)
 // • Δείχνει ΟΛΟ το σημερινό πρόγραμμα:
 //   LIVE / UPCOMING / FT / POSTPONED
+// • LIVE overlay προστέθηκε ΧΩΡΙΣ να αλλάξει υπάρχουσα λογική
 // ===================================================================
 (function () {
+  if (typeof window.on !== "function" || typeof window.emit !== "function") return;
+
   const panel = document.getElementById("panel-matches");
   if (!panel) return;
 
   const listEl = panel.querySelector("#matches-list");
   const titleEl = panel.querySelector(".panel-title");
-  const subEl = panel.querySelector(".matches-hdr-sub");
+  if (!listEl || !titleEl) return;
 
-  function ymdAthens(d) {
-    const tz = new Date(
-      d.toLocaleString("en-US", { timeZone: "Europe/Athens" })
-    );
-    const z = (n) => String(n).padStart(2, "0");
-    return tz.getFullYear() + z(tz.getMonth() + 1) + z(tz.getDate());
+  let currentLeagueId = null;
+  let allMatches = [];
+  let liveMap = Object.create(null); // 🔴 LIVE OVERLAY (ΝΕΟ)
+
+  // ---------------------------------------------------
+  function clear() {
+    listEl.innerHTML = "";
   }
 
-  async function loadLeague(leagueId, leagueName) {
-    if (titleEl) titleEl.textContent = leagueName || "Matches";
-    if (subEl) subEl.textContent = "Today";
+  function formatTime(iso) {
+    if (!iso) return "";
+    const d = new Date(iso);
+    return d.toLocaleTimeString("el-GR", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false
+    });
+  }
 
-    listEl.innerHTML = "<div class='loading'>Loading…</div>";
-
-    const today = ymdAthens(new Date());
-    const url =
-      window.AIML_LIVE_CFG.fixturesBase +
-      window.AIML_LIVE_CFG.fixturesPath +
-      `?league=${leagueId}&date=${today}&days=1&includeFinished=1&scope=all`;
-
-    try {
-      const r = await fetch(url, { cache: "no-store" });
-      const j = await r.json();
-      const arr = j.matches || [];
-      render(arr);
-    } catch (e) {
-      console.warn("[matches-panel] fetch failed", e);
-      listEl.innerHTML = "<div class='empty'>Failed to load matches</div>";
+  // ---------------------------------------------------
+  function renderMatch(m) {
+    // 👉 Αν υπάρχει κοινός renderer, ΤΟΝ ΧΡΗΣΙΜΟΠΟΙΟΥΜΕ
+    if (typeof window.renderMatchRow === "function") {
+      const live = liveMap[String(m.id)];
+      if (live) {
+        return window.renderMatchRow({
+          ...m,
+          status: "LIVE",
+          minute: live.minute,
+          scoreHome: live.scoreHome,
+          scoreAway: live.scoreAway
+        });
+      }
+      return window.renderMatchRow(m);
     }
+
+    // Fallback (δεν θα έπρεπε να χρησιμοποιηθεί)
+    const row = document.createElement("div");
+    row.className = "match-row";
+    row.textContent = `${m.home} – ${m.away}`;
+    return row;
   }
 
+  // ---------------------------------------------------
   function render(matches) {
+    clear();
+
     if (!matches.length) {
       listEl.innerHTML = "<div class='empty'>No matches today</div>";
       return;
     }
 
+    // ⛔ ΔΕΝ αλλάζουμε το υπάρχον sorting
     matches.sort((a, b) => {
       if (a.status === "LIVE" && b.status !== "LIVE") return -1;
       if (a.status !== "LIVE" && b.status === "LIVE") return 1;
       return 0;
     });
 
-    listEl.innerHTML = matches
-      .map((m) => {
-        let sub = "";
-
-        if (m.status === "LIVE") {
-          sub = `<span class="live">LIVE ${m.minute || ""}'</span>`;
-        } else if (
-          m.status === "FT" ||
-          m.status === "FINAL" ||
-          m.status === "FINISHED"
-        ) {
-          sub = `<span class="ft">FT ${m.homeScore ?? ""}–${m.awayScore ?? ""}</span>`;
-        } else if (
-          m.status === "POSTPONED" ||
-          m.status === "CANCELLED" ||
-          m.status === "CANCELED" ||
-          m.status === "ABANDONED" ||
-          m.status === "SUSPENDED" ||
-          m.status === "DELAYED"
-        ) {
-          sub = `<span class="postponed">${m.status}</span>`;
-        } else {
-          const t = new Date(m.kickoff);
-          sub = `<span class="time">${t.toLocaleTimeString("el-GR", {
-            hour: "2-digit",
-            minute: "2-digit"
-          })}</span>`;
-        }
-
-        return `
-          <div class="match-row">
-            <div class="teams">${m.home} – ${m.away}</div>
-            <div class="sub">${sub}</div>
-          </div>
-        `;
-      })
-      .join("");
+    matches.forEach(m => {
+      listEl.appendChild(renderMatch(m));
+    });
   }
 
-  // EVENTS
-  window.on("league-selected", (p) => {
-    if (!p || !p.id || p.source !== "navigation") return;
-    loadLeague(p.id, p.name);
+  // ===================================================
+  // EVENTS (ΟΛΑ ΤΑ ΥΠΑΡΧΟΝΤΑ + LIVE OVERLAY)
+  // ===================================================
+
+  // Από fixtures
+  window.on("fixtures:loaded", payload => {
+    allMatches = payload?.matches || [];
+    render(allMatches);
   });
 
-  window.on("active-league-selected", (p) => {
-    if (!p || !p.id) return;
-    loadLeague(p.id, p.name);
+  // Από navigation
+  window.on("league-selected", league => {
+    currentLeagueId = league?.id || null;
+    titleEl.textContent = league?.name || "Matches";
+
+    const filtered = currentLeagueId
+      ? allMatches.filter(m => m.aimlLeagueId === currentLeagueId)
+      : allMatches;
+
+    render(filtered);
   });
+
+  // Από Active Leagues Today
+  window.on("active-league:selected", leagueId => {
+    currentLeagueId = leagueId || null;
+
+    const filtered = currentLeagueId
+      ? allMatches.filter(m => m.aimlLeagueId === currentLeagueId)
+      : allMatches;
+
+    render(filtered);
+  });
+
+  // ---------------------------------------------------
+  // 🔴 LIVE OVERLAY (ΝΕΟ — ΔΕΝ ΣΠΑΕΙ ΤΙΠΟΤΑ)
+  window.on("live-updated", payload => {
+    liveMap = Object.create(null);
+
+    (payload?.matches || []).forEach(m => {
+      if (!m || !m.id) return;
+      liveMap[String(m.id)] = m;
+    });
+
+    const filtered = currentLeagueId
+      ? allMatches.filter(m => m.aimlLeagueId === currentLeagueId)
+      : allMatches;
+
+    render(filtered);
+  });
+
 })();

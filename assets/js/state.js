@@ -30,5 +30,33 @@
     }
   }
 
-  window.AppState = { get: get, set: set, dump: function () { return JSON.parse(JSON.stringify(state)); } };
+  // --------------------------------------------------
+  // 🔗 EVENT → STATE BRIDGE (ΑΥΤΟ ΕΛΕΙΠΕ)
+  // --------------------------------------------------
+  if (typeof window.on === "function") {
+
+    // Today matches
+    window.on("today:updated", function (matches) {
+      if (Array.isArray(matches)) {
+        set("today.matches", matches);
+      }
+    });
+
+    // Active leagues (αν υπάρχουν)
+    window.on("active-leagues:updated", function (leagues) {
+      if (Array.isArray(leagues)) {
+        set("active.leagues", leagues);
+      }
+    });
+
+  }
+
+  window.AppState = {
+    get: get,
+    set: set,
+    dump: function () {
+      return JSON.parse(JSON.stringify(state));
+    }
+  };
+
 })();

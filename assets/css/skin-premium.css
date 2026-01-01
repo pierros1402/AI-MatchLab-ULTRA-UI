@@ -297,3 +297,88 @@ html{
     background: #070912 !important;
   }
 }
+/* =====================================================
+   ACCENT ENHANCEMENT – PREMIUM VISUAL LAYER
+   (Works with existing topbar theme switcher)
+===================================================== */
+
+/* -------- Base accent tokens (fallback) -------- */
+html {
+  --accent-main: #4da3ff;
+  --accent-soft: rgba(77,163,255,0.25);
+  --accent-glow: 0 0 0 transparent;
+}
+
+/* -------- Generic usage across UI -------- */
+.panel-header,
+.panel-title {
+  border-left: 3px solid var(--accent-main);
+}
+
+.panel-header {
+  box-shadow: var(--accent-glow);
+}
+
+.match-row:hover {
+  background: linear-gradient(
+    90deg,
+    var(--accent-soft),
+    transparent
+  );
+}
+
+.mr-right.live {
+  color: var(--accent-main);
+  text-shadow: 0 0 10px var(--accent-soft);
+}
+
+button.primary,
+.accent-border {
+  border-color: var(--accent-main);
+}
+
+/* =====================================================
+   ACCENT SETS (mapped to data-accent on <html>)
+===================================================== */
+
+/* Blue / Orange (Default) */
+html[data-accent="default"] {
+  --accent-main: #4da3ff;
+  --accent-soft: rgba(255,140,0,0.18);
+  --accent-glow: 0 0 18px rgba(77,163,255,0.35);
+}
+
+/* Green / Gold */
+html[data-accent="green-gold"] {
+  --accent-main: #4ddf88;
+  --accent-soft: rgba(245,199,122,0.22);
+  --accent-glow: 0 0 20px rgba(77,223,136,0.35);
+}
+
+/* Crimson / Silver */
+html[data-accent="crimson-silver"] {
+  --accent-main: #ff4d5a;
+  --accent-soft: rgba(200,200,200,0.18);
+  --accent-glow: 0 0 18px rgba(255,77,90,0.35);
+}
+
+/* Purple / Aqua */
+html[data-accent="purple-aqua"] {
+  --accent-main: #9b7cff;
+  --accent-soft: rgba(80,220,220,0.22);
+  --accent-glow: 0 0 22px rgba(155,124,255,0.4);
+}
+
+/* Neon / Spectrum */
+html[data-accent="neon"] {
+  --accent-main: #00f6ff;
+  --accent-soft: rgba(255,0,200,0.25);
+  --accent-glow: 0 0 28px rgba(0,246,255,0.55);
+}
+
+/* Minimal (Classic) */
+html[data-accent="minimal"] {
+  --accent-main: #bfc7d5;
+  --accent-soft: rgba(255,255,255,0.08);
+  --accent-glow: none;
+}

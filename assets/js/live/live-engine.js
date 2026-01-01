@@ -1,41 +1,71 @@
-// ======================================================================
-// LIVE ENGINE — AI MATCHLAB ULTRA
-// Dispatches live odds into the system
-// ======================================================================
-//
-// In production:
-//   • Will receive odds from API / Websocket
-//
-// In demo mode:
-//   • Receives odds from match-simulator.js
-//
-// ======================================================================
+/* =====================================================
+   LIVE ENGINE (TODAY-DRIVEN)
+   -----------------------------------------------------
+   Single source of truth: TODAY PANEL
+   - No fetch
+   - No worker
+   - No demo
+   - Pure filter + emit
+===================================================== */
 
-function pushLiveOdds(oddsFeed) {
-  emit("live-odds-updated", oddsFeed);
-}
-// ======================================================================
-// LIVE ENGINE — AI MATCHLAB ULTRA
-// Dispatches live odds into the system
-// ======================================================================
-//
-// In production:
-//   • Will receive odds from API / Websocket
-//
-// In demo mode:
-//   • Receives odds from match-simulator.js
-//
-// ======================================================================
+(function () {
+  if (typeof window.on !== "function" || typeof window.emit !== "function") {
+    console.warn("[live-engine] event bus not ready");
+    return;
+  }
 
-function pushLiveOdds(oddsFeed) {
-  emit("live-odds-updated", oddsFeed);
-}
+  let lastLiveIds = new Set();
 
-// ----------------------------------------------------------------------
-// OPTIONAL: Live matches list bridge (for Saved panel "Live Saved")
-// Call this from your live source when you have matches array.
-// ----------------------------------------------------------------------
-function pushLiveMatches(matches) {
-  window.AIML_LIVE_MATCHES = Array.isArray(matches) ? matches : [];
-  if (typeof emit === "function") emit("live-updated", { matches: window.AIML_LIVE_MATCHES });
-}
+  // Listen ONLY to today updates
+  on("today-matches:loaded", handleToday);
+  on("today:update", handleToday); // safety (if you emit this elsewhere)
+
+  function handleToday(payload) {
+    const matches = Array.isArray(payload?.matches)
+      ? payload.matches
+      : Array.isArray(payload)
+      ? payload
+      : [];
+
+    if (!matches.length) {
+      emitEmpty();
+      return;
+    }
+
+    // LIVE = status === "LIVE"
+    const liveMatches = matches.filter(
+      (m) => String(m.status || "").toUpperCase() === "LIVE"
+    );
+
+    // Build stable id set to avoid noisy re-renders
+    const ids = new Set(liveMatches.map((m) => m.id));
+    if (sameSet(ids, lastLiveIds)) return;
+
+    lastLiveIds = ids;
+
+    emit("live:update", {
+      source: "today",
+      total: liveMatches.length,
+      matches: liveMatches
+    });
+  }
+
+  function emitEmpty() {
+    if (lastLiveIds.size === 0) return;
+    lastLiveIds.clear();
+
+    emit("live:update", {
+      source: "today",
+      total: 0,
+      matches: []
+    });
+  }
+
+  function sameSet(a, b) {
+    if (a.size !== b.size) return false;
+    for (const v of a) if (!b.has(v)) return false;
+    return true;
+  }
+
+  console.log("[live-engine] READY (today-driven)");
+})();
