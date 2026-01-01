@@ -58,15 +58,33 @@
     const right = document.createElement("div");
     right.className = "mr-right";
 
+    // ---- NEW: split minute & score into spans ----
     if (label) {
       right.textContent = label;
+
     } else if (showMinute && m.status === "LIVE") {
       right.classList.add("live");
-      right.textContent =
-        `${m.minute || ""}' ${m.scoreHome}-${m.scoreAway}`;
+
+      const min = document.createElement("span");
+      min.className = "mr-minute";
+      min.textContent = `${m.minute || ""}'`;
+
+      const score = document.createElement("span");
+      score.className = "mr-score";
+      score.textContent = `${m.scoreHome}-${m.scoreAway}`;
+
+      right.appendChild(min);
+      right.appendChild(score);
+
     } else if (showScore) {
       right.classList.add("ft");
-      right.textContent = `${m.scoreHome}-${m.scoreAway}`;
+
+      const score = document.createElement("span");
+      score.className = "mr-score";
+      score.textContent = `${m.scoreHome}-${m.scoreAway}`;
+
+      right.appendChild(score);
+
     } else if (showTime) {
       right.textContent = formatTime(m.kickoff);
     }

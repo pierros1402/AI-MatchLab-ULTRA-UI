@@ -32,10 +32,11 @@
       return;
     }
 
-    // LIVE = status === "LIVE"
-    const liveMatches = matches.filter(
-      (m) => String(m.status || "").toUpperCase() === "LIVE"
-    );
+    // LIVE-ish statuses (worker normalizes to LIVE/HT/ET/PEN)
+    const liveMatches = matches.filter((m) => {
+      const s = String(m.status || '').toUpperCase();
+      return s === 'LIVE' || s === 'HT' || s === 'ET' || s === 'PEN';
+    });
 
     // Build stable id set to avoid noisy re-renders
     const ids = new Set(liveMatches.map((m) => m.id));

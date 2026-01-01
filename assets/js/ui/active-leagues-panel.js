@@ -1,8 +1,9 @@
 /* =====================================================
-   ACTIVE LEAGUES TODAY – FINAL (MATCH ROW ENABLED)
+   ACTIVE LEAGUES TODAY – FINAL
    - Ομαδοποίηση ανά λίγκα
    - PRE / LIVE → ώρα
    - FT → ΜΟΝΟ τελικό αποτέλεσμα
+   - Panel-level open / close (safe)
    - REPLAY από __AIML_LAST_TODAY__ (late load safe)
 ===================================================== */
 
@@ -10,6 +11,10 @@
   if (!window.on || !window.renderMatchRow) return;
 
   const LIST_ID = "active-leagues-list";
+  const PANEL_ID = "panel-active-leagues";
+  const HEADER_SELECTOR = '[data-panel-toggle="active-leagues"]';
+
+  let isOpen = true;
 
   function normStatus(s) {
     return String(s || "").toUpperCase();
@@ -18,6 +23,23 @@
   function isFinal(m) {
     const s = normStatus(m.status);
     return s === "FT" || s === "FINAL" || s === "AET" || s === "PEN";
+  }
+
+  function applyPanelState() {
+    const panel = document.getElementById(PANEL_ID);
+    if (!panel) return;
+
+    panel.classList.toggle("closed", !isOpen);
+  }
+
+  function bindHeaderToggle() {
+    const header = document.querySelector(HEADER_SELECTOR);
+    if (!header) return;
+
+    header.addEventListener("click", () => {
+      isOpen = !isOpen;
+      applyPanelState();
+    });
   }
 
   function render(allMatches) {
@@ -57,8 +79,8 @@
         const final = isFinal(m);
 
         const row = renderMatchRow(m, {
-          showTime: !final,     // PRE / LIVE
-          showScore: final      // FT μόνο αποτέλεσμα
+          showTime: !final,
+          showScore: final
         });
 
         list.appendChild(row);
@@ -76,6 +98,12 @@
     else if (payload?.items) matches = payload.items;
     render(matches);
   });
+
+  /* =====================================================
+     INIT
+  ===================================================== */
+  bindHeaderToggle();
+  applyPanelState();
 
   /* =====================================================
      REPLAY (late load safe)

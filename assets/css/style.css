@@ -799,3 +799,7 @@ body.drawer-right-open #center-panel{
     overflow: hidden;
   }
 }
+/* Active panel open / close */
+#panel-active-leagues.closed .panel-body {
+  display: none;
+}

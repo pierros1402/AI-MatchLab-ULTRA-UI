@@ -1,7 +1,9 @@
 /* =====================================================
-   TODAY PANEL – FINAL (MATCH ROW ENABLED)
+   TODAY PANEL – FINAL (OPTION B)
    - LIVE + UPCOMING μόνο
-   - Ομαδοποίηση ανά ώρα έναρξης
+   - Ομαδοποίηση ΜΟΝΟ ανά ώρα έναρξης
+   - Flat match rows
+   - League εμφανίζεται μέσα στο row (small label)
    - Χρήση renderMatchRow (shared component)
 ===================================================== */
 
@@ -70,31 +72,18 @@
       timeHeader.textContent = timeKey;
       list.appendChild(timeHeader);
 
-      const group = byTime[timeKey];
+      byTime[timeKey].forEach(m => {
+        const live = isLiveStatus(m.status);
 
-      const byLeague = {};
-      group.forEach(m => {
-        const lg = m.leagueName || "";
-        (byLeague[lg] = byLeague[lg] || []).push(m);
-      });
-
-      Object.keys(byLeague).forEach(league => {
-        const leagueHeader = document.createElement("div");
-        leagueHeader.className = "today-league-header";
-        leagueHeader.textContent = league;
-        list.appendChild(leagueHeader);
-
-        byLeague[league].forEach(m => {
-          const live = isLiveStatus(m.status);
-
-          const row = renderMatchRow(m, {
-            showTime: !live,
-            showMinute: live,
-            showScore: live
-          });
-
-          list.appendChild(row);
+        const row = renderMatchRow(m, {
+          showTime: !live,
+          showMinute: live,
+          showScore: live,
+          showLeague: true,      // 👈 μικρό league label μέσα στο row
+          leagueStyle: "subtle"  // 👈 visual hint (CSS-handled)
         });
+
+        list.appendChild(row);
       });
     });
   }
