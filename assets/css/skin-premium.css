@@ -416,3 +416,29 @@ html[data-accent="minimal"] {
     touch-action: auto;
   }
 }
+/* =====================================================
+   MOBILE RIGHT PANEL HEADER OFFSET FIX
+===================================================== */
+
+@media (max-width: 900px) {
+
+  /* Right panel must start BELOW topbar */
+  #right-panel {
+    top: 64px;              /* ύψος mobile topbar */
+    height: calc(100dvh - 64px);
+  }
+
+  /* Inner scroll area */
+  #right-panel .panel-inner,
+  #right-panel .panel-content {
+    padding-top: 12px;
+  }
+
+  /* Ensure header is visible */
+  #right-panel .panel-header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: inherit;
+  }
+}
