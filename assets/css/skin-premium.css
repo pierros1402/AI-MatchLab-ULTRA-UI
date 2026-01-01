@@ -382,3 +382,37 @@ html[data-accent="minimal"] {
   --accent-soft: rgba(255,255,255,0.08);
   --accent-glow: none;
 }
+/* =====================================================
+   MOBILE OVERLAY / DRAWER HARD UNLOCK FIX
+===================================================== */
+
+@media (max-width: 900px) {
+
+  /* Overlay must NEVER block when hidden */
+  #drawer-overlay {
+    pointer-events: none;
+  }
+
+  body.drawer-left-open #drawer-overlay,
+  body.drawer-right-open #drawer-overlay {
+    pointer-events: auto;
+  }
+
+  /* Right panel must be above overlay */
+  #right-panel {
+    z-index: 1200;
+  }
+
+  #left-panel {
+    z-index: 1100;
+  }
+
+  #drawer-overlay {
+    z-index: 1000;
+  }
+
+  /* Prevent frozen touch layer */
+  body:not(.drawer-left-open):not(.drawer-right-open) {
+    touch-action: auto;
+  }
+}
