@@ -1,11 +1,11 @@
 /* =====================================================
-   LIVE ENGINE (TODAY-DRIVEN)
+   LIVE ENGINE (TODAY-DRIVEN) – FINAL
    -----------------------------------------------------
    Single source of truth: TODAY PANEL
    - No fetch
    - No worker
-   - No demo
-   - Pure filter + emit
+   - No polling
+   - BUT: lifecycle-safe (sleep / wake / focus)
 ===================================================== */
 
 (function () {
@@ -15,12 +15,18 @@
   }
 
   let lastLiveIds = new Set();
+  let lastTodayPayload = null;
 
-  // Listen ONLY to today updates
+  // Listen to Today updates
   on("today-matches:loaded", handleToday);
-  on("today:update", handleToday); // safety (if you emit this elsewhere)
+  on("today:update", handleToday); // safety
 
   function handleToday(payload) {
+    lastTodayPayload = payload;
+    process(payload);
+  }
+
+  function process(payload) {
     const matches = Array.isArray(payload?.matches)
       ? payload.matches
       : Array.isArray(payload)
@@ -32,13 +38,11 @@
       return;
     }
 
-    // LIVE-ish statuses (worker normalizes to LIVE/HT/ET/PEN)
     const liveMatches = matches.filter((m) => {
-      const s = String(m.status || '').toUpperCase();
-      return s === 'LIVE' || s === 'HT' || s === 'ET' || s === 'PEN';
+      const s = String(m.status || "").toUpperCase();
+      return s === "LIVE" || s === "HT" || s === "ET" || s === "PEN";
     });
 
-    // Build stable id set to avoid noisy re-renders
     const ids = new Set(liveMatches.map((m) => m.id));
     if (sameSet(ids, lastLiveIds)) return;
 
@@ -68,5 +72,29 @@
     return true;
   }
 
-  console.log("[live-engine] READY (today-driven)");
+  /* =====================================================
+     LIFECYCLE RE-SYNC (THE FIX)
+  ===================================================== */
+
+  function resync(reason) {
+    if (!lastTodayPayload) return;
+    console.log("[live-engine] resync:", reason);
+    process(lastTodayPayload);
+  }
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") {
+      resync("visibility");
+    }
+  });
+
+  window.addEventListener("focus", () => {
+    resync("focus");
+  });
+
+  window.addEventListener("pageshow", () => {
+    resync("pageshow");
+  });
+
+  console.log("[live-engine] READY (today-driven, lifecycle-safe)");
 })();

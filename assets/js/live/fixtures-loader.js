@@ -69,4 +69,29 @@
   if (POLL_MS > 0) {
     setInterval(tick, POLL_MS);
   }
+/* =====================================================
+   LIFECYCLE RESYNC (sleep / wake / focus safe)
+===================================================== */
+
+function resync(reason) {
+  if (window.__AIML_LAST_TODAY__) {
+    emit("today-matches:loaded", window.__AIML_LAST_TODAY__);
+    console.log("[fixtures-loader] resync:", reason);
+  }
+}
+
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible") {
+    resync("visibility");
+  }
+});
+
+window.addEventListener("focus", () => {
+  resync("focus");
+});
+
+window.addEventListener("pageshow", () => {
+  resync("pageshow");
+});
+
 })();

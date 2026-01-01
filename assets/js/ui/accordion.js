@@ -1,100 +1,98 @@
-// ======================================================================
-// ACCORDION — AI MATCHLAB ULTRA
-// v2.6: Single-open main flow + Autonomous Today/Saved + ALL CLOSED default
-// ======================================================================
+// =====================================================
+// ACCORDION — STABLE SINGLE-OPEN WITH SELECTIVE TOGGLE
+// =====================================================
 
 (function () {
-  "use strict";
-
   const accordion = document.getElementById("left-accordion");
   if (!accordion) return;
 
-  const AUTONOMOUS = new Set(["panel-today", "panel-saved"]);
+  // Panels that are autonomous (toggle freely)
+  const AUTONOMOUS = new Set([
+    "panel-today",
+    "panel-saved"
+  ]);
 
-  function qHeaders() {
-    return accordion.querySelectorAll(".accordion-header");
-  }
-  function qPanels() {
-    return accordion.querySelectorAll(".accordion-panel");
-  }
+  // Panels that should toggle BUT still belong to main flow
+  const TOGGLE_MAIN = new Set([
+    "panel-active-leagues",
+    "panel-league-details"
+  ]);
 
-  function setHeaderActive(id, on) {
-    const h = accordion.querySelector(`.accordion-header[data-target="${id}"]`);
-    if (!h) return;
-    if (on) h.classList.add("active");
-    else h.classList.remove("active");
-  }
+  function closeAllMainPanels(exceptId) {
+    const panels = accordion.querySelectorAll(".accordion-panel");
+    panels.forEach(panel => {
+      const id = panel.id;
+      if (!id) return;
 
-  function closePanel(id) {
-    const p = document.getElementById(id);
-    if (p) p.style.display = "none";
-    setHeaderActive(id, false);
-    if (window.emit) window.emit("accordion:closed", { id });
+      if (
+        AUTONOMOUS.has(id) ||
+        TOGGLE_MAIN.has(id) ||
+        id === exceptId
+      ) {
+        return;
+      }
+
+      panel.style.display = "none";
+      panel.parentElement.classList.remove("open");
+    });
   }
 
   function openPanel(id) {
-    const p = document.getElementById(id);
-    if (p) p.style.display = "block";
-    setHeaderActive(id, true);
-    if (window.emit) window.emit("accordion:opened", { id });
-  }
-
-  function isOpen(id) {
-    const p = document.getElementById(id);
-    return !!(p && p.style.display !== "none" && p.offsetParent !== null);
-  }
-
-  function closeAllMainPanels() {
-    // closes ONLY non-autonomous
-    qPanels().forEach((p) => {
-      if (!p || !p.id) return;
-      if (AUTONOMOUS.has(p.id)) return;
-      p.style.display = "none";
-      setHeaderActive(p.id, false);
-    });
-  }
-
-  function closeAllPanelsHard() {
-    // closes everything (startup)
-    qPanels().forEach((p) => {
-      if (!p || !p.id) return;
-      p.style.display = "none";
-      setHeaderActive(p.id, false);
-    });
-  }
-
-  function openAccordion(id) {
-    if (!id) return;
     const panel = document.getElementById(id);
     if (!panel) return;
 
-    const auto = AUTONOMOUS.has(id);
+    panel.style.display = "block";
+    panel.parentElement.classList.add("open");
+  }
 
-    // Toggle for autonomous panels
-    if (auto) {
-      const nowOpen = panel.style.display !== "none" && panel.offsetParent !== null;
-      if (nowOpen) closePanel(id);
+  function closePanel(id) {
+    const panel = document.getElementById(id);
+    if (!panel) return;
+
+    panel.style.display = "none";
+    panel.parentElement.classList.remove("open");
+  }
+
+  function isOpen(id) {
+    const panel = document.getElementById(id);
+    if (!panel) return false;
+    return panel.style.display !== "none";
+  }
+
+  accordion.addEventListener("click", (e) => {
+    const header = e.target.closest(".accordion-header");
+    if (!header) return;
+
+    const id = header.getAttribute("data-target");
+    if (!id) return;
+
+    // 1) Autonomous panels (Today, Saved)
+    if (AUTONOMOUS.has(id)) {
+      if (isOpen(id)) closePanel(id);
       else openPanel(id);
       return;
     }
 
-    // Single-open for main flow
-    closeAllMainPanels();
+    // 2) Toggle-main panels (Active Leagues, League Details)
+    if (TOGGLE_MAIN.has(id)) {
+      if (isOpen(id)) {
+        closePanel(id);
+      } else {
+        closeAllMainPanels(id);
+        openPanel(id);
+      }
+      return;
+    }
+
+    // 3) Default main flow (single-open, no toggle)
+    closeAllMainPanels(id);
     openPanel(id);
-  }
-
-  // Global
-  window.openAccordion = openAccordion;
-
-  // Click binding (delegation)
-  accordion.addEventListener("click", (e) => {
-    const h = e.target && e.target.closest ? e.target.closest(".accordion-header") : null;
-    if (!h) return;
-    const targetId = h.getAttribute("data-target");
-    if (targetId) openAccordion(targetId);
   });
 
-  // ALL CLOSED default (hard)
-  closeAllPanelsHard();
-
+  // Init: hide all panels
+  const panels = accordion.querySelectorAll(".accordion-panel");
+  panels.forEach(panel => {
+    panel.style.display = "none";
+    panel.parentElement.classList.remove("open");
+  });
 })();
