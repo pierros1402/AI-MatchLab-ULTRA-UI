@@ -443,24 +443,58 @@ html[data-accent="minimal"] {
   }
 }
 /* =====================================================
-   PANEL TITLES — FINAL UNIFIED STYLE (SKIN LEVEL)
+   PANEL TITLES — TEXT VISIBILITY FIX (FINAL)
    ===================================================== */
 
-.accordion-header,
-.panel-header,
-.right-card-header {
-  background: linear-gradient(
-    to bottom,
-    rgba(255,255,255,0.06),
-    rgba(255,255,255,0.00)
-  );
+/* LEFT ACCORDION TITLES */
+.accordion-header {
+  min-height: 44px;
+  height: auto;
 
-  border-bottom: 1px solid rgba(255,255,255,0.12);
+  display: flex;
+  align-items: center;
+
+  overflow: visible;
+
+  color: var(--text-main, #ffffff);
+  opacity: 1;
 }
 
-.accordion-header,
+/* CENTER / RIGHT PANEL TITLES */
+.panel-header,
+.right-card-header {
+  min-height: 44px;
+  height: auto;
+
+  display: flex;
+  align-items: center;
+
+  overflow: visible;
+}
+
 .panel-header .panel-title,
 .right-card-header .panel-title {
+  color: var(--text-main, #ffffff);
+  opacity: 1;
+
+  line-height: 1.3;
+  white-space: normal;
+}
+/* =====================================================
+   RIGHT PANEL — AI RADAR TITLE FIX
+   ===================================================== */
+
+/* Ensure any direct text / heading inside right headers is visible */
+.right-card-header > *,
+.right-panel-header > *,
+.right-panel-title {
+  color: var(--text-main, #ffffff);
+  opacity: 1;
+  line-height: 1.3;
+}
+
+/* In case AI Radar title is plain text node */
+.right-card-header {
   font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.2px;
