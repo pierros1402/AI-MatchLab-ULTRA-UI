@@ -857,3 +857,26 @@ body.drawer-right-open #center-panel{
   font-weight: 600;
   padding: 6px 10px;
 }
+/* =====================================================
+   ABSOLUTE PANEL TITLE OVERRIDE — FINAL
+   ===================================================== */
+
+body .accordion-header,
+body .panel-header,
+body .right-card-header {
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.06),
+    rgba(255,255,255,0.00)
+  ) !important;
+
+  border-bottom: 1px solid rgba(255,255,255,0.12) !important;
+}
+
+body .accordion-header,
+body .panel-header .panel-title,
+body .right-card-header .panel-title {
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.2px !important;
+}
