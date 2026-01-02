@@ -803,3 +803,59 @@ body.drawer-right-open #center-panel{
 #panel-active-leagues.closed .panel-body {
   display: none;
 }
+/* =====================================================
+   PANEL TITLES — UNIFIED PRIMARY STYLE (FINAL)
+   ===================================================== */
+
+.accordion-header,
+.panel-header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+
+  display: flex;
+  align-items: center;
+
+  padding: 10px 12px;
+  margin: 0;
+
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.04),
+    rgba(255,255,255,0.00)
+  );
+
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Title text itself */
+.accordion-header .panel-title,
+.panel-header .panel-title {
+  flex: 1;
+  line-height: 1.2;
+}
+
+/* Ensure sub-headers do NOT inherit this look */
+.today-time-header,
+.active-league-header,
+.right-subpanel-head {
+  position: static;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  background: none;
+  border: 0;
+}
+
+/* Mobile safety */
+@media (max-width: 768px) {
+  .accordion-header,
+  .panel-header {
+    padding: 12px 12px;
+    font-size: 15px;
+  }
+}
