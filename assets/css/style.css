@@ -880,3 +880,8 @@ body .right-card-header .panel-title {
   font-weight: 700 !important;
   letter-spacing: 0.2px !important;
 }
+body .accordion-header,
+body .panel-header,
+body .right-card-header {
+  outline: 2px solid red !important;
+}
