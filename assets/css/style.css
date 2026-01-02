@@ -804,75 +804,56 @@ body.drawer-right-open #center-panel{
   display: none;
 }
 /* =====================================================
-   PANEL TITLES — UNIFIED PRIMARY STYLE (FINAL)
+   UNIFIED PRIMARY PANEL TITLES — REAL FIX
+   (accordion-header + panel-header)
    ===================================================== */
 
-.accordion-header,
-.panel-header {
-  position: sticky;
-  top: 0;
-  z-index: 5;
-
+/* LEFT PANELS (accordion headers) */
+.accordion-header {
   display: flex;
   align-items: center;
 
-  padding: 10px 12px;
-  margin: 0;
-
+  padding: 12px 12px;
   font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.2px;
 
   background: linear-gradient(
     to bottom,
-    rgba(255,255,255,0.04),
+    rgba(255,255,255,0.06),
     rgba(255,255,255,0.00)
   );
 
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.10);
 }
 
-/* Title text itself */
-.accordion-header .panel-title,
-.panel-header .panel-title {
-  flex: 1;
-  line-height: 1.2;
+/* CENTER + RIGHT PANELS */
+.panel-header .panel-title,
+.right-card-header .panel-title {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
 }
 
-/* Ensure sub-headers do NOT inherit this look */
+/* Make panel-header visually match accordion-header */
+.panel-header,
+.right-card-header {
+  padding: 12px 12px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.06),
+    rgba(255,255,255,0.00)
+  );
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+
+/* Prevent sub-headers from inheriting */
 .today-time-header,
 .active-league-header,
-.right-subpanel-head {
-  position: static;
-  padding: 6px 10px;
-  font-size: 12px;
-  font-weight: 600;
+.league-details-header {
   background: none;
   border: 0;
-}
-
-/* Mobile safety */
-@media (max-width: 768px) {
-  .accordion-header,
-  .panel-header {
-    padding: 12px 12px;
-    font-size: 15px;
-  }
-}
-/* =====================================================
-   PANEL TITLES — STICKY OFFSET FIX (TOPBAR AWARE)
-   ===================================================== */
-
-/* Desktop */
-.accordion-header,
-.panel-header {
-  top: 56px; /* height of topbar */
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  .accordion-header,
-  .panel-header {
-    top: 72px; /* taller mobile topbar */
-  }
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 10px;
 }
