@@ -442,34 +442,3 @@ html[data-accent="minimal"] {
     background: inherit;
   }
 }
-/* =====================================================
-   REMOVE ALL ACCENT / RED LINES FROM PANEL TITLES
-   ===================================================== */
-
-/* Kill left accent lines everywhere */
-.accordion-header,
-.panel-header,
-.right-card-header,
-.panel-title,
-.right-card-header *,
-.panel-header * {
-  border-left: none !important;
-}
-
-/* Kill bottom accent / divider lines */
-.accordion-header,
-.panel-header,
-.right-card-header {
-  border-bottom: none !important;
-}
-
-/* Ensure clean title bar look (like Odds) */
-.accordion-header,
-.panel-header,
-.right-card-header {
-  background: linear-gradient(
-    to bottom,
-    rgba(255,255,255,0.08),
-    rgba(255,255,255,0.02)
-  );
-}
