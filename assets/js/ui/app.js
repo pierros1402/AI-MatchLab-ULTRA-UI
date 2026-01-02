@@ -72,4 +72,55 @@
     initApp();
   }
 
+  /* =====================================================
+     MOBILE PANEL TITLE SYNC (SAFE, NON-INTRUSIVE)
+     - Fills panel-header .panel-title ONLY on mobile drawers
+     - Does NOT affect desktop
+     - Does NOT change logic or flow
+  ===================================================== */
+
+  function syncMobilePanelTitles() {
+    const isLeftOpen  = document.body.classList.contains('drawer-left-open');
+    const isRightOpen = document.body.classList.contains('drawer-right-open');
+    if (!isLeftOpen && !isRightOpen) return;
+
+    // LEFT PANEL: keep existing title (Navigation) if present
+    if (isLeftOpen) {
+      const leftHeaderTitle = document.querySelector(
+        'aside#left-panel .panel-header .panel-title'
+      );
+      if (leftHeaderTitle && !leftHeaderTitle.textContent.trim()) {
+        leftHeaderTitle.textContent = 'Navigation';
+      }
+    }
+
+    // RIGHT PANEL: sync with first visible right-card header title
+    if (isRightOpen) {
+      const rightHeaderTitle = document.querySelector(
+        'aside#right-panel > .panel-header .panel-title'
+      );
+      if (!rightHeaderTitle) return;
+
+      const visibleCardTitle = Array.from(
+        document.querySelectorAll(
+          'aside#right-panel .right-card-header .panel-title'
+        )
+      ).find(el => {
+        const card = el.closest('.right-card');
+        return card && card.offsetParent !== null;
+      });
+
+      if (visibleCardTitle) {
+        const txt = visibleCardTitle.textContent.trim();
+        if (txt && rightHeaderTitle.textContent.trim() !== txt) {
+          rightHeaderTitle.textContent = txt;
+        }
+      }
+    }
+  }
+
+  // Run sync on drawer-related interactions (no polling)
+  document.addEventListener('click', syncMobilePanelTitles, true);
+  document.addEventListener('touchstart', syncMobilePanelTitles, true);
+
 })();

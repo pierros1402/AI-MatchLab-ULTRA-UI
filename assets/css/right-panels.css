@@ -248,3 +248,69 @@
   position:relative !important;
   margin-left:auto;
 }
+/* =========================================================
+   AI MatchLab ULTRA — Right Panel Tabs (FINAL)
+   - Stable panel titles
+   - Tabs for AI Radar / Top Picks
+   - Value & Live remain unchanged
+   - Desktop-safe, Mobile-friendly
+========================================================= */
+
+/* ---------- Tabs container ---------- */
+.right-tabs {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+/* ---------- Tab buttons ---------- */
+.right-tab {
+  appearance: none;
+  border: none;
+  cursor: pointer;
+
+  padding: 4px 10px;
+  font-size: 13px;
+  line-height: 1.2;
+  border-radius: 6px;
+
+  background: rgba(255,255,255,0.06);
+  color: #cfd6df;
+
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.right-tab:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.right-tab.active {
+  background: transparent;
+  color: #ffffff;
+  border-bottom: 2px solid var(--accent);
+  border-radius: 0;
+}
+
+/* ---------- Panel header alignment ---------- */
+#right-panels-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* ---------- Mobile polish ---------- */
+@media (max-width: 900px) {
+
+  #right-panels-header {
+    padding-bottom: 6px;
+  }
+
+  .right-tabs {
+    width: 100%;
+  }
+
+  .right-tab {
+    flex: 1;
+    text-align: center;
+  }
+}

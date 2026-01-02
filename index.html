@@ -101,7 +101,7 @@
       <div class="topbar-brand">
         <div class="brand-title">AI MatchLab ULTRA</div>
         <div class="brand-version">
-          <span class="ver-pill">v2.14.3</span>
+          <span class="ver-pill">v2.14.4</span>
           <span class="ver-sub">Global Live Lab</span>
         </div>
       </div>
@@ -118,6 +118,18 @@
     </div>
 
     <div class="topbar-right">
+        <button
+          id="btn-install"
+          class="icon-button tooltip"
+          aria-label="Install"
+          title="Install from browser menu (⋮)"
+          data-tooltip="Use browser menu (⋮) to install"
+          style="display:none">
+          <svg class="ui-ico" aria-hidden="true">
+            <use href="#i-download"></use>
+          </svg>
+        </button>
+
       <button id="btn-lang" class="icon-button tooltip" aria-label="Language" title="Language" data-tooltip="Language">
         <svg class="ui-ico" aria-hidden="true"><use href="#i-globe"></use></svg>
         <span class="btn-text">EN</span>
@@ -339,6 +351,11 @@
         <!-- NEW FIXED HEADER for right panels -->
         <div id="right-panels-header" class="panel-header" style="display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative;">
           <div class="panel-title">Intelligence Panels</div>
+          <div class="right-tabs">
+            <button class="right-tab active" data-target="radar">AI Radar</button>
+            <button class="right-tab" data-target="top-picks">Top Picks</button>
+          </div>
+
           <!-- button will auto-insert here by history-viewer.js -->
         </div>
 

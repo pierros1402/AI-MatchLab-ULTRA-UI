@@ -53,6 +53,7 @@
     if (rightPanel) rightPanel.classList.remove("drawer-open");
     setBodyState("drawer-left-open");
     showOverlay();
+    if (typeof window.emit === "function") window.emit("drawer-opened", "left");
   }
 
   function openRight() {
@@ -61,6 +62,7 @@
     if (leftPanel) leftPanel.classList.remove("drawer-open");
     setBodyState("drawer-right-open");
     showOverlay();
+    if (typeof window.emit === "function") window.emit("drawer-opened", "right");
   }
 
   function closeDrawers() {
