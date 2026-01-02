@@ -804,49 +804,40 @@ body.drawer-right-open #center-panel{
   display: none;
 }
 /* =====================================================
-   MOBILE PANEL TITLES – HARD OVERRIDE (LEFT + RIGHT)
+   MOBILE PANEL TITLES – DRAWER ONLY (SAFE)
    ===================================================== */
-@media (max-width: 980px) {
 
-  /* Catch ANY panel header/title inside left or right drawers */
-  body.drawer-left-open  [id^="panel-"] > *:first-child,
-  body.drawer-right-open [id^="panel-"] > *:first-child {
-    position: sticky !important;
-    top: var(--mobile-topbar-height, 56px) !important;
-    z-index: 5 !important;
+/* LEFT DRAWER */
+body.drawer-left-open [id^="panel-"] > *:first-child,
+body.drawer-right-open [id^="panel-"] > *:first-child {
+  position: sticky !important;
+  top: var(--mobile-topbar-height, 56px) !important;
+  z-index: 5 !important;
 
-    display: flex !important;
-    align-items: center !important;
+  display: flex !important;
+  align-items: center !important;
 
-    min-height: 44px !important;
-    padding: 10px 14px !important;
+  min-height: 44px !important;
+  padding: 10px 14px !important;
 
-    font-size: 15px !important;
-    font-weight: 700 !important;
-    line-height: 1.2 !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
 
-    background: var(--panel-bg, #0f1218) !important;
-    color: var(--text-primary, #fff) !important;
+  background: var(--panel-bg, #0f1218) !important;
+  color: var(--text-primary, #fff) !important;
 
-    border-bottom: 1px solid rgba(255,255,255,0.08) !important;
-  }
+  border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+}
 
-  /* If title is nested (defensive) */
-  body.drawer-left-open  [id^="panel-"] h1,
-  body.drawer-left-open  [id^="panel-"] h2,
-  body.drawer-left-open  [id^="panel-"] h3,
-  body.drawer-right-open [id^="panel-"] h1,
-  body.drawer-right-open [id^="panel-"] h2,
-  body.drawer-right-open [id^="panel-"] h3 {
-    margin: 0 !important;
-    font-size: inherit !important;
-    font-weight: inherit !important;
-    line-height: inherit !important;
-  }
-
-  /* Prevent content from sliding under sticky title */
-  body.drawer-left-open  [id^="panel-"] > *:nth-child(2),
-  body.drawer-right-open [id^="panel-"] > *:nth-child(2) {
-    margin-top: 0 !important;
-  }
+/* Normalize headings inside title */
+body.drawer-left-open  [id^="panel-"] h1,
+body.drawer-left-open  [id^="panel-"] h2,
+body.drawer-left-open  [id^="panel-"] h3,
+body.drawer-right-open [id^="panel-"] h1,
+body.drawer-right-open [id^="panel-"] h2,
+body.drawer-right-open [id^="panel-"] h3 {
+  margin: 0 !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
 }
