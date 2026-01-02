@@ -5,7 +5,7 @@
    - No fetch
    - No worker
    - No polling
-   - BUT: lifecycle-safe (sleep / wake / focus)
+   - Lifecycle-safe (sleep / wake / focus)
 ===================================================== */
 
 (function () {
@@ -14,39 +14,31 @@
     return;
   }
 
-  let lastLiveIds = new Set();
+  let lastSignature = "";
   let lastTodayPayload = null;
 
-  // Listen to Today updates
-  on("today-matches:loaded", handleToday);
-  on("today:update", handleToday); // safety
+  /* =====================================================
+     LISTENERS
+  ===================================================== */
 
-  function handleToday(payload) {
+  // Full Today payload (safety)
+  on("today-matches:loaded", payload => {
     lastTodayPayload = payload;
-    process(payload);
-  }
+  });
 
-  function process(payload) {
-    const matches = Array.isArray(payload?.matches)
-      ? payload.matches
-      : Array.isArray(payload)
-      ? payload
-      : [];
+  // 🔔 Canonical live signal from Today
+  on("today:live-scan", payload => {
+    if (!payload || !Array.isArray(payload.matches)) return;
+    processLive(payload.matches);
+  });
 
-    if (!matches.length) {
-      emitEmpty();
-      return;
-    }
+  function processLive(liveMatches) {
+    const signature = liveMatches
+      .map(m => `${m.id}:${m.status}`)
+      .join("|");
 
-    const liveMatches = matches.filter((m) => {
-      const s = String(m.status || "").toUpperCase();
-      return s === "LIVE" || s === "HT" || s === "ET" || s === "PEN";
-    });
-
-    const ids = new Set(liveMatches.map((m) => m.id));
-    if (sameSet(ids, lastLiveIds)) return;
-
-    lastLiveIds = ids;
+    if (signature === lastSignature) return;
+    lastSignature = signature;
 
     emit("live:update", {
       source: "today",
@@ -55,31 +47,29 @@
     });
   }
 
-  function emitEmpty() {
-    if (lastLiveIds.size === 0) return;
-    lastLiveIds.clear();
-
-    emit("live:update", {
-      source: "today",
-      total: 0,
-      matches: []
-    });
-  }
-
-  function sameSet(a, b) {
-    if (a.size !== b.size) return false;
-    for (const v of a) if (!b.has(v)) return false;
-    return true;
-  }
-
   /* =====================================================
-     LIFECYCLE RE-SYNC (THE FIX)
+     LIFECYCLE RE-SYNC
   ===================================================== */
 
   function resync(reason) {
     if (!lastTodayPayload) return;
-    console.log("[live-engine] resync:", reason);
-    process(lastTodayPayload);
+    const matches = Array.isArray(lastTodayPayload?.matches)
+      ? lastTodayPayload.matches
+      : [];
+
+    const liveMatches = matches.filter(m => {
+      const s = String(m.status || "").toUpperCase();
+      return (
+        s === "LIVE" ||
+        s === "IN_PROGRESS" ||
+        s === "HT" ||
+        s === "ET" ||
+        s === "AET" ||
+        s === "PEN"
+      );
+    });
+
+    processLive(liveMatches);
   }
 
   document.addEventListener("visibilitychange", () => {
@@ -96,5 +86,5 @@
     resync("pageshow");
   });
 
-  console.log("[live-engine] READY (today-driven, lifecycle-safe)");
+  console.log("[live-engine] READY (today-driven)");
 })();
