@@ -443,59 +443,33 @@ html[data-accent="minimal"] {
   }
 }
 /* =====================================================
-   PANEL TITLES — TEXT VISIBILITY FIX (FINAL)
+   REMOVE ALL ACCENT / RED LINES FROM PANEL TITLES
    ===================================================== */
 
-/* LEFT ACCORDION TITLES */
-.accordion-header {
-  min-height: 44px;
-  height: auto;
-
-  display: flex;
-  align-items: center;
-
-  overflow: visible;
-
-  color: var(--text-main, #ffffff);
-  opacity: 1;
+/* Kill left accent lines everywhere */
+.accordion-header,
+.panel-header,
+.right-card-header,
+.panel-title,
+.right-card-header *,
+.panel-header * {
+  border-left: none !important;
 }
 
-/* CENTER / RIGHT PANEL TITLES */
+/* Kill bottom accent / divider lines */
+.accordion-header,
 .panel-header,
 .right-card-header {
-  min-height: 44px;
-  height: auto;
-
-  display: flex;
-  align-items: center;
-
-  overflow: visible;
+  border-bottom: none !important;
 }
 
-.panel-header .panel-title,
-.right-card-header .panel-title {
-  color: var(--text-main, #ffffff);
-  opacity: 1;
-
-  line-height: 1.3;
-  white-space: normal;
-}
-/* =====================================================
-   RIGHT PANEL — AI RADAR TITLE FIX
-   ===================================================== */
-
-/* Ensure any direct text / heading inside right headers is visible */
-.right-card-header > *,
-.right-panel-header > *,
-.right-panel-title {
-  color: var(--text-main, #ffffff);
-  opacity: 1;
-  line-height: 1.3;
-}
-
-/* In case AI Radar title is plain text node */
+/* Ensure clean title bar look (like Odds) */
+.accordion-header,
+.panel-header,
 .right-card-header {
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.2px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.08),
+    rgba(255,255,255,0.02)
+  );
 }
