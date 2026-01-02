@@ -859,3 +859,20 @@ body.drawer-right-open #center-panel{
     font-size: 15px;
   }
 }
+/* =====================================================
+   PANEL TITLES — STICKY OFFSET FIX (TOPBAR AWARE)
+   ===================================================== */
+
+/* Desktop */
+.accordion-header,
+.panel-header {
+  top: 56px; /* height of topbar */
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .accordion-header,
+  .panel-header {
+    top: 72px; /* taller mobile topbar */
+  }
+}
