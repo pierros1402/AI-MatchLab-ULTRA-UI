@@ -288,15 +288,30 @@ html{
    - Keep drawers opaque to avoid background bleed
 ========================================================= */
 @media (max-width: 900px){
+
+  /* Keep premium dark background */
   #left-panel, #right-panel{
     background: #070912 !important;
     backdrop-filter: none !important;
   }
-  #left-panel .panel-header, #right-panel .panel-header,
-  #left-panel .panel-body,   #right-panel .panel-body{
-    background: #070912 !important;
+
+  /* Headers remain visually distinct */
+  #left-panel .panel-header,
+  #right-panel .panel-header{
+    background: linear-gradient(
+      180deg,
+      rgba(20,24,40,0.95),
+      rgba(10,14,24,0.85)
+    ) !important;
+  }
+
+  /* Bodies must be transparent to allow flow */
+  #left-panel .panel-body,
+  #right-panel .panel-body{
+    background: transparent !important;
   }
 }
+
 /* =====================================================
    ACCENT ENHANCEMENT – PREMIUM VISUAL LAYER
    (Works with existing topbar theme switcher)

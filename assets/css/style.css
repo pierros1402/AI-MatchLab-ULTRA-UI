@@ -626,17 +626,11 @@ body.drawer-right-open #center-panel{
   margin: 0 -10px 6px;
   border-bottom: 1px solid rgba(255,255,255,.08);
 }
-/* =========================================================
-   FINAL — HIDE LEGACY NAV PANELS (LOCKED)
-   Continents / Countries / Leagues / Matches
-   DO NOT MOVE — MUST BE LAST
-========================================================= */
-
-/* Hide accordion headers */
-#left-panel .accordion-header[data-target="panel-continents"],
-#left-panel .accordion-header[data-target="panel-countries"],
-#left-panel .accordion-header[data-target="panel-leagues"],
-#left-panel .accordion-header[data-target="panel-matches"] {
+/* Hide legacy panels CONTENT ONLY (keep headers visible) */
+#panel-continents,
+#panel-countries,
+#panel-leagues,
+#panel-matches {
   display: none !important;
 }
 
@@ -970,46 +964,78 @@ body.drawer-right-open aside#right-panel .panel-header {
   }
 }
 /* =====================================================
-   FINAL MOBILE FIX — LEFT DRAWER HEADER MUST NOT COVER TODAY
-   Paste as LAST block in style.css
+   RESTORE LEFT PANEL TITLE VISIBILITY (SAFE)
 ===================================================== */
-@media (max-width: 900px){
 
-  /* 1) Left drawer must sit under the real mobile topbar height */
-  aside#left-panel{
-    top: var(--topbar-h, 112px) !important;
-    height: calc(100dvh - var(--topbar-h, 112px)) !important;
+#left-panel > .panel-header {
+  display: flex;
+  align-items: center;
+  min-height: 44px;      /* ώστε να πάρει χώρο */
+  padding: 10px 14px;
+}
+
+@media (max-width: 900px) {
+  #left-panel > .panel-header {
+    display: flex;       /* force visible */
   }
-
-  /* 2) Navigation header inside left drawer must NOT be sticky (it overlays Today) */
-  body.drawer-left-open aside#left-panel .panel-header{
-    position: relative !important;
-    top: auto !important;
-    z-index: auto !important;
-  }
-
-  /* 3) Normal content flow (so first accordion item is visible) */
-  body.drawer-left-open aside#left-panel .panel-body{
-    padding-top: 10px !important;
+}
+#left-panel .accordion-header {
+  display: flex !important;
+}
+/* MOBILE — Explicit Navigation title */
+@media (max-width: 900px) {
+  #left-panel::before {
+    content: "Navigation";
+    display: block;
+    padding: 12px 16px 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #e8edf2;
+    opacity: 0.9;
   }
 }
 @media (max-width: 900px) {
-
-  /* Left panel layout */
-  aside#left-panel {
+  #left-panel::before {
+    content: "Navigation";
     display: flex;
-    flex-direction: column;
+    align-items: center;
+
+    margin-top: 48px;
+    padding: 12px 16px 10px 16px;
+
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #ffffff;
+
+    background: linear-gradient(
+      to bottom,
+      rgba(10,12,16,0.95),
+      rgba(10,12,16,0.85)
+    );
+
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+
+    /* 👇 ίδιο visual system με τους άλλους τίτλους */
+    box-shadow: inset 3px 0 0 #3aa0ff;
+
+    position: sticky;
+    top: 0;
+    z-index: 2;
   }
 
-  /* General panels title (Navigation / Panels header) */
-  aside#left-panel > .panel-header {
-    flex: 0 0 auto;
-  }
+  /* μικρό πορτοκαλί underline όπως τα άλλα headers */
+  #left-panel::after {
+    content: "";
+    display: block;
+    position: sticky;
+    top: 0;
 
-  /* Accordion content MUST start below the header */
-  aside#left-panel > .panel-body {
-    flex: 1 1 auto;
-    margin-top: 8px;   /* space reserved for header */
-    overflow-y: auto;
+    height: 2px;
+    width: 32px;
+    margin-left: 16px;
+
+    background: #ff8a00;
+    z-index: 3;
   }
 }
