@@ -81,8 +81,9 @@
 :root { --topbar-h: 56px; }
 
 #left-panel{
-  height: calc(100vh - var(--topbar-h));
-  overflow: hidden;          /* scroll only inside bodies */
+  height: auto;
+  min-height: calc(100vh - var(--topbar-h));
+  overflow: visible;        /* ✅ ΑΦΑΙΡΕΙ ΤΟ ΚΟΨΙΜΟ */
   display: flex;
   flex-direction: column;
 }

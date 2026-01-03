@@ -993,3 +993,23 @@ body.drawer-right-open aside#right-panel .panel-header {
     padding-top: 10px !important;
   }
 }
+@media (max-width: 900px) {
+
+  /* Left panel layout */
+  aside#left-panel {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* General panels title (Navigation / Panels header) */
+  aside#left-panel > .panel-header {
+    flex: 0 0 auto;
+  }
+
+  /* Accordion content MUST start below the header */
+  aside#left-panel > .panel-body {
+    flex: 1 1 auto;
+    margin-top: 8px;   /* space reserved for header */
+    overflow-y: auto;
+  }
+}
