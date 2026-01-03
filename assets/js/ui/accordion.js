@@ -1,3 +1,15 @@
+// ---- ACCORDION INIT GUARD (SAFE) ----
+window.__AIML_ACCORDION_INITIALIZED__ =
+  window.__AIML_ACCORDION_INITIALIZED__ || false;
+
+if (!window.__AIML_ACCORDION_INITIALIZED__) {
+  window.__AIML_ACCORDION_INITIALIZED__ = true;
+
+  // ⬇️ ΟΛΟΣ ο υπάρχων κώδικας init του accordion
+  // (ΔΕΝ αλλάζεις τίποτα άλλο)
+}
+
+
 // =====================================================
 // ACCORDION — STABLE SINGLE-OPEN WITH SELECTIVE TOGGLE
 // =====================================================
@@ -89,10 +101,19 @@
     openPanel(id);
   });
 
-  // Init: hide all panels
-  const panels = accordion.querySelectorAll(".accordion-panel");
-  panels.forEach(panel => {
-    panel.style.display = "none";
-    panel.parentElement.classList.remove("open");
-  });
+  // Init: hide all panels EXCEPT autonomous (Today, Saved)
+const panels = accordion.querySelectorAll(".accordion-panel");
+panels.forEach(panel => {
+  const id = panel.id;
+  if (!id) return;
+
+  if (AUTONOMOUS.has(id)) {
+    panel.style.display = "block";
+    panel.parentElement.classList.add("open");
+    return;
+  }
+
+  panel.style.display = "none";
+  panel.parentElement.classList.remove("open");
+});
 })();

@@ -969,3 +969,85 @@ body.drawer-right-open aside#right-panel .panel-header {
     width: 100%;
   }
 }
+/* =====================================================
+   FIX: ACCORDION PANELS VISIBILITY ON MOBILE
+   Prevent height collapse of Today panel
+===================================================== */
+@media (max-width: 900px) {
+
+  /* Allow accordion panels to expand normally */
+  .accordion-panel {
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* Ensure left panel can scroll */
+  #left-panel {
+    overflow-y: auto !important;
+  }
+}
+/* =====================================================
+   FINAL FIX: LEFT PANEL CONTENT SCROLL (MOBILE)
+===================================================== */
+@media (max-width: 900px) {
+
+  /* Left panel is fixed drawer */
+  #left-panel {
+    display: flex !important;
+    flex-direction: column;
+    overflow: hidden !important;
+  }
+
+  /* Header stays fixed */
+  #left-panel .panel-header {
+    flex: 0 0 auto;
+  }
+
+  /* Body becomes the scroll owner */
+  #left-panel .panel-body {
+    flex: 1 1 auto;
+    min-height: 0;            /* CRITICAL */
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+/* =====================================================
+   FIX: PANEL HEADERS OVERLAPPING CONTENT (MOBILE)
+===================================================== */
+@media (max-width: 900px) {
+
+  /* Default: headers do NOT float above content */
+  #left-panel .panel-header {
+    position: relative !important;
+    z-index: 1 !important;
+  }
+
+  /* Active panel header stays on top */
+  #left-panel .accordion-item.open > .panel-header {
+    position: sticky !important;
+    top: var(--topbar-height, 56px);
+    z-index: 5 !important;
+    background: var(--panel-bg, #111);
+  }
+
+  /* Panel body must start BELOW its own header */
+  #left-panel .accordion-item.open .panel-body {
+    padding-top: 8px;
+    position: relative;
+    z-index: 1;
+  }
+}
+/* Ensure Today panel has visible height even when empty */
+#panel-today {
+  min-height: 120px;
+}
+
+#panel-today .list:empty::before {
+  content: "No live or upcoming matches";
+  display: block;
+  padding: 12px;
+  opacity: 0.6;
+  font-size: 13px;
+}
+

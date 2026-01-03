@@ -147,8 +147,8 @@
 
   function initMobileHome() {
     if (!isMobile()) return;
-    openAccordionSafe("panel-continents");
-    openLeft();
+    openAccordionSafe("panel-today");
+  openLeft(); // ⬅️ SHOW TODAY ON MOBILE
   }
 
   if (document.readyState === "loading") {
