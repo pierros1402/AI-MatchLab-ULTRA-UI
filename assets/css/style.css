@@ -627,12 +627,14 @@ body.drawer-right-open #center-panel{
   border-bottom: 1px solid rgba(255,255,255,.08);
 }
 /* Hide legacy panels CONTENT ONLY (keep headers visible) */
+/* ❌ REMOVE TEMPORARILY — breaks left panel layout
 #panel-continents,
 #panel-countries,
 #panel-leagues,
 #panel-matches {
   display: none !important;
 }
+*/
 
 /* Hide accordion panels */
 #panel-continents,

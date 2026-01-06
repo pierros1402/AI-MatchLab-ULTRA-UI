@@ -1,156 +1,79 @@
-/* =====================================================
-   TODAY PANEL
-===================================================== */
+
+/*
+ TODAY PANEL – PATCHED
+ - PRE + LIVE only
+ - FT removed
+ - Sorted by kickoff time
+ - League label always shown
+ - LIVE shows score + minute
+ - PRE shows kickoff time only
+*/
 
 (function () {
-  let ready = false;
+  if (!window.on || !window.emit) return;
 
-  function tryInit() {
-    if (ready) return;
-    if (!window.on || typeof window.renderMatchRow !== "function") return;
-
-    ready = true;
-    init();
+  function normalize(match) {
+    return {
+      id: match.id,
+      home: match.home,
+      away: match.away,
+      kickoff_ms: match.kickoff_ms || Date.parse(match.kickoff),
+      status: match.status,
+      minute: match.minute || "",
+      scoreHome: match.scoreHome,
+      scoreAway: match.scoreAway,
+      leagueName: match.leagueName || match.leagueSlug || "—"
+    };
   }
 
-  /* =====================================================
-     LIVE STATUS DEFINITIONS (CONFIRMED)
-  ===================================================== */
-
-  const LIVE_STATUSES = [
-    "LIVE", "IN_PROGRESS", "INPLAY", "IN_PLAY",
-    "FIRST_HALF", "SECOND_HALF", "1H", "2H",
-    "HT", "HALFTIME", "ET", "AET", "PEN", "RUNNING"
-  ];
-
-  function normStatus(s) {
-    return String(s || "").toUpperCase();
+  function isVisible(m) {
+    return m.status === "LIVE" || m.status === "PRE";
   }
 
-  function isConfirmedLive(status) {
-    const s = normStatus(status);
-    return LIVE_STATUSES.includes(s) || /\bH\b/.test(s);
-  }
+  function render(list) {
+    const root = document.getElementById("today-list");
+    if (!root) return;
+    root.innerHTML = "";
 
-  /* =====================================================
-     ESTIMATED LIVE (TIME-BASED FALLBACK)
-  ===================================================== */
+    list.forEach(m => {
+      const row = document.createElement("div");
+      row.className = "match-row";
 
-  function isEstimatedLive(m) {
-    if (!m || !m.kickoff_ms) return false;
-    const now = Date.now();
-    const diff = now - m.kickoff_ms;
-    return diff > 0 && diff < 2 * 60 * 60 * 1000;
-  }
+      const teams = document.createElement("div");
+      teams.className = "match-teams";
+      teams.textContent = `${m.home} – ${m.away}`;
 
-  function isLive(m) {
-    return isConfirmedLive(m.status) || isEstimatedLive(m);
-  }
+      const status = document.createElement("div");
+      status.className = "match-status";
 
-  function isUpcoming(status) {
-    const s = normStatus(status);
-    return s === "UPCOMING" || s === "SCHEDULED" || s === "PRE";
-  }
+      if (m.status === "LIVE") {
+        status.textContent = `${m.scoreHome}-${m.scoreAway} ${m.minute}`;
+        status.classList.add("live");
+      } else {
+        const d = new Date(m.kickoff_ms);
+        status.textContent = d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+      }
 
-  function getKickoffDate(m) {
-    if (m.kickoff) return new Date(m.kickoff);
-    if (m.kickoff_ms) return new Date(m.kickoff_ms);
-    return null;
-  }
+      const league = document.createElement("div");
+      league.className = "match-league";
+      league.textContent = m.leagueName;
 
-  /* =====================================================
-     RENDER
-  ===================================================== */
-
-  function render(allMatches) {
-    const list = document.getElementById("today-list");
-    if (!list) return;
-
-    list.innerHTML = "";
-
-    const matches = (Array.isArray(allMatches) ? allMatches : []).filter(
-      m => isLive(m) || isUpcoming(m.status)
-    );
-
-    window.AIML_TODAY_MATCHES = matches;
-
-    if (window.emit) {
-      const liveNow = matches.filter(isLive);
-      window.emit("today:live-scan", { ts: Date.now(), matches: liveNow });
-    }
-
-    if (!matches.length) {
-      list.innerHTML =
-        `<div class="empty-state">No live or upcoming matches</div>`;
-      return;
-    }
-
-    const sorted = matches.slice().sort((a, b) => {
-      const da = getKickoffDate(a);
-      const db = getKickoffDate(b);
-      if (!da || !db) return 0;
-      return da - db;
-    });
-
-    const byTime = {};
-    sorted.forEach(m => {
-      const d = getKickoffDate(m);
-      if (!d) return;
-      const key =
-        `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
-      (byTime[key] = byTime[key] || []).push(m);
-    });
-
-    Object.keys(byTime).forEach(timeKey => {
-      const timeHeader = document.createElement("div");
-      timeHeader.className = "today-time-header";
-      timeHeader.textContent = timeKey;
-      list.appendChild(timeHeader);
-
-      byTime[timeKey].forEach(m => {
-        const live = isLive(m);
-        const row = window.renderMatchRow(m, {
-          showTime: !live,
-          showMinute: live,
-          showScore: live,
-          showLeague: true,
-          leagueStyle: "subtle"
-        });
-        list.appendChild(row);
-      });
+      row.appendChild(teams);
+      row.appendChild(status);
+      row.appendChild(league);
+      root.appendChild(row);
     });
   }
 
-  /* =====================================================
-     EVENTS
-  ===================================================== */
+  on("today-matches:loaded", payload => {
+    if (!payload || !payload.matches) return;
 
-  function init() {
-    window.on("today-matches:loaded", payload => {
-      const matches =
-        payload?.matches ||
-        payload?.items ||
-        payload?.data ||
-        [];
-      render(matches);
-    });
+    const list = payload.matches
+      .map(normalize)
+      .filter(isVisible)
+      .sort((a, b) => a.kickoff_ms - b.kickoff_ms);
 
-    if (window.__AIML_LAST_TODAY__) {
-      const p = window.__AIML_LAST_TODAY__;
-      const matches =
-        p?.matches ||
-        p?.items ||
-        p?.data ||
-        [];
-      render(matches);
-    }
-  }
+    render(list);
+  });
 
-  // ---- deferred boot (NO RANDOM EMPTY STATE) ----
-  let tries = 0;
-  const timer = setInterval(() => {
-    tries++;
-    tryInit();
-    if (ready || tries > 60) clearInterval(timer);
-  }, 50);
 })();

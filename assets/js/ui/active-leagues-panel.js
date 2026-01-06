@@ -1,117 +1,75 @@
-/* =====================================================
-   ACTIVE LEAGUES TODAY – FINAL
-   - Ομαδοποίηση ανά λίγκα
-   - PRE / LIVE → ώρα
-   - FT → ΜΟΝΟ τελικό αποτέλεσμα
-   - Panel-level open / close (safe)
-   - REPLAY από __AIML_LAST_TODAY__ (late load safe)
-===================================================== */
-
 (function () {
-  if (!window.on || !window.renderMatchRow) return;
+  "use strict";
 
   const LIST_ID = "active-leagues-list";
-  const PANEL_ID = "panel-active-leagues";
-  const HEADER_SELECTOR = '[data-panel-toggle="active-leagues"]';
 
-  let isOpen = true;
-
-  function normStatus(s) {
-    return String(s || "").toUpperCase();
+  function isLive(m) {
+    return ["LIVE", "HT", "ET", "PEN"].includes(String(m.status).toUpperCase());
   }
 
-  function isFinal(m) {
-    const s = normStatus(m.status);
-    return s === "FT" || s === "FINAL" || s === "AET" || s === "PEN";
+  function kickoffTs(m) {
+    return m.kickoff_ms || Infinity;
   }
 
-  function applyPanelState() {
-    const panel = document.getElementById(PANEL_ID);
-    if (!panel) return;
-
-    panel.classList.toggle("closed", !isOpen);
+  function clear(el) {
+    while (el.firstChild) el.removeChild(el.firstChild);
   }
 
-  function bindHeaderToggle() {
-    const header = document.querySelector(HEADER_SELECTOR);
-    if (!header) return;
-
-    header.addEventListener("click", () => {
-      isOpen = !isOpen;
-      applyPanelState();
-    });
-  }
-
-  function render(allMatches) {
+  function render(matches) {
     const list = document.getElementById(LIST_ID);
     if (!list) return;
 
-    list.innerHTML = "";
+    clear(list);
 
-    const matches = Array.isArray(allMatches) ? allMatches : [];
-    if (!matches.length) {
-      list.innerHTML =
-        `<div class="empty-state">No active leagues today</div>`;
+    const byLeague = {};
+    (matches || []).forEach(m => {
+      if (isLive(m)) return;
+
+      const league = m.leagueName || m.leagueSlug || "Unknown League";
+      if (!byLeague[league]) byLeague[league] = [];
+      byLeague[league].push(m);
+    });
+
+    const ordered = Object.keys(byLeague)
+      .map(lg => ({
+        league: lg,
+        t: Math.min(...byLeague[lg].map(kickoffTs))
+      }))
+      .sort((a, b) => a.t - b.t);
+
+    ordered.forEach(({ league }) => {
+      const block = document.createElement("div");
+      block.className = "active-league";
+
+      const h = document.createElement("div");
+      h.className = "active-league-title";
+      h.textContent = league;
+      block.appendChild(h);
+
+      byLeague[league]
+        .sort((a, b) => kickoffTs(a) - kickoffTs(b))
+        .forEach(m => {
+          const clone = { ...m };
+          if (String(clone.status).toUpperCase() === "FT") {
+            clone.minute = "FT";
+          }
+          block.appendChild(window.renderMatchRow(clone));
+        });
+
+      list.appendChild(block);
+    });
+  }
+
+  function init() {
+    if (typeof window.on !== "function") {
+      setTimeout(init, 50);
       return;
     }
 
-    // group by league
-    const byLeague = {};
-    matches.forEach(m => {
-      const lg = m.leagueName || "—";
-      (byLeague[lg] = byLeague[lg] || []).push(m);
-    });
-
-    Object.keys(byLeague).forEach(league => {
-      const leagueHeader = document.createElement("div");
-      leagueHeader.className = "active-league-header";
-      leagueHeader.textContent = league;
-      list.appendChild(leagueHeader);
-
-      const items = byLeague[league].slice().sort((a, b) => {
-        const da = a.kickoff ? new Date(a.kickoff) : (a.kickoff_ms ? new Date(a.kickoff_ms) : null);
-        const db = b.kickoff ? new Date(b.kickoff) : (b.kickoff_ms ? new Date(b.kickoff_ms) : null);
-        if (!da || !db) return 0;
-        return da - db;
-      });
-
-      items.forEach(m => {
-        const final = isFinal(m);
-
-        const row = renderMatchRow(m, {
-          showTime: !final,
-          showScore: final
-        });
-
-        list.appendChild(row);
-      });
+    window.on("today-matches:loaded", payload => {
+      render(payload.matches || []);
     });
   }
 
-  /* =====================================================
-     EVENTS
-  ===================================================== */
-  on("today-matches:loaded", payload => {
-  const all = payload?.matches || payload?.items || [];
-    let matches = [];
-    if (Array.isArray(payload)) matches = payload;
-    else if (payload?.matches) matches = payload.matches;
-    else if (payload?.items) matches = payload.items;
-    render(matches);
-  });
-
-  /* =====================================================
-     INIT
-  ===================================================== */
-  bindHeaderToggle();
-  applyPanelState();
-
-  /* =====================================================
-     REPLAY (late load safe)
-  ===================================================== */
-  if (window.__AIML_LAST_TODAY__) {
-    const p = window.__AIML_LAST_TODAY__;
-    const matches = Array.isArray(p) ? p : (p.matches || p.items || []);
-    render(matches);
-  }
+  init();
 })();

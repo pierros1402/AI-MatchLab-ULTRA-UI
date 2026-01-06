@@ -1,0 +1,1 @@
+*/5 * * * * cd /path/odds-history-collector && /usr/bin/python3 collector.py >> collector.log 2>&1
