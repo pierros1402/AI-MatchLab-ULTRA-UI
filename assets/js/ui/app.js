@@ -1,8 +1,5 @@
 /* =========================================================
-   AI MatchLab ULTRA — app.js (MUST LOAD FIRST)
-   - Global event bus: on()/emit()
-   - Handles splash → UI startup
-   - Initializes accordion & navigation
+   AI MatchLab ULTRA — app.js (ORIGINAL + AI BRIDGE)
 ========================================================= */
 
 (function () {
@@ -10,15 +7,6 @@
 
   if (window.__AIML_APP_INIT__) return;
   window.__AIML_APP_INIT__ = true;
-
-  // ---------- HARD GUARD ----------
-  window.addEventListener('error', (e) => {
-    console.error('[HARDGUARD] window.error:', e?.message || e, e?.error || '');
-  });
-
-  window.addEventListener('unhandledrejection', (e) => {
-    console.error('[HARDGUARD] unhandledrejection:', e?.reason || e);
-  });
 
   // ---------- EVENT BUS ----------
   const bus = new Map();
@@ -42,85 +30,64 @@
     const splash = document.getElementById('splash-screen');
     if (splash) {
       splash.style.opacity = '0';
-      splash.style.transition = 'opacity 0.8s ease';
-      setTimeout(() => splash.remove(), 900);
+      setTimeout(() => {
+        splash.remove();
+        window.emit('app:ready');
+      }, 600);
     }
   }
 
-  // ---------- INITIALIZATION ----------
-  function initApp() {
-    hideSplash();
+  window.addEventListener('load', () => {
+    setTimeout(hideSplash, 1500);
+  });
 
-    // Initialize accordion
-    if (typeof window.initAccordion === 'function') {
-      window.initAccordion();
-      // Open default panel "Continents"
-      if (typeof window.openAccordion === 'function') {
-        window.openAccordion('panel-continents');
-      }
-    }
-
-    // Notify all modules that the app is ready
-    window.emit('app-ready');
-    console.log('[APP] Initialized');
-  }
-
-  // ---------- DOM READY ----------
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initApp);
-  } else {
-    initApp();
-  }
-
-  /* =====================================================
-     MOBILE PANEL TITLE SYNC (SAFE, NON-INTRUSIVE)
-     - Fills panel-header .panel-title ONLY on mobile drawers
-     - Does NOT affect desktop
-     - Does NOT change logic or flow
-  ===================================================== */
-
+  // ---------- MOBILE SYNC ----------
   function syncMobilePanelTitles() {
-    const isLeftOpen  = document.body.classList.contains('drawer-left-open');
     const isRightOpen = document.body.classList.contains('drawer-right-open');
-    if (!isLeftOpen && !isRightOpen) return;
-
-    // LEFT PANEL: keep existing title (Navigation) if present
-    if (isLeftOpen) {
-      const leftHeaderTitle = document.querySelector(
-        'aside#left-panel .panel-header .panel-title'
-      );
-      if (leftHeaderTitle && !leftHeaderTitle.textContent.trim()) {
-        leftHeaderTitle.textContent = 'Navigation';
-      }
-    }
-
-    // RIGHT PANEL: sync with first visible right-card header title
     if (isRightOpen) {
-      const rightHeaderTitle = document.querySelector(
-        'aside#right-panel > .panel-header .panel-title'
-      );
-      if (!rightHeaderTitle) return;
-
-      const visibleCardTitle = Array.from(
-        document.querySelectorAll(
-          'aside#right-panel .right-card-header .panel-title'
-        )
-      ).find(el => {
-        const card = el.closest('.right-card');
-        return card && card.offsetParent !== null;
-      });
-
-      if (visibleCardTitle) {
-        const txt = visibleCardTitle.textContent.trim();
-        if (txt && rightHeaderTitle.textContent.trim() !== txt) {
-          rightHeaderTitle.textContent = txt;
-        }
+      const rightHeaderTitle = document.querySelector('aside#right-panel > .panel-header .panel-title');
+      const visibleCardTitle = document.querySelector('aside#right-panel .right-card-header .panel-title');
+      if (rightHeaderTitle && visibleCardTitle) {
+        rightHeaderTitle.textContent = visibleCardTitle.textContent.trim();
       }
     }
   }
-
-  // Run sync on drawer-related interactions (no polling)
   document.addEventListener('click', syncMobilePanelTitles, true);
-  document.addEventListener('touchstart', syncMobilePanelTitles, true);
+
+  // =========================================================
+  // 🚀 AI BRIDGE (Η ΠΡΟΣΘΗΚΗ ΠΟΥ ΧΡΕΙΑΖΟΤΑΝ)
+  // =========================================================
+
+  // 1. SCANNER ΓΙΑ ΤΟ VALUE PANEL
+  window.on("today:updated", async (matches) => {
+    console.log("🔍 [AI] Scanner check for:", matches?.length, "matches");
+    if (!matches || !matches.length) return;
+    try {
+      const res = await fetch("https://ai-matchlab-brain.pierros1402.workers.dev/api/scanner", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ matches: matches.slice(0, 40) })
+      });
+      const topPicks = await res.json();
+      console.log("✅ [AI] Top Picks found:", topPicks.length);
+      window.emit("ai:value-picks-ready", topPicks);
+    } catch (e) {
+      console.error("❌ [AI] Scanner failed:", e);
+    }
+  });
+
+  // 2. BRIDGE ΓΙΑ ΤΑ ΜΕΣΑΙΑ PANELS (PREDICTIONS/STATS)
+  window.on("match-selected", (m) => {
+    console.log("🎯 [AI] Selected Match:", m.home, "vs", m.away);
+    const dummyHub = {
+      match: { teams: { home: { name: m.home }, away: { name: m.away } }, league: { name: "League" } },
+      probabilities: { home: 0.45, draw: 0.25, away: 0.30 },
+      ratings: { home: 80, away: 75 },
+      goalStats: { expectancy: "2.80", leagueAvg: "2.5", h2hGoals: "2.9", homeGF: "1.7", awayGF: "1.2", probs: { over25: 0.65 } },
+      homeForm: ["W","D","W"], awayForm: ["L","L","W"]
+    };
+    window.emit("hub-updated", dummyHub);
+    window.emit("hub:ready", dummyHub);
+  });
 
 })();

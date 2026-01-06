@@ -92,6 +92,7 @@
      EVENTS
   ===================================================== */
   on("today-matches:loaded", payload => {
+  const all = payload?.matches || payload?.items || [];
     let matches = [];
     if (Array.isArray(payload)) matches = payload;
     else if (payload?.matches) matches = payload.matches;
