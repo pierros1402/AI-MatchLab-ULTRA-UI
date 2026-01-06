@@ -1,0 +1,26 @@
+[
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "748327",
+    "league_id": "ESP1",
+    "league_name": "La Liga",
+    "home": "Rayo Vallecano",
+    "away": "Mallorca",
+    "kickoff_ts": 1768136400,
+    "date": "2026-01-11",
+    "status": "SCHEDULED",
+    "source": "espn"
+  },
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "748328",
+    "league_id": "ESP1",
+    "league_name": "La Liga",
+    "home": "Levante",
+    "away": "Espanyol",
+    "kickoff_ts": 1768144500,
+    "date": "2026-01-11",
+    "status": "SCHEDULED",
+    "source": "espn"
+  }
+]

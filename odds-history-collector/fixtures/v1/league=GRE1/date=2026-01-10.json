@@ -1,0 +1,38 @@
+[
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "752379",
+    "league_id": "GRE1",
+    "league_name": "Super League 1",
+    "home": "Kifisia",
+    "away": "Larissa FC",
+    "kickoff_ts": 1768057200,
+    "date": "2026-01-10",
+    "status": "SCHEDULED",
+    "source": "espn"
+  },
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "752380",
+    "league_id": "GRE1",
+    "league_name": "Super League 1",
+    "home": "Atromitos",
+    "away": "Olympiacos",
+    "kickoff_ts": 1768066200,
+    "date": "2026-01-10",
+    "status": "SCHEDULED",
+    "source": "espn"
+  },
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "752384",
+    "league_id": "GRE1",
+    "league_name": "Super League 1",
+    "home": "Panetolikos",
+    "away": "PAOK Salonika",
+    "kickoff_ts": 1768066200,
+    "date": "2026-01-10",
+    "status": "SCHEDULED",
+    "source": "espn"
+  }
+]

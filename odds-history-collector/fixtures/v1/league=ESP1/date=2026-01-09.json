@@ -1,0 +1,14 @@
+[
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "748330",
+    "league_id": "ESP1",
+    "league_name": "La Liga",
+    "home": "Getafe",
+    "away": "Real Sociedad",
+    "kickoff_ts": 1767988800,
+    "date": "2026-01-09",
+    "status": "SCHEDULED",
+    "source": "espn"
+  }
+]

@@ -1,27 +1,21 @@
 schema_version: odds_snapshot_v1
 
-source: odds-api
+source: api-football
 
 api:
-  odds_api_key: "7403429a68f80d985c8709ead06e9719"
-  base_url: "https://api.the-odds-api.com/v4"
-  sport: "soccer"
-  regions: ["eu"]
-  markets: ["h2h"]
-  odds_format: "decimal"
+  football_api_key: "5db5900cca843cc42b88f998bc96318e"
+  base_url: "https://v3.football.api-sports.io"
 
 collector:
   timezone: "UTC"
-  tolerance_minutes: 2
+  tolerance_minutes: 3
   snapshot_offsets_min: [2880, 1440, 720, 360, 180, 60, 30, 15]
 
 storage:
   root_dir: "./odds-history/v1"
 
 leagues:
-  # canonical league ids mapped to provider ids
-  ENG1: "soccer_epl"
-  ESP1: "soccer_spain_la_liga"
-  ITA1: "soccer_italy_serie_a"
-  GER1: "soccer_germany_bundesliga"
-  FRA1: "soccer_france_ligue_one"
+  ENG1: 39    # England - Premier League
+  ESP1: 140   # Spain - La Liga
+  FRA1: 61    # France - Ligue 1
+  GRE1: 197   # Greece - Super League 1

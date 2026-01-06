@@ -1,28 +1,35 @@
-
 /*
- TODAY PANEL – PATCHED
- - PRE + LIVE only
- - FT removed
- - Sorted by kickoff time
- - League label always shown
- - LIVE shows score + minute
- - PRE shows kickoff time only
+ TODAY PANEL – FINAL STABLE
+ - Shows PRE + LIVE only
+ - FT removed immediately
+ - Sorted strictly by kickoff time
+ - League label shown ABOVE each match
+ - LIVE: score + minute
+ - PRE: kickoff time (24h)
+ - No league grouping
 */
 
 (function () {
   if (!window.on || !window.emit) return;
 
   function normalize(match) {
+    const kickoffMs =
+      match.kickoff_ms ||
+      (match.kickoff ? Date.parse(match.kickoff) : 0);
+
     return {
       id: match.id,
       home: match.home,
       away: match.away,
-      kickoff_ms: match.kickoff_ms || Date.parse(match.kickoff),
+      kickoff_ms: kickoffMs,
       status: match.status,
       minute: match.minute || "",
       scoreHome: match.scoreHome,
       scoreAway: match.scoreAway,
-      leagueName: match.leagueName || match.leagueSlug || "—"
+      leagueName:
+        match.leagueName && match.leagueName !== "Unknown"
+          ? match.leagueName
+          : (match.leagueSlug || "—")
     };
   }
 
@@ -33,9 +40,19 @@
   function render(list) {
     const root = document.getElementById("today-list");
     if (!root) return;
+
     root.innerHTML = "";
 
     list.forEach(m => {
+      const wrap = document.createElement("div");
+      wrap.className = "today-match";
+
+      // League (always visible, above match)
+      const league = document.createElement("div");
+      league.className = "match-league";
+      league.textContent = m.leagueName;
+
+      // Match row
       const row = document.createElement("div");
       row.className = "match-row";
 
@@ -51,22 +68,24 @@
         status.classList.add("live");
       } else {
         const d = new Date(m.kickoff_ms);
-        status.textContent = d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+        status.textContent = d.toLocaleTimeString("el-GR", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false
+        });
       }
-
-      const league = document.createElement("div");
-      league.className = "match-league";
-      league.textContent = m.leagueName;
 
       row.appendChild(teams);
       row.appendChild(status);
-      row.appendChild(league);
-      root.appendChild(row);
+
+      wrap.appendChild(league);
+      wrap.appendChild(row);
+      root.appendChild(wrap);
     });
   }
 
   on("today-matches:loaded", payload => {
-    if (!payload || !payload.matches) return;
+    if (!payload || !Array.isArray(payload.matches)) return;
 
     const list = payload.matches
       .map(normalize)

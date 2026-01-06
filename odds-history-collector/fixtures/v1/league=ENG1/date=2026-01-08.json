@@ -1,0 +1,14 @@
+[
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "740796",
+    "league_id": "ENG1",
+    "league_name": "Premier League",
+    "home": "Arsenal",
+    "away": "Liverpool",
+    "kickoff_ts": 1767902400,
+    "date": "2026-01-08",
+    "status": "SCHEDULED",
+    "source": "espn"
+  }
+]

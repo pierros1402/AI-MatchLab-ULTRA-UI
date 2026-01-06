@@ -1,0 +1,98 @@
+[
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "740797",
+    "league_id": "ENG1",
+    "league_name": "Premier League",
+    "home": "AFC Bournemouth",
+    "away": "Tottenham Hotspur",
+    "kickoff_ts": 1767814200,
+    "date": "2026-01-07",
+    "status": "SCHEDULED",
+    "source": "espn"
+  },
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "740798",
+    "league_id": "ENG1",
+    "league_name": "Premier League",
+    "home": "Brentford",
+    "away": "Sunderland",
+    "kickoff_ts": 1767814200,
+    "date": "2026-01-07",
+    "status": "SCHEDULED",
+    "source": "espn"
+  },
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "740805",
+    "league_id": "ENG1",
+    "league_name": "Premier League",
+    "home": "Crystal Palace",
+    "away": "Aston Villa",
+    "kickoff_ts": 1767814200,
+    "date": "2026-01-07",
+    "status": "SCHEDULED",
+    "source": "espn"
+  },
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "740800",
+    "league_id": "ENG1",
+    "league_name": "Premier League",
+    "home": "Everton",
+    "away": "Wolverhampton Wanderers",
+    "kickoff_ts": 1767814200,
+    "date": "2026-01-07",
+    "status": "SCHEDULED",
+    "source": "espn"
+  },
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "740802",
+    "league_id": "ENG1",
+    "league_name": "Premier League",
+    "home": "Fulham",
+    "away": "Chelsea",
+    "kickoff_ts": 1767814200,
+    "date": "2026-01-07",
+    "status": "SCHEDULED",
+    "source": "espn"
+  },
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "740803",
+    "league_id": "ENG1",
+    "league_name": "Premier League",
+    "home": "Manchester City",
+    "away": "Brighton & Hove Albion",
+    "kickoff_ts": 1767814200,
+    "date": "2026-01-07",
+    "status": "SCHEDULED",
+    "source": "espn"
+  },
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "740799",
+    "league_id": "ENG1",
+    "league_name": "Premier League",
+    "home": "Burnley",
+    "away": "Manchester United",
+    "kickoff_ts": 1767816900,
+    "date": "2026-01-07",
+    "status": "SCHEDULED",
+    "source": "espn"
+  },
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "740804",
+    "league_id": "ENG1",
+    "league_name": "Premier League",
+    "home": "Newcastle United",
+    "away": "Leeds United",
+    "kickoff_ts": 1767816900,
+    "date": "2026-01-07",
+    "status": "SCHEDULED",
+    "source": "espn"
+  }
+]

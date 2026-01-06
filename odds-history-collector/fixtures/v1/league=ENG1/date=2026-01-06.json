@@ -1,0 +1,14 @@
+[
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "740801",
+    "league_id": "ENG1",
+    "league_name": "Premier League",
+    "home": "West Ham United",
+    "away": "Nottingham Forest",
+    "kickoff_ts": 1767729600,
+    "date": "2026-01-06",
+    "status": "LIVE",
+    "source": "espn"
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "748326",
+    "league_id": "ESP1",
+    "league_name": "La Liga",
+    "home": "Real Oviedo",
+    "away": "Real Betis",
+    "kickoff_ts": 1768050000,
+    "date": "2026-01-10",
+    "status": "SCHEDULED",
+    "source": "espn"
+  },
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "748333",
+    "league_id": "ESP1",
+    "league_name": "La Liga",
+    "home": "Villarreal",
+    "away": "Alavés",
+    "kickoff_ts": 1768058100,
+    "date": "2026-01-10",
+    "status": "SCHEDULED",
+    "source": "espn"
+  },
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "748329",
+    "league_id": "ESP1",
+    "league_name": "La Liga",
+    "home": "Girona",
+    "away": "Osasuna",
+    "kickoff_ts": 1768066200,
+    "date": "2026-01-10",
+    "status": "SCHEDULED",
+    "source": "espn"
+  },
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "748324",
+    "league_id": "ESP1",
+    "league_name": "La Liga",
+    "home": "Valencia",
+    "away": "Elche",
+    "kickoff_ts": 1768075200,
+    "date": "2026-01-10",
+    "status": "SCHEDULED",
+    "source": "espn"
+  }
+]

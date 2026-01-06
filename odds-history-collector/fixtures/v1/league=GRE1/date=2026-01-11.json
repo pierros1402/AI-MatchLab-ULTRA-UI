@@ -1,0 +1,50 @@
+[
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "752382",
+    "league_id": "GRE1",
+    "league_name": "Super League 1",
+    "home": "Levadiakos",
+    "away": "Volos NFC",
+    "kickoff_ts": 1768140000,
+    "date": "2026-01-11",
+    "status": "SCHEDULED",
+    "source": "espn"
+  },
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "752383",
+    "league_id": "GRE1",
+    "league_name": "Super League 1",
+    "home": "OFI Crete",
+    "away": "Asteras Tripoli",
+    "kickoff_ts": 1768145400,
+    "date": "2026-01-11",
+    "status": "SCHEDULED",
+    "source": "espn"
+  },
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "752381",
+    "league_id": "GRE1",
+    "league_name": "Super League 1",
+    "home": "Aris",
+    "away": "AEK Athens",
+    "kickoff_ts": 1768152600,
+    "date": "2026-01-11",
+    "status": "SCHEDULED",
+    "source": "espn"
+  },
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "752385",
+    "league_id": "GRE1",
+    "league_name": "Super League 1",
+    "home": "Panathinaikos",
+    "away": "Panserraikos FC",
+    "kickoff_ts": 1768158000,
+    "date": "2026-01-11",
+    "status": "SCHEDULED",
+    "source": "espn"
+  }
+]

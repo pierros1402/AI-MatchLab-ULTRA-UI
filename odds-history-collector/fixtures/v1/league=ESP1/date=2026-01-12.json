@@ -1,0 +1,14 @@
+[
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "748325",
+    "league_id": "ESP1",
+    "league_name": "La Liga",
+    "home": "Sevilla",
+    "away": "Celta Vigo",
+    "kickoff_ts": 1768248000,
+    "date": "2026-01-12",
+    "status": "SCHEDULED",
+    "source": "espn"
+  }
+]
