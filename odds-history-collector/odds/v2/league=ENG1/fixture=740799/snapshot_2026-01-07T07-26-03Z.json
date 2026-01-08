@@ -1,0 +1,45 @@
+{
+  "schema_version": "odds_snapshot_provider_v1",
+  "provider": "the_odds_api",
+  "fixture_id": "740799",
+  "league": "ENG1",
+  "collected_at": "2026-01-07T07:26:03.635804+00:00",
+  "markets": {
+    "h2h": [
+      {
+        "bookmaker": "pinnacle",
+        "outcomes": [
+          {
+            "name": "Burnley",
+            "price": 5.25
+          },
+          {
+            "name": "Manchester United",
+            "price": 1.68
+          },
+          {
+            "name": "Draw",
+            "price": 3.98
+          }
+        ]
+      }
+    ],
+    "totals": [
+      {
+        "bookmaker": "pinnacle",
+        "outcomes": [
+          {
+            "name": "Over",
+            "price": 1.92,
+            "point": 2.5
+          },
+          {
+            "name": "Under",
+            "price": 1.97,
+            "point": 2.5
+          }
+        ]
+      }
+    ]
+  }
+}

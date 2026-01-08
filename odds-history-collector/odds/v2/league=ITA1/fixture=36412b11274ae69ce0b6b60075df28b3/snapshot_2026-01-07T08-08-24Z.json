@@ -1,0 +1,51 @@
+{
+  "id": "36412b11274ae69ce0b6b60075df28b3",
+  "sport_key": "soccer_italy_serie_a",
+  "sport_title": "Serie A - Italy",
+  "commence_time": "2026-01-11T19:45:00Z",
+  "home_team": "Inter Milan",
+  "away_team": "Napoli",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:08:10Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:08:10Z",
+          "outcomes": [
+            {
+              "name": "Inter Milan",
+              "price": 1.77
+            },
+            {
+              "name": "Napoli",
+              "price": 4.89
+            },
+            {
+              "name": "Draw",
+              "price": 3.53
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:08:10Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 2.03,
+              "point": 2.5
+            },
+            {
+              "name": "Under",
+              "price": 1.82,
+              "point": 2.5
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "id": "daa2bb9fe4c0697c33a13df8bdf388d2",
+  "sport_key": "soccer_italy_serie_a",
+  "sport_title": "Serie A - Italy",
+  "commence_time": "2026-01-12T19:45:00Z",
+  "home_team": "Juventus",
+  "away_team": "Cremonese",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:08:10Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:08:10Z",
+          "outcomes": [
+            {
+              "name": "Cremonese",
+              "price": 10.44
+            },
+            {
+              "name": "Juventus",
+              "price": 1.26
+            },
+            {
+              "name": "Draw",
+              "price": 5.86
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:08:10Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.86,
+              "point": 2.75
+            },
+            {
+              "name": "Under",
+              "price": 1.96,
+              "point": 2.75
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

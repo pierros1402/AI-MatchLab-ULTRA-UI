@@ -1,0 +1,51 @@
+{
+  "id": "d3b1c2fe05ddcffc704a6495d8268971",
+  "sport_key": "soccer_italy_serie_a",
+  "sport_title": "Serie A - Italy",
+  "commence_time": "2026-01-11T11:30:00Z",
+  "home_team": "Lecce",
+  "away_team": "Parma",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:08:10Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:08:10Z",
+          "outcomes": [
+            {
+              "name": "Lecce",
+              "price": 2.66
+            },
+            {
+              "name": "Parma",
+              "price": 2.98
+            },
+            {
+              "name": "Draw",
+              "price": 2.96
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:08:10Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.92,
+              "point": 2.0
+            },
+            {
+              "name": "Under",
+              "price": 1.92,
+              "point": 2.0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

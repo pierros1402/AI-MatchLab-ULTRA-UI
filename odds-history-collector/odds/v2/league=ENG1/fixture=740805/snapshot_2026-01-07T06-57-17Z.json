@@ -1,0 +1,48 @@
+{
+  "collected_at": "2026-01-07T06:57:17.718179+00:00",
+  "fixture_id": "740805",
+  "odds": {
+    "provider": "the_odds_api",
+    "fixture_id": "740805",
+    "league": "ENG1",
+    "commence_time": "2026-01-07T19:30:00Z",
+    "markets": {
+      "h2h": [
+        {
+          "bookmaker": "pinnacle",
+          "outcomes": [
+            {
+              "name": "Aston Villa",
+              "price": 2.33
+            },
+            {
+              "name": "Crystal Palace",
+              "price": 3.21
+            },
+            {
+              "name": "Draw",
+              "price": 3.41
+            }
+          ]
+        }
+      ],
+      "totals": [
+        {
+          "bookmaker": "pinnacle",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.93,
+              "point": 2.5
+            },
+            {
+              "name": "Under",
+              "price": 1.95,
+              "point": 2.5
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

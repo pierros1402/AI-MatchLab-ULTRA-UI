@@ -21,6 +21,9 @@
 
     clear(list);
 
+    // ===============================
+    // GROUP BY LEAGUE (AS BEFORE)
+    // ===============================
     const byLeague = {};
     (matches || []).forEach(m => {
       if (isLive(m)) return;
@@ -30,6 +33,7 @@
       byLeague[league].push(m);
     });
 
+    // Order leagues by earliest kickoff
     const ordered = Object.keys(byLeague)
       .map(lg => ({
         league: lg,
@@ -37,15 +41,25 @@
       }))
       .sort((a, b) => a.t - b.t);
 
+    // ===============================
+    // RENDER
+    // ===============================
     ordered.forEach(({ league }) => {
       const block = document.createElement("div");
       block.className = "active-league";
 
-      const h = document.createElement("div");
-      h.className = "active-league-title";
-      h.textContent = league;
-      block.appendChild(h);
+      // ---- LEAGUE HEADER (VISUAL ONLY CHANGE)
+      const header = document.createElement("div");
+      header.className = "active-league-header";
 
+      const name = document.createElement("div");
+      name.className = "active-league-name";
+      name.textContent = league;
+
+      header.appendChild(name);
+      block.appendChild(header);
+
+      // ---- MATCHES (UNCHANGED LOGIC)
       byLeague[league]
         .sort((a, b) => kickoffTs(a) - kickoffTs(b))
         .forEach(m => {

@@ -1,0 +1,28 @@
+{
+  "schema_version": "odds_snapshot_provider_v1",
+  "provider": "the_odds_api",
+  "fixture_id": "740800",
+  "league": "ENG1",
+  "collected_at": "2026-01-07T07:26:03.635804+00:00",
+  "markets": {
+    "h2h": [
+      {
+        "bookmaker": "pinnacle",
+        "outcomes": [
+          {
+            "name": "Everton",
+            "price": 1.83
+          },
+          {
+            "name": "Wolverhampton Wanderers",
+            "price": 4.92
+          },
+          {
+            "name": "Draw",
+            "price": 3.5
+          }
+        ]
+      }
+    ]
+  }
+}

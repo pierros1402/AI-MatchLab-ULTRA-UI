@@ -1,0 +1,51 @@
+{
+  "id": "ac7fdf3f88257521894bf1895af2fc3e",
+  "sport_key": "soccer_spain_la_liga",
+  "sport_title": "La Liga - Spain",
+  "commence_time": "2026-01-10T20:00:00Z",
+  "home_team": "Valencia",
+  "away_team": "Elche CF",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:08:20Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:08:20Z",
+          "outcomes": [
+            {
+              "name": "Elche CF",
+              "price": 3.75
+            },
+            {
+              "name": "Valencia",
+              "price": 2.23
+            },
+            {
+              "name": "Draw",
+              "price": 3.14
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:08:20Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.88,
+              "point": 2.25
+            },
+            {
+              "name": "Under",
+              "price": 2.0,
+              "point": 2.25
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

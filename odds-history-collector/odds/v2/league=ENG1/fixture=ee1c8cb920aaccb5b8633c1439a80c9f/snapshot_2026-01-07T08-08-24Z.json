@@ -1,0 +1,51 @@
+{
+  "id": "ee1c8cb920aaccb5b8633c1439a80c9f",
+  "sport_key": "soccer_epl",
+  "sport_title": "EPL",
+  "commence_time": "2026-01-07T19:30:00Z",
+  "home_team": "Bournemouth",
+  "away_team": "Tottenham Hotspur",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:08:05Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:08:05Z",
+          "outcomes": [
+            {
+              "name": "Bournemouth",
+              "price": 2.22
+            },
+            {
+              "name": "Tottenham Hotspur",
+              "price": 3.27
+            },
+            {
+              "name": "Draw",
+              "price": 3.62
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:08:05Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.96,
+              "point": 2.75
+            },
+            {
+              "name": "Under",
+              "price": 1.93,
+              "point": 2.75
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

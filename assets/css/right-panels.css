@@ -314,3 +314,17 @@
     text-align: center;
   }
 }
+/* =========================================================
+   RIGHT PANEL — CLEAN SECTION TITLE
+   Remove buttons & tabs ONLY from title
+========================================================= */
+
+/* Hide View History button ONLY in the title */
+#right-panels-header #btn-history-viewer {
+  display: none !important;
+}
+
+/* Hide tabs ONLY if they appear inside the title */
+#right-panels-header .right-tabs {
+  display: none !important;
+}

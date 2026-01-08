@@ -1,0 +1,10 @@
+{
+  "schema_version": "odds_meta_v1",
+  "fixture_id": "748333",
+  "league": "ESP1",
+  "home": "Villarreal",
+  "away": "Alavés",
+  "kickoff_ts": 1768058100,
+  "kickoff_utc": "2026-01-10T15:15:00+00:00",
+  "created_at": "2026-01-07T05:48:50.796686+00:00"
+}

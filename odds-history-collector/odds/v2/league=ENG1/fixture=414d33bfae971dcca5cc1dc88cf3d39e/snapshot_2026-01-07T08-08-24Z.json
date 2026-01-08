@@ -1,0 +1,51 @@
+{
+  "id": "414d33bfae971dcca5cc1dc88cf3d39e",
+  "sport_key": "soccer_epl",
+  "sport_title": "EPL",
+  "commence_time": "2026-01-07T19:30:00Z",
+  "home_team": "Manchester City",
+  "away_team": "Brighton and Hove Albion",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:08:05Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:08:05Z",
+          "outcomes": [
+            {
+              "name": "Brighton and Hove Albion",
+              "price": 6.23
+            },
+            {
+              "name": "Manchester City",
+              "price": 1.51
+            },
+            {
+              "name": "Draw",
+              "price": 4.7
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:08:05Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.85,
+              "point": 3.25
+            },
+            {
+              "name": "Under",
+              "price": 2.05,
+              "point": 3.25
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -101,7 +101,7 @@
       <div class="topbar-brand">
         <div class="brand-title">AI MatchLab ULTRA</div>
         <div class="brand-version">
-          <span class="ver-pill">v2.14.8</span>
+          <span class="ver-pill">v2.15.0</span>
           <span class="ver-sub">Global Live Lab</span>
         </div>
       </div>
@@ -434,20 +434,26 @@
   </div>
 
 <script>
-  // 1. Ορισμός του Event Bus αμέσως
-  (function() {
+  // =====================================================
+  // 1. EVENT BUS — ΠΡΕΠΕΙ ΝΑ ΕΙΝΑΙ ΠΡΩΤΟ
+  // =====================================================
+  (function () {
     window._AIML_EVENTS = {};
-    window.on = function(n, f) { 
-      if (!window._AIML_EVENTS[n]) window._AIML_EVENTS[n] = []; 
-      window._AIML_EVENTS[n].push(f); 
+    window.on = function (n, f) {
+      if (!window._AIML_EVENTS[n]) window._AIML_EVENTS[n] = [];
+      window._AIML_EVENTS[n].push(f);
     };
-    window.emit = function(n, d) { 
-      if (window._AIML_EVENTS[n]) window._AIML_EVENTS[n].forEach(f => f(d)); 
+    window.emit = function (n, d) {
+      if (window._AIML_EVENTS[n]) {
+        window._AIML_EVENTS[n].forEach(f => f(d));
+      }
     };
     console.log("🚀 AI-MatchLab: Event Bus Initialized");
   })();
 
-  // 2. Live Config
+  // =====================================================
+  // 2. LIVE CONFIG
+  // =====================================================
   window.AIML_LIVE_CFG = {
     emitToday: true,
     emitLive: true,
@@ -457,41 +463,84 @@
     fixturesScope: "all"
   };
 </script>
-<script defer src="assets/js/live/fixtures-loader.js"></script>
-<script defer src="assets/js/live/live-engine.js"></script>
-<script defer src="assets/js/data/espn-league-map-loader.js"></script>
+
+<!-- =====================================================
+     CORE STATE / UTILS
+===================================================== -->
 <script defer src="assets/js/state.js"></script>
 <script defer src="assets/js/utils/team-names.js"></script>
 
+<!-- =====================================================
+     GLOBAL UI (ΔΕΝ ΕΚΠΕΜΠΟΥΝ EVENTS)
+===================================================== -->
 <script defer src="assets/js/theme.js"></script>
 <script defer src="assets/js/legal-menu.js"></script>
 <script defer src="assets/js/mobile-ui.js"></script>
 <script defer src="assets/js/language.js"></script>
 <script defer src="assets/js/ui/accordion.js"></script>
 
+<!-- =====================================================
+     MATCH ROW
+===================================================== -->
 <script defer src="assets/js/ui/match-row.js"></script>
 
+<!-- =====================================================
+     LEFT PANELS — LISTENERS ΠΡΩΤΑ
+===================================================== -->
 <script defer src="assets/js/ui/active-leagues-panel.js"></script>
 <script defer src="assets/js/ui/today-panel.js"></script>
 <script defer src="assets/js/ui/league-details-panel.js"></script>
 <script defer src="assets/js/ui/navigation.js"></script>
 <script defer src="assets/js/utils/league-binding.js"></script>
-
 <script defer src="assets/js/ui/matches-panel.js"></script>
 
+<!-- =====================================================
+     DETAILS
+===================================================== -->
 <script defer src="assets/js/ui/details-modal.js"></script>
 <script defer src="assets/js/ui/details-espn.js"></script>
 <script defer src="assets/js/ui/details-panel.js"></script>
 
+<!-- =====================================================
+     SAVED
+===================================================== -->
 <script defer src="assets/js/ui/saved-store.js"></script>
 <script defer src="assets/js/ui/saved-panel.js"></script>
 
+<!-- =====================================================
+     🔴 LIVE / FIXTURES EMITTERS (ΜΟΝΟ ΕΔΩ)
+===================================================== -->
+<script defer src="assets/js/live/fixtures-loader.js"></script>
+<script defer src="assets/js/live/live-engine.js"></script>
+
+<!-- =====================================================
+     ODDS ENGINE (OLD / STABLE)
+===================================================== -->
+<script defer src="assets/js/live/odds-engine.js"></script>
+<script defer src="assets/js/live/market-sync.js"></script>
+
+<!-- =====================================================
+     ODDS DATA FEED (DEMO — ΠΡΟΣΩΡΙΝΑ)
+===================================================== -->
+
+<script defer src="assets/js/odds/odds-canonical-batch-to-core.js"></script>
+
+<!-- =====================================================
+     ODDS UI
+===================================================== -->
 <script defer src="assets/js/ui/odds-panels.js"></script>
 <script defer src="assets/js/ui/odds-radar.js"></script>
 <script defer src="assets/js/ui/top-picks.js"></script>
 <script defer src="assets/js/ui/value-picks.js"></script>
+
+<!-- =====================================================
+     RIGHT PANELS
+===================================================== -->
 <script defer src="assets/js/right-panels.js"></script>
 
+<!-- =====================================================
+     HISTORY / INSTALL
+===================================================== -->
 <script defer src="assets/js/utils/history-engine.js"></script>
 <script defer src="assets/js/ui/history-viewer.js"></script>
 <script defer src="assets/js/install.js"></script>

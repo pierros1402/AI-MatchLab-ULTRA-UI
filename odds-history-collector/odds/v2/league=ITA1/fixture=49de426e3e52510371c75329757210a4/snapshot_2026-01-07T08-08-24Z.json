@@ -1,0 +1,51 @@
+{
+  "id": "49de426e3e52510371c75329757210a4",
+  "sport_key": "soccer_italy_serie_a",
+  "sport_title": "Serie A - Italy",
+  "commence_time": "2026-01-08T17:30:00Z",
+  "home_team": "Cremonese",
+  "away_team": "Cagliari",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:08:10Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:08:10Z",
+          "outcomes": [
+            {
+              "name": "Cagliari",
+              "price": 3.29
+            },
+            {
+              "name": "Cremonese",
+              "price": 2.51
+            },
+            {
+              "name": "Draw",
+              "price": 3.03
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:08:10Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 2.08,
+              "point": 2.25
+            },
+            {
+              "name": "Under",
+              "price": 1.82,
+              "point": 2.25
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "id": "0046d433de17c04fda742abb44115cc5",
+  "sport_key": "soccer_epl",
+  "sport_title": "EPL",
+  "commence_time": "2026-01-07T19:30:00Z",
+  "home_team": "Crystal Palace",
+  "away_team": "Aston Villa",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:08:05Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:08:05Z",
+          "outcomes": [
+            {
+              "name": "Aston Villa",
+              "price": 2.42
+            },
+            {
+              "name": "Crystal Palace",
+              "price": 3.09
+            },
+            {
+              "name": "Draw",
+              "price": 3.38
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:08:05Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.94,
+              "point": 2.5
+            },
+            {
+              "name": "Under",
+              "price": 1.94,
+              "point": 2.5
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

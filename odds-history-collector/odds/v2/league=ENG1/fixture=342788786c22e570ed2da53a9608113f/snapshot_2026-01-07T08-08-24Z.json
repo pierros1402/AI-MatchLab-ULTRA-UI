@@ -1,0 +1,51 @@
+{
+  "id": "342788786c22e570ed2da53a9608113f",
+  "sport_key": "soccer_epl",
+  "sport_title": "EPL",
+  "commence_time": "2026-01-19T20:00:00Z",
+  "home_team": "Brighton and Hove Albion",
+  "away_team": "Bournemouth",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:08:05Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:08:05Z",
+          "outcomes": [
+            {
+              "name": "Bournemouth",
+              "price": 3.85
+            },
+            {
+              "name": "Brighton and Hove Albion",
+              "price": 1.82
+            },
+            {
+              "name": "Draw",
+              "price": 4.09
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:08:05Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.9,
+              "point": 3.0
+            },
+            {
+              "name": "Under",
+              "price": 1.93,
+              "point": 3.0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "id": "8db02bc3086459d6f01e3fae5eebde04",
+  "sport_key": "soccer_france_ligue_one",
+  "sport_title": "Ligue 1 - France",
+  "commence_time": "2026-01-16T18:00:00Z",
+  "home_team": "AS Monaco",
+  "away_team": "Lorient",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:07:56Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:07:56Z",
+          "outcomes": [
+            {
+              "name": "AS Monaco",
+              "price": 1.59
+            },
+            {
+              "name": "Lorient",
+              "price": 5.2
+            },
+            {
+              "name": "Draw",
+              "price": 4.5
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:07:56Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.93,
+              "point": 3.0
+            },
+            {
+              "name": "Under",
+              "price": 1.94,
+              "point": 3.0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

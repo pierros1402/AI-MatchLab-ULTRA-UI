@@ -1,0 +1,51 @@
+{
+  "id": "80b312e80c4c6e8f267a99606665ac8c",
+  "sport_key": "soccer_epl",
+  "sport_title": "EPL",
+  "commence_time": "2026-01-18T16:30:00Z",
+  "home_team": "Aston Villa",
+  "away_team": "Everton",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:08:05Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:08:05Z",
+          "outcomes": [
+            {
+              "name": "Aston Villa",
+              "price": 1.76
+            },
+            {
+              "name": "Everton",
+              "price": 4.67
+            },
+            {
+              "name": "Draw",
+              "price": 3.7
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:08:05Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.94,
+              "point": 2.5
+            },
+            {
+              "name": "Under",
+              "price": 1.89,
+              "point": 2.5
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

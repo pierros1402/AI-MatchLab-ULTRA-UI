@@ -1,0 +1,51 @@
+{
+  "id": "103fb449c751da1dea5d42fc8a45b94d",
+  "sport_key": "soccer_italy_serie_a",
+  "sport_title": "Serie A - Italy",
+  "commence_time": "2026-01-07T19:45:00Z",
+  "home_team": "Torino",
+  "away_team": "Udinese",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:08:10Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:08:10Z",
+          "outcomes": [
+            {
+              "name": "Torino",
+              "price": 2.45
+            },
+            {
+              "name": "Udinese",
+              "price": 3.52
+            },
+            {
+              "name": "Draw",
+              "price": 2.94
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:08:10Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.85,
+              "point": 2.0
+            },
+            {
+              "name": "Under",
+              "price": 2.05,
+              "point": 2.0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

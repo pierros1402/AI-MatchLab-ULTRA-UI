@@ -1,0 +1,51 @@
+{
+  "id": "876bd00ab1c4cff1c6635a8ac7f93d75",
+  "sport_key": "soccer_epl",
+  "sport_title": "EPL",
+  "commence_time": "2026-01-17T15:00:00Z",
+  "home_team": "Chelsea",
+  "away_team": "Brentford",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:08:05Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:08:05Z",
+          "outcomes": [
+            {
+              "name": "Brentford",
+              "price": 5.26
+            },
+            {
+              "name": "Chelsea",
+              "price": 1.58
+            },
+            {
+              "name": "Draw",
+              "price": 4.31
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:08:05Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 2.0,
+              "point": 3.0
+            },
+            {
+              "name": "Under",
+              "price": 1.84,
+              "point": 3.0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

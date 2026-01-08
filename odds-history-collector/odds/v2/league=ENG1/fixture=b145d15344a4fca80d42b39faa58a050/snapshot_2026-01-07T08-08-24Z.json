@@ -1,0 +1,51 @@
+{
+  "id": "b145d15344a4fca80d42b39faa58a050",
+  "sport_key": "soccer_epl",
+  "sport_title": "EPL",
+  "commence_time": "2026-01-17T17:30:00Z",
+  "home_team": "Nottingham Forest",
+  "away_team": "Arsenal",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:08:05Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:08:05Z",
+          "outcomes": [
+            {
+              "name": "Arsenal",
+              "price": 1.55
+            },
+            {
+              "name": "Nottingham Forest",
+              "price": 5.55
+            },
+            {
+              "name": "Draw",
+              "price": 4.32
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:08:05Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.84,
+              "point": 2.5
+            },
+            {
+              "name": "Under",
+              "price": 2.0,
+              "point": 2.5
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "id": "5151344c7feddd635e13fe24d63bbddc",
+  "sport_key": "soccer_france_ligue_one",
+  "sport_title": "Ligue 1 - France",
+  "commence_time": "2026-01-23T19:00:00Z",
+  "home_team": "Auxerre",
+  "away_team": "Paris Saint Germain",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:07:56Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:07:56Z",
+          "outcomes": [
+            {
+              "name": "Auxerre",
+              "price": 8.85
+            },
+            {
+              "name": "Paris Saint Germain",
+              "price": 1.29
+            },
+            {
+              "name": "Draw",
+              "price": 5.83
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:07:56Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.95,
+              "point": 3.25
+            },
+            {
+              "name": "Under",
+              "price": 1.88,
+              "point": 3.25
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

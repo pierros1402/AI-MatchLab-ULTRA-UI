@@ -1,0 +1,51 @@
+{
+  "id": "c886a9c8d2c702269e9f17b6d7469977",
+  "sport_key": "soccer_italy_serie_a",
+  "sport_title": "Serie A - Italy",
+  "commence_time": "2026-01-10T19:45:00Z",
+  "home_team": "Atalanta BC",
+  "away_team": "Torino",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:08:10Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:08:10Z",
+          "outcomes": [
+            {
+              "name": "Atalanta BC",
+              "price": 1.66
+            },
+            {
+              "name": "Torino",
+              "price": 5.19
+            },
+            {
+              "name": "Draw",
+              "price": 3.85
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:08:10Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.85,
+              "point": 2.5
+            },
+            {
+              "name": "Under",
+              "price": 1.99,
+              "point": 2.5
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

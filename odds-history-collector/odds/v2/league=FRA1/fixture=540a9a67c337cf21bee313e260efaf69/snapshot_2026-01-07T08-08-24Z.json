@@ -1,0 +1,51 @@
+{
+  "id": "540a9a67c337cf21bee313e260efaf69",
+  "sport_key": "soccer_france_ligue_one",
+  "sport_title": "Ligue 1 - France",
+  "commence_time": "2026-01-17T18:00:00Z",
+  "home_team": "Toulouse",
+  "away_team": "Nice",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:07:56Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:07:56Z",
+          "outcomes": [
+            {
+              "name": "Nice",
+              "price": 3.97
+            },
+            {
+              "name": "Toulouse",
+              "price": 1.93
+            },
+            {
+              "name": "Draw",
+              "price": 3.68
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:07:56Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.87,
+              "point": 2.5
+            },
+            {
+              "name": "Under",
+              "price": 2.0,
+              "point": 2.5
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "id": "32a86b2b69ba8c8749861199a8fdc52a",
+  "sport_key": "soccer_italy_serie_a",
+  "sport_title": "Serie A - Italy",
+  "commence_time": "2026-01-11T14:00:00Z",
+  "home_team": "Fiorentina",
+  "away_team": "AC Milan",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:08:10Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:08:10Z",
+          "outcomes": [
+            {
+              "name": "AC Milan",
+              "price": 2.02
+            },
+            {
+              "name": "Fiorentina",
+              "price": 3.74
+            },
+            {
+              "name": "Draw",
+              "price": 3.45
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:08:10Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.96,
+              "point": 2.5
+            },
+            {
+              "name": "Under",
+              "price": 1.88,
+              "point": 2.5
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

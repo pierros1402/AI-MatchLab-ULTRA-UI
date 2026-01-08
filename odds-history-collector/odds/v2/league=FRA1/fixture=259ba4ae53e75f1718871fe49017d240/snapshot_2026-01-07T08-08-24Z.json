@@ -1,0 +1,51 @@
+{
+  "id": "259ba4ae53e75f1718871fe49017d240",
+  "sport_key": "soccer_france_ligue_one",
+  "sport_title": "Ligue 1 - France",
+  "commence_time": "2026-01-25T16:15:00Z",
+  "home_team": "Paris FC",
+  "away_team": "Angers",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:07:56Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:07:56Z",
+          "outcomes": [
+            {
+              "name": "Angers",
+              "price": 4.77
+            },
+            {
+              "name": "Paris FC",
+              "price": 1.84
+            },
+            {
+              "name": "Draw",
+              "price": 3.34
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:07:56Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 2.05,
+              "point": 2.5
+            },
+            {
+              "name": "Under",
+              "price": 1.8,
+              "point": 2.5
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

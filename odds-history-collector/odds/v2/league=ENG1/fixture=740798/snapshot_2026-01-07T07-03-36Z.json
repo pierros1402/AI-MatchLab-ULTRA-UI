@@ -1,0 +1,28 @@
+{
+  "schema_version": "odds_snapshot_provider_v1",
+  "provider": "the_odds_api",
+  "fixture_id": "740798",
+  "league": "ENG1",
+  "collected_at": "2026-01-07T07:03:36.234207+00:00",
+  "markets": {
+    "h2h": [
+      {
+        "bookmaker": "pinnacle",
+        "outcomes": [
+          {
+            "name": "Brentford",
+            "price": 1.83
+          },
+          {
+            "name": "Sunderland",
+            "price": 4.68
+          },
+          {
+            "name": "Draw",
+            "price": 3.62
+          }
+        ]
+      }
+    ]
+  }
+}

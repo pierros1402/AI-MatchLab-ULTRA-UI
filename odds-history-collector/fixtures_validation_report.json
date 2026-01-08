@@ -1,0 +1,456 @@
+{
+  "ok": true,
+  "generated_at": "2026-01-07T05:34:59.287708+00:00",
+  "totals": {
+    "files": 40,
+    "fixtures": 25,
+    "flagged": 25,
+    "critical": 0
+  },
+  "issues": [
+    {
+      "level": "ERROR",
+      "message": "Invalid kickoff_utc",
+      "fixture": {
+        "schema_version": "fixture_registry_v1",
+        "fixture_id": "740801",
+        "league_id": "ENG1",
+        "league_name": "Premier League",
+        "home": "West Ham United",
+        "away": "Nottingham Forest",
+        "kickoff_ts": 1767729600,
+        "date": "2026-01-06",
+        "status": "FINISHED",
+        "source": "espn"
+      },
+      "context": "fixtures\\v1\\league=ENG1\\date=2026-01-06.json"
+    },
+    {
+      "level": "ERROR",
+      "message": "Invalid kickoff_utc",
+      "fixture": {
+        "schema_version": "fixture_registry_v1",
+        "fixture_id": "740797",
+        "league_id": "ENG1",
+        "league_name": "Premier League",
+        "home": "AFC Bournemouth",
+        "away": "Tottenham Hotspur",
+        "kickoff_ts": 1767814200,
+        "date": "2026-01-07",
+        "status": "SCHEDULED",
+        "source": "espn"
+      },
+      "context": "fixtures\\v1\\league=ENG1\\date=2026-01-07.json"
+    },
+    {
+      "level": "ERROR",
+      "message": "Invalid kickoff_utc",
+      "fixture": {
+        "schema_version": "fixture_registry_v1",
+        "fixture_id": "740798",
+        "league_id": "ENG1",
+        "league_name": "Premier League",
+        "home": "Brentford",
+        "away": "Sunderland",
+        "kickoff_ts": 1767814200,
+        "date": "2026-01-07",
+        "status": "SCHEDULED",
+        "source": "espn"
+      },
+      "context": "fixtures\\v1\\league=ENG1\\date=2026-01-07.json"
+    },
+    {
+      "level": "ERROR",
+      "message": "Invalid kickoff_utc",
+      "fixture": {
+        "schema_version": "fixture_registry_v1",
+        "fixture_id": "740805",
+        "league_id": "ENG1",
+        "league_name": "Premier League",
+        "home": "Crystal Palace",
+        "away": "Aston Villa",
+        "kickoff_ts": 1767814200,
+        "date": "2026-01-07",
+        "status": "SCHEDULED",
+        "source": "espn"
+      },
+      "context": "fixtures\\v1\\league=ENG1\\date=2026-01-07.json"
+    },
+    {
+      "level": "ERROR",
+      "message": "Invalid kickoff_utc",
+      "fixture": {
+        "schema_version": "fixture_registry_v1",
+        "fixture_id": "740800",
+        "league_id": "ENG1",
+        "league_name": "Premier League",
+        "home": "Everton",
+        "away": "Wolverhampton Wanderers",
+        "kickoff_ts": 1767814200,
+        "date": "2026-01-07",
+        "status": "SCHEDULED",
+        "source": "espn"
+      },
+      "context": "fixtures\\v1\\league=ENG1\\date=2026-01-07.json"
+    },
+    {
+      "level": "ERROR",
+      "message": "Invalid kickoff_utc",
+      "fixture": {
+        "schema_version": "fixture_registry_v1",
+        "fixture_id": "740802",
+        "league_id": "ENG1",
+        "league_name": "Premier League",
+        "home": "Fulham",
+        "away": "Chelsea",
+        "kickoff_ts": 1767814200,
+        "date": "2026-01-07",
+        "status": "SCHEDULED",
+        "source": "espn"
+      },
+      "context": "fixtures\\v1\\league=ENG1\\date=2026-01-07.json"
+    },
+    {
+      "level": "ERROR",
+      "message": "Invalid kickoff_utc",
+      "fixture": {
+        "schema_version": "fixture_registry_v1",
+        "fixture_id": "740803",
+        "league_id": "ENG1",
+        "league_name": "Premier League",
+        "home": "Manchester City",
+        "away": "Brighton & Hove Albion",
+        "kickoff_ts": 1767814200,
+        "date": "2026-01-07",
+        "status": "SCHEDULED",
+        "source": "espn"
+      },
+      "context": "fixtures\\v1\\league=ENG1\\date=2026-01-07.json"
+    },
+    {
+      "level": "ERROR",
+      "message": "Invalid kickoff_utc",
+      "fixture": {
+        "schema_version": "fixture_registry_v1",
+        "fixture_id": "740799",
+        "league_id": "ENG1",
+        "league_name": "Premier League",
+        "home": "Burnley",
+        "away": "Manchester United",
+        "kickoff_ts": 1767816900,
+        "date": "2026-01-07",
+        "status": "SCHEDULED",
+        "source": "espn"
+      },
+      "context": "fixtures\\v1\\league=ENG1\\date=2026-01-07.json"
+    },
+    {
+      "level": "ERROR",
+      "message": "Invalid kickoff_utc",
+      "fixture": {
+        "schema_version": "fixture_registry_v1",
+        "fixture_id": "740804",
+        "league_id": "ENG1",
+        "league_name": "Premier League",
+        "home": "Newcastle United",
+        "away": "Leeds United",
+        "kickoff_ts": 1767816900,
+        "date": "2026-01-07",
+        "status": "SCHEDULED",
+        "source": "espn"
+      },
+      "context": "fixtures\\v1\\league=ENG1\\date=2026-01-07.json"
+    },
+    {
+      "level": "ERROR",
+      "message": "Invalid kickoff_utc",
+      "fixture": {
+        "schema_version": "fixture_registry_v1",
+        "fixture_id": "740796",
+        "league_id": "ENG1",
+        "league_name": "Premier League",
+        "home": "Arsenal",
+        "away": "Liverpool",
+        "kickoff_ts": 1767902400,
+        "date": "2026-01-08",
+        "status": "SCHEDULED",
+        "source": "espn"
+      },
+      "context": "fixtures\\v1\\league=ENG1\\date=2026-01-08.json"
+    },
+    {
+      "level": "ERROR",
+      "message": "Invalid kickoff_utc",
+      "fixture": {
+        "schema_version": "fixture_registry_v1",
+        "fixture_id": "748330",
+        "league_id": "ESP1",
+        "league_name": "La Liga",
+        "home": "Getafe",
+        "away": "Real Sociedad",
+        "kickoff_ts": 1767988800,
+        "date": "2026-01-09",
+        "status": "SCHEDULED",
+        "source": "espn"
+      },
+      "context": "fixtures\\v1\\league=ESP1\\date=2026-01-09.json"
+    },
+    {
+      "level": "ERROR",
+      "message": "Invalid kickoff_utc",
+      "fixture": {
+        "schema_version": "fixture_registry_v1",
+        "fixture_id": "748326",
+        "league_id": "ESP1",
+        "league_name": "La Liga",
+        "home": "Real Oviedo",
+        "away": "Real Betis",
+        "kickoff_ts": 1768050000,
+        "date": "2026-01-10",
+        "status": "SCHEDULED",
+        "source": "espn"
+      },
+      "context": "fixtures\\v1\\league=ESP1\\date=2026-01-10.json"
+    },
+    {
+      "level": "ERROR",
+      "message": "Invalid kickoff_utc",
+      "fixture": {
+        "schema_version": "fixture_registry_v1",
+        "fixture_id": "748333",
+        "league_id": "ESP1",
+        "league_name": "La Liga",
+        "home": "Villarreal",
+        "away": "Alavés",
+        "kickoff_ts": 1768058100,
+        "date": "2026-01-10",
+        "status": "SCHEDULED",
+        "source": "espn"
+      },
+      "context": "fixtures\\v1\\league=ESP1\\date=2026-01-10.json"
+    },
+    {
+      "level": "ERROR",
+      "message": "Invalid kickoff_utc",
+      "fixture": {
+        "schema_version": "fixture_registry_v1",
+        "fixture_id": "748329",
+        "league_id": "ESP1",
+        "league_name": "La Liga",
+        "home": "Girona",
+        "away": "Osasuna",
+        "kickoff_ts": 1768066200,
+        "date": "2026-01-10",
+        "status": "SCHEDULED",
+        "source": "espn"
+      },
+      "context": "fixtures\\v1\\league=ESP1\\date=2026-01-10.json"
+    },
+    {
+      "level": "ERROR",
+      "message": "Invalid kickoff_utc",
+      "fixture": {
+        "schema_version": "fixture_registry_v1",
+        "fixture_id": "748324",
+        "league_id": "ESP1",
+        "league_name": "La Liga",
+        "home": "Valencia",
+        "away": "Elche",
+        "kickoff_ts": 1768075200,
+        "date": "2026-01-10",
+        "status": "SCHEDULED",
+        "source": "espn"
+      },
+      "context": "fixtures\\v1\\league=ESP1\\date=2026-01-10.json"
+    },
+    {
+      "level": "ERROR",
+      "message": "Invalid kickoff_utc",
+      "fixture": {
+        "schema_version": "fixture_registry_v1",
+        "fixture_id": "748327",
+        "league_id": "ESP1",
+        "league_name": "La Liga",
+        "home": "Rayo Vallecano",
+        "away": "Mallorca",
+        "kickoff_ts": 1768136400,
+        "date": "2026-01-11",
+        "status": "SCHEDULED",
+        "source": "espn"
+      },
+      "context": "fixtures\\v1\\league=ESP1\\date=2026-01-11.json"
+    },
+    {
+      "level": "ERROR",
+      "message": "Invalid kickoff_utc",
+      "fixture": {
+        "schema_version": "fixture_registry_v1",
+        "fixture_id": "748328",
+        "league_id": "ESP1",
+        "league_name": "La Liga",
+        "home": "Levante",
+        "away": "Espanyol",
+        "kickoff_ts": 1768144500,
+        "date": "2026-01-11",
+        "status": "SCHEDULED",
+        "source": "espn"
+      },
+      "context": "fixtures\\v1\\league=ESP1\\date=2026-01-11.json"
+    },
+    {
+      "level": "ERROR",
+      "message": "Invalid kickoff_utc",
+      "fixture": {
+        "schema_version": "fixture_registry_v1",
+        "fixture_id": "748325",
+        "league_id": "ESP1",
+        "league_name": "La Liga",
+        "home": "Sevilla",
+        "away": "Celta Vigo",
+        "kickoff_ts": 1768248000,
+        "date": "2026-01-12",
+        "status": "SCHEDULED",
+        "source": "espn"
+      },
+      "context": "fixtures\\v1\\league=ESP1\\date=2026-01-12.json"
+    },
+    {
+      "level": "ERROR",
+      "message": "Invalid kickoff_utc",
+      "fixture": {
+        "schema_version": "fixture_registry_v1",
+        "fixture_id": "752379",
+        "league_id": "GRE1",
+        "league_name": "Super League 1",
+        "home": "Kifisia",
+        "away": "Larissa FC",
+        "kickoff_ts": 1768057200,
+        "date": "2026-01-10",
+        "status": "SCHEDULED",
+        "source": "espn"
+      },
+      "context": "fixtures\\v1\\league=GRE1\\date=2026-01-10.json"
+    },
+    {
+      "level": "ERROR",
+      "message": "Invalid kickoff_utc",
+      "fixture": {
+        "schema_version": "fixture_registry_v1",
+        "fixture_id": "752380",
+        "league_id": "GRE1",
+        "league_name": "Super League 1",
+        "home": "Atromitos",
+        "away": "Olympiacos",
+        "kickoff_ts": 1768066200,
+        "date": "2026-01-10",
+        "status": "SCHEDULED",
+        "source": "espn"
+      },
+      "context": "fixtures\\v1\\league=GRE1\\date=2026-01-10.json"
+    },
+    {
+      "level": "ERROR",
+      "message": "Invalid kickoff_utc",
+      "fixture": {
+        "schema_version": "fixture_registry_v1",
+        "fixture_id": "752384",
+        "league_id": "GRE1",
+        "league_name": "Super League 1",
+        "home": "Panetolikos",
+        "away": "PAOK Salonika",
+        "kickoff_ts": 1768066200,
+        "date": "2026-01-10",
+        "status": "SCHEDULED",
+        "source": "espn"
+      },
+      "context": "fixtures\\v1\\league=GRE1\\date=2026-01-10.json"
+    },
+    {
+      "level": "ERROR",
+      "message": "Invalid kickoff_utc",
+      "fixture": {
+        "schema_version": "fixture_registry_v1",
+        "fixture_id": "752382",
+        "league_id": "GRE1",
+        "league_name": "Super League 1",
+        "home": "Levadiakos",
+        "away": "Volos NFC",
+        "kickoff_ts": 1768140000,
+        "date": "2026-01-11",
+        "status": "SCHEDULED",
+        "source": "espn"
+      },
+      "context": "fixtures\\v1\\league=GRE1\\date=2026-01-11.json"
+    },
+    {
+      "level": "ERROR",
+      "message": "Invalid kickoff_utc",
+      "fixture": {
+        "schema_version": "fixture_registry_v1",
+        "fixture_id": "752383",
+        "league_id": "GRE1",
+        "league_name": "Super League 1",
+        "home": "OFI Crete",
+        "away": "Asteras Tripoli",
+        "kickoff_ts": 1768145400,
+        "date": "2026-01-11",
+        "status": "SCHEDULED",
+        "source": "espn"
+      },
+      "context": "fixtures\\v1\\league=GRE1\\date=2026-01-11.json"
+    },
+    {
+      "level": "ERROR",
+      "message": "Invalid kickoff_utc",
+      "fixture": {
+        "schema_version": "fixture_registry_v1",
+        "fixture_id": "752381",
+        "league_id": "GRE1",
+        "league_name": "Super League 1",
+        "home": "Aris",
+        "away": "AEK Athens",
+        "kickoff_ts": 1768152600,
+        "date": "2026-01-11",
+        "status": "SCHEDULED",
+        "source": "espn"
+      },
+      "context": "fixtures\\v1\\league=GRE1\\date=2026-01-11.json"
+    },
+    {
+      "level": "ERROR",
+      "message": "Invalid kickoff_utc",
+      "fixture": {
+        "schema_version": "fixture_registry_v1",
+        "fixture_id": "752385",
+        "league_id": "GRE1",
+        "league_name": "Super League 1",
+        "home": "Panathinaikos",
+        "away": "Panserraikos FC",
+        "kickoff_ts": 1768158000,
+        "date": "2026-01-11",
+        "status": "SCHEDULED",
+        "source": "espn"
+      },
+      "context": "fixtures\\v1\\league=GRE1\\date=2026-01-11.json"
+    }
+  ],
+  "duplicates": [],
+  "by_league": {
+    "ENG1": 10,
+    "ESP1": 8,
+    "FRA1": 0,
+    "GRE1": 7
+  },
+  "by_date": {
+    "2026-01-05": 0,
+    "2026-01-06": 1,
+    "2026-01-07": 8,
+    "2026-01-08": 1,
+    "2026-01-09": 1,
+    "2026-01-10": 7,
+    "2026-01-11": 6,
+    "2026-01-12": 1,
+    "2026-01-13": 0,
+    "2026-01-14": 0
+  }
+}

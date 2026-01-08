@@ -1,0 +1,12 @@
+{
+  "schema_version": "odds_snapshot_v1",
+  "collected_at": "2026-01-07T05:48:50.796686+00:00",
+  "fixture_id": "752379",
+  "league": "GRE1",
+  "odds": {
+    "provider": "STUB",
+    "fixture_id": "752379",
+    "markets": {},
+    "note": "No provider attached yet"
+  }
+}

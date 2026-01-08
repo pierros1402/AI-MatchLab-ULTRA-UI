@@ -1,0 +1,51 @@
+{
+  "id": "3fd1e970c718bfc0f99a7e4575e46f49",
+  "sport_key": "soccer_epl",
+  "sport_title": "EPL",
+  "commence_time": "2026-01-17T12:30:00Z",
+  "home_team": "Manchester United",
+  "away_team": "Manchester City",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:08:05Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:08:05Z",
+          "outcomes": [
+            {
+              "name": "Manchester City",
+              "price": 1.8
+            },
+            {
+              "name": "Manchester United",
+              "price": 3.87
+            },
+            {
+              "name": "Draw",
+              "price": 4.2
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:08:05Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.99,
+              "point": 3.25
+            },
+            {
+              "name": "Under",
+              "price": 1.85,
+              "point": 3.25
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

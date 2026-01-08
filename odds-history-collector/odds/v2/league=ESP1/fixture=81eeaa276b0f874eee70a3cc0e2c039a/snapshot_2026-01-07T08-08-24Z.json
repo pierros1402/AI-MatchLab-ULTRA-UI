@@ -1,0 +1,51 @@
+{
+  "id": "81eeaa276b0f874eee70a3cc0e2c039a",
+  "sport_key": "soccer_spain_la_liga",
+  "sport_title": "La Liga - Spain",
+  "commence_time": "2026-01-17T15:15:00Z",
+  "home_team": "Mallorca",
+  "away_team": "Athletic Bilbao",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:08:20Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:08:20Z",
+          "outcomes": [
+            {
+              "name": "Athletic Bilbao",
+              "price": 2.19
+            },
+            {
+              "name": "Mallorca",
+              "price": 3.75
+            },
+            {
+              "name": "Draw",
+              "price": 3.05
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:08:20Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.87,
+              "point": 2.0
+            },
+            {
+              "name": "Under",
+              "price": 1.97,
+              "point": 2.0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

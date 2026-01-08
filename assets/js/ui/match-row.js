@@ -14,23 +14,14 @@
   }
 
   function formatTime24(m) {
-    if (m.kickoff) {
-      const d = new Date(m.kickoff);
-      return d.toLocaleTimeString("el-GR", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false
-      });
-    }
-    if (m.kickoff_ms) {
-      const d = new Date(m.kickoff_ms);
-      return d.toLocaleTimeString("el-GR", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false
-      });
-    }
-    return "";
+    const ts = m.kickoff_ms || m.kickoff;
+    if (!ts) return "";
+    const d = new Date(ts);
+    return d.toLocaleTimeString("el-GR", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false
+    });
   }
 
   window.renderMatchRow = function (m, opts = {}) {
@@ -44,18 +35,13 @@
     const meta = document.createElement("div");
     meta.className = "match-meta";
 
-    // FT → τελικό σκορ
     if (isFinal(m) && hasScore(m)) {
       meta.textContent = `${m.scoreHome}-${m.scoreAway}`;
       meta.classList.add("ft");
-
-    // LIVE / HT → σκορ + λεπτό
     } else if (isConfirmedLive(m) && hasScore(m)) {
       const min = m.minute ? ` ${m.minute}` : "";
       meta.textContent = `${m.scoreHome}-${m.scoreAway}${min}`;
       meta.classList.add("live");
-
-    // PRE → ΜΟΝΟ ώρα (ΠΟΤΕ σκορ)
     } else {
       meta.textContent = formatTime24(m);
       meta.classList.add("pre");
@@ -67,6 +53,7 @@
     row.addEventListener("click", () => {
       if (typeof window.emit === "function") {
         window.emit("match-selected", m);
+        window.emit("active-match:set", m);
       }
     });
 

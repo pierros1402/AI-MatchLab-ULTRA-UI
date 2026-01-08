@@ -1,0 +1,51 @@
+{
+  "id": "f6c5f7f92c41d6c12e55870819dd419d",
+  "sport_key": "soccer_france_ligue_one",
+  "sport_title": "Ligue 1 - France",
+  "commence_time": "2026-01-24T16:00:00Z",
+  "home_team": "Rennes",
+  "away_team": "Lorient",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:07:56Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:07:56Z",
+          "outcomes": [
+            {
+              "name": "Lorient",
+              "price": 4.43
+            },
+            {
+              "name": "Rennes",
+              "price": 1.77
+            },
+            {
+              "name": "Draw",
+              "price": 3.8
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:07:56Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.83,
+              "point": 2.5
+            },
+            {
+              "name": "Under",
+              "price": 2.01,
+              "point": 2.5
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

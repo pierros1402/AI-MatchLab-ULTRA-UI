@@ -1,0 +1,51 @@
+{
+  "id": "494261cb09d86dfd909684a93847faf3",
+  "sport_key": "soccer_italy_serie_a",
+  "sport_title": "Serie A - Italy",
+  "commence_time": "2026-01-07T19:45:00Z",
+  "home_team": "Parma",
+  "away_team": "Inter Milan",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:08:10Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:08:10Z",
+          "outcomes": [
+            {
+              "name": "Inter Milan",
+              "price": 1.38
+            },
+            {
+              "name": "Parma",
+              "price": 8.45
+            },
+            {
+              "name": "Draw",
+              "price": 5.15
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:08:10Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.89,
+              "point": 2.75
+            },
+            {
+              "name": "Under",
+              "price": 2.0,
+              "point": 2.75
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

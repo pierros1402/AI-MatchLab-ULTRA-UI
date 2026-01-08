@@ -1,9 +1,15 @@
+/* =========================================================
+   AI MatchLab ULTRA — right-panels.js (FINAL)
+   Responsibilities:
+   - Render LIVE / RADAR / TOP PICKS
+   - Listen to feeder events
+   NO AI / NO ODDS CALC / NO DEMO
+========================================================= */
+
 (function () {
   "use strict";
   if (window.__AIML_RIGHT_PANELS_FINAL__) return;
   window.__AIML_RIGHT_PANELS_FINAL__ = true;
-
-  const AI_BRAIN_URL = "https://ai-matchlab-brain.pierros1402.workers.dev";
 
   function onSafe(ev, fn) {
     if (typeof window.on === "function") window.on(ev, fn);
@@ -14,99 +20,192 @@
     else document.dispatchEvent(new CustomEvent(ev, { detail: data }));
   }
 
+  const esc = s =>
+    String(s ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+
+  /* =========================
+     LIVE PANEL (AS-IS)
+     ========================= */
+
   const els = { liveMeta: null, liveList: null };
-  function resolve() {
+  function resolveLive() {
     els.liveMeta = els.liveMeta || document.getElementById("live-meta");
     els.liveList = els.liveList || document.getElementById("live-list");
   }
-
-  const esc = s => String(s ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 
   function minuteText(m) {
     if (m.minute != null) return `${esc(m.minute)}′`;
     if (m.clock != null) return `${esc(m.clock)}′`;
     return "";
   }
-
   function scoreText(m) {
     if (m.score_text) return esc(m.score_text);
-    if (m.scoreHome != null && m.scoreAway != null) return `${esc(m.scoreHome)}–${esc(m.scoreAway)}`;
+    if (m.scoreHome != null && m.scoreAway != null)
+      return `${esc(m.scoreHome)}–${esc(m.scoreAway)}`;
     return "";
   }
 
-  let matches = [];
+  let liveMatches = [];
 
-  function render() {
-    resolve();
+  function renderLive() {
+    resolveLive();
     if (!els.liveList) return;
-    if (els.liveMeta) els.liveMeta.textContent = `Live • ${matches.length}`;
-    if (!matches.length) {
-      els.liveList.innerHTML = "<div class='empty-state'>No live matches right now</div>";
+
+    if (els.liveMeta)
+      els.liveMeta.textContent = `Live • ${liveMatches.length}`;
+
+    if (!liveMatches.length) {
+      els.liveList.innerHTML =
+        "<div class='empty-state'>No live matches right now</div>";
       return;
     }
-    const sorted = matches.slice().sort((a, b) => (a.kickoff_ms || 0) - (b.kickoff_ms || 0));
-    let html = "";
+
+    const sorted = liveMatches
+      .slice()
+      .sort((a, b) => (a.kickoff_ms || 0) - (b.kickoff_ms || 0));
+
     const groups = {};
     sorted.forEach(m => {
       const k = m.leagueName || "";
       (groups[k] = groups[k] || []).push(m);
     });
-    Object.keys(groups).sort().forEach(lg => {
-      html += `<div class="live-group"><div class="live-league">${esc(lg)}</div>`;
-      groups[lg].forEach(m => {
-        const min = minuteText(m);
-        const sco = scoreText(m);
-        html += `
-          <div class="right-item live-item" data-id="${esc(m.id)}" data-home="${esc(m.home)}" data-away="${esc(m.away)}">
-            <div class="right-main"><strong>${esc(m.home)} – ${esc(m.away)}</strong></div>
-            <div class="right-sub">${min}${min && sco ? " • " : ""}${sco}</div>
-          </div>`;
+
+    let html = "";
+    Object.keys(groups)
+      .sort()
+      .forEach(lg => {
+        html += `<div class="live-group">
+          <div class="live-league">${esc(lg)}</div>`;
+
+        groups[lg].forEach(m => {
+          const min = minuteText(m);
+          const sco = scoreText(m);
+          html += `
+            <div class="right-item live-item"
+                 data-id="${esc(m.id)}"
+                 data-home="${esc(m.home)}"
+                 data-away="${esc(m.away)}">
+              <div class="right-main">
+                <strong>${esc(m.home)} – ${esc(m.away)}</strong>
+              </div>
+              <div class="right-sub">
+                ${min}${min && sco ? " • " : ""}${sco}
+              </div>
+            </div>`;
+        });
+
+        html += `</div>`;
       });
-      html += `</div>`;
-    });
+
     els.liveList.innerHTML = html;
   }
 
-  onSafe("live:update", ({ matches: list }) => {
-    matches = Array.isArray(list) ? list : [];
-    render();
+  onSafe("live:update", ({ matches }) => {
+    liveMatches = Array.isArray(matches) ? matches : [];
+    renderLive();
   });
 
-  // ΚΛΙΚ ΣΤΟ ΜΑΤΣ -> ΕΝΗΜΕΡΩΣΗ AI ΠΟΣΟΣΤΩΝ
-  document.addEventListener("click", async e => {
+  document.addEventListener("click", e => {
     const item = e.target.closest(".live-item");
     if (!item) return;
 
-    const home = item.dataset.home;
-    const away = item.dataset.away;
-
-    emitSafe("match-selected", { id: item.dataset.id, home, away });
-
-    // UI Feedback: Δείξε ότι το AI αναλύει
-    const titleEl = document.querySelector(".value-card .panel-title");
-    const ggEl = document.querySelector('.value-item[data-type="gg"] .value-percent');
-    const overEl = document.querySelector('.value-item[data-type="over"] .value-percent');
-    
-    if (titleEl) titleEl.textContent = `${home} vs ${away}`;
-    if (ggEl) ggEl.textContent = "⏳";
-    if (overEl) overEl.textContent = "⏳";
-
-    try {
-      const res = await fetch(`${AI_BRAIN_URL}/?home=${encodeURIComponent(home)}&away=${encodeURIComponent(away)}`);
-      const data = await res.json();
-      
-      if (data.ok && data.prediction) {
-        if (ggEl) ggEl.textContent = data.prediction.gg === "YES" ? "75%" : "25%";
-        if (overEl) overEl.textContent = (data.prediction.goals?.ov25 || 0) + "%";
-      } else {
-        // Αν γράψει N/A, σημαίνει ότι ο Worker είναι οκ αλλά το KV άδειο
-        if (ggEl) ggEl.textContent = "N/A";
-        if (overEl) overEl.textContent = "N/A";
-      }
-    } catch (err) { console.error("AI Fetch Error:", err); }
+    emitSafe("match-selected", {
+      id: item.dataset.id,
+      home: item.dataset.home,
+      away: item.dataset.away
+    });
 
     document.body.classList.remove("drawer-right-open");
   });
 
-  render();
+  /* =========================
+     TABS (Radar / Top Picks)
+     ========================= */
+
+  const tabs = document.querySelectorAll(".right-tab");
+  const cards = {
+    radar: document.getElementById("card-radar"),
+    "top-picks": document.getElementById("card-top-picks")
+  };
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      const target = tab.dataset.target;
+      Object.keys(cards).forEach(k => {
+        if (!cards[k]) return;
+        cards[k].style.display = k === target ? "block" : "none";
+      });
+    });
+  });
+
+  /* =========================
+     RADAR PANEL
+     ========================= */
+
+  let radarItems = [];
+
+  onSafe("radar:update", ({ items }) => {
+    radarItems = Array.isArray(items) ? items : [];
+    renderRadar();
+  });
+
+  function renderRadar() {
+    const el = document.getElementById("radar-list");
+    if (!el) return;
+
+    if (!radarItems.length) {
+      el.innerHTML = "<div class='empty-state'>No radar signals</div>";
+      return;
+    }
+
+    el.innerHTML = radarItems.map(ev => `
+      <div class="right-item radar-item">
+        <div class="right-main">
+          <strong>${esc(ev.home || "")} – ${esc(ev.away || "")}</strong>
+        </div>
+        <div class="right-sub">
+          ${esc(ev.market)} • ${esc(ev.provider)} • Δ${Number(ev.delta).toFixed(2)}
+        </div>
+      </div>
+    `).join("");
+  }
+
+  /* =========================
+     AI PICKS PANEL
+     ========================= */
+
+  let aiPicks = [];
+
+  onSafe("aipicks:update", ({ items }) => {
+    aiPicks = Array.isArray(items) ? items : [];
+    renderAIPicks();
+  });
+
+  function renderAIPicks() {
+    const el = document.getElementById("top-picks-list");
+    if (!el) return;
+
+    if (!aiPicks.length) {
+      el.innerHTML = "<div class='empty-state'>No AI picks</div>";
+      return;
+    }
+
+    el.innerHTML = aiPicks.map(p => `
+      <div class="right-item pick-item">
+        <div class="right-main">
+          <strong>${esc(p.selection)}</strong> @ ${esc(p.current)}
+        </div>
+        <div class="right-sub">
+          ${esc(p.market)} • edge ${(p.edge * 100).toFixed(1)}%
+        </div>
+      </div>
+    `).join("");
+  }
+
+  renderLive();
 })();

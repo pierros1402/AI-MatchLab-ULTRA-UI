@@ -287,3 +287,50 @@ html{
     display: inline-flex;
   }
 }
+/* ===============================
+   MARKETS TABS — ACTIVE MATCH BAR
+================================ */
+
+#active-match-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+#active-match-bar .amb-right {
+  display: flex;
+  align-items: center;
+}
+
+/* Tabs container */
+.markets-bar {
+  display: flex;
+  gap: 6px;
+  background: rgba(255,255,255,0.04);
+  padding: 4px;
+  border-radius: 10px;
+}
+
+/* Individual tab */
+.market-btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: #cfd6ff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background .15s ease, color .15s ease;
+}
+
+.market-btn:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+.market-btn.active {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: #fff;
+  font-weight: 600;
+}

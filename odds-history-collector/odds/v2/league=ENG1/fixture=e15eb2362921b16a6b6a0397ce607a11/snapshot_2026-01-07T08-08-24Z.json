@@ -1,0 +1,51 @@
+{
+  "id": "e15eb2362921b16a6b6a0397ce607a11",
+  "sport_key": "soccer_epl",
+  "sport_title": "EPL",
+  "commence_time": "2026-01-18T14:00:00Z",
+  "home_team": "Wolverhampton Wanderers",
+  "away_team": "Newcastle United",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:08:05Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:08:05Z",
+          "outcomes": [
+            {
+              "name": "Newcastle United",
+              "price": 1.74
+            },
+            {
+              "name": "Wolverhampton Wanderers",
+              "price": 4.37
+            },
+            {
+              "name": "Draw",
+              "price": 3.99
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:08:05Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.91,
+              "point": 2.75
+            },
+            {
+              "name": "Under",
+              "price": 1.93,
+              "point": 2.75
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "id": "47e36aed7df3160f584a73fbd1fd0830",
+  "sport_key": "soccer_epl",
+  "sport_title": "EPL",
+  "commence_time": "2026-01-17T15:00:00Z",
+  "home_team": "Tottenham Hotspur",
+  "away_team": "West Ham United",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:08:05Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:08:05Z",
+          "outcomes": [
+            {
+              "name": "Tottenham Hotspur",
+              "price": 1.71
+            },
+            {
+              "name": "West Ham United",
+              "price": 4.71
+            },
+            {
+              "name": "Draw",
+              "price": 3.88
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:08:05Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.92,
+              "point": 2.75
+            },
+            {
+              "name": "Under",
+              "price": 1.92,
+              "point": 2.75
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

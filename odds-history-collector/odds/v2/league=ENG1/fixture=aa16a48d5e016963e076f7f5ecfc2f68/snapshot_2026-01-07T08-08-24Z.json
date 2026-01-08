@@ -1,0 +1,51 @@
+{
+  "id": "aa16a48d5e016963e076f7f5ecfc2f68",
+  "sport_key": "soccer_epl",
+  "sport_title": "EPL",
+  "commence_time": "2026-01-17T15:00:00Z",
+  "home_team": "Sunderland",
+  "away_team": "Crystal Palace",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:08:05Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:08:05Z",
+          "outcomes": [
+            {
+              "name": "Crystal Palace",
+              "price": 2.66
+            },
+            {
+              "name": "Sunderland",
+              "price": 2.81
+            },
+            {
+              "name": "Draw",
+              "price": 3.15
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:08:05Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.91,
+              "point": 2.25
+            },
+            {
+              "name": "Under",
+              "price": 1.93,
+              "point": 2.25
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

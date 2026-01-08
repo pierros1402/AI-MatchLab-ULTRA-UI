@@ -1,0 +1,10 @@
+{
+  "schema_version": "odds_meta_v1",
+  "fixture_id": "748329",
+  "league": "ESP1",
+  "home": "Girona",
+  "away": "Osasuna",
+  "kickoff_ts": 1768066200,
+  "kickoff_utc": "2026-01-10T17:30:00+00:00",
+  "created_at": "2026-01-07T05:48:50.796686+00:00"
+}

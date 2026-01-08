@@ -1,0 +1,51 @@
+{
+  "id": "798588eee18cc212f748c619f024a1d8",
+  "sport_key": "soccer_france_ligue_one",
+  "sport_title": "Ligue 1 - France",
+  "commence_time": "2026-01-25T14:00:00Z",
+  "home_team": "Nantes",
+  "away_team": "Nice",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:07:56Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:07:56Z",
+          "outcomes": [
+            {
+              "name": "Nantes",
+              "price": 3.22
+            },
+            {
+              "name": "Nice",
+              "price": 2.25
+            },
+            {
+              "name": "Draw",
+              "price": 3.38
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:07:56Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.99,
+              "point": 2.75
+            },
+            {
+              "name": "Under",
+              "price": 1.85,
+              "point": 2.75
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

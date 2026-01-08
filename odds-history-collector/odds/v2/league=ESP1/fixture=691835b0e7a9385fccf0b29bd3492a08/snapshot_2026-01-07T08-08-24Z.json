@@ -1,0 +1,51 @@
+{
+  "id": "691835b0e7a9385fccf0b29bd3492a08",
+  "sport_key": "soccer_spain_la_liga",
+  "sport_title": "La Liga - Spain",
+  "commence_time": "2026-01-18T17:30:00Z",
+  "home_team": "Celta Vigo",
+  "away_team": "Rayo Vallecano",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:08:20Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:08:20Z",
+          "outcomes": [
+            {
+              "name": "Celta Vigo",
+              "price": 2.14
+            },
+            {
+              "name": "Rayo Vallecano",
+              "price": 3.78
+            },
+            {
+              "name": "Draw",
+              "price": 3.15
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:08:20Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.93,
+              "point": 2.25
+            },
+            {
+              "name": "Under",
+              "price": 1.91,
+              "point": 2.25
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

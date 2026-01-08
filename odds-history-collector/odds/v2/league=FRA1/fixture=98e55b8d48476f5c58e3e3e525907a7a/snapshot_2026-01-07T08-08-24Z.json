@@ -1,0 +1,51 @@
+{
+  "id": "98e55b8d48476f5c58e3e3e525907a7a",
+  "sport_key": "soccer_france_ligue_one",
+  "sport_title": "Ligue 1 - France",
+  "commence_time": "2026-01-24T20:05:00Z",
+  "home_team": "Marseille",
+  "away_team": "RC Lens",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:07:56Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:07:56Z",
+          "outcomes": [
+            {
+              "name": "Marseille",
+              "price": 1.93
+            },
+            {
+              "name": "RC Lens",
+              "price": 3.73
+            },
+            {
+              "name": "Draw",
+              "price": 3.75
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:07:56Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.86,
+              "point": 2.75
+            },
+            {
+              "name": "Under",
+              "price": 1.97,
+              "point": 2.75
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

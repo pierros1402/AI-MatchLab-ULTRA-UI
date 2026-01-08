@@ -1,0 +1,51 @@
+{
+  "id": "8a8c6213efddb8a91e079cfbbe47813c",
+  "sport_key": "soccer_italy_serie_a",
+  "sport_title": "Serie A - Italy",
+  "commence_time": "2026-01-10T17:00:00Z",
+  "home_team": "AS Roma",
+  "away_team": "Sassuolo",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:08:10Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:08:10Z",
+          "outcomes": [
+            {
+              "name": "AS Roma",
+              "price": 1.52
+            },
+            {
+              "name": "Sassuolo",
+              "price": 6.25
+            },
+            {
+              "name": "Draw",
+              "price": 4.17
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:08:10Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.98,
+              "point": 2.5
+            },
+            {
+              "name": "Under",
+              "price": 1.86,
+              "point": 2.5
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "schema_version": "odds_meta_v1",
+  "fixture_id": "740801",
+  "league": "ENG1",
+  "home": "West Ham United",
+  "away": "Nottingham Forest",
+  "kickoff_ts": 1767729600,
+  "kickoff_utc": "2026-01-06T20:00:00+00:00",
+  "created_at": "2026-01-07T05:48:50.796686+00:00"
+}

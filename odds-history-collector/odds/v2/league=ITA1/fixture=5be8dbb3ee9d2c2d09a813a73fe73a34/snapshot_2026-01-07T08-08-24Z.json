@@ -1,0 +1,51 @@
+{
+  "id": "5be8dbb3ee9d2c2d09a813a73fe73a34",
+  "sport_key": "soccer_italy_serie_a",
+  "sport_title": "Serie A - Italy",
+  "commence_time": "2026-01-11T17:00:00Z",
+  "home_team": "Hellas Verona",
+  "away_team": "Lazio",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:08:10Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:08:10Z",
+          "outcomes": [
+            {
+              "name": "Hellas Verona",
+              "price": 3.53
+            },
+            {
+              "name": "Lazio",
+              "price": 2.25
+            },
+            {
+              "name": "Draw",
+              "price": 3.09
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:08:10Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.88,
+              "point": 2.0
+            },
+            {
+              "name": "Under",
+              "price": 1.95,
+              "point": 2.0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

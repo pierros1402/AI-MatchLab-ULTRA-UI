@@ -1,282 +1,191 @@
 /* =========================================================
-   AI MatchLab ULTRA — Odds Panels v2.9.5 STABLE (Header Clean)
-   + Removed table header-row artifact (no <thead>)
-   + Preserves column alignment and styling
-======================================================== */
+   ODDS PANELS — MARKET DROPDOWN CONTROLLER (FINAL)
+   ---------------------------------------------------------
+   - Single Market DROPDOWN (always visible)
+   - Default market: 1X2
+   - Single source of truth: market-selected
+   - Works with match-selected from ANY panel
+========================================================= */
+
 (function () {
-  "use strict";
+  'use strict';
 
-  if (window.__AIML_ODDS_PANELS_V295__) return;
-  window.__AIML_ODDS_PANELS_V295__ = true;
+  if (window.__AIML_ODDS_PANELS_INIT__) return;
+  window.__AIML_ODDS_PANELS_INIT__ = true;
 
-  const BODY_IDS = {
-    greek: "greek-odds-body",
-    eu: "eu-odds-body",
-    asian: "asian-odds-body",
-    betfair: "betfair-odds-body",
+  /* =========================
+     CONFIG / STATE
+  ========================= */
+
+  const MARKET_KEYS = ["1X2", "DC", "GG", "OU15", "OU25", "OU35"];
+
+  const state = {
+    match: null,
+    market: "1X2",
+    odds: null
   };
 
-  const GROUP_PROVIDERS = {
-    greek: ["Bet365", "Stoiximan", "OPAP"],
-    eu: ["Unibet", "Bwin", "Ladbrokes"],
-    asian: ["Pinnacle", "SBOBET", "188BET"],
-    betfair: ["Betfair Exchange", "Betfair Sportsbook"],
+  /* =========================
+     DOM
+  ========================= */
+
+  const PANELS = {
+    greek: document.getElementById("greek-odds-body"),
+    eu: document.getElementById("eu-odds-body"),
+    asian: document.getElementById("asian-odds-body"),
+    betfair: document.getElementById("betfair-odds-body")
   };
 
-  const MARKETS = [
-    { key: "1X2", label: "1X2", cols: ["1", "X", "2"] },
-    { key: "DC", label: "DC", cols: ["1X", "12", "X2"] },
-    { key: "GG", label: "GG/NG", cols: ["Yes", "No"] },
-    { key: "OU15", label: "O/U 1.5", cols: ["Over 1.5", "Under 1.5"] },
-    { key: "OU25", label: "O/U 2.5", cols: ["Over 2.5", "Under 2.5"] },
-    { key: "OU35", label: "O/U 3.5", cols: ["Over 3.5", "Under 3.5"] },
-  ];
+  const AMB = {
+    title: document.getElementById("amb-title"),
+    sub: document.getElementById("amb-sub")
+  };
 
-  const TICK_MS = 2500;
-  let ACTIVE_MATCH = null;
-  let ACTIVE_MARKET = localStorage.getItem("AIML_ACTIVE_MARKET") || "1X2";
-  let TICK = 0;
-  let TIMER = null;
+  const AMB_PARENT = document.getElementById("active-match-bar");
+  let marketSelectEl = null;
 
-  const el = (id) => document.getElementById(id);
-  const esc = (s) =>
-    String(s ?? "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;");
-  const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
-  const fmt = (x) => (Number.isFinite(x) ? x.toFixed(2) : "—");
+  /* =========================
+     MARKET DROPDOWN (STABLE)
+  ========================= */
 
-  // ------------------------------------------------------
-  // INLINE CSS (ODDS COLORING)
-  // ------------------------------------------------------
-  if (!document.getElementById("aiml-oc-style")) {
-    const s = document.createElement("style");
-    s.id = "aiml-oc-style";
-    s.textContent = `
-      .oc-chip{display:inline-flex;align-items:center;gap:4px;
-        padding:2px 6px;border-radius:6px;font-weight:600;}
-      .oc-chip.pos{color:#00c853;background:rgba(0,200,83,.12);}
-      .oc-chip.neg{color:#e53935;background:rgba(229,57,53,.12);}
-      .oc-chip.neutral{opacity:.7;}
-      .oc-o,.oc-c{min-width:36px;text-align:center;}
-      .oc-arrow{opacity:.5;}
-    `;
-    document.head.appendChild(s);
-  }
+  function ensureMarketDropdown() {
+    if (marketSelectEl || !AMB_PARENT) return;
 
-  // ------------------------------------------------------
-  // DEMO GENERATOR
-  // ------------------------------------------------------
-  function seedFromMatch(m) {
-    const s = `${m?.id || ""}|${m?.home || ""}|${m?.away || ""}`;
-    let h = 2166136261;
-    for (let i = 0; i < s.length; i++) {
-      h ^= s.charCodeAt(i);
-      h = Math.imul(h, 16777619);
+    let rightWrap = AMB_PARENT.querySelector(".amb-right");
+    if (!rightWrap) {
+      rightWrap = document.createElement("div");
+      rightWrap.className = "amb-right";
+      AMB_PARENT.appendChild(rightWrap);
     }
-    return ((h >>> 0) % 100000) / 100000;
-  }
 
-  function demoPrices(seed, bias, tick, marketKey) {
-    const drift = (Math.sin(seed * 20 + bias * 5 + tick * 0.6) + 1) * 0.5;
-    const favBias = (seed - 0.5) * 0.7;
-    const factor = 1 + (drift - 0.5) * 0.14;
+    marketSelectEl = document.createElement("select");
+    marketSelectEl.className = "market-select";
 
-    const baseHome = clamp(2.10 - favBias * 0.8, 1.45, 3.50);
-    const baseAway = clamp(2.30 + favBias * 0.9, 1.55, 4.20);
-    const baseDraw = clamp(3.20 + (0.5 - Math.abs(seed - 0.5)) * 0.8, 2.60, 4.20);
-
-    const home = clamp(baseHome * factor, 1.40, 4.00);
-    const away = clamp(baseAway / factor, 1.40, 4.50);
-    const draw = clamp(baseDraw * (1 + Math.sin(tick * 0.4) * 0.05), 2.4, 4.5);
-
-    const ou15 = { "Over 1.5": clamp(1.70 * factor, 1.45, 2.10), "Under 1.5": clamp(2.10 / factor, 1.60, 2.40) };
-    const ou25 = { "Over 2.5": clamp(1.90 * factor, 1.55, 2.30), "Under 2.5": clamp(1.90 / factor, 1.55, 2.30) };
-    const ou35 = { "Over 3.5": clamp(2.30 * factor, 1.80, 3.00), "Under 3.5": clamp(1.60 / factor, 1.40, 2.10) };
-    const gg = { Yes: clamp(1.80 * factor, 1.50, 2.30), No: clamp(1.95 / factor, 1.50, 2.40) };
-    const dc = { "1X": clamp(1.35 * factor, 1.20, 1.60), "12": clamp(1.35 / factor, 1.20, 1.60), "X2": clamp(1.40 * factor, 1.25, 1.70) };
-
-    return (
-      {
-        "1X2": { "1": home, X: draw, "2": away },
-        DC: dc,
-        GG: gg,
-        OU15: ou15,
-        OU25: ou25,
-        OU35: ou35,
-      }[marketKey] || { "1": home, X: draw, "2": away }
-    );
-  }
-
-  const cell = (o, c) => {
-    const diff = c - o;
-    const color = diff < 0 ? "pos" : diff > 0 ? "neg" : "neutral";
-    return `
-      <span class="oc-chip ${color}">
-        <span class="oc-o">${fmt(o)}</span>
-        <span class="oc-arrow">→</span>
-        <span class="oc-c">${fmt(c)}</span>
-      </span>`;
-  };
-
-  // ------------------------------------------------------
-  // RENDER PANELS (Header clean)
-  // ------------------------------------------------------
-  function renderPanel(groupKey) {
-    const body = el(BODY_IDS[groupKey]);
-    if (!body) return;
-
-    // Clean previous header artifacts (if any)
-    const oldTables = body.querySelectorAll("table");
-    oldTables.forEach((t) => {
-      const theads = t.querySelectorAll("thead");
-      theads.forEach((th) => th.remove());
+    MARKET_KEYS.forEach(k => {
+      const opt = document.createElement("option");
+      opt.value = k;
+      opt.textContent = k === "GG" ? "GG/NG" :
+                        k === "OU15" ? "O/U 1.5" :
+                        k === "OU25" ? "O/U 2.5" :
+                        k === "OU35" ? "O/U 3.5" : k;
+      marketSelectEl.appendChild(opt);
     });
 
-    if (!ACTIVE_MATCH) {
-      body.innerHTML = `<div class="aiml-empty">Select a match</div>`;
-      return;
-    }
+    marketSelectEl.value = state.market;
 
-    const seed = seedFromMatch(ACTIVE_MATCH);
-    const market = MARKETS.find((m) => m.key === ACTIVE_MARKET) || MARKETS[0];
-    const providers = GROUP_PROVIDERS[groupKey] || [];
-
-    let html = `<table class="aiml-odds"><tbody>`;
-    providers.forEach((p, i) => {
-      const bias = (i + 1) * 0.2;
-      const open = demoPrices(seed, bias, 0, market.key);
-      const cur = demoPrices(seed, bias, TICK, market.key);
-      html += `<tr><td class="prov">${esc(p)}</td>`;
-      market.cols.forEach((k) => {
-        html += `<td>${cell(open[k], cur[k])}</td>`;
-      });
-      html += `</tr>`;
-    });
-    html += `</tbody></table>`;
-    body.innerHTML = html;
-  }
-
-  const renderAll = () => ["greek", "eu", "asian", "betfair"].forEach(renderPanel);
-
-  // ------------------------------------------------------
-  // ACTIVE MATCH BAR (Null guards)
-  // ------------------------------------------------------
-  function updateActiveMatchBar(m) {
-    const bar = document.getElementById("active-match-bar");
-    if (!bar) return;
-    const titleEl = bar.querySelector(".amb-title");
-    const subEl = bar.querySelector(".amb-sub");
-    if (!titleEl || !subEl) return;
-
-    if (!m) {
-      titleEl.textContent = "No match selected";
-      subEl.textContent = "";
-      return;
-    }
-
-    const home = m.home || m.homeName || m.team_home || "Home";
-    const away = m.away || m.awayName || m.team_away || "Away";
-    titleEl.textContent = `${home} vs ${away}`;
-    const info = [m.country || "", m.league || "", m.time || ""].filter(Boolean).join(" • ");
-    subEl.textContent = info || "";
-  }
-
-  // ------------------------------------------------------
-  // MARKET SELECTOR
-  // ------------------------------------------------------
-  function ensureMarketSelector() {
-    const bar = document.getElementById("active-match-bar");
-    if (!bar) return null;
-    let sel = document.getElementById("market-selector");
-    if (sel) return sel;
-
-    const wrap = document.createElement("div");
-    wrap.className = "amb-market-right";
-    wrap.innerHTML = `<select id="market-selector" class="amb-market-select" aria-label="Market selector"></select>`;
-    bar.appendChild(wrap);
-
-    if (!document.getElementById("aiml-market-style")) {
-      const st = document.createElement("style");
-      st.id = "aiml-market-style";
-      st.textContent = `
-        #active-match-bar{position:relative;}
-        .amb-market-right{position:absolute;top:6px;right:10px;}
-        .amb-market-select{
-          appearance:auto;
-          padding:4px 10px;
-          border-radius:8px;
-          border:1px solid rgba(255,255,255,.15);
-          background-color:#2a2d33;
-          color:#fff;font-size:13px;}
-        .amb-market-select option{background-color:#2a2d33;color:#fff;}
-        html[data-theme="light"] .amb-market-select{
-          background:#f5f5f5;color:#000;border-color:rgba(0,0,0,.2);}
-        html[data-theme="light"] .amb-market-select option{background:#fff;color:#000;}
-      `;
-      document.head.appendChild(st);
-    }
-    return document.getElementById("market-selector");
-  }
-
-  const setActiveMarket = (key, shouldEmit) => {
-    const exists = MARKETS.some((m) => m.key === key);
-    ACTIVE_MARKET = exists ? key : "1X2";
-    localStorage.setItem("AIML_ACTIVE_MARKET", ACTIVE_MARKET);
-    const sel = document.getElementById("market-selector");
-    if (sel && sel.value !== ACTIVE_MARKET) sel.value = ACTIVE_MARKET;
-    if (shouldEmit && typeof window.emit === "function") window.emit("market-selected", ACTIVE_MARKET);
-    renderAll();
-  };
-
-  function initMarketSelector() {
-    const sel = ensureMarketSelector();
-    if (!sel) return;
-    sel.innerHTML = MARKETS.map(
-      (m) => `<option value="${m.key}" ${m.key === ACTIVE_MARKET ? "selected" : ""}>${m.label}</option>`
-    ).join("");
-    if (sel.dataset.bound === "1") {
-      sel.value = ACTIVE_MARKET;
-      return;
-    }
-    sel.dataset.bound = "1";
-    sel.addEventListener("change", () => setActiveMarket(sel.value, true));
-    window.on?.("market-selected", (k) => { if (k && k !== ACTIVE_MARKET) setActiveMarket(k, false); });
-    setTimeout(() => window.emit?.("market-selected", ACTIVE_MARKET), 50);
-  }
-
-  // ------------------------------------------------------
-  // ENGINE
-  // ------------------------------------------------------
-  const setActiveMatch = (m) => {
-    ACTIVE_MATCH = m || null;
-    TICK = 0;
-    updateActiveMatchBar(ACTIVE_MATCH);
-    renderAll();
-  };
-
-  const tickLoop = () => {
-    if (TIMER) return;
-    TIMER = setInterval(() => {
-      if (!ACTIVE_MATCH) return;
-      TICK++;
+    marketSelectEl.addEventListener("change", () => {
+      if (state.market === marketSelectEl.value) return;
+      state.market = marketSelectEl.value;
+      emit("market-selected", state.market);
       renderAll();
-    }, TICK_MS);
-  };
+    });
 
-  const wire = () => {
-    window.on?.("match-selected", setActiveMatch);
-    updateActiveMatchBar(null);
-    initMarketSelector();
-    renderAll();
-    tickLoop();
-  };
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", wire);
-  } else {
-    wire();
+    rightWrap.appendChild(marketSelectEl);
   }
+
+  /* =========================
+     HEADER
+  ========================= */
+
+  function renderHeader() {
+    if (!AMB.title || !AMB.sub) return;
+
+    if (!state.match) {
+      AMB.title.textContent = "No match selected";
+      AMB.sub.textContent = "Select a match from any panel.";
+      return;
+    }
+
+    AMB.title.textContent = `${state.match.home} – ${state.match.away}`;
+    AMB.sub.textContent =
+      state.match.leagueName ||
+      state.match.league ||
+      "";
+  }
+
+  /* =========================
+     PANELS RENDER
+  ========================= */
+
+  function clearPanels(msg = "Select a match") {
+    Object.values(PANELS).forEach(p => {
+      if (p) p.innerHTML = `<div class="odds-empty">${msg}</div>`;
+    });
+  }
+
+  function renderPanel(panelEl, rows) {
+    if (!panelEl) return;
+    if (!rows || !rows.length) {
+      panelEl.innerHTML = `<div class="odds-empty">No odds available</div>`;
+      return;
+    }
+
+    panelEl.innerHTML = rows.map(r => {
+      const cls =
+        r.delta < 0 ? "odds-down" :
+        r.delta > 0 ? "odds-up" : "";
+
+      return `
+        <div class="odds-row ${cls}">
+          <div class="odds-book">${r.book}</div>
+          <div class="odds-open">${r.open}</div>
+          <div class="odds-current">${r.current}</div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  function renderAll() {
+    if (!state.match || !state.odds) {
+      clearPanels();
+      return;
+    }
+
+    const marketData = state.odds[state.market];
+    if (!marketData) {
+      clearPanels("Market not available");
+      return;
+    }
+
+    renderPanel(PANELS.greek, marketData.greek || []);
+    renderPanel(PANELS.eu, marketData.eu || []);
+    renderPanel(PANELS.asian, marketData.asian || []);
+    renderPanel(PANELS.betfair, marketData.betfair || []);
+  }
+
+  /* =========================
+     EVENTS
+  ========================= */
+
+  on("match-selected", match => {
+    state.match = match || null;
+    state.odds = null;
+    renderHeader();
+    clearPanels("Loading odds…");
+    emit("market-selected", state.market);
+  });
+
+  on("market-selected", marketKey => {
+    if (!marketKey) return;
+    state.market = marketKey;
+    if (marketSelectEl) marketSelectEl.value = marketKey;
+    renderAll();
+  });
+
+  on("odds-snapshot:core", snapshot => {
+    if (!state.match) return;
+    if (String(snapshot.matchId) !== String(state.match.id)) return;
+    state.odds = snapshot.markets || null;
+    renderAll();
+  });
+
+  /* =========================
+     INIT
+  ========================= */
+
+  ensureMarketDropdown();
+  emit("market-selected", state.market);
+  renderHeader();
+  clearPanels();
+
 })();

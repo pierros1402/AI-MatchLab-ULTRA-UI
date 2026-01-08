@@ -1,0 +1,51 @@
+{
+  "id": "b8268290e25d0cf4b9aa64b521c3ad5a",
+  "sport_key": "soccer_france_ligue_one",
+  "sport_title": "Ligue 1 - France",
+  "commence_time": "2026-01-18T19:45:00Z",
+  "home_team": "Lyon",
+  "away_team": "Brest",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:07:56Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:07:56Z",
+          "outcomes": [
+            {
+              "name": "Brest",
+              "price": 5.24
+            },
+            {
+              "name": "Lyon",
+              "price": 1.64
+            },
+            {
+              "name": "Draw",
+              "price": 4.11
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:07:56Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.99,
+              "point": 2.75
+            },
+            {
+              "name": "Under",
+              "price": 1.88,
+              "point": 2.75
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

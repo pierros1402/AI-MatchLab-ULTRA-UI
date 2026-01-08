@@ -1,0 +1,51 @@
+{
+  "id": "ae717a6e4141ae3cc154c976538cc78a",
+  "sport_key": "soccer_spain_la_liga",
+  "sport_title": "La Liga - Spain",
+  "commence_time": "2026-01-10T13:00:00Z",
+  "home_team": "Oviedo",
+  "away_team": "Real Betis",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:08:20Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:08:20Z",
+          "outcomes": [
+            {
+              "name": "Oviedo",
+              "price": 4.38
+            },
+            {
+              "name": "Real Betis",
+              "price": 1.93
+            },
+            {
+              "name": "Draw",
+              "price": 3.46
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:08:20Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 2.08,
+              "point": 2.5
+            },
+            {
+              "name": "Under",
+              "price": 1.83,
+              "point": 2.5
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

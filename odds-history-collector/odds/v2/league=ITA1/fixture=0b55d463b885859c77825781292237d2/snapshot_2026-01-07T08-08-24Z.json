@@ -1,0 +1,51 @@
+{
+  "id": "0b55d463b885859c77825781292237d2",
+  "sport_key": "soccer_italy_serie_a",
+  "sport_title": "Serie A - Italy",
+  "commence_time": "2026-01-10T14:00:00Z",
+  "home_team": "Como",
+  "away_team": "Bologna",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:08:10Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:08:10Z",
+          "outcomes": [
+            {
+              "name": "Bologna",
+              "price": 3.81
+            },
+            {
+              "name": "Como",
+              "price": 2.1
+            },
+            {
+              "name": "Draw",
+              "price": 3.21
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:08:10Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.88,
+              "point": 2.25
+            },
+            {
+              "name": "Under",
+              "price": 1.96,
+              "point": 2.25
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

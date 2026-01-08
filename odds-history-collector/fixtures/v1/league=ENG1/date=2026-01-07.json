@@ -8,7 +8,7 @@
     "away": "Tottenham Hotspur",
     "kickoff_ts": 1767814200,
     "date": "2026-01-07",
-    "status": "SCHEDULED",
+    "status": "FINISHED",
     "source": "espn"
   },
   {
@@ -20,7 +20,7 @@
     "away": "Sunderland",
     "kickoff_ts": 1767814200,
     "date": "2026-01-07",
-    "status": "SCHEDULED",
+    "status": "FINISHED",
     "source": "espn"
   },
   {
@@ -32,7 +32,7 @@
     "away": "Aston Villa",
     "kickoff_ts": 1767814200,
     "date": "2026-01-07",
-    "status": "SCHEDULED",
+    "status": "FINISHED",
     "source": "espn"
   },
   {
@@ -44,7 +44,7 @@
     "away": "Wolverhampton Wanderers",
     "kickoff_ts": 1767814200,
     "date": "2026-01-07",
-    "status": "SCHEDULED",
+    "status": "FINISHED",
     "source": "espn"
   },
   {
@@ -56,7 +56,7 @@
     "away": "Chelsea",
     "kickoff_ts": 1767814200,
     "date": "2026-01-07",
-    "status": "SCHEDULED",
+    "status": "FINISHED",
     "source": "espn"
   },
   {
@@ -68,7 +68,7 @@
     "away": "Brighton & Hove Albion",
     "kickoff_ts": 1767814200,
     "date": "2026-01-07",
-    "status": "SCHEDULED",
+    "status": "FINISHED",
     "source": "espn"
   },
   {
@@ -80,7 +80,7 @@
     "away": "Manchester United",
     "kickoff_ts": 1767816900,
     "date": "2026-01-07",
-    "status": "SCHEDULED",
+    "status": "FINISHED",
     "source": "espn"
   },
   {
@@ -92,7 +92,7 @@
     "away": "Leeds United",
     "kickoff_ts": 1767816900,
     "date": "2026-01-07",
-    "status": "SCHEDULED",
+    "status": "FINISHED",
     "source": "espn"
   }
 ]

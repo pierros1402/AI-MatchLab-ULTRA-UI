@@ -1,0 +1,51 @@
+{
+  "id": "e2fa0c69e407576a1beac74b13074ec2",
+  "sport_key": "soccer_spain_la_liga",
+  "sport_title": "La Liga - Spain",
+  "commence_time": "2026-01-10T17:30:00Z",
+  "home_team": "Girona",
+  "away_team": "CA Osasuna",
+  "bookmakers": [
+    {
+      "key": "pinnacle",
+      "title": "Pinnacle",
+      "last_update": "2026-01-07T08:08:20Z",
+      "markets": [
+        {
+          "key": "h2h",
+          "last_update": "2026-01-07T08:08:20Z",
+          "outcomes": [
+            {
+              "name": "CA Osasuna",
+              "price": 3.31
+            },
+            {
+              "name": "Girona",
+              "price": 2.37
+            },
+            {
+              "name": "Draw",
+              "price": 3.23
+            }
+          ]
+        },
+        {
+          "key": "totals",
+          "last_update": "2026-01-07T08:08:20Z",
+          "outcomes": [
+            {
+              "name": "Over",
+              "price": 1.89,
+              "point": 2.25
+            },
+            {
+              "name": "Under",
+              "price": 2.0,
+              "point": 2.25
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

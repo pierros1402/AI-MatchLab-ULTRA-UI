@@ -20,3 +20,21 @@ export function effectiveTeamStrength(teamState) {
     defense: w * teamState.defense
   };
 }
+// ---------------------------------------------
+// CANONICAL EXPORT (for backtest / evaluation)
+// ---------------------------------------------
+
+export function buildTeamStates(matches) {
+  // αν υπάρχει ήδη function, απλώς την καλούμε
+  if (typeof initTeamStates === "function") {
+    return initTeamStates(matches);
+  }
+
+  if (typeof computeTeamStates === "function") {
+    return computeTeamStates(matches);
+  }
+
+  throw new Error(
+    "No team state builder found. Expected initTeamStates or computeTeamStates."
+  );
+}

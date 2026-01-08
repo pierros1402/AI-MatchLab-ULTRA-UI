@@ -1,27 +1,30 @@
 // assets/js/ai/validate/run-backtest.js
-// Phase 3C — Outcome-specific diagnostics (H / D / A)
-// Baseline LOCKED; calibration alpha locked at 0.30
-// FIX: remove runBacktest call (not needed for diagnostics)
+// FIXTURES-BASED BACKTEST → ai_predictions/v1
+// Baseline Poisson + league priors + team states
+// LOCKED for evaluation phase
 
 import fs from "fs";
 import path from "path";
 
-import { importLeagueSeasonFolder } from "../data/csv-importer.js";
-import { buildTeamStates } from "../team/team-strength.js";
+import { buildTeamStates } from "../core/team_state.js";
 import { getLeaguePrior } from "../core/league_priors.js";
 import { buildLambda } from "../core/lambda_builder.js";
 
-import ProbabilisticMetrics from "./probabilistic-metrics.js";
+// --------------------------------------------------
+// PATHS
+// --------------------------------------------------
 
-const DATA_ROOT = "./data/football-data";
-const POISSON_K_MAX = 10;
-const PROGRESS_EVERY = 5000;
-const ALPHA = 0.30;
-const EPS = 1e-15;
+const FIXTURES_ROOT = path.resolve(
+  "odds-history-collector/fixtures/v1"
+);
+
+const OUT_DIR = path.resolve("ai_predictions/v1");
+if (!fs.existsSync(OUT_DIR)) fs.mkdirSync(OUT_DIR, { recursive: true });
 
 // --------------------------------------------------
-// Helpers
+// HELPERS
 // --------------------------------------------------
+
 function factorial(n) {
   let r = 1;
   for (let i = 2; i <= n; i++) r *= i;
@@ -33,137 +36,131 @@ function poissonPMF(k, lambda) {
 }
 
 function poisson1X2(lambdaHome, lambdaAway) {
-  let pHome = 0, pDraw = 0, pAway = 0;
-  for (let i = 0; i <= POISSON_K_MAX; i++) {
+  let pH = 0, pD = 0, pA = 0;
+  for (let i = 0; i <= 10; i++) {
     const pHi = poissonPMF(i, lambdaHome);
-    for (let j = 0; j <= POISSON_K_MAX; j++) {
+    for (let j = 0; j <= 10; j++) {
       const pAj = poissonPMF(j, lambdaAway);
       const p = pHi * pAj;
-      if (i > j) pHome += p;
-      else if (i === j) pDraw += p;
-      else pAway += p;
+      if (i > j) pH += p;
+      else if (i === j) pD += p;
+      else pA += p;
     }
   }
-  const s = pHome + pDraw + pAway;
-  return { home: pHome / s, draw: pDraw / s, away: pAway / s };
-}
-
-function shrinkToUniform(p, alpha) {
-  const u = 1 / 3;
-  return alpha * p + (1 - alpha) * u;
-}
-
-function safeProb(p) {
-  if (!Number.isFinite(p)) return 1 / 3;
-  if (p < EPS) return EPS;
-  if (p > 1 - EPS) return 1 - EPS;
-  return p;
+  const s = pH + pD + pA;
+  return { home: pH / s, draw: pD / s, away: pA / s };
 }
 
 // --------------------------------------------------
-// Load data
+// LOAD FIXTURES
 // --------------------------------------------------
-const leagueFolders = fs
-  .readdirSync(DATA_ROOT, { withFileTypes: true })
-  .filter(d => d.isDirectory())
-  .map(d => d.name);
 
-const allMatches = leagueFolders.flatMap(league => {
-  const leaguePath = path.join(DATA_ROOT, league);
-  return importLeagueSeasonFolder(leaguePath, league);
+function loadAllFixtures() {
+  const matches = [];
+
+  const leagues = fs.readdirSync(FIXTURES_ROOT);
+  leagues.forEach(leagueDir => {
+    const leaguePath = path.join(FIXTURES_ROOT, leagueDir);
+    if (!fs.statSync(leaguePath).isDirectory()) return;
+
+    const files = fs.readdirSync(leaguePath).filter(f => f.endsWith(".json"));
+    files.forEach(file => {
+      const data = JSON.parse(
+        fs.readFileSync(path.join(leaguePath, file), "utf-8")
+      );
+
+      (data.matches || []).forEach(m => {
+        // ---- ESPN-safe status extraction ----
+        let statusName = "";
+        let statusState = "";
+
+        if (m.status && typeof m.status === "object") {
+          if (m.status.type) {
+            statusName = String(m.status.type.name || "").toUpperCase();
+            statusState = String(m.status.type.state || "").toUpperCase();
+          }
+        } else {
+          statusName = String(m.status || "").toUpperCase();
+        }
+
+        // ---- Canonical FT detection ----
+        const IS_FT =
+          statusName === "STATUS_FINAL" ||
+          statusName === "FINAL" ||
+          statusName === "FULL_TIME" ||
+          statusState === "POST" ||
+          statusState === "FINAL";
+
+        if (!IS_FT) return;
+        if (!m.id || m.scoreHome == null || m.scoreAway == null) return;
+
+        matches.push({
+          fixture_id: m.id,
+          league: m.league,
+          home: m.home,
+          away: m.away,
+          goalsHome: Number(m.scoreHome),
+          goalsAway: Number(m.scoreAway)
+        });
+      });
+    });
+  });
+
+  return matches;
+}
+// --------------------------------------------------
+// BACKTEST
+// --------------------------------------------------
+
+console.log("Loading fixtures...");
+const allMatches = loadAllFixtures();
+console.log("Total FT matches:", allMatches.length);
+
+const predictionsByDate = {};
+
+for (let i = 10; i < allMatches.length; i++) {
+  const train = allMatches.slice(0, i);
+  const test = allMatches[i];
+
+  const teams = buildTeamStates(train);
+  const prior = getLeaguePrior(test.league);
+
+  const home = teams.get(test.home);
+  const away = teams.get(test.away);
+  if (!home || !away) continue;
+
+  const { lambdaHome, lambdaAway } =
+    buildLambda(test, home, away, prior);
+
+  if (!Number.isFinite(lambdaHome) || !Number.isFinite(lambdaAway)) continue;
+
+  const probs = poisson1X2(lambdaHome, lambdaAway);
+
+  const dateKey = "GLOBAL"; // simple baseline
+  if (!predictionsByDate[dateKey]) {
+    predictionsByDate[dateKey] = [];
+  }
+
+  predictionsByDate[dateKey].push({
+    fixture_id: test.fixture_id,
+    league: test.league,
+    market: "1X2",
+    probabilities: probs
+  });
+}
+
+// --------------------------------------------------
+// WRITE OUTPUT
+// --------------------------------------------------
+
+Object.keys(predictionsByDate).forEach(dateKey => {
+  const out = {
+    date: dateKey,
+    predictions: predictionsByDate[dateKey]
+  };
+
+  const outFile = path.join(OUT_DIR, `${dateKey}.json`);
+  fs.writeFileSync(outFile, JSON.stringify(out, null, 2), "utf-8");
 });
 
-// --------------------------------------------------
-// Rolling diagnostics
-// --------------------------------------------------
-function runRollingBacktest(matches, metricsGlobal, llByOutcome) {
-  const total = matches.length;
-
-  for (let i = 10; i < total; i++) {
-    if (i % PROGRESS_EVERY === 0) {
-      console.log(`Rolling progress: ${i} / ${total}`);
-    }
-
-    const train = matches.slice(0, i);
-    const test = matches[i];
-    if (!test) continue;
-
-    const leagueId = test.league;
-    if (!leagueId) continue;
-
-    const teams = buildTeamStates(train);
-    const prior = getLeaguePrior(leagueId);
-
-    const home = teams.get(test.home);
-    const away = teams.get(test.away);
-    if (!home || !away) continue;
-
-    const { lambdaHome, lambdaAway } = buildLambda(test, home, away, prior);
-    if (!Number.isFinite(lambdaHome) || !Number.isFinite(lambdaAway)) continue;
-
-    const base = poisson1X2(lambdaHome, lambdaAway);
-
-    const probs = {
-      home: safeProb(shrinkToUniform(base.home, ALPHA)),
-      draw: safeProb(shrinkToUniform(base.draw, ALPHA)),
-      away: safeProb(shrinkToUniform(base.away, ALPHA))
-    };
-
-    const hg = test.goalsHome;
-    const ag = test.goalsAway;
-    let outcome;
-    if (hg > ag) outcome = "H";
-    else if (hg < ag) outcome = "A";
-    else outcome = "D";
-
-    metricsGlobal.addSample({
-      league: leagueId,
-      p_home: probs.home,
-      p_draw: probs.draw,
-      p_away: probs.away,
-      outcome
-    });
-
-    if (outcome === "H") {
-      llByOutcome.H.sum += -Math.log(probs.home);
-      llByOutcome.H.n += 1;
-    } else if (outcome === "D") {
-      llByOutcome.D.sum += -Math.log(probs.draw);
-      llByOutcome.D.n += 1;
-    } else {
-      llByOutcome.A.sum += -Math.log(probs.away);
-      llByOutcome.A.n += 1;
-    }
-  }
-}
-
-// --------------------------------------------------
-// Execution
-// --------------------------------------------------
-console.log("Running global rolling backtest (Outcome diagnostics)...");
-console.log("Leagues found:", leagueFolders.length);
-console.log("Total matches loaded:", allMatches.length);
-
-const metricsGlobal = new ProbabilisticMetrics();
-const llByOutcome = {
-  H: { sum: 0, n: 0 },
-  D: { sum: 0, n: 0 },
-  A: { sum: 0, n: 0 }
-};
-
-runRollingBacktest(allMatches, metricsGlobal, llByOutcome);
-
-const res = metricsGlobal.finalize();
-
-console.log("=================================");
-console.log("METRICS — GLOBAL (α=0.30)");
-console.log("Samples:", res.global.samples);
-console.log("Brier:", res.global.brier);
-console.log("LogLoss:", res.global.logLoss);
-
-console.log("---------------------------------");
-console.log("OUTCOME-SPECIFIC LOGLOSS (α=0.30)");
-console.log(`H: ${(llByOutcome.H.sum / llByOutcome.H.n).toFixed(6)} (n=${llByOutcome.H.n})`);
-console.log(`D: ${(llByOutcome.D.sum / llByOutcome.D.n).toFixed(6)} (n=${llByOutcome.D.n})`);
-console.log(`A: ${(llByOutcome.A.sum / llByOutcome.A.n).toFixed(6)} (n=${llByOutcome.A.n})`);
-console.log("=================================");
+console.log("AI predictions written to ai_predictions/v1/");
