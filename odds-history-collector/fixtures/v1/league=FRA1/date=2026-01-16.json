@@ -1,0 +1,26 @@
+[
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "746568",
+    "league_id": "FRA1",
+    "league_name": "Ligue 1",
+    "home": "AS Monaco",
+    "away": "Lorient",
+    "kickoff_ts": 1768586400,
+    "date": "2026-01-16",
+    "status": "SCHEDULED",
+    "source": "espn"
+  },
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "746570",
+    "league_id": "FRA1",
+    "league_name": "Ligue 1",
+    "home": "Paris Saint-Germain",
+    "away": "Lille",
+    "kickoff_ts": 1768593600,
+    "date": "2026-01-16",
+    "status": "SCHEDULED",
+    "source": "espn"
+  }
+]

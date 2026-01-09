@@ -15,15 +15,24 @@
     while (el.firstChild) el.removeChild(el.firstChild);
   }
 
+  // ===============================
+  // DETECT POSTPONED (ESPN FT 0-0)
+  // ===============================
+  function isPostponed(m) {
+    return (
+      String(m.status).toUpperCase() === "FT" &&
+      (m.minute === "0'" || m.minute === "" || m.minute == null) &&
+      m.scoreHome === 0 &&
+      m.scoreAway === 0
+    );
+  }
+
   function render(matches) {
     const list = document.getElementById(LIST_ID);
     if (!list) return;
 
     clear(list);
 
-    // ===============================
-    // GROUP BY LEAGUE (AS BEFORE)
-    // ===============================
     const byLeague = {};
     (matches || []).forEach(m => {
       if (isLive(m)) return;
@@ -33,7 +42,6 @@
       byLeague[league].push(m);
     });
 
-    // Order leagues by earliest kickoff
     const ordered = Object.keys(byLeague)
       .map(lg => ({
         league: lg,
@@ -41,14 +49,10 @@
       }))
       .sort((a, b) => a.t - b.t);
 
-    // ===============================
-    // RENDER
-    // ===============================
     ordered.forEach(({ league }) => {
       const block = document.createElement("div");
       block.className = "active-league";
 
-      // ---- LEAGUE HEADER (VISUAL ONLY CHANGE)
       const header = document.createElement("div");
       header.className = "active-league-header";
 
@@ -59,14 +63,35 @@
       header.appendChild(name);
       block.appendChild(header);
 
-      // ---- MATCHES (UNCHANGED LOGIC)
       byLeague[league]
         .sort((a, b) => kickoffTs(a) - kickoffTs(b))
         .forEach(m => {
           const clone = { ...m };
+
+          // -------- POSTPONED ----------
+          if (isPostponed(clone)) {
+            // *** ΤΟ ΚΡΙΣΙΜΟ ***
+            clone.scoreHome = null;
+            clone.scoreAway = null;
+
+            const row = document.createElement("div");
+            row.className = "match-row postponed";
+
+            const badge = document.createElement("span");
+            badge.className = "match-badge pp";
+            badge.textContent = "PP";
+
+            row.appendChild(badge);
+            row.appendChild(window.renderMatchRow(clone));
+            block.appendChild(row);
+            return;
+          }
+
+          // -------- NORMAL ----------
           if (String(clone.status).toUpperCase() === "FT") {
             clone.minute = "FT";
           }
+
           block.appendChild(window.renderMatchRow(clone));
         });
 
