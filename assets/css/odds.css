@@ -334,3 +334,136 @@ html{
   color: #fff;
   font-weight: 600;
 }
+/* =========================================================
+   ODDS INTELLIGENCE CENTER – FINAL STYLES
+   ========================================================= */
+
+/* ---------- Active Match Bar ---------- */
+
+#active-match-bar {
+  position: sticky;
+  top: 48px; /* κάτω από τον main header */
+  z-index: 30;
+  background: linear-gradient(180deg, #0f1724, #0b1220);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+#active-match-bar .amb-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.market-select {
+  background: #111a2a;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
+/* ---------- Panels ---------- */
+
+.odds-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.odds-panel-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 10px;
+}
+
+/* ---------- Odds Table ---------- */
+
+.odds-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 13px;
+}
+
+.odds-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: #0e1626;
+  color: #9fb3d1;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
+.odds-table th,
+.odds-table td {
+  padding: 8px 10px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.odds-table tbody tr {
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.odds-table tbody tr:hover {
+  background: rgba(255,255,255,0.03);
+}
+
+/* ---------- Columns ---------- */
+
+.odds-table .col-book {
+  text-align: left;
+  font-weight: 600;
+  color: #ffffff;
+  width: 160px;
+}
+
+.odds-table .col-odd {
+  width: auto;
+  color: #dbe7ff;
+}
+
+/* ---------- Empty / Placeholder ---------- */
+
+.odds-table td:contains("—") {
+  color: rgba(255,255,255,0.35);
+}
+
+/* ---------- Scrollbars ---------- */
+
+.odds-panel-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.odds-panel-body::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.15);
+  border-radius: 4px;
+}
+
+.odds-panel-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+/* ===== Odds Intelligence Center Sticky Layout ===== */
+
+/* Το wrapper του Odds Intelligence Center */
+#odds-intelligence-center {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Το Active Match Bar κολλάει ΚΑΤΩ από τον τίτλο */
+#active-match-bar {
+  position: sticky;
+  top: 0;              /* σχετικό με το OIC header */
+  z-index: 20;
+  background: linear-gradient(180deg, #0f1724, #0b1220);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+/* ΜΟΝΟ τα panels κάνουν scroll */
+.odds-card-body {
+  overflow-y: auto;
+  flex: 1;
+}

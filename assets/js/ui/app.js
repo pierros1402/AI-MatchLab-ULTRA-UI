@@ -1,10 +1,10 @@
 /* =========================================================
-   AI MatchLab ULTRA — app.js (CLEAN / LOCKED)
+   AI MatchLab ULTRA — app.js (CLEAN / LOCKED + ODDS BRIDGE)
    Responsibilities:
    - Global event bus
    - App lifecycle (splash)
    - Mobile title sync
-   NO AI / NO ODDS / NO DEMO
+   - ODDS EVENT NORMALIZATION (SAFE)
 ========================================================= */
 
 (function () {
@@ -13,24 +13,66 @@
   if (window.__AIML_APP_INIT__) return;
   window.__AIML_APP_INIT__ = true;
 
-  // ---------- EVENT BUS ----------
+  // =====================================================
+  // EVENT BUS (SINGLE SOURCE OF TRUTH)
+  // =====================================================
   const bus = new Map();
-  window.on = function (eventName, handler) {
+
+  function busOn(eventName, handler) {
     if (!eventName || typeof handler !== 'function') return;
     const arr = bus.get(eventName) || [];
     arr.push(handler);
     bus.set(eventName, arr);
-  };
-  window.emit = function (eventName, payload) {
-    const arr = bus.get(eventName);
-    if (!arr || !arr.length) return;
-    for (const fn of arr) {
-      try { fn(payload); }
-      catch (err) { console.error('[BUS] handler failed:', eventName, err); }
-    }
-  };
+  }
 
-  // ---------- SPLASH HANDLER ----------
+  function busEmit(eventName, payload) {
+    const arr = bus.get(eventName);
+    if (arr && arr.length) {
+      for (const fn of arr) {
+        try {
+          fn(payload);
+        } catch (err) {
+          console.error('[BUS] handler failed:', eventName, err);
+        }
+      }
+    }
+
+    // --------------------------------------------------
+    // ODDS CANONICAL BRIDGE (AUTO-DETECT)
+    // --------------------------------------------------
+    // If ANY event emits odds-like rows, normalize them
+    // into odds-snapshot:canonical for the UI
+    // --------------------------------------------------
+    if (
+      payload &&
+      !eventName.startsWith('odds-snapshot:canonical') &&
+      Array.isArray(payload.rows)
+    ) {
+      const sample = payload.rows[0];
+
+      if (
+        sample &&
+        (sample.open != null || sample.current != null) &&
+        sample.matchId != null
+      ) {
+        busEmit('odds-snapshot:canonical', {
+          ts: Date.now(),
+          market: payload.market || sample.market || '1X2',
+          rows: payload.rows
+        });
+      }
+    }
+  }
+
+  // =====================================================
+  // GLOBAL COMPATIBILITY LAYER (DO NOT REMOVE)
+  // =====================================================
+  window.on = busOn;
+  window.emit = busEmit;
+
+  // =====================================================
+  // SPLASH HANDLER
+  // =====================================================
   function hideSplash() {
     const splash = document.getElementById('splash-screen');
     if (splash) {
@@ -46,7 +88,9 @@
     setTimeout(hideSplash, 1500);
   });
 
-  // ---------- MOBILE TITLE SYNC ----------
+  // =====================================================
+  // MOBILE TITLE SYNC
+  // =====================================================
   function syncMobilePanelTitles() {
     const isRightOpen = document.body.classList.contains('drawer-right-open');
     if (!isRightOpen) return;
@@ -60,5 +104,6 @@
       rightHeaderTitle.textContent = visibleCardTitle.textContent.trim();
     }
   }
+
   document.addEventListener('click', syncMobilePanelTitles, true);
 })();

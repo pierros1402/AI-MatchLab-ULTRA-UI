@@ -1,0 +1,38 @@
+[
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "746566",
+    "league_id": "FRA1",
+    "league_name": "Ligue 1",
+    "home": "Lens",
+    "away": "AJ Auxerre",
+    "kickoff_ts": 1768665600,
+    "date": "2026-01-17",
+    "status": "SCHEDULED",
+    "source": "espn"
+  },
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "746573",
+    "league_id": "FRA1",
+    "league_name": "Ligue 1",
+    "home": "Toulouse",
+    "away": "Nice",
+    "kickoff_ts": 1768672800,
+    "date": "2026-01-17",
+    "status": "SCHEDULED",
+    "source": "espn"
+  },
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "746565",
+    "league_id": "FRA1",
+    "league_name": "Ligue 1",
+    "home": "Angers",
+    "away": "Marseille",
+    "kickoff_ts": 1768680300,
+    "date": "2026-01-17",
+    "status": "SCHEDULED",
+    "source": "espn"
+  }
+]

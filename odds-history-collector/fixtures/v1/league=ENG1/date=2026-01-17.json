@@ -1,0 +1,86 @@
+[
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "740811",
+    "league_id": "ENG1",
+    "league_name": "Premier League",
+    "home": "Manchester United",
+    "away": "Manchester City",
+    "kickoff_ts": 1768653000,
+    "date": "2026-01-17",
+    "status": "SCHEDULED",
+    "source": "espn"
+  },
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "740808",
+    "league_id": "ENG1",
+    "league_name": "Premier League",
+    "home": "Chelsea",
+    "away": "Brentford",
+    "kickoff_ts": 1768662000,
+    "date": "2026-01-17",
+    "status": "SCHEDULED",
+    "source": "espn"
+  },
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "740809",
+    "league_id": "ENG1",
+    "league_name": "Premier League",
+    "home": "Leeds United",
+    "away": "Fulham",
+    "kickoff_ts": 1768662000,
+    "date": "2026-01-17",
+    "status": "SCHEDULED",
+    "source": "espn"
+  },
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "740810",
+    "league_id": "ENG1",
+    "league_name": "Premier League",
+    "home": "Liverpool",
+    "away": "Burnley",
+    "kickoff_ts": 1768662000,
+    "date": "2026-01-17",
+    "status": "SCHEDULED",
+    "source": "espn"
+  },
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "740813",
+    "league_id": "ENG1",
+    "league_name": "Premier League",
+    "home": "Sunderland",
+    "away": "Crystal Palace",
+    "kickoff_ts": 1768662000,
+    "date": "2026-01-17",
+    "status": "SCHEDULED",
+    "source": "espn"
+  },
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "740814",
+    "league_id": "ENG1",
+    "league_name": "Premier League",
+    "home": "Tottenham Hotspur",
+    "away": "West Ham United",
+    "kickoff_ts": 1768662000,
+    "date": "2026-01-17",
+    "status": "SCHEDULED",
+    "source": "espn"
+  },
+  {
+    "schema_version": "fixture_registry_v1",
+    "fixture_id": "740812",
+    "league_id": "ENG1",
+    "league_name": "Premier League",
+    "home": "Nottingham Forest",
+    "away": "Arsenal",
+    "kickoff_ts": 1768671000,
+    "date": "2026-01-17",
+    "status": "SCHEDULED",
+    "source": "espn"
+  }
+]

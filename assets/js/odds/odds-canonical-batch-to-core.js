@@ -1,37 +1,80 @@
 // =====================================================
-// CANONICAL BATCH → CORE SNAPSHOT (per match)
+// CANONICAL SNAPSHOT → CORE SNAPSHOT (ACTIVE MATCH SAFE)
 // =====================================================
 
 (function () {
-  if (typeof on !== "function" || typeof emit !== "function") return;
+  if (typeof window.on !== "function" || typeof window.emit !== "function") {
+    console.warn("[odds-core] event bus not ready");
+    return;
+  }
 
   let ACTIVE_MATCH_ID = null;
+  let LAST_CANONICAL_SNAPSHOT = null;
 
-  on("match-selected", m => {
-    ACTIVE_MATCH_ID = m?.id ? String(m.id) : null;
+  // --------------------------------------------------
+  // Track active match
+  // --------------------------------------------------
+  window.on("match-selected", m => {
+    ACTIVE_MATCH_ID = m && m.id != null ? String(m.id) : null;
+
+    // replay last canonical snapshot when match becomes active
+    if (ACTIVE_MATCH_ID && LAST_CANONICAL_SNAPSHOT) {
+      processCanonical(LAST_CANONICAL_SNAPSHOT);
+    }
   });
 
-  on("odds-snapshot:canonical", snap => {
-    if (!ACTIVE_MATCH_ID || !Array.isArray(snap?.rows)) return;
+  // --------------------------------------------------
+  // Canonical snapshot listener
+  // --------------------------------------------------
+  window.on("odds-snapshot:canonical", snap => {
+    if (!snap || !Array.isArray(snap.rows)) return;
+    LAST_CANONICAL_SNAPSHOT = snap;
+    processCanonical(snap);
+  });
+
+  // --------------------------------------------------
+  // Core processor
+  // --------------------------------------------------
+  function processCanonical(snap) {
+    if (!ACTIVE_MATCH_ID) {
+      window.emit("odds-snapshot:core", {
+        matchId: null,
+        markets: {}
+      });
+      return;
+    }
 
     const rows = snap.rows.filter(r =>
       String(r.matchId) === ACTIVE_MATCH_ID
     );
 
-    if (!rows.length) return;
+    if (!rows.length) {
+      window.emit("odds-snapshot:core", {
+        matchId: ACTIVE_MATCH_ID,
+        markets: {}
+      });
+      return;
+    }
 
     const markets = {};
 
     rows.forEach(r => {
       const mk = r.market || snap.market || "1X2";
+
       if (!markets[mk]) {
-        markets[mk] = { greek: [], eu: [], asian: [], betfair: [] };
+        markets[mk] = {
+          greek: [],
+          eu: [],
+          asian: [],
+          betfair: []
+        };
       }
 
       const group =
-        r.bookGroup === "greek" ? "greek" :
-        r.bookGroup === "asian" ? "asian" :
-        r.bookGroup === "betfair" ? "betfair" : "eu";
+        r.bookGroup === "greek"   ? "greek"   :
+        r.bookGroup === "asian"   ? "asian"   :
+        r.bookGroup === "betfair" ? "betfair" :
+                                   "eu";
 
       markets[mk][group].push({
         book: r.book,
@@ -41,10 +84,10 @@
       });
     });
 
-    emit("odds-snapshot:core", {
+    window.emit("odds-snapshot:core", {
       matchId: ACTIVE_MATCH_ID,
       markets
     });
-  });
+  }
 
 })();
