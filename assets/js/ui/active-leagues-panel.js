@@ -1,114 +1,129 @@
 (function () {
-  "use strict";
+  if (typeof window.on !== "function" || typeof window.emit !== "function") return;
 
-  const LIST_ID = "active-leagues-list";
+  let lastPayload = null;
+  let activeDateKey = null;
+  const TZ = "Europe/Athens";
 
-  function isLive(m) {
-    return ["LIVE", "HT", "ET", "PEN"].includes(String(m.status).toUpperCase());
+  /* =========================
+     TIME HELPERS
+     ========================= */
+
+  function pad2(n) { return String(n).padStart(2, "0"); }
+
+  function dayKeyFromMsGR(ms) {
+    try {
+      const parts = new Intl.DateTimeFormat("en-CA", {
+        timeZone: TZ,
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+      }).formatToParts(new Date(ms));
+      const y = parts.find(p => p.type === "year")?.value;
+      const m = parts.find(p => p.type === "month")?.value;
+      const d = parts.find(p => p.type === "day")?.value;
+      return y && m && d ? `${y}-${m}-${d}` : "";
+    } catch {
+      const d = new Date(ms);
+      return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+    }
   }
 
-  function kickoffTs(m) {
-    return m.kickoff_ms || Infinity;
+  /* =========================
+     HELPERS
+     ========================= */
+
+  function normalize(match) {
+    if (!match) return null;
+
+    const kickoffMs =
+      match.kickoff_ms ||
+      (match.kickoff ? Date.parse(match.kickoff) : 0);
+
+    return Object.assign({}, match, {
+      kickoff_ms: kickoffMs,
+      leagueName: match.leagueName || match.leagueSlug || "—",
+      leagueSlug: match.leagueSlug || "",
+      __dayKeyGR: kickoffMs ? dayKeyFromMsGR(kickoffMs) : ""
+    });
   }
 
-  function clear(el) {
-    while (el.firstChild) el.removeChild(el.firstChild);
+  function isVisible(m) {
+    return m && (m.status === "PRE" || m.status === "LIVE");
   }
 
-  // ===============================
-  // DETECT POSTPONED (ESPN FT 0-0)
-  // ===============================
-  function isPostponed(m) {
-    return (
-      String(m.status).toUpperCase() === "FT" &&
-      (m.minute === "0'" || m.minute === "" || m.minute == null) &&
-      m.scoreHome === 0 &&
-      m.scoreAway === 0
-    );
-  }
+  /* =========================
+     RENDER
+     ========================= */
 
   function render(matches) {
-    const list = document.getElementById(LIST_ID);
-    if (!list) return;
+    const root = document.getElementById("active-leagues-list");
+    if (!root) return;
 
-    clear(list);
+    root.innerHTML = "";
 
-    const byLeague = {};
-    (matches || []).forEach(m => {
-      if (isLive(m)) return;
-
-      const league = m.leagueName || m.leagueSlug || "Unknown League";
-      if (!byLeague[league]) byLeague[league] = [];
-      byLeague[league].push(m);
-    });
-
-    const ordered = Object.keys(byLeague)
-      .map(lg => ({
-        league: lg,
-        t: Math.min(...byLeague[lg].map(kickoffTs))
-      }))
-      .sort((a, b) => a.t - b.t);
-
-    ordered.forEach(({ league }) => {
-      const block = document.createElement("div");
-      block.className = "active-league";
-
-      const header = document.createElement("div");
-      header.className = "active-league-header";
-
-      const name = document.createElement("div");
-      name.className = "active-league-name";
-      name.textContent = league;
-
-      header.appendChild(name);
-      block.appendChild(header);
-
-      byLeague[league]
-        .sort((a, b) => kickoffTs(a) - kickoffTs(b))
-        .forEach(m => {
-          const clone = { ...m };
-
-          // -------- POSTPONED ----------
-          if (isPostponed(clone)) {
-            // *** ΤΟ ΚΡΙΣΙΜΟ ***
-            clone.scoreHome = null;
-            clone.scoreAway = null;
-
-            const row = document.createElement("div");
-            row.className = "match-row postponed";
-
-            const badge = document.createElement("span");
-            badge.className = "match-badge pp";
-            badge.textContent = "PP";
-
-            row.appendChild(badge);
-            row.appendChild(window.renderMatchRow(clone));
-            block.appendChild(row);
-            return;
-          }
-
-          // -------- NORMAL ----------
-          if (String(clone.status).toUpperCase() === "FT") {
-            clone.minute = "FT";
-          }
-
-          block.appendChild(window.renderMatchRow(clone));
-        });
-
-      list.appendChild(block);
-    });
-  }
-
-  function init() {
-    if (typeof window.on !== "function") {
-      setTimeout(init, 50);
+    if (!matches || !matches.length) {
+      root.textContent = "Δεν υπάρχουν ενεργές λίγκες.";
       return;
     }
 
-    window.on("today-matches:loaded", payload => {
-      render(payload.matches || []);
+    const map = {};
+
+    matches.forEach(m => {
+      const nm = normalize(m);
+      if (!nm || !isVisible(nm)) return;
+
+      if (activeDateKey && nm.__dayKeyGR !== activeDateKey) return;
+
+      const key = nm.leagueSlug || nm.leagueName;
+      if (!map[key]) {
+        map[key] = {
+          leagueName: nm.leagueName,
+          leagueSlug: nm.leagueSlug,
+          count: 0
+        };
+      }
+      map[key].count++;
     });
+
+    Object.values(map)
+      .sort((a, b) => b.count - a.count)
+      .forEach(lg => {
+        const row = document.createElement("div");
+        row.className = "active-league-row";
+        row.innerHTML = `
+          <span class="league-name">${lg.leagueName}</span>
+          <span class="league-count">${lg.count}</span>
+        `;
+
+        row.onclick = () => {
+          emit("league-selected", {
+            leagueSlug: lg.leagueSlug,
+            leagueName: lg.leagueName,
+            source: "active-leagues"
+          });
+        };
+
+        root.appendChild(row);
+      });
   }
 
-  init();
+  /* =========================
+     EVENTS
+     ========================= */
+
+  on("today-matches:loaded", payload => {
+    if (!payload || !Array.isArray(payload.matches)) return;
+
+    lastPayload = payload;
+    render(payload.matches);
+  });
+
+  on("today-date:changed", ({ dateKey }) => {
+    if (!lastPayload || !dateKey) return;
+
+    activeDateKey = dateKey;
+    render(lastPayload.matches || []);
+  });
+
 })();

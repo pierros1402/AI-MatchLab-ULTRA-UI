@@ -457,3 +457,11 @@ html[data-accent="minimal"] {
     background: inherit;
   }
 }
+/* Push Today date dropdown slightly to the right */
+.accordion-header[data-target="panel-today"] {
+  padding-right: 12px;
+}
+
+.accordion-header[data-target="panel-today"] .today-date-select {
+  margin-left: 8px;
+}

@@ -3,7 +3,8 @@
 
   var TZ = "Europe/Athens";
   var lastPayload = null;
-  var selectedDayKey = null; // YYYY-MM-DD (GR local)
+  var selectedDayKey = null;
+  var availableDates = [];
 
   /* =========================
      TIME HELPERS
@@ -23,7 +24,7 @@
       var m = parts.find(p => p.type === "month")?.value || "";
       var d = parts.find(p => p.type === "day")?.value || "";
       return y && m && d ? (y + "-" + m + "-" + d) : "";
-    } catch (e) {
+    } catch {
       var dt = new Date(ms);
       return dt.getFullYear() + "-" + pad2(dt.getMonth() + 1) + "-" + pad2(dt.getDate());
     }
@@ -41,10 +42,18 @@
         minute: "2-digit",
         hour12: false
       }).format(new Date(ms));
-    } catch (e) {
+    } catch {
       var d = new Date(ms);
       return pad2(d.getHours()) + ":" + pad2(d.getMinutes());
     }
+  }
+
+  function labelForDateKey(dateKey) {
+    var today = dayKeyNowGR();
+    if (dateKey === today) return "Σήμερα";
+    var d = new Date(dateKey + "T00:00:00");
+    var wd = new Intl.DateTimeFormat("el-GR", { weekday: "short", timeZone: TZ }).format(d);
+    return wd + " " + dateKey.split("-").reverse().slice(0, 2).join("/");
   }
 
   /* =========================
@@ -53,127 +62,80 @@
 
   function normalize(match) {
     var kickoffMs = match.kickoff_ms || (match.kickoff ? Date.parse(match.kickoff) : 0);
-
-    var leagueName =
-      match.leagueName && match.leagueName !== "Unknown" && match.leagueName !== "Unknown League"
-        ? match.leagueName
-        : (match.leagueSlug || "—");
-
     return Object.assign({}, match, {
       kickoff_ms: kickoffMs,
-      leagueName: leagueName,
-      leagueSlug: match.leagueSlug || match.league || "",
+      leagueName: match.leagueName || match.leagueSlug || "—",
+      leagueSlug: match.leagueSlug || "",
       __dayKeyGR: kickoffMs ? dayKeyFromMsGR(kickoffMs) : ""
     });
   }
 
-  /* =========================
-     VISIBILITY (TODAY ONLY)
-     ========================= */
-
-  function isVisibleToday(m) {
-    // Today panel: PRE + LIVE
+  function isVisible(m) {
     return m.status === "LIVE" || m.status === "PRE";
   }
 
   /* =========================
-     GROUPING
+     ACCORDION HEADER (DATE DROPDOWN)
+     ========================= */
+
+  function ensureAccordionHeader() {
+    var header = document.querySelector('.accordion-header[data-target="panel-today"]');
+    if (!header) return;
+
+    if (header.querySelector(".today-date-select")) return;
+
+    header.innerHTML = "";
+
+    var title = document.createElement("span");
+    title.className = "today-title";
+    title.textContent = "Today";
+
+    var select = document.createElement("select");
+    select.className = "today-date-select";
+
+    select.addEventListener("change", function () {
+      selectedDayKey = this.value;
+      emit("today-date:changed", { dateKey: selectedDayKey });
+      loadDate(selectedDayKey);
+    });
+
+    header.appendChild(title);
+    header.appendChild(select);
+  }
+
+  function updateHeaderOptions() {
+    var select = document.querySelector('.accordion-header[data-target="panel-today"] .today-date-select');
+    if (!select) return;
+
+    select.innerHTML = "";
+    availableDates.forEach(function (dk) {
+      var opt = document.createElement("option");
+      opt.value = dk;
+      opt.textContent = labelForDateKey(dk);
+      if (dk === selectedDayKey) opt.selected = true;
+      select.appendChild(opt);
+    });
+  }
+
+  /* =========================
+     GROUPING / RENDER
      ========================= */
 
   function groupMatches(list) {
     var groups = [];
-    var map = Object.create(null);
+    var map = {};
 
     list.forEach(function (m) {
-      var hhmm = m.kickoff_ms ? timeHHMM_GR(m.kickoff_ms) : "--:--";
-      var leagueKey = m.leagueSlug || m.leagueName || "—";
-      var key = leagueKey + "___" + hhmm;
-
+      var t = m.kickoff_ms ? timeHHMM_GR(m.kickoff_ms) : "--:--";
+      var key = (m.leagueSlug || m.leagueName) + "_" + t;
       if (!map[key]) {
-        map[key] = {
-          leagueName: m.leagueName || "—",
-          leagueSlug: m.leagueSlug || "",
-          time: hhmm,
-          kickoff_ms: m.kickoff_ms || 0,
-          items: []
-        };
+        map[key] = { leagueName: m.leagueName, time: t, items: [] };
         groups.push(map[key]);
       }
       map[key].items.push(m);
     });
 
-    groups.sort(function (a, b) {
-      return (a.kickoff_ms || 0) - (b.kickoff_ms || 0);
-    });
-
     return groups;
-  }
-
-  /* =========================
-     RENDER
-     ========================= */
-
-  function renderEmpty(root, msg) {
-    root.innerHTML = "";
-    var empty = document.createElement("div");
-    empty.className = "today-empty";
-    empty.textContent = msg || "Δεν υπάρχουν αγώνες για αυτή την ημέρα.";
-    root.appendChild(empty);
-  }
-
-  function renderGroups(root, groups) {
-    root.innerHTML = "";
-
-    groups.forEach(function (g) {
-      var wrap = document.createElement("div");
-      wrap.className = "today-group";
-
-      var gh = document.createElement("div");
-      gh.className = "today-group-header";
-
-      var time = document.createElement("div");
-      time.className = "today-group-time";
-      time.textContent = g.time;
-
-      var league = document.createElement("div");
-      league.className = "today-group-league";
-      league.textContent = g.leagueName;
-
-      gh.appendChild(time);
-      gh.appendChild(league);
-      wrap.appendChild(gh);
-
-      g.items.forEach(function (m) {
-        var row = document.createElement("div");
-        row.className = "today-match-row";
-
-        var teams = document.createElement("div");
-        teams.className = "today-match-teams";
-        teams.textContent = (m.home || "") + " – " + (m.away || "");
-
-        var status = document.createElement("div");
-        status.className = "today-match-status";
-
-        if (m.status === "LIVE") {
-          status.textContent = (m.scoreHome + "-" + m.scoreAway) + " " + (m.minute || "");
-          status.classList.add("live");
-        } else {
-          status.textContent = g.time;
-        }
-
-        row.appendChild(teams);
-        row.appendChild(status);
-
-        row.addEventListener("click", function () {
-          window.emit("match-selected", m);
-          window.emit("active-match:set", m);
-        });
-
-        wrap.appendChild(row);
-      });
-
-      root.appendChild(wrap);
-    });
   }
 
   function renderFromPayload(payload) {
@@ -182,24 +144,53 @@
 
     if (!selectedDayKey) selectedDayKey = dayKeyNowGR();
 
-    var raw = Array.isArray(payload.matches) ? payload.matches : [];
+    var norm = payload.matches.map(normalize).filter(isVisible);
 
-    var list = raw
-      .map(normalize)
-      .filter(isVisibleToday)
-      .filter(function (m) {
-        return m.__dayKeyGR && m.__dayKeyGR === selectedDayKey;
-      })
-      .sort(function (a, b) {
-        return (a.kickoff_ms || 0) - (b.kickoff_ms || 0);
-      });
+    var dateSet = {};
+    norm.forEach(m => dateSet[m.__dayKeyGR] = true);
+    availableDates = Object.keys(dateSet).sort();
+
+    if (!availableDates.includes(selectedDayKey)) {
+      selectedDayKey = availableDates[0];
+    }
+
+    ensureAccordionHeader();
+    updateHeaderOptions();
+
+    var list = norm.filter(m => m.__dayKeyGR === selectedDayKey);
+    root.innerHTML = "";
 
     if (!list.length) {
-      renderEmpty(root);
+      root.textContent = "Δεν υπάρχουν αγώνες για αυτή την ημέρα.";
       return;
     }
 
-    renderGroups(root, groupMatches(list));
+    groupMatches(list).forEach(function (g) {
+      var block = document.createElement("div");
+      block.className = "today-group";
+      block.innerHTML = `<div class="today-group-header">${g.time} · ${g.leagueName}</div>`;
+      g.items.forEach(function (m) {
+        var row = document.createElement("div");
+        row.className = "today-match-row";
+        row.textContent = `${m.home} – ${m.away}`;
+        row.onclick = () => emit("match-selected", m);
+        block.appendChild(row);
+      });
+      root.appendChild(block);
+    });
+  }
+
+  /* =========================
+     DATA LOAD
+     ========================= */
+
+  function loadDate(dateKey) {
+    var url = window.AIML_LIVE_CFG.fixturesBase + "/fixtures?date=" + dateKey;
+    fetch(url).then(r => r.json()).then(function (data) {
+      if (!data || !Array.isArray(data.matches)) return;
+      lastPayload = data;
+      renderFromPayload(data);
+    });
   }
 
   /* =========================
@@ -207,28 +198,9 @@
      ========================= */
 
   on("today-matches:loaded", function (payload) {
-    if (!payload || !Array.isArray(payload.matches)) return;
     lastPayload = payload;
-
-    // ✅ CANONICAL LIVE → Right Live Panel
-    var LIVE_STATUSES = ["LIVE", "HT", "ET", "PEN"];
-    var live = payload.matches.filter(function (m) {
-      var s = String(m.status || "").toUpperCase();
-      return LIVE_STATUSES.includes(s);
-    });
-
-    window.emit("live:update", { matches: live });
-
     renderFromPayload(payload);
+    emit("today-date:changed", { dateKey: selectedDayKey || dayKeyNowGR() });
   });
-
-  /* =========================
-     AUTO REFRESH (45s)
-     ========================= */
-
-  setInterval(function () {
-    if (!lastPayload) return;
-    window.emit("today-matches:loaded", lastPayload);
-  }, 45000);
 
 })();
