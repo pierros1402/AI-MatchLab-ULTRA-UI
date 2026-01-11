@@ -1,0 +1,2774 @@
+{
+  "Standard": {
+    "matches_used": 20,
+    "goals_for_avg": 0.9,
+    "goals_against_avg": 1.15,
+    "btts_rate": 0.35,
+    "over25_rate": 0.4
+  },
+  "Charleroi": {
+    "matches_used": 20,
+    "goals_for_avg": 1.15,
+    "goals_against_avg": 1.3,
+    "btts_rate": 0.6,
+    "over25_rate": 0.45
+  },
+  "Cercle Brugge": {
+    "matches_used": 20,
+    "goals_for_avg": 1.25,
+    "goals_against_avg": 1.5,
+    "btts_rate": 0.65,
+    "over25_rate": 0.45
+  },
+  "Gent": {
+    "matches_used": 20,
+    "goals_for_avg": 1.4,
+    "goals_against_avg": 1.45,
+    "btts_rate": 0.6,
+    "over25_rate": 0.55
+  },
+  "Lierse": {
+    "matches_used": 20,
+    "goals_for_avg": 0.9,
+    "goals_against_avg": 2.15,
+    "btts_rate": 0.55,
+    "over25_rate": 0.65
+  },
+  "Oostende": {
+    "matches_used": 20,
+    "goals_for_avg": 1.1,
+    "goals_against_avg": 2.5,
+    "btts_rate": 0.55,
+    "over25_rate": 0.85
+  },
+  "Waasland-Beveren": {
+    "matches_used": 20,
+    "goals_for_avg": 1.25,
+    "goals_against_avg": 2,
+    "btts_rate": 0.6,
+    "over25_rate": 0.55
+  },
+  "Club Brugge": {
+    "matches_used": 20,
+    "goals_for_avg": 1.8,
+    "goals_against_avg": 1.1,
+    "btts_rate": 0.5,
+    "over25_rate": 0.45
+  },
+  "Westerlo": {
+    "matches_used": 20,
+    "goals_for_avg": 1.4,
+    "goals_against_avg": 1.5,
+    "btts_rate": 0.4,
+    "over25_rate": 0.4
+  },
+  "Lokeren": {
+    "matches_used": 20,
+    "goals_for_avg": 1,
+    "goals_against_avg": 1.65,
+    "btts_rate": 0.55,
+    "over25_rate": 0.55
+  },
+  "Anderlecht": {
+    "matches_used": 20,
+    "goals_for_avg": 1.4,
+    "goals_against_avg": 1.1,
+    "btts_rate": 0.45,
+    "over25_rate": 0.4
+  },
+  "Mouscron-Peruwelz": {
+    "matches_used": 20,
+    "goals_for_avg": 1.3,
+    "goals_against_avg": 1.7,
+    "btts_rate": 0.5,
+    "over25_rate": 0.65
+  },
+  "Mechelen": {
+    "matches_used": 20,
+    "goals_for_avg": 1.25,
+    "goals_against_avg": 1.1,
+    "btts_rate": 0.65,
+    "over25_rate": 0.35
+  },
+  "Genk": {
+    "matches_used": 20,
+    "goals_for_avg": 1.35,
+    "goals_against_avg": 1.55,
+    "btts_rate": 0.8,
+    "over25_rate": 0.6
+  },
+  "Waregem": {
+    "matches_used": 20,
+    "goals_for_avg": 1.3,
+    "goals_against_avg": 1.45,
+    "btts_rate": 0.65,
+    "over25_rate": 0.45
+  },
+  "Kortrijk": {
+    "matches_used": 20,
+    "goals_for_avg": 1.35,
+    "goals_against_avg": 1.65,
+    "btts_rate": 0.6,
+    "over25_rate": 0.6
+  },
+  "St Truiden": {
+    "matches_used": 20,
+    "goals_for_avg": 1.5,
+    "goals_against_avg": 1.15,
+    "btts_rate": 0.6,
+    "over25_rate": 0.55
+  },
+  "Oud-Heverlee Leuven": {
+    "matches_used": 20,
+    "goals_for_avg": 0.95,
+    "goals_against_avg": 1.45,
+    "btts_rate": 0.5,
+    "over25_rate": 0.45
+  },
+  "Mouscron": {
+    "matches_used": 20,
+    "goals_for_avg": 1.15,
+    "goals_against_avg": 1.55,
+    "btts_rate": 0.55,
+    "over25_rate": 0.45
+  },
+  "Eupen": {
+    "matches_used": 20,
+    "goals_for_avg": 0.5,
+    "goals_against_avg": 1.65,
+    "btts_rate": 0.25,
+    "over25_rate": 0.35
+  },
+  "Antwerp": {
+    "matches_used": 20,
+    "goals_for_avg": 1.2,
+    "goals_against_avg": 1.05,
+    "btts_rate": 0.55,
+    "over25_rate": 0.4
+  },
+  "Beerschot VA": {
+    "matches_used": 20,
+    "goals_for_avg": 1.05,
+    "goals_against_avg": 1.7,
+    "btts_rate": 0.55,
+    "over25_rate": 0.5
+  },
+  "Seraing": {
+    "matches_used": 20,
+    "goals_for_avg": 0.7,
+    "goals_against_avg": 2.2,
+    "btts_rate": 0.55,
+    "over25_rate": 0.6
+  },
+  "St. Gilloise": {
+    "matches_used": 20,
+    "goals_for_avg": 1.8,
+    "goals_against_avg": 0.6,
+    "btts_rate": 0.45,
+    "over25_rate": 0.3
+  },
+  "RWD Molenbeek": {
+    "matches_used": 20,
+    "goals_for_avg": 1.05,
+    "goals_against_avg": 2.45,
+    "btts_rate": 0.5,
+    "over25_rate": 0.75
+  },
+  "Dender": {
+    "matches_used": 20,
+    "goals_for_avg": 0.8,
+    "goals_against_avg": 1.7,
+    "btts_rate": 0.6,
+    "over25_rate": 0.5
+  },
+  "RAAL La Louviere": {
+    "matches_used": 20,
+    "goals_for_avg": 0.75,
+    "goals_against_avg": 1.05,
+    "btts_rate": 0.45,
+    "over25_rate": 0.4
+  },
+  "Arsenal": {
+    "matches_used": 20,
+    "goals_for_avg": 1.95,
+    "goals_against_avg": 0.65,
+    "btts_rate": 0.5,
+    "over25_rate": 0.5
+  },
+  "Crystal Palace": {
+    "matches_used": 20,
+    "goals_for_avg": 1.15,
+    "goals_against_avg": 1.1,
+    "btts_rate": 0.5,
+    "over25_rate": 0.45
+  },
+  "Leicester": {
+    "matches_used": 20,
+    "goals_for_avg": 1.35,
+    "goals_against_avg": 1.6,
+    "btts_rate": 0.8,
+    "over25_rate": 0.65
+  },
+  "Everton": {
+    "matches_used": 20,
+    "goals_for_avg": 1.05,
+    "goals_against_avg": 1,
+    "btts_rate": 0.3,
+    "over25_rate": 0.3
+  },
+  "Man United": {
+    "matches_used": 20,
+    "goals_for_avg": 1.75,
+    "goals_against_avg": 1.45,
+    "btts_rate": 0.7,
+    "over25_rate": 0.6
+  },
+  "Swansea": {
+    "matches_used": 20,
+    "goals_for_avg": 1,
+    "goals_against_avg": 1.35,
+    "btts_rate": 0.55,
+    "over25_rate": 0.5
+  },
+  "QPR": {
+    "matches_used": 20,
+    "goals_for_avg": 1.3,
+    "goals_against_avg": 1.35,
+    "btts_rate": 0.7,
+    "over25_rate": 0.6
+  },
+  "Hull": {
+    "matches_used": 20,
+    "goals_for_avg": 1.95,
+    "goals_against_avg": 0.75,
+    "btts_rate": 0.45,
+    "over25_rate": 0.55
+  },
+  "Stoke": {
+    "matches_used": 20,
+    "goals_for_avg": 1.05,
+    "goals_against_avg": 1,
+    "btts_rate": 0.35,
+    "over25_rate": 0.4
+  },
+  "Aston Villa": {
+    "matches_used": 20,
+    "goals_for_avg": 1.65,
+    "goals_against_avg": 1.05,
+    "btts_rate": 0.55,
+    "over25_rate": 0.6
+  },
+  "West Brom": {
+    "matches_used": 20,
+    "goals_for_avg": 1.1,
+    "goals_against_avg": 1.45,
+    "btts_rate": 0.6,
+    "over25_rate": 0.55
+  },
+  "Sunderland": {
+    "matches_used": 20,
+    "goals_for_avg": 1.4,
+    "goals_against_avg": 1.05,
+    "btts_rate": 0.55,
+    "over25_rate": 0.45
+  },
+  "West Ham": {
+    "matches_used": 20,
+    "goals_for_avg": 1.2,
+    "goals_against_avg": 1.95,
+    "btts_rate": 0.6,
+    "over25_rate": 0.65
+  },
+  "Tottenham": {
+    "matches_used": 20,
+    "goals_for_avg": 1.4,
+    "goals_against_avg": 1.35,
+    "btts_rate": 0.5,
+    "over25_rate": 0.65
+  },
+  "Liverpool": {
+    "matches_used": 20,
+    "goals_for_avg": 1.55,
+    "goals_against_avg": 1.35,
+    "btts_rate": 0.6,
+    "over25_rate": 0.6
+  },
+  "Southampton": {
+    "matches_used": 20,
+    "goals_for_avg": 1.6,
+    "goals_against_avg": 1.4,
+    "btts_rate": 0.8,
+    "over25_rate": 0.65
+  },
+  "Newcastle": {
+    "matches_used": 20,
+    "goals_for_avg": 1.75,
+    "goals_against_avg": 0.95,
+    "btts_rate": 0.55,
+    "over25_rate": 0.6
+  },
+  "Man City": {
+    "matches_used": 20,
+    "goals_for_avg": 2.25,
+    "goals_against_avg": 0.85,
+    "btts_rate": 0.4,
+    "over25_rate": 0.65
+  },
+  "Burnley": {
+    "matches_used": 20,
+    "goals_for_avg": 1.9,
+    "goals_against_avg": 0.35,
+    "btts_rate": 0.35,
+    "over25_rate": 0.5
+  },
+  "Chelsea": {
+    "matches_used": 20,
+    "goals_for_avg": 1.65,
+    "goals_against_avg": 1.05,
+    "btts_rate": 0.55,
+    "over25_rate": 0.6
+  },
+  "Bournemouth": {
+    "matches_used": 20,
+    "goals_for_avg": 1.55,
+    "goals_against_avg": 0.8,
+    "btts_rate": 0.45,
+    "over25_rate": 0.45
+  },
+  "Watford": {
+    "matches_used": 20,
+    "goals_for_avg": 1.6,
+    "goals_against_avg": 1.15,
+    "btts_rate": 0.7,
+    "over25_rate": 0.6
+  },
+  "Norwich": {
+    "matches_used": 20,
+    "goals_for_avg": 1.05,
+    "goals_against_avg": 1.55,
+    "btts_rate": 0.7,
+    "over25_rate": 0.45
+  },
+  "Middlesbrough": {
+    "matches_used": 20,
+    "goals_for_avg": 1.2,
+    "goals_against_avg": 1.15,
+    "btts_rate": 0.6,
+    "over25_rate": 0.45
+  },
+  "Brighton": {
+    "matches_used": 20,
+    "goals_for_avg": 1.6,
+    "goals_against_avg": 1.1,
+    "btts_rate": 0.45,
+    "over25_rate": 0.5
+  },
+  "Huddersfield": {
+    "matches_used": 20,
+    "goals_for_avg": 1.7,
+    "goals_against_avg": 1.45,
+    "btts_rate": 0.7,
+    "over25_rate": 0.65
+  },
+  "Cardiff": {
+    "matches_used": 20,
+    "goals_for_avg": 1.8,
+    "goals_against_avg": 1.15,
+    "btts_rate": 0.55,
+    "over25_rate": 0.55
+  },
+  "Fulham": {
+    "matches_used": 20,
+    "goals_for_avg": 1.8,
+    "goals_against_avg": 1,
+    "btts_rate": 0.45,
+    "over25_rate": 0.5
+  },
+  "Wolves": {
+    "matches_used": 20,
+    "goals_for_avg": 1.6,
+    "goals_against_avg": 0.95,
+    "btts_rate": 0.35,
+    "over25_rate": 0.55
+  },
+  "Sheffield United": {
+    "matches_used": 20,
+    "goals_for_avg": 2.1,
+    "goals_against_avg": 1.05,
+    "btts_rate": 0.5,
+    "over25_rate": 0.6
+  },
+  "Leeds": {
+    "matches_used": 20,
+    "goals_for_avg": 2.35,
+    "goals_against_avg": 0.55,
+    "btts_rate": 0.4,
+    "over25_rate": 0.55
+  },
+  "Brentford": {
+    "matches_used": 20,
+    "goals_for_avg": 1.55,
+    "goals_against_avg": 0.8,
+    "btts_rate": 0.45,
+    "over25_rate": 0.4
+  },
+  "Nott'm Forest": {
+    "matches_used": 20,
+    "goals_for_avg": 2,
+    "goals_against_avg": 0.6,
+    "btts_rate": 0.4,
+    "over25_rate": 0.45
+  },
+  "Luton": {
+    "matches_used": 20,
+    "goals_for_avg": 1.6,
+    "goals_against_avg": 1.05,
+    "btts_rate": 0.65,
+    "over25_rate": 0.5
+  },
+  "Ipswich": {
+    "matches_used": 20,
+    "goals_for_avg": 2.65,
+    "goals_against_avg": 0.45,
+    "btts_rate": 0.3,
+    "over25_rate": 0.65
+  },
+  "Blackburn": {
+    "matches_used": 20,
+    "goals_for_avg": 1.7,
+    "goals_against_avg": 0.8,
+    "btts_rate": 0.55,
+    "over25_rate": 0.55
+  },
+  "Charlton": {
+    "matches_used": 20,
+    "goals_for_avg": 1.75,
+    "goals_against_avg": 0.85,
+    "btts_rate": 0.4,
+    "over25_rate": 0.65
+  },
+  "Sheffield Weds": {
+    "matches_used": 20,
+    "goals_for_avg": 1.75,
+    "goals_against_avg": 0.95,
+    "btts_rate": 0.5,
+    "over25_rate": 0.5
+  },
+  "Derby": {
+    "matches_used": 20,
+    "goals_for_avg": 1.4,
+    "goals_against_avg": 0.55,
+    "btts_rate": 0.3,
+    "over25_rate": 0.45
+  },
+  "Rotherham": {
+    "matches_used": 20,
+    "goals_for_avg": 0.9,
+    "goals_against_avg": 1.4,
+    "btts_rate": 0.45,
+    "over25_rate": 0.5
+  },
+  "Birmingham": {
+    "matches_used": 20,
+    "goals_for_avg": 2,
+    "goals_against_avg": 0.65,
+    "btts_rate": 0.5,
+    "over25_rate": 0.55
+  },
+  "Millwall": {
+    "matches_used": 20,
+    "goals_for_avg": 1.25,
+    "goals_against_avg": 0.9,
+    "btts_rate": 0.35,
+    "over25_rate": 0.35
+  },
+  "Blackpool": {
+    "matches_used": 20,
+    "goals_for_avg": 1.55,
+    "goals_against_avg": 0.95,
+    "btts_rate": 0.5,
+    "over25_rate": 0.55
+  },
+  "Bolton": {
+    "matches_used": 20,
+    "goals_for_avg": 1.4,
+    "goals_against_avg": 0.6,
+    "btts_rate": 0.4,
+    "over25_rate": 0.35
+  },
+  "Wigan": {
+    "matches_used": 20,
+    "goals_for_avg": 1.05,
+    "goals_against_avg": 1.15,
+    "btts_rate": 0.55,
+    "over25_rate": 0.3
+  },
+  "Reading": {
+    "matches_used": 20,
+    "goals_for_avg": 1.5,
+    "goals_against_avg": 1.1,
+    "btts_rate": 0.7,
+    "over25_rate": 0.4
+  },
+  "Milton Keynes Dons": {
+    "matches_used": 20,
+    "goals_for_avg": 1.8,
+    "goals_against_avg": 1.25,
+    "btts_rate": 0.7,
+    "over25_rate": 0.65
+  },
+  "Bristol City": {
+    "matches_used": 20,
+    "goals_for_avg": 2.3,
+    "goals_against_avg": 0.8,
+    "btts_rate": 0.5,
+    "over25_rate": 0.6
+  },
+  "Preston": {
+    "matches_used": 20,
+    "goals_for_avg": 1.95,
+    "goals_against_avg": 0.7,
+    "btts_rate": 0.45,
+    "over25_rate": 0.45
+  },
+  "Barnsley": {
+    "matches_used": 20,
+    "goals_for_avg": 1.5,
+    "goals_against_avg": 1.6,
+    "btts_rate": 0.6,
+    "over25_rate": 0.55
+  },
+  "Burton": {
+    "matches_used": 20,
+    "goals_for_avg": 1.65,
+    "goals_against_avg": 0.7,
+    "btts_rate": 0.55,
+    "over25_rate": 0.4
+  },
+  "Wycombe": {
+    "matches_used": 20,
+    "goals_for_avg": 1.65,
+    "goals_against_avg": 1.25,
+    "btts_rate": 0.55,
+    "over25_rate": 0.5
+  },
+  "Coventry": {
+    "matches_used": 20,
+    "goals_for_avg": 1.8,
+    "goals_against_avg": 1.45,
+    "btts_rate": 0.7,
+    "over25_rate": 0.65
+  },
+  "Peterboro": {
+    "matches_used": 20,
+    "goals_for_avg": 1.35,
+    "goals_against_avg": 1.1,
+    "btts_rate": 0.45,
+    "over25_rate": 0.55
+  },
+  "Plymouth": {
+    "matches_used": 20,
+    "goals_for_avg": 1.8,
+    "goals_against_avg": 0.95,
+    "btts_rate": 0.55,
+    "over25_rate": 0.75
+  },
+  "Portsmouth": {
+    "matches_used": 20,
+    "goals_for_avg": 1.95,
+    "goals_against_avg": 0.7,
+    "btts_rate": 0.4,
+    "over25_rate": 0.45
+  },
+  "Oxford": {
+    "matches_used": 20,
+    "goals_for_avg": 2.15,
+    "goals_against_avg": 0.9,
+    "btts_rate": 0.5,
+    "over25_rate": 0.6
+  },
+  "Wrexham": {
+    "matches_used": 20,
+    "goals_for_avg": 1.75,
+    "goals_against_avg": 0.8,
+    "btts_rate": 0.45,
+    "over25_rate": 0.5
+  },
+  "Crawley Town": {
+    "matches_used": 20,
+    "goals_for_avg": 1.3,
+    "goals_against_avg": 1.75,
+    "btts_rate": 0.65,
+    "over25_rate": 0.6
+  },
+  "Bradford": {
+    "matches_used": 20,
+    "goals_for_avg": 1.35,
+    "goals_against_avg": 0.9,
+    "btts_rate": 0.3,
+    "over25_rate": 0.3
+  },
+  "Colchester": {
+    "matches_used": 20,
+    "goals_for_avg": 1.65,
+    "goals_against_avg": 1.2,
+    "btts_rate": 0.6,
+    "over25_rate": 0.35
+  },
+  "Oldham": {
+    "matches_used": 20,
+    "goals_for_avg": 1.1,
+    "goals_against_avg": 0.8,
+    "btts_rate": 0.4,
+    "over25_rate": 0.35
+  },
+  "Fleetwood Town": {
+    "matches_used": 20,
+    "goals_for_avg": 1.25,
+    "goals_against_avg": 1.15,
+    "btts_rate": 0.65,
+    "over25_rate": 0.4
+  },
+  "Crewe": {
+    "matches_used": 20,
+    "goals_for_avg": 1.4,
+    "goals_against_avg": 1.5,
+    "btts_rate": 0.65,
+    "over25_rate": 0.6
+  },
+  "Leyton Orient": {
+    "matches_used": 20,
+    "goals_for_avg": 1.25,
+    "goals_against_avg": 1.05,
+    "btts_rate": 0.45,
+    "over25_rate": 0.35
+  },
+  "Chesterfield": {
+    "matches_used": 20,
+    "goals_for_avg": 1.65,
+    "goals_against_avg": 1.4,
+    "btts_rate": 0.7,
+    "over25_rate": 0.45
+  },
+  "Gillingham": {
+    "matches_used": 20,
+    "goals_for_avg": 1.2,
+    "goals_against_avg": 1.25,
+    "btts_rate": 0.6,
+    "over25_rate": 0.4
+  },
+  "Port Vale": {
+    "matches_used": 20,
+    "goals_for_avg": 1.65,
+    "goals_against_avg": 0.95,
+    "btts_rate": 0.5,
+    "over25_rate": 0.45
+  },
+  "Walsall": {
+    "matches_used": 20,
+    "goals_for_avg": 1.4,
+    "goals_against_avg": 0.95,
+    "btts_rate": 0.5,
+    "over25_rate": 0.35
+  },
+  "Notts County": {
+    "matches_used": 20,
+    "goals_for_avg": 1.45,
+    "goals_against_avg": 1,
+    "btts_rate": 0.5,
+    "over25_rate": 0.45
+  },
+  "Rochdale": {
+    "matches_used": 20,
+    "goals_for_avg": 1.2,
+    "goals_against_avg": 1.55,
+    "btts_rate": 0.55,
+    "over25_rate": 0.4
+  },
+  "Swindon": {
+    "matches_used": 20,
+    "goals_for_avg": 1.65,
+    "goals_against_avg": 0.95,
+    "btts_rate": 0.45,
+    "over25_rate": 0.55
+  },
+  "Scunthorpe": {
+    "matches_used": 20,
+    "goals_for_avg": 0.5,
+    "goals_against_avg": 2.25,
+    "btts_rate": 0.4,
+    "over25_rate": 0.55
+  },
+  "Yeovil": {
+    "matches_used": 20,
+    "goals_for_avg": 0.65,
+    "goals_against_avg": 1.7,
+    "btts_rate": 0.35,
+    "over25_rate": 0.35
+  },
+  "Doncaster": {
+    "matches_used": 20,
+    "goals_for_avg": 1.85,
+    "goals_against_avg": 1,
+    "btts_rate": 0.6,
+    "over25_rate": 0.65
+  },
+  "Bury": {
+    "matches_used": 20,
+    "goals_for_avg": 1.7,
+    "goals_against_avg": 1.35,
+    "btts_rate": 0.65,
+    "over25_rate": 0.55
+  },
+  "Southend": {
+    "matches_used": 20,
+    "goals_for_avg": 0.6,
+    "goals_against_avg": 0.7,
+    "btts_rate": 0.3,
+    "over25_rate": 0.15
+  },
+  "Shrewsbury": {
+    "matches_used": 20,
+    "goals_for_avg": 1,
+    "goals_against_avg": 1.55,
+    "btts_rate": 0.55,
+    "over25_rate": 0.5
+  },
+  "Northampton": {
+    "matches_used": 20,
+    "goals_for_avg": 1.1,
+    "goals_against_avg": 0.7,
+    "btts_rate": 0.45,
+    "over25_rate": 0.3
+  },
+  "Bristol Rvs": {
+    "matches_used": 20,
+    "goals_for_avg": 0.95,
+    "goals_against_avg": 1.9,
+    "btts_rate": 0.45,
+    "over25_rate": 0.6
+  },
+  "AFC Wimbledon": {
+    "matches_used": 20,
+    "goals_for_avg": 0.9,
+    "goals_against_avg": 0.75,
+    "btts_rate": 0.35,
+    "over25_rate": 0.25
+  },
+  "Accrington": {
+    "matches_used": 20,
+    "goals_for_avg": 1.2,
+    "goals_against_avg": 1,
+    "btts_rate": 0.4,
+    "over25_rate": 0.35
+  },
+  "Lincoln": {
+    "matches_used": 20,
+    "goals_for_avg": 1.3,
+    "goals_against_avg": 0.85,
+    "btts_rate": 0.45,
+    "over25_rate": 0.25
+  },
+  "Tranmere": {
+    "matches_used": 20,
+    "goals_for_avg": 1.55,
+    "goals_against_avg": 1.75,
+    "btts_rate": 0.75,
+    "over25_rate": 0.65
+  },
+  "Cambridge": {
+    "matches_used": 20,
+    "goals_for_avg": 1.1,
+    "goals_against_avg": 0.7,
+    "btts_rate": 0.4,
+    "over25_rate": 0.2
+  },
+  "Cheltenham": {
+    "matches_used": 20,
+    "goals_for_avg": 1.05,
+    "goals_against_avg": 1.55,
+    "btts_rate": 0.45,
+    "over25_rate": 0.35
+  },
+  "Morecambe": {
+    "matches_used": 20,
+    "goals_for_avg": 0.9,
+    "goals_against_avg": 1.55,
+    "btts_rate": 0.4,
+    "over25_rate": 0.4
+  },
+  "Forest Green": {
+    "matches_used": 20,
+    "goals_for_avg": 0.9,
+    "goals_against_avg": 1.5,
+    "btts_rate": 0.25,
+    "over25_rate": 0.35
+  },
+  "Exeter": {
+    "matches_used": 20,
+    "goals_for_avg": 1.4,
+    "goals_against_avg": 0.75,
+    "btts_rate": 0.45,
+    "over25_rate": 0.35
+  },
+  "Carlisle": {
+    "matches_used": 20,
+    "goals_for_avg": 1.15,
+    "goals_against_avg": 1.55,
+    "btts_rate": 0.6,
+    "over25_rate": 0.55
+  },
+  "Stevenage": {
+    "matches_used": 20,
+    "goals_for_avg": 1.1,
+    "goals_against_avg": 1.05,
+    "btts_rate": 0.45,
+    "over25_rate": 0.3
+  },
+  "Mansfield": {
+    "matches_used": 20,
+    "goals_for_avg": 2.25,
+    "goals_against_avg": 1.3,
+    "btts_rate": 0.75,
+    "over25_rate": 0.65
+  },
+  "Stockport": {
+    "matches_used": 20,
+    "goals_for_avg": 2.15,
+    "goals_against_avg": 1.1,
+    "btts_rate": 0.6,
+    "over25_rate": 0.65
+  },
+  "Dag and Red": {
+    "matches_used": 20,
+    "goals_for_avg": 0.95,
+    "goals_against_avg": 1.7,
+    "btts_rate": 0.45,
+    "over25_rate": 0.55
+  },
+  "Newport County": {
+    "matches_used": 20,
+    "goals_for_avg": 1,
+    "goals_against_avg": 1.9,
+    "btts_rate": 0.5,
+    "over25_rate": 0.55
+  },
+  "Hartlepool": {
+    "matches_used": 20,
+    "goals_for_avg": 1.3,
+    "goals_against_avg": 1.55,
+    "btts_rate": 0.7,
+    "over25_rate": 0.45
+  },
+  "York": {
+    "matches_used": 20,
+    "goals_for_avg": 1.2,
+    "goals_against_avg": 1.9,
+    "btts_rate": 0.75,
+    "over25_rate": 0.65
+  },
+  "Barnet": {
+    "matches_used": 20,
+    "goals_for_avg": 1.45,
+    "goals_against_avg": 1,
+    "btts_rate": 0.55,
+    "over25_rate": 0.45
+  },
+  "Grimsby": {
+    "matches_used": 20,
+    "goals_for_avg": 1.3,
+    "goals_against_avg": 1.3,
+    "btts_rate": 0.5,
+    "over25_rate": 0.4
+  },
+  "Macclesfield": {
+    "matches_used": 20,
+    "goals_for_avg": 0.75,
+    "goals_against_avg": 1.35,
+    "btts_rate": 0.55,
+    "over25_rate": 0.25
+  },
+  "Salford": {
+    "matches_used": 20,
+    "goals_for_avg": 1.45,
+    "goals_against_avg": 1.3,
+    "btts_rate": 0.55,
+    "over25_rate": 0.45
+  },
+  "Barrow": {
+    "matches_used": 20,
+    "goals_for_avg": 1.2,
+    "goals_against_avg": 1.5,
+    "btts_rate": 0.65,
+    "over25_rate": 0.7
+  },
+  "Harrogate": {
+    "matches_used": 20,
+    "goals_for_avg": 0.6,
+    "goals_against_avg": 1.75,
+    "btts_rate": 0.4,
+    "over25_rate": 0.35
+  },
+  "Sutton": {
+    "matches_used": 20,
+    "goals_for_avg": 1.45,
+    "goals_against_avg": 1.5,
+    "btts_rate": 0.75,
+    "over25_rate": 0.5
+  },
+  "Bromley": {
+    "matches_used": 20,
+    "goals_for_avg": 1.8,
+    "goals_against_avg": 1.2,
+    "btts_rate": 0.6,
+    "over25_rate": 0.6
+  },
+  "Reims": {
+    "matches_used": 20,
+    "goals_for_avg": 0.65,
+    "goals_against_avg": 1.45,
+    "btts_rate": 0.35,
+    "over25_rate": 0.35
+  },
+  "Paris SG": {
+    "matches_used": 20,
+    "goals_for_avg": 2.2,
+    "goals_against_avg": 1.05,
+    "btts_rate": 0.5,
+    "over25_rate": 0.55
+  },
+  "Bastia": {
+    "matches_used": 20,
+    "goals_for_avg": 0.65,
+    "goals_against_avg": 1.8,
+    "btts_rate": 0.4,
+    "over25_rate": 0.45
+  },
+  "Marseille": {
+    "matches_used": 20,
+    "goals_for_avg": 2.4,
+    "goals_against_avg": 1,
+    "btts_rate": 0.55,
+    "over25_rate": 0.65
+  },
+  "Evian Thonon Gaillard": {
+    "matches_used": 20,
+    "goals_for_avg": 1.05,
+    "goals_against_avg": 1.5,
+    "btts_rate": 0.55,
+    "over25_rate": 0.45
+  },
+  "Caen": {
+    "matches_used": 20,
+    "goals_for_avg": 0.6,
+    "goals_against_avg": 1.55,
+    "btts_rate": 0.3,
+    "over25_rate": 0.35
+  },
+  "Guingamp": {
+    "matches_used": 20,
+    "goals_for_avg": 0.7,
+    "goals_against_avg": 1.7,
+    "btts_rate": 0.4,
+    "over25_rate": 0.4
+  },
+  "St Etienne": {
+    "matches_used": 20,
+    "goals_for_avg": 1.4,
+    "goals_against_avg": 2.25,
+    "btts_rate": 0.8,
+    "over25_rate": 0.65
+  },
+  "Lille": {
+    "matches_used": 20,
+    "goals_for_avg": 1.9,
+    "goals_against_avg": 1.2,
+    "btts_rate": 0.45,
+    "over25_rate": 0.4
+  },
+  "Metz": {
+    "matches_used": 20,
+    "goals_for_avg": 1.05,
+    "goals_against_avg": 2.3,
+    "btts_rate": 0.55,
+    "over25_rate": 0.65
+  },
+  "Montpellier": {
+    "matches_used": 20,
+    "goals_for_avg": 0.5,
+    "goals_against_avg": 2.15,
+    "btts_rate": 0.35,
+    "over25_rate": 0.45
+  },
+  "Bordeaux": {
+    "matches_used": 20,
+    "goals_for_avg": 1.2,
+    "goals_against_avg": 2.55,
+    "btts_rate": 0.55,
+    "over25_rate": 0.6
+  },
+  "Nantes": {
+    "matches_used": 20,
+    "goals_for_avg": 0.9,
+    "goals_against_avg": 1.5,
+    "btts_rate": 0.45,
+    "over25_rate": 0.4
+  },
+  "Lens": {
+    "matches_used": 20,
+    "goals_for_avg": 1.75,
+    "goals_against_avg": 0.95,
+    "btts_rate": 0.5,
+    "over25_rate": 0.65
+  },
+  "Nice": {
+    "matches_used": 20,
+    "goals_for_avg": 1.45,
+    "goals_against_avg": 1.6,
+    "btts_rate": 0.55,
+    "over25_rate": 0.55
+  },
+  "Toulouse": {
+    "matches_used": 20,
+    "goals_for_avg": 1.5,
+    "goals_against_avg": 1.15,
+    "btts_rate": 0.5,
+    "over25_rate": 0.5
+  },
+  "Lyon": {
+    "matches_used": 20,
+    "goals_for_avg": 1.45,
+    "goals_against_avg": 1.05,
+    "btts_rate": 0.4,
+    "over25_rate": 0.5
+  },
+  "Rennes": {
+    "matches_used": 20,
+    "goals_for_avg": 1.65,
+    "goals_against_avg": 1.7,
+    "btts_rate": 0.65,
+    "over25_rate": 0.7
+  },
+  "Monaco": {
+    "matches_used": 20,
+    "goals_for_avg": 1.6,
+    "goals_against_avg": 1.65,
+    "btts_rate": 0.6,
+    "over25_rate": 0.55
+  },
+  "Lorient": {
+    "matches_used": 20,
+    "goals_for_avg": 1.3,
+    "goals_against_avg": 1.75,
+    "btts_rate": 0.5,
+    "over25_rate": 0.5
+  },
+  "Angers": {
+    "matches_used": 20,
+    "goals_for_avg": 1,
+    "goals_against_avg": 1.15,
+    "btts_rate": 0.35,
+    "over25_rate": 0.25
+  },
+  "Troyes": {
+    "matches_used": 20,
+    "goals_for_avg": 0.8,
+    "goals_against_avg": 2.3,
+    "btts_rate": 0.65,
+    "over25_rate": 0.6
+  },
+  "Ajaccio GFCO": {
+    "matches_used": 20,
+    "goals_for_avg": 0.95,
+    "goals_against_avg": 1.85,
+    "btts_rate": 0.55,
+    "over25_rate": 0.55
+  },
+  "Dijon": {
+    "matches_used": 20,
+    "goals_for_avg": 0.65,
+    "goals_against_avg": 2.35,
+    "btts_rate": 0.4,
+    "over25_rate": 0.55
+  },
+  "Nancy": {
+    "matches_used": 20,
+    "goals_for_avg": 0.7,
+    "goals_against_avg": 1.45,
+    "btts_rate": 0.25,
+    "over25_rate": 0.45
+  },
+  "Strasbourg": {
+    "matches_used": 20,
+    "goals_for_avg": 1.65,
+    "goals_against_avg": 1.35,
+    "btts_rate": 0.55,
+    "over25_rate": 0.65
+  },
+  "Amiens": {
+    "matches_used": 20,
+    "goals_for_avg": 1.1,
+    "goals_against_avg": 1.85,
+    "btts_rate": 0.65,
+    "over25_rate": 0.6
+  },
+  "Nimes": {
+    "matches_used": 20,
+    "goals_for_avg": 1.3,
+    "goals_against_avg": 1.6,
+    "btts_rate": 0.6,
+    "over25_rate": 0.5
+  },
+  "Brest": {
+    "matches_used": 20,
+    "goals_for_avg": 1.25,
+    "goals_against_avg": 1.85,
+    "btts_rate": 0.45,
+    "over25_rate": 0.6
+  },
+  "Clermont": {
+    "matches_used": 20,
+    "goals_for_avg": 0.85,
+    "goals_against_avg": 1.95,
+    "btts_rate": 0.6,
+    "over25_rate": 0.55
+  },
+  "Ajaccio": {
+    "matches_used": 20,
+    "goals_for_avg": 0.4,
+    "goals_against_avg": 2.35,
+    "btts_rate": 0.25,
+    "over25_rate": 0.6
+  },
+  "Auxerre": {
+    "matches_used": 20,
+    "goals_for_avg": 1.05,
+    "goals_against_avg": 1.55,
+    "btts_rate": 0.5,
+    "over25_rate": 0.5
+  },
+  "Le Havre": {
+    "matches_used": 20,
+    "goals_for_avg": 1,
+    "goals_against_avg": 1.45,
+    "btts_rate": 0.55,
+    "over25_rate": 0.45
+  },
+  "Paris FC": {
+    "matches_used": 16,
+    "goals_for_avg": 1.312,
+    "goals_against_avg": 1.812,
+    "btts_rate": 0.625,
+    "over25_rate": 0.562
+  },
+  "Bayern Munich": {
+    "matches_used": 20,
+    "goals_for_avg": 3.55,
+    "goals_against_avg": 0.7,
+    "btts_rate": 0.4,
+    "over25_rate": 0.95
+  },
+  "Wolfsburg": {
+    "matches_used": 20,
+    "goals_for_avg": 1.4,
+    "goals_against_avg": 1.85,
+    "btts_rate": 0.65,
+    "over25_rate": 0.65
+  },
+  "Dortmund": {
+    "matches_used": 20,
+    "goals_for_avg": 2.15,
+    "goals_against_avg": 0.9,
+    "btts_rate": 0.5,
+    "over25_rate": 0.5
+  },
+  "Leverkusen": {
+    "matches_used": 20,
+    "goals_for_avg": 2.1,
+    "goals_against_avg": 1.45,
+    "btts_rate": 0.65,
+    "over25_rate": 0.65
+  },
+  "Ein Frankfurt": {
+    "matches_used": 20,
+    "goals_for_avg": 2,
+    "goals_against_avg": 1.7,
+    "btts_rate": 0.65,
+    "over25_rate": 0.6
+  },
+  "Freiburg": {
+    "matches_used": 20,
+    "goals_for_avg": 1.7,
+    "goals_against_avg": 1.7,
+    "btts_rate": 0.7,
+    "over25_rate": 0.7
+  },
+  "FC Koln": {
+    "matches_used": 20,
+    "goals_for_avg": 1.35,
+    "goals_against_avg": 1.65,
+    "btts_rate": 0.65,
+    "over25_rate": 0.45
+  },
+  "Hamburg": {
+    "matches_used": 20,
+    "goals_for_avg": 1.1,
+    "goals_against_avg": 1.6,
+    "btts_rate": 0.5,
+    "over25_rate": 0.55
+  },
+  "Hannover": {
+    "matches_used": 20,
+    "goals_for_avg": 0.75,
+    "goals_against_avg": 2.1,
+    "btts_rate": 0.4,
+    "over25_rate": 0.6
+  },
+  "Schalke 04": {
+    "matches_used": 20,
+    "goals_for_avg": 1.1,
+    "goals_against_avg": 2.05,
+    "btts_rate": 0.45,
+    "over25_rate": 0.6
+  },
+  "Hertha": {
+    "matches_used": 20,
+    "goals_for_avg": 1.25,
+    "goals_against_avg": 2.35,
+    "btts_rate": 0.65,
+    "over25_rate": 0.6
+  },
+  "Werder Bremen": {
+    "matches_used": 20,
+    "goals_for_avg": 1.25,
+    "goals_against_avg": 1.55,
+    "btts_rate": 0.45,
+    "over25_rate": 0.55
+  },
+  "Hoffenheim": {
+    "matches_used": 20,
+    "goals_for_avg": 1.95,
+    "goals_against_avg": 1.8,
+    "btts_rate": 0.7,
+    "over25_rate": 0.75
+  },
+  "Augsburg": {
+    "matches_used": 20,
+    "goals_for_avg": 0.95,
+    "goals_against_avg": 1.95,
+    "btts_rate": 0.5,
+    "over25_rate": 0.6
+  },
+  "M'gladbach": {
+    "matches_used": 20,
+    "goals_for_avg": 1.35,
+    "goals_against_avg": 1.9,
+    "btts_rate": 0.4,
+    "over25_rate": 0.55
+  },
+  "Stuttgart": {
+    "matches_used": 20,
+    "goals_for_avg": 1.85,
+    "goals_against_avg": 1.45,
+    "btts_rate": 0.5,
+    "over25_rate": 0.7
+  },
+  "Paderborn": {
+    "matches_used": 20,
+    "goals_for_avg": 1,
+    "goals_against_avg": 2.1,
+    "btts_rate": 0.7,
+    "over25_rate": 0.5
+  },
+  "Mainz": {
+    "matches_used": 20,
+    "goals_for_avg": 1.1,
+    "goals_against_avg": 1.75,
+    "btts_rate": 0.55,
+    "over25_rate": 0.5
+  },
+  "Darmstadt": {
+    "matches_used": 20,
+    "goals_for_avg": 0.65,
+    "goals_against_avg": 2.45,
+    "btts_rate": 0.3,
+    "over25_rate": 0.55
+  },
+  "Ingolstadt": {
+    "matches_used": 20,
+    "goals_for_avg": 1.25,
+    "goals_against_avg": 1.65,
+    "btts_rate": 0.6,
+    "over25_rate": 0.5
+  },
+  "RB Leipzig": {
+    "matches_used": 20,
+    "goals_for_avg": 1.8,
+    "goals_against_avg": 1.5,
+    "btts_rate": 0.5,
+    "over25_rate": 0.6
+  },
+  "Fortuna Dusseldorf": {
+    "matches_used": 20,
+    "goals_for_avg": 1,
+    "goals_against_avg": 1.9,
+    "btts_rate": 0.55,
+    "over25_rate": 0.6
+  },
+  "Nurnberg": {
+    "matches_used": 20,
+    "goals_for_avg": 0.6,
+    "goals_against_avg": 1.75,
+    "btts_rate": 0.45,
+    "over25_rate": 0.35
+  },
+  "Union Berlin": {
+    "matches_used": 20,
+    "goals_for_avg": 1.45,
+    "goals_against_avg": 1.7,
+    "btts_rate": 0.6,
+    "over25_rate": 0.65
+  },
+  "Bielefeld": {
+    "matches_used": 20,
+    "goals_for_avg": 0.85,
+    "goals_against_avg": 1.65,
+    "btts_rate": 0.4,
+    "over25_rate": 0.4
+  },
+  "Greuther Furth": {
+    "matches_used": 20,
+    "goals_for_avg": 0.8,
+    "goals_against_avg": 1.8,
+    "btts_rate": 0.6,
+    "over25_rate": 0.55
+  },
+  "Bochum": {
+    "matches_used": 20,
+    "goals_for_avg": 1.05,
+    "goals_against_avg": 1.65,
+    "btts_rate": 0.45,
+    "over25_rate": 0.45
+  },
+  "Heidenheim": {
+    "matches_used": 20,
+    "goals_for_avg": 0.9,
+    "goals_against_avg": 2.1,
+    "btts_rate": 0.5,
+    "over25_rate": 0.7
+  },
+  "Holstein Kiel": {
+    "matches_used": 20,
+    "goals_for_avg": 1.75,
+    "goals_against_avg": 2.15,
+    "btts_rate": 0.8,
+    "over25_rate": 0.8
+  },
+  "St Pauli": {
+    "matches_used": 20,
+    "goals_for_avg": 0.8,
+    "goals_against_avg": 1.6,
+    "btts_rate": 0.45,
+    "over25_rate": 0.45
+  },
+  "Kerkyra": {
+    "matches_used": 20,
+    "goals_for_avg": 0.65,
+    "goals_against_avg": 2.05,
+    "btts_rate": 0.45,
+    "over25_rate": 0.5
+  },
+  "Panthrakikos": {
+    "matches_used": 20,
+    "goals_for_avg": 0.65,
+    "goals_against_avg": 2,
+    "btts_rate": 0.35,
+    "over25_rate": 0.5
+  },
+  "OFI": {
+    "matches_used": 20,
+    "goals_for_avg": 0.9,
+    "goals_against_avg": 2.55,
+    "btts_rate": 0.45,
+    "over25_rate": 0.8
+  },
+  "Panetolikos": {
+    "matches_used": 20,
+    "goals_for_avg": 0.95,
+    "goals_against_avg": 1.5,
+    "btts_rate": 0.35,
+    "over25_rate": 0.45
+  },
+  "Olympiakos": {
+    "matches_used": 20,
+    "goals_for_avg": 2,
+    "goals_against_avg": 0.6,
+    "btts_rate": 0.4,
+    "over25_rate": 0.45
+  },
+  "Niki Volos": {
+    "matches_used": 20,
+    "goals_for_avg": 0,
+    "goals_against_avg": 2.95,
+    "btts_rate": 0,
+    "over25_rate": 0.95
+  },
+  "Atromitos": {
+    "matches_used": 20,
+    "goals_for_avg": 0.95,
+    "goals_against_avg": 1.2,
+    "btts_rate": 0.45,
+    "over25_rate": 0.35
+  },
+  "Platanias": {
+    "matches_used": 20,
+    "goals_for_avg": 0.45,
+    "goals_against_avg": 2.35,
+    "btts_rate": 0.35,
+    "over25_rate": 0.65
+  },
+  "Giannina": {
+    "matches_used": 20,
+    "goals_for_avg": 1.05,
+    "goals_against_avg": 2.1,
+    "btts_rate": 0.65,
+    "over25_rate": 0.6
+  },
+  "Asteras Tripolis": {
+    "matches_used": 20,
+    "goals_for_avg": 1.15,
+    "goals_against_avg": 1.4,
+    "btts_rate": 0.5,
+    "over25_rate": 0.45
+  },
+  "Levadeiakos": {
+    "matches_used": 20,
+    "goals_for_avg": 2.25,
+    "goals_against_avg": 1.1,
+    "btts_rate": 0.6,
+    "over25_rate": 0.6
+  },
+  "Panathinaikos": {
+    "matches_used": 20,
+    "goals_for_avg": 1.6,
+    "goals_against_avg": 1.35,
+    "btts_rate": 0.7,
+    "over25_rate": 0.6
+  },
+  "PAOK": {
+    "matches_used": 20,
+    "goals_for_avg": 1.95,
+    "goals_against_avg": 1.05,
+    "btts_rate": 0.5,
+    "over25_rate": 0.65
+  },
+  "Kallonis": {
+    "matches_used": 20,
+    "goals_for_avg": 0.5,
+    "goals_against_avg": 1.95,
+    "btts_rate": 0.3,
+    "over25_rate": 0.45
+  },
+  "Veria": {
+    "matches_used": 20,
+    "goals_for_avg": 0.9,
+    "goals_against_avg": 2,
+    "btts_rate": 0.3,
+    "over25_rate": 0.55
+  },
+  "Xanthi": {
+    "matches_used": 20,
+    "goals_for_avg": 0.65,
+    "goals_against_avg": 1.15,
+    "btts_rate": 0.4,
+    "over25_rate": 0.35
+  },
+  "Panionios": {
+    "matches_used": 20,
+    "goals_for_avg": 0.4,
+    "goals_against_avg": 1.25,
+    "btts_rate": 0.2,
+    "over25_rate": 0.25
+  },
+  "Ergotelis": {
+    "matches_used": 20,
+    "goals_for_avg": 1.1,
+    "goals_against_avg": 1.65,
+    "btts_rate": 0.45,
+    "over25_rate": 0.6
+  },
+  "AEK": {
+    "matches_used": 20,
+    "goals_for_avg": 1.4,
+    "goals_against_avg": 1,
+    "btts_rate": 0.35,
+    "over25_rate": 0.35
+  },
+  "Iraklis": {
+    "matches_used": 20,
+    "goals_for_avg": 1,
+    "goals_against_avg": 1.15,
+    "btts_rate": 0.5,
+    "over25_rate": 0.35
+  },
+  "Larisa": {
+    "matches_used": 20,
+    "goals_for_avg": 0.85,
+    "goals_against_avg": 1.55,
+    "btts_rate": 0.45,
+    "over25_rate": 0.4
+  },
+  "Lamia": {
+    "matches_used": 20,
+    "goals_for_avg": 0.6,
+    "goals_against_avg": 2.05,
+    "btts_rate": 0.35,
+    "over25_rate": 0.5
+  },
+  "Apollon": {
+    "matches_used": 20,
+    "goals_for_avg": 0.45,
+    "goals_against_avg": 1.7,
+    "btts_rate": 0.25,
+    "over25_rate": 0.4
+  },
+  "OFI Crete": {
+    "matches_used": 20,
+    "goals_for_avg": 0.9,
+    "goals_against_avg": 1.8,
+    "btts_rate": 0.45,
+    "over25_rate": 0.65
+  },
+  "Aris": {
+    "matches_used": 20,
+    "goals_for_avg": 1.1,
+    "goals_against_avg": 1,
+    "btts_rate": 0.5,
+    "over25_rate": 0.3
+  },
+  "Volos NFC": {
+    "matches_used": 20,
+    "goals_for_avg": 1.35,
+    "goals_against_avg": 1.15,
+    "btts_rate": 0.35,
+    "over25_rate": 0.55
+  },
+  "Ionikos": {
+    "matches_used": 20,
+    "goals_for_avg": 0.7,
+    "goals_against_avg": 1.35,
+    "btts_rate": 0.25,
+    "over25_rate": 0.25
+  },
+  "Kifisia": {
+    "matches_used": 20,
+    "goals_for_avg": 1.4,
+    "goals_against_avg": 1.55,
+    "btts_rate": 0.7,
+    "over25_rate": 0.6
+  },
+  "Panserraikos": {
+    "matches_used": 20,
+    "goals_for_avg": 0.6,
+    "goals_against_avg": 2.2,
+    "btts_rate": 0.35,
+    "over25_rate": 0.55
+  },
+  "Athens Kallithea": {
+    "matches_used": 20,
+    "goals_for_avg": 0.95,
+    "goals_against_avg": 1.35,
+    "btts_rate": 0.45,
+    "over25_rate": 0.4
+  },
+  "Chievo": {
+    "matches_used": 20,
+    "goals_for_avg": 0.6,
+    "goals_against_avg": 2,
+    "btts_rate": 0.35,
+    "over25_rate": 0.6
+  },
+  "Juventus": {
+    "matches_used": 20,
+    "goals_for_avg": 1.45,
+    "goals_against_avg": 0.9,
+    "btts_rate": 0.55,
+    "over25_rate": 0.35
+  },
+  "Roma": {
+    "matches_used": 20,
+    "goals_for_avg": 1.3,
+    "goals_against_avg": 0.7,
+    "btts_rate": 0.35,
+    "over25_rate": 0.35
+  },
+  "Fiorentina": {
+    "matches_used": 20,
+    "goals_for_avg": 1.2,
+    "goals_against_avg": 1.7,
+    "btts_rate": 0.7,
+    "over25_rate": 0.65
+  },
+  "Atalanta": {
+    "matches_used": 20,
+    "goals_for_avg": 1.35,
+    "goals_against_avg": 1.25,
+    "btts_rate": 0.65,
+    "over25_rate": 0.45
+  },
+  "Verona": {
+    "matches_used": 20,
+    "goals_for_avg": 0.85,
+    "goals_against_avg": 1.45,
+    "btts_rate": 0.6,
+    "over25_rate": 0.5
+  },
+  "Cesena": {
+    "matches_used": 20,
+    "goals_for_avg": 1.05,
+    "goals_against_avg": 1.85,
+    "btts_rate": 0.55,
+    "over25_rate": 0.55
+  },
+  "Parma": {
+    "matches_used": 20,
+    "goals_for_avg": 0.75,
+    "goals_against_avg": 1.15,
+    "btts_rate": 0.4,
+    "over25_rate": 0.35
+  },
+  "Genoa": {
+    "matches_used": 20,
+    "goals_for_avg": 1.2,
+    "goals_against_avg": 1.65,
+    "btts_rate": 0.7,
+    "over25_rate": 0.7
+  },
+  "Napoli": {
+    "matches_used": 20,
+    "goals_for_avg": 1.45,
+    "goals_against_avg": 0.75,
+    "btts_rate": 0.4,
+    "over25_rate": 0.4
+  },
+  "Milan": {
+    "matches_used": 20,
+    "goals_for_avg": 1.75,
+    "goals_against_avg": 0.9,
+    "btts_rate": 0.55,
+    "over25_rate": 0.6
+  },
+  "Lazio": {
+    "matches_used": 20,
+    "goals_for_avg": 1.05,
+    "goals_against_avg": 0.8,
+    "btts_rate": 0.25,
+    "over25_rate": 0.2
+  },
+  "Palermo": {
+    "matches_used": 20,
+    "goals_for_avg": 0.85,
+    "goals_against_avg": 2.1,
+    "btts_rate": 0.55,
+    "over25_rate": 0.5
+  },
+  "Sampdoria": {
+    "matches_used": 20,
+    "goals_for_avg": 0.8,
+    "goals_against_avg": 2,
+    "btts_rate": 0.5,
+    "over25_rate": 0.45
+  },
+  "Sassuolo": {
+    "matches_used": 20,
+    "goals_for_avg": 1.2,
+    "goals_against_avg": 1.3,
+    "btts_rate": 0.55,
+    "over25_rate": 0.5
+  },
+  "Cagliari": {
+    "matches_used": 20,
+    "goals_for_avg": 1.15,
+    "goals_against_avg": 1.45,
+    "btts_rate": 0.55,
+    "over25_rate": 0.5
+  },
+  "Torino": {
+    "matches_used": 20,
+    "goals_for_avg": 0.85,
+    "goals_against_avg": 1.65,
+    "btts_rate": 0.4,
+    "over25_rate": 0.5
+  },
+  "Inter": {
+    "matches_used": 20,
+    "goals_for_avg": 2.1,
+    "goals_against_avg": 0.8,
+    "btts_rate": 0.4,
+    "over25_rate": 0.55
+  },
+  "Udinese": {
+    "matches_used": 20,
+    "goals_for_avg": 1.05,
+    "goals_against_avg": 1.75,
+    "btts_rate": 0.6,
+    "over25_rate": 0.5
+  },
+  "Empoli": {
+    "matches_used": 20,
+    "goals_for_avg": 0.8,
+    "goals_against_avg": 1.9,
+    "btts_rate": 0.6,
+    "over25_rate": 0.55
+  },
+  "Bologna": {
+    "matches_used": 20,
+    "goals_for_avg": 1.45,
+    "goals_against_avg": 1.2,
+    "btts_rate": 0.55,
+    "over25_rate": 0.5
+  },
+  "Frosinone": {
+    "matches_used": 20,
+    "goals_for_avg": 1.05,
+    "goals_against_avg": 1.9,
+    "btts_rate": 0.5,
+    "over25_rate": 0.55
+  },
+  "Carpi": {
+    "matches_used": 20,
+    "goals_for_avg": 1.1,
+    "goals_against_avg": 1.2,
+    "btts_rate": 0.65,
+    "over25_rate": 0.5
+  },
+  "Crotone": {
+    "matches_used": 20,
+    "goals_for_avg": 1.2,
+    "goals_against_avg": 2.55,
+    "btts_rate": 0.6,
+    "over25_rate": 0.75
+  },
+  "Pescara": {
+    "matches_used": 20,
+    "goals_for_avg": 1.15,
+    "goals_against_avg": 2.4,
+    "btts_rate": 0.6,
+    "over25_rate": 0.65
+  },
+  "Spal": {
+    "matches_used": 20,
+    "goals_for_avg": 0.75,
+    "goals_against_avg": 2.45,
+    "btts_rate": 0.6,
+    "over25_rate": 0.75
+  },
+  "Benevento": {
+    "matches_used": 20,
+    "goals_for_avg": 0.95,
+    "goals_against_avg": 2.05,
+    "btts_rate": 0.6,
+    "over25_rate": 0.45
+  },
+  "Brescia": {
+    "matches_used": 20,
+    "goals_for_avg": 0.95,
+    "goals_against_avg": 2.4,
+    "btts_rate": 0.65,
+    "over25_rate": 0.65
+  },
+  "Lecce": {
+    "matches_used": 20,
+    "goals_for_avg": 0.7,
+    "goals_against_avg": 1.2,
+    "btts_rate": 0.3,
+    "over25_rate": 0.3
+  },
+  "Spezia": {
+    "matches_used": 20,
+    "goals_for_avg": 0.7,
+    "goals_against_avg": 1.7,
+    "btts_rate": 0.4,
+    "over25_rate": 0.4
+  },
+  "Salernitana": {
+    "matches_used": 20,
+    "goals_for_avg": 0.85,
+    "goals_against_avg": 2.25,
+    "btts_rate": 0.65,
+    "over25_rate": 0.7
+  },
+  "Venezia": {
+    "matches_used": 20,
+    "goals_for_avg": 0.75,
+    "goals_against_avg": 1.25,
+    "btts_rate": 0.5,
+    "over25_rate": 0.25
+  },
+  "Monza": {
+    "matches_used": 20,
+    "goals_for_avg": 0.6,
+    "goals_against_avg": 2.2,
+    "btts_rate": 0.45,
+    "over25_rate": 0.55
+  },
+  "Cremonese": {
+    "matches_used": 20,
+    "goals_for_avg": 1.15,
+    "goals_against_avg": 1.4,
+    "btts_rate": 0.55,
+    "over25_rate": 0.4
+  },
+  "Como": {
+    "matches_used": 20,
+    "goals_for_avg": 1.35,
+    "goals_against_avg": 0.8,
+    "btts_rate": 0.4,
+    "over25_rate": 0.3
+  },
+  "Pisa": {
+    "matches_used": 17,
+    "goals_for_avg": 0.706,
+    "goals_against_avg": 1.412,
+    "btts_rate": 0.353,
+    "over25_rate": 0.353
+  },
+  "Zwolle": {
+    "matches_used": 20,
+    "goals_for_avg": 1.3,
+    "goals_against_avg": 2,
+    "btts_rate": 0.6,
+    "over25_rate": 0.6
+  },
+  "Utrecht": {
+    "matches_used": 20,
+    "goals_for_avg": 1.45,
+    "goals_against_avg": 1.3,
+    "btts_rate": 0.65,
+    "over25_rate": 0.5
+  },
+  "Cambuur": {
+    "matches_used": 20,
+    "goals_for_avg": 0.85,
+    "goals_against_avg": 2.35,
+    "btts_rate": 0.4,
+    "over25_rate": 0.75
+  },
+  "Twente": {
+    "matches_used": 20,
+    "goals_for_avg": 1.5,
+    "goals_against_avg": 1.3,
+    "btts_rate": 0.6,
+    "over25_rate": 0.4
+  },
+  "Heerenveen": {
+    "matches_used": 20,
+    "goals_for_avg": 1.6,
+    "goals_against_avg": 1.5,
+    "btts_rate": 0.65,
+    "over25_rate": 0.65
+  },
+  "Dordrecht": {
+    "matches_used": 20,
+    "goals_for_avg": 0.75,
+    "goals_against_avg": 1.95,
+    "btts_rate": 0.5,
+    "over25_rate": 0.6
+  },
+  "Heracles": {
+    "matches_used": 20,
+    "goals_for_avg": 1.5,
+    "goals_against_avg": 2.55,
+    "btts_rate": 0.65,
+    "over25_rate": 0.85
+  },
+  "AZ Alkmaar": {
+    "matches_used": 20,
+    "goals_for_avg": 2.05,
+    "goals_against_avg": 1.55,
+    "btts_rate": 0.7,
+    "over25_rate": 0.75
+  },
+  "NAC Breda": {
+    "matches_used": 20,
+    "goals_for_avg": 0.85,
+    "goals_against_avg": 1.55,
+    "btts_rate": 0.5,
+    "over25_rate": 0.5
+  },
+  "Excelsior": {
+    "matches_used": 20,
+    "goals_for_avg": 1.1,
+    "goals_against_avg": 1.8,
+    "btts_rate": 0.5,
+    "over25_rate": 0.7
+  },
+  "Ajax": {
+    "matches_used": 20,
+    "goals_for_avg": 1.8,
+    "goals_against_avg": 1.35,
+    "btts_rate": 0.65,
+    "over25_rate": 0.6
+  },
+  "Vitesse": {
+    "matches_used": 20,
+    "goals_for_avg": 1,
+    "goals_against_avg": 2.1,
+    "btts_rate": 0.55,
+    "over25_rate": 0.6
+  },
+  "Den Haag": {
+    "matches_used": 20,
+    "goals_for_avg": 0.8,
+    "goals_against_avg": 2.05,
+    "btts_rate": 0.5,
+    "over25_rate": 0.6
+  },
+  "Feyenoord": {
+    "matches_used": 20,
+    "goals_for_avg": 2.3,
+    "goals_against_avg": 1.3,
+    "btts_rate": 0.55,
+    "over25_rate": 0.6
+  },
+  "Go Ahead Eagles": {
+    "matches_used": 20,
+    "goals_for_avg": 1.55,
+    "goals_against_avg": 1.75,
+    "btts_rate": 0.65,
+    "over25_rate": 0.6
+  },
+  "Groningen": {
+    "matches_used": 20,
+    "goals_for_avg": 1.35,
+    "goals_against_avg": 1.45,
+    "btts_rate": 0.45,
+    "over25_rate": 0.5
+  },
+  "Willem II": {
+    "matches_used": 20,
+    "goals_for_avg": 0.95,
+    "goals_against_avg": 2,
+    "btts_rate": 0.65,
+    "over25_rate": 0.5
+  },
+  "PSV Eindhoven": {
+    "matches_used": 20,
+    "goals_for_avg": 3.1,
+    "goals_against_avg": 1.25,
+    "btts_rate": 0.7,
+    "over25_rate": 0.8
+  },
+  "Roda": {
+    "matches_used": 20,
+    "goals_for_avg": 1.5,
+    "goals_against_avg": 2,
+    "btts_rate": 0.7,
+    "over25_rate": 0.7
+  },
+  "Graafschap": {
+    "matches_used": 20,
+    "goals_for_avg": 1.3,
+    "goals_against_avg": 2.1,
+    "btts_rate": 0.5,
+    "over25_rate": 0.65
+  },
+  "Nijmegen": {
+    "matches_used": 20,
+    "goals_for_avg": 2.55,
+    "goals_against_avg": 1.5,
+    "btts_rate": 0.7,
+    "over25_rate": 0.85
+  },
+  "Sparta Rotterdam": {
+    "matches_used": 20,
+    "goals_for_avg": 1.15,
+    "goals_against_avg": 1.75,
+    "btts_rate": 0.4,
+    "over25_rate": 0.55
+  },
+  "VVV Venlo": {
+    "matches_used": 20,
+    "goals_for_avg": 1.15,
+    "goals_against_avg": 2.45,
+    "btts_rate": 0.6,
+    "over25_rate": 0.7
+  },
+  "For Sittard": {
+    "matches_used": 20,
+    "goals_for_avg": 1.35,
+    "goals_against_avg": 1.5,
+    "btts_rate": 0.6,
+    "over25_rate": 0.45
+  },
+  "FC Emmen": {
+    "matches_used": 20,
+    "goals_for_avg": 1,
+    "goals_against_avg": 1.9,
+    "btts_rate": 0.55,
+    "over25_rate": 0.55
+  },
+  "Waalwijk": {
+    "matches_used": 20,
+    "goals_for_avg": 1.55,
+    "goals_against_avg": 2,
+    "btts_rate": 0.6,
+    "over25_rate": 0.65
+  },
+  "Volendam": {
+    "matches_used": 20,
+    "goals_for_avg": 1.15,
+    "goals_against_avg": 2.2,
+    "btts_rate": 0.7,
+    "over25_rate": 0.75
+  },
+  "Almere City": {
+    "matches_used": 20,
+    "goals_for_avg": 0.85,
+    "goals_against_avg": 1.65,
+    "btts_rate": 0.45,
+    "over25_rate": 0.5
+  },
+  "Telstar": {
+    "matches_used": 17,
+    "goals_for_avg": 1.176,
+    "goals_against_avg": 1.588,
+    "btts_rate": 0.588,
+    "over25_rate": 0.471
+  },
+  "Porto": {
+    "matches_used": 20,
+    "goals_for_avg": 2.15,
+    "goals_against_avg": 0.4,
+    "btts_rate": 0.3,
+    "over25_rate": 0.6
+  },
+  "Maritimo": {
+    "matches_used": 20,
+    "goals_for_avg": 1.15,
+    "goals_against_avg": 1.75,
+    "btts_rate": 0.55,
+    "over25_rate": 0.65
+  },
+  "Academica": {
+    "matches_used": 20,
+    "goals_for_avg": 1.05,
+    "goals_against_avg": 1.7,
+    "btts_rate": 0.6,
+    "over25_rate": 0.6
+  },
+  "Sp Lisbon": {
+    "matches_used": 20,
+    "goals_for_avg": 2.8,
+    "goals_against_avg": 0.5,
+    "btts_rate": 0.45,
+    "over25_rate": 0.65
+  },
+  "Gil Vicente": {
+    "matches_used": 20,
+    "goals_for_avg": 1.25,
+    "goals_against_avg": 0.75,
+    "btts_rate": 0.4,
+    "over25_rate": 0.25
+  },
+  "Guimaraes": {
+    "matches_used": 20,
+    "goals_for_avg": 1.1,
+    "goals_against_avg": 1.3,
+    "btts_rate": 0.35,
+    "over25_rate": 0.45
+  },
+  "Benfica": {
+    "matches_used": 20,
+    "goals_for_avg": 2.15,
+    "goals_against_avg": 0.65,
+    "btts_rate": 0.55,
+    "over25_rate": 0.6
+  },
+  "Pacos Ferreira": {
+    "matches_used": 20,
+    "goals_for_avg": 0.95,
+    "goals_against_avg": 1.65,
+    "btts_rate": 0.55,
+    "over25_rate": 0.55
+  },
+  "Nacional": {
+    "matches_used": 20,
+    "goals_for_avg": 1.1,
+    "goals_against_avg": 1.65,
+    "btts_rate": 0.6,
+    "over25_rate": 0.5
+  },
+  "Moreirense": {
+    "matches_used": 20,
+    "goals_for_avg": 1.45,
+    "goals_against_avg": 1.65,
+    "btts_rate": 0.6,
+    "over25_rate": 0.7
+  },
+  "Penafiel": {
+    "matches_used": 20,
+    "goals_for_avg": 0.9,
+    "goals_against_avg": 2.1,
+    "btts_rate": 0.5,
+    "over25_rate": 0.6
+  },
+  "Belenenses": {
+    "matches_used": 20,
+    "goals_for_avg": 0.8,
+    "goals_against_avg": 1.55,
+    "btts_rate": 0.45,
+    "over25_rate": 0.35
+  },
+  "Rio Ave": {
+    "matches_used": 20,
+    "goals_for_avg": 1.25,
+    "goals_against_avg": 1.75,
+    "btts_rate": 0.6,
+    "over25_rate": 0.6
+  },
+  "Setubal": {
+    "matches_used": 20,
+    "goals_for_avg": 0.95,
+    "goals_against_avg": 1.65,
+    "btts_rate": 0.55,
+    "over25_rate": 0.55
+  },
+  "Sp Braga": {
+    "matches_used": 20,
+    "goals_for_avg": 1.6,
+    "goals_against_avg": 1,
+    "btts_rate": 0.6,
+    "over25_rate": 0.55
+  },
+  "Boavista": {
+    "matches_used": 20,
+    "goals_for_avg": 0.7,
+    "goals_against_avg": 2,
+    "btts_rate": 0.4,
+    "over25_rate": 0.6
+  },
+  "Arouca": {
+    "matches_used": 20,
+    "goals_for_avg": 1.1,
+    "goals_against_avg": 2.15,
+    "btts_rate": 0.5,
+    "over25_rate": 0.55
+  },
+  "Estoril": {
+    "matches_used": 20,
+    "goals_for_avg": 1.85,
+    "goals_against_avg": 1.55,
+    "btts_rate": 0.6,
+    "over25_rate": 0.65
+  },
+  "Tondela": {
+    "matches_used": 20,
+    "goals_for_avg": 0.65,
+    "goals_against_avg": 1.8,
+    "btts_rate": 0.4,
+    "over25_rate": 0.55
+  },
+  "Uniao Madeira": {
+    "matches_used": 20,
+    "goals_for_avg": 0.95,
+    "goals_against_avg": 1.6,
+    "btts_rate": 0.4,
+    "over25_rate": 0.45
+  },
+  "Feirense": {
+    "matches_used": 20,
+    "goals_for_avg": 0.95,
+    "goals_against_avg": 2.15,
+    "btts_rate": 0.55,
+    "over25_rate": 0.55
+  },
+  "Chaves": {
+    "matches_used": 20,
+    "goals_for_avg": 0.75,
+    "goals_against_avg": 1.7,
+    "btts_rate": 0.5,
+    "over25_rate": 0.5
+  },
+  "Aves": {
+    "matches_used": 20,
+    "goals_for_avg": 0.45,
+    "goals_against_avg": 1.9,
+    "btts_rate": 0.2,
+    "over25_rate": 0.45
+  },
+  "Portimonense": {
+    "matches_used": 20,
+    "goals_for_avg": 1.15,
+    "goals_against_avg": 2,
+    "btts_rate": 0.5,
+    "over25_rate": 0.65
+  },
+  "Santa Clara": {
+    "matches_used": 20,
+    "goals_for_avg": 0.95,
+    "goals_against_avg": 0.95,
+    "btts_rate": 0.5,
+    "over25_rate": 0.35
+  },
+  "Famalicao": {
+    "matches_used": 20,
+    "goals_for_avg": 1.25,
+    "goals_against_avg": 0.95,
+    "btts_rate": 0.5,
+    "over25_rate": 0.45
+  },
+  "Farense": {
+    "matches_used": 20,
+    "goals_for_avg": 0.9,
+    "goals_against_avg": 1.3,
+    "btts_rate": 0.5,
+    "over25_rate": 0.5
+  },
+  "Vizela": {
+    "matches_used": 20,
+    "goals_for_avg": 1.1,
+    "goals_against_avg": 2.2,
+    "btts_rate": 0.55,
+    "over25_rate": 0.6
+  },
+  "Casa Pia": {
+    "matches_used": 20,
+    "goals_for_avg": 1,
+    "goals_against_avg": 1.75,
+    "btts_rate": 0.5,
+    "over25_rate": 0.5
+  },
+  "Estrela": {
+    "matches_used": 20,
+    "goals_for_avg": 1.1,
+    "goals_against_avg": 1.55,
+    "btts_rate": 0.4,
+    "over25_rate": 0.45
+  },
+  "AVS": {
+    "matches_used": 20,
+    "goals_for_avg": 0.65,
+    "goals_against_avg": 2.6,
+    "btts_rate": 0.45,
+    "over25_rate": 0.7
+  },
+  "Alverca": {
+    "matches_used": 16,
+    "goals_for_avg": 1,
+    "goals_against_avg": 1.688,
+    "btts_rate": 0.438,
+    "over25_rate": 0.562
+  },
+  "Almeria": {
+    "matches_used": 20,
+    "goals_for_avg": 1.2,
+    "goals_against_avg": 1.65,
+    "btts_rate": 0.55,
+    "over25_rate": 0.6
+  },
+  "Espanol": {
+    "matches_used": 20,
+    "goals_for_avg": 1.2,
+    "goals_against_avg": 1.05,
+    "btts_rate": 0.4,
+    "over25_rate": 0.4
+  },
+  "Granada": {
+    "matches_used": 20,
+    "goals_for_avg": 0.9,
+    "goals_against_avg": 1.95,
+    "btts_rate": 0.4,
+    "over25_rate": 0.45
+  },
+  "La Coruna": {
+    "matches_used": 20,
+    "goals_for_avg": 0.9,
+    "goals_against_avg": 2.05,
+    "btts_rate": 0.55,
+    "over25_rate": 0.5
+  },
+  "Malaga": {
+    "matches_used": 20,
+    "goals_for_avg": 0.55,
+    "goals_against_avg": 1.45,
+    "btts_rate": 0.35,
+    "over25_rate": 0.35
+  },
+  "Ath Bilbao": {
+    "matches_used": 20,
+    "goals_for_avg": 0.85,
+    "goals_against_avg": 1.35,
+    "btts_rate": 0.3,
+    "over25_rate": 0.4
+  },
+  "Sevilla": {
+    "matches_used": 20,
+    "goals_for_avg": 1.35,
+    "goals_against_avg": 1.6,
+    "btts_rate": 0.55,
+    "over25_rate": 0.6
+  },
+  "Valencia": {
+    "matches_used": 20,
+    "goals_for_avg": 0.85,
+    "goals_against_avg": 1.45,
+    "btts_rate": 0.5,
+    "over25_rate": 0.35
+  },
+  "Barcelona": {
+    "matches_used": 20,
+    "goals_for_avg": 2.8,
+    "goals_against_avg": 1.15,
+    "btts_rate": 0.65,
+    "over25_rate": 0.85
+  },
+  "Elche": {
+    "matches_used": 20,
+    "goals_for_avg": 1.3,
+    "goals_against_avg": 1.1,
+    "btts_rate": 0.6,
+    "over25_rate": 0.4
+  },
+  "Celta": {
+    "matches_used": 20,
+    "goals_for_avg": 1.2,
+    "goals_against_avg": 1.1,
+    "btts_rate": 0.65,
+    "over25_rate": 0.3
+  },
+  "Getafe": {
+    "matches_used": 20,
+    "goals_for_avg": 0.8,
+    "goals_against_avg": 1.35,
+    "btts_rate": 0.35,
+    "over25_rate": 0.4
+  },
+  "Eibar": {
+    "matches_used": 20,
+    "goals_for_avg": 0.7,
+    "goals_against_avg": 1.7,
+    "btts_rate": 0.5,
+    "over25_rate": 0.35
+  },
+  "Sociedad": {
+    "matches_used": 20,
+    "goals_for_avg": 1.2,
+    "goals_against_avg": 1.5,
+    "btts_rate": 0.7,
+    "over25_rate": 0.5
+  },
+  "Levante": {
+    "matches_used": 20,
+    "goals_for_avg": 1.3,
+    "goals_against_avg": 1.95,
+    "btts_rate": 0.6,
+    "over25_rate": 0.6
+  },
+  "Villarreal": {
+    "matches_used": 20,
+    "goals_for_avg": 2.1,
+    "goals_against_avg": 0.95,
+    "btts_rate": 0.45,
+    "over25_rate": 0.55
+  },
+  "Real Madrid": {
+    "matches_used": 20,
+    "goals_for_avg": 2,
+    "goals_against_avg": 0.8,
+    "btts_rate": 0.45,
+    "over25_rate": 0.55
+  },
+  "Cordoba": {
+    "matches_used": 20,
+    "goals_for_avg": 0.4,
+    "goals_against_avg": 2.05,
+    "btts_rate": 0.4,
+    "over25_rate": 0.45
+  },
+  "Vallecano": {
+    "matches_used": 20,
+    "goals_for_avg": 0.85,
+    "goals_against_avg": 1.15,
+    "btts_rate": 0.35,
+    "over25_rate": 0.35
+  },
+  "Ath Madrid": {
+    "matches_used": 20,
+    "goals_for_avg": 2.05,
+    "goals_against_avg": 0.85,
+    "btts_rate": 0.55,
+    "over25_rate": 0.5
+  },
+  "Las Palmas": {
+    "matches_used": 20,
+    "goals_for_avg": 0.85,
+    "goals_against_avg": 1.7,
+    "btts_rate": 0.6,
+    "over25_rate": 0.45
+  },
+  "Betis": {
+    "matches_used": 20,
+    "goals_for_avg": 1.65,
+    "goals_against_avg": 1.3,
+    "btts_rate": 0.65,
+    "over25_rate": 0.5
+  },
+  "Sp Gijon": {
+    "matches_used": 20,
+    "goals_for_avg": 1.15,
+    "goals_against_avg": 1.75,
+    "btts_rate": 0.65,
+    "over25_rate": 0.5
+  },
+  "Osasuna": {
+    "matches_used": 20,
+    "goals_for_avg": 1.1,
+    "goals_against_avg": 1.05,
+    "btts_rate": 0.35,
+    "over25_rate": 0.3
+  },
+  "Alaves": {
+    "matches_used": 20,
+    "goals_for_avg": 0.85,
+    "goals_against_avg": 1.05,
+    "btts_rate": 0.45,
+    "over25_rate": 0.35
+  },
+  "Leganes": {
+    "matches_used": 20,
+    "goals_for_avg": 1.1,
+    "goals_against_avg": 1.4,
+    "btts_rate": 0.45,
+    "over25_rate": 0.45
+  },
+  "Girona": {
+    "matches_used": 20,
+    "goals_for_avg": 0.9,
+    "goals_against_avg": 2,
+    "btts_rate": 0.55,
+    "over25_rate": 0.6
+  },
+  "Valladolid": {
+    "matches_used": 20,
+    "goals_for_avg": 0.7,
+    "goals_against_avg": 2.65,
+    "btts_rate": 0.55,
+    "over25_rate": 0.7
+  },
+  "Huesca": {
+    "matches_used": 20,
+    "goals_for_avg": 1,
+    "goals_against_avg": 1.25,
+    "btts_rate": 0.4,
+    "over25_rate": 0.35
+  },
+  "Mallorca": {
+    "matches_used": 20,
+    "goals_for_avg": 1.05,
+    "goals_against_avg": 1.4,
+    "btts_rate": 0.65,
+    "over25_rate": 0.55
+  },
+  "Cadiz": {
+    "matches_used": 20,
+    "goals_for_avg": 0.6,
+    "goals_against_avg": 1.55,
+    "btts_rate": 0.3,
+    "over25_rate": 0.25
+  },
+  "Oviedo": {
+    "matches_used": 17,
+    "goals_for_avg": 0.412,
+    "goals_against_avg": 1.529,
+    "btts_rate": 0.176,
+    "over25_rate": 0.294
+  },
+  "Balikesirspor": {
+    "matches_used": 20,
+    "goals_for_avg": 1.65,
+    "goals_against_avg": 1.9,
+    "btts_rate": 0.8,
+    "over25_rate": 0.65
+  },
+  "Akhisar Belediyespor": {
+    "matches_used": 20,
+    "goals_for_avg": 0.9,
+    "goals_against_avg": 1.45,
+    "btts_rate": 0.5,
+    "over25_rate": 0.6
+  },
+  "Rizespor": {
+    "matches_used": 20,
+    "goals_for_avg": 1.65,
+    "goals_against_avg": 1.5,
+    "btts_rate": 0.6,
+    "over25_rate": 0.55
+  },
+  "Genclerbirligi": {
+    "matches_used": 20,
+    "goals_for_avg": 1.4,
+    "goals_against_avg": 1.7,
+    "btts_rate": 0.65,
+    "over25_rate": 0.65
+  },
+  "Bursaspor": {
+    "matches_used": 20,
+    "goals_for_avg": 0.6,
+    "goals_against_avg": 1.15,
+    "btts_rate": 0.35,
+    "over25_rate": 0.2
+  },
+  "Galatasaray": {
+    "matches_used": 20,
+    "goals_for_avg": 2.3,
+    "goals_against_avg": 0.6,
+    "btts_rate": 0.45,
+    "over25_rate": 0.6
+  },
+  "Buyuksehyr": {
+    "matches_used": 20,
+    "goals_for_avg": 1.6,
+    "goals_against_avg": 1.25,
+    "btts_rate": 0.6,
+    "over25_rate": 0.5
+  },
+  "Kasimpasa": {
+    "matches_used": 20,
+    "goals_for_avg": 0.95,
+    "goals_against_avg": 1.55,
+    "btts_rate": 0.6,
+    "over25_rate": 0.5
+  },
+  "Eskisehirspor": {
+    "matches_used": 20,
+    "goals_for_avg": 1.3,
+    "goals_against_avg": 1.6,
+    "btts_rate": 0.7,
+    "over25_rate": 0.65
+  },
+  "Konyaspor": {
+    "matches_used": 20,
+    "goals_for_avg": 1.25,
+    "goals_against_avg": 1.7,
+    "btts_rate": 0.75,
+    "over25_rate": 0.65
+  },
+  "Mersin Idman Yurdu": {
+    "matches_used": 20,
+    "goals_for_avg": 0.7,
+    "goals_against_avg": 2.1,
+    "btts_rate": 0.45,
+    "over25_rate": 0.55
+  },
+  "Besiktas": {
+    "matches_used": 20,
+    "goals_for_avg": 1.8,
+    "goals_against_avg": 1.25,
+    "btts_rate": 0.65,
+    "over25_rate": 0.6
+  },
+  "Erciyesspor": {
+    "matches_used": 20,
+    "goals_for_avg": 1.3,
+    "goals_against_avg": 2.3,
+    "btts_rate": 0.65,
+    "over25_rate": 0.7
+  },
+  "Trabzonspor": {
+    "matches_used": 20,
+    "goals_for_avg": 1.9,
+    "goals_against_avg": 1.15,
+    "btts_rate": 0.6,
+    "over25_rate": 0.45
+  },
+  "Fenerbahce": {
+    "matches_used": 20,
+    "goals_for_avg": 2.25,
+    "goals_against_avg": 1,
+    "btts_rate": 0.65,
+    "over25_rate": 0.65
+  },
+  "Karabukspor": {
+    "matches_used": 20,
+    "goals_for_avg": 0.35,
+    "goals_against_avg": 3.1,
+    "btts_rate": 0.25,
+    "over25_rate": 0.6
+  },
+  "Sivasspor": {
+    "matches_used": 20,
+    "goals_for_avg": 1.2,
+    "goals_against_avg": 1.65,
+    "btts_rate": 0.55,
+    "over25_rate": 0.45
+  },
+  "Gaziantepspor": {
+    "matches_used": 20,
+    "goals_for_avg": 0.8,
+    "goals_against_avg": 2.05,
+    "btts_rate": 0.4,
+    "over25_rate": 0.55
+  },
+  "Antalyaspor": {
+    "matches_used": 20,
+    "goals_for_avg": 0.85,
+    "goals_against_avg": 1.75,
+    "btts_rate": 0.55,
+    "over25_rate": 0.55
+  },
+  "Osmanlispor": {
+    "matches_used": 20,
+    "goals_for_avg": 1.5,
+    "goals_against_avg": 1.65,
+    "btts_rate": 0.55,
+    "over25_rate": 0.6
+  },
+  "Kayserispor": {
+    "matches_used": 20,
+    "goals_for_avg": 0.9,
+    "goals_against_avg": 1.95,
+    "btts_rate": 0.65,
+    "over25_rate": 0.5
+  },
+  "Adanaspor": {
+    "matches_used": 20,
+    "goals_for_avg": 1.1,
+    "goals_against_avg": 2,
+    "btts_rate": 0.65,
+    "over25_rate": 0.55
+  },
+  "Alanyaspor": {
+    "matches_used": 20,
+    "goals_for_avg": 1.05,
+    "goals_against_avg": 0.85,
+    "btts_rate": 0.5,
+    "over25_rate": 0.3
+  },
+  "Goztep": {
+    "matches_used": 20,
+    "goals_for_avg": 1.3,
+    "goals_against_avg": 0.9,
+    "btts_rate": 0.35,
+    "over25_rate": 0.35
+  },
+  "Yeni Malatyaspor": {
+    "matches_used": 20,
+    "goals_for_avg": 0.55,
+    "goals_against_avg": 1.95,
+    "btts_rate": 0.4,
+    "over25_rate": 0.45
+  },
+  "Ankaragucu": {
+    "matches_used": 20,
+    "goals_for_avg": 1.2,
+    "goals_against_avg": 1.45,
+    "btts_rate": 0.7,
+    "over25_rate": 0.5
+  },
+  "Erzurum BB": {
+    "matches_used": 20,
+    "goals_for_avg": 1.25,
+    "goals_against_avg": 1.65,
+    "btts_rate": 0.65,
+    "over25_rate": 0.55
+  },
+  "Denizlispor": {
+    "matches_used": 20,
+    "goals_for_avg": 0.95,
+    "goals_against_avg": 1.95,
+    "btts_rate": 0.55,
+    "over25_rate": 0.4
+  },
+  "Gaziantep": {
+    "matches_used": 20,
+    "goals_for_avg": 1.4,
+    "goals_against_avg": 1.7,
+    "btts_rate": 0.55,
+    "over25_rate": 0.7
+  },
+  "Karagumruk": {
+    "matches_used": 20,
+    "goals_for_avg": 1,
+    "goals_against_avg": 1.95,
+    "btts_rate": 0.5,
+    "over25_rate": 0.5
+  },
+  "Hatayspor": {
+    "matches_used": 20,
+    "goals_for_avg": 1.65,
+    "goals_against_avg": 2.35,
+    "btts_rate": 0.7,
+    "over25_rate": 0.7
+  },
+  "Altay": {
+    "matches_used": 20,
+    "goals_for_avg": 0.8,
+    "goals_against_avg": 1.35,
+    "btts_rate": 0.45,
+    "over25_rate": 0.35
+  },
+  "Ad. Demirspor": {
+    "matches_used": 20,
+    "goals_for_avg": 0.95,
+    "goals_against_avg": 2.8,
+    "btts_rate": 0.55,
+    "over25_rate": 0.7
+  },
+  "Giresunspor": {
+    "matches_used": 20,
+    "goals_for_avg": 1.3,
+    "goals_against_avg": 1.75,
+    "btts_rate": 0.55,
+    "over25_rate": 0.6
+  },
+  "Istanbulspor": {
+    "matches_used": 20,
+    "goals_for_avg": 0.75,
+    "goals_against_avg": 2.2,
+    "btts_rate": 0.45,
+    "over25_rate": 0.6
+  },
+  "Umraniyespor": {
+    "matches_used": 20,
+    "goals_for_avg": 1.35,
+    "goals_against_avg": 1.7,
+    "btts_rate": 0.6,
+    "over25_rate": 0.6
+  },
+  "Pendikspor": {
+    "matches_used": 20,
+    "goals_for_avg": 1.1,
+    "goals_against_avg": 1.6,
+    "btts_rate": 0.55,
+    "over25_rate": 0.5
+  },
+  "Samsunspor": {
+    "matches_used": 20,
+    "goals_for_avg": 1.35,
+    "goals_against_avg": 1.15,
+    "btts_rate": 0.65,
+    "over25_rate": 0.45
+  },
+  "Eyupspor": {
+    "matches_used": 20,
+    "goals_for_avg": 0.65,
+    "goals_against_avg": 1.5,
+    "btts_rate": 0.4,
+    "over25_rate": 0.45
+  },
+  "Bodrumspor": {
+    "matches_used": 20,
+    "goals_for_avg": 0.7,
+    "goals_against_avg": 1.05,
+    "btts_rate": 0.35,
+    "over25_rate": 0.25
+  },
+  "Kocaelispor": {
+    "matches_used": 17,
+    "goals_for_avg": 0.882,
+    "goals_against_avg": 1,
+    "btts_rate": 0.412,
+    "over25_rate": 0.235
+  }
+}
